@@ -2,25 +2,31 @@ import React from 'react';
 
 function Footer() {
   const socialLinks = [
-    { label: 'YouTube', href: 'https://www.youtube.com/@EnergyGrid', icon: 'fab fa-youtube' },
-    { label: 'X', href: 'https://x.com/EnergyGrid', icon: 'fab fa-x-twitter' },
-    { label: 'LinkedIn', href: 'https://www.linkedin.com/company/energygrid/', icon: 'fab fa-linkedin-in' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/leandro-gabriel-8aab31167/', icon: 'fab fa-linkedin-in' },
+    { label: 'GitHub', href: 'https://github.com/L-G99921', icon: 'fab fa-github' },
+    { label: 'Email', href: 'mailto:lgos99921@gmail.com', icon: 'fas fa-envelope' },
   ];
 
   return (
     <footer className="footer-simple">
       <div className="footer-simple__container">
         <div className="footer-simple__contact">
-          <a href="mailto:info@energygrid.com">info@energygrid.com</a>
+          <a href="mailto:lgos99921@gmail.com">lgos99921@gmail.com</a>
           <span className="footer-simple__sep">|</span>
-          <a href="tel:+10000000000">+1 (000) 000-0000</a>
+          <span>João Pessoa, Brazil</span>
           <span className="footer-simple__sep">|</span>
-          <span>123 Lorem St, Suite 000 Ipsum City, ST 00000</span>
+          <a
+            href="https://www.linkedin.com/in/leandro-gabriel-8aab31167/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            linkedin.com/in/leandro-gabriel
+          </a>
         </div>
 
         <div className="footer-simple__bottom">
           <span className="footer-simple__copyright">
-            © 2026 EnergyGrid Inc. All rights reserved.
+            © {new Date().getFullYear()} Leandro Gabriel Oliveira de Souza. Built with Docusaurus.
           </span>
 
           <div className="footer-simple__social">
