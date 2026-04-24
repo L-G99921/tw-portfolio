@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkl_g99921_portfolio=globalThis.webpackChunkl_g99921_portfolio||[]).push([[7472],{55513(e){e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"SmartLink Installation Guide and API Reference Now Available","permalink":"/tw-portfolio/blog/2025/01/30/powerlync-and-api-docs","unlisted":false,"date":"2025-01-30T00:00:00.000Z"}]}')}}]);

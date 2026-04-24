@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkl_g99921_portfolio=globalThis.webpackChunkl_g99921_portfolio||[]).push([[2325],{2325(e,l,o){o.d(l,{createPacketServices:()=>a.$});var a=o(51477);o(87960)}}]);

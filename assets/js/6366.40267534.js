@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkl_g99921_portfolio=globalThis.webpackChunkl_g99921_portfolio||[]).push([[6366],{86366(e,l,o){o.d(l,{createArchitectureServices:()=>r.S});var r=o(38980);o(87960)}}]);

@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkl_g99921_portfolio=globalThis.webpackChunkl_g99921_portfolio||[]).push([[4284],{1912(o){o.exports=JSON.parse('{"blogBasePath":"/tw-portfolio/blog","blogTitle":"Blog","authorsListPath":"/tw-portfolio/blog/authors"}')}}]);

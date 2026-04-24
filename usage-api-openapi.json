@@ -1,0 +1,1907 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "EnergyGrid Usage API",
+    "description": "The EnergyGrid Usage API provides access to energy management data for utility customers. This API allows external applications to authenticate users, retrieve energy usage data, manage budgets, and access insights about energy consumption patterns.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "EnergyGrid Support"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.energygrid.com/usage/v1",
+      "description": "Production server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Customer",
+      "description": "Customer authentication and management endpoints"
+    },
+    {
+      "name": "Insights",
+      "description": "Energy usage insights and recommendations"
+    },
+    {
+      "name": "Similar Homes",
+      "description": "Compare energy usage with similar homes"
+    },
+    {
+      "name": "Usage",
+      "description": "Detailed energy usage data"
+    },
+    {
+      "name": "Metadata",
+      "description": "Reference data for interpreting API responses"
+    },
+    {
+      "name": "Rate Data",
+      "description": "Rate and billing cycle information"
+    }
+  ],
+  "paths": {
+    "/Customer/login": {
+      "post": {
+        "summary": "Login",
+        "description": "Authenticates a customer using a utility identity system token and returns a EnergyGrid authentication token.",
+        "operationId": "customerLogin",
+        "tags": ["Customer"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success. Returns the EnergyGrid authentication token object.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request. The token format is invalid."
+          },
+          "401": {
+            "description": "Unauthorized. The token couldn't be validated."
+          },
+          "404": {
+            "description": "Not found. The customer doesn't exist in the data store."
+          }
+        }
+      }
+    },
+    "/Customer/userinfo": {
+      "get": {
+        "summary": "Get customer info",
+        "description": "Returns customer information including premises and devices (things). Use this endpoint as your starting point after login.",
+        "operationId": "getCustomerInfo",
+        "tags": ["Customer"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. Returns customer object with premises and things.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerInfo"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "Unauthorized. Invalid or missing authentication token."
+          },
+          "404": {
+            "description": "Not found. Customer doesn't exist."
+          }
+        }
+      }
+    },
+    "/Customer/{customerId}/{customerSiteId}/budget": {
+      "get": {
+        "summary": "Returns budget response",
+        "description": "Retrieves customer budget for a specific site.",
+        "operationId": "getBudget",
+        "tags": ["Customer"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "description": "EnergyGrid Customer ID",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "customerSiteId",
+            "in": "path",
+            "required": true,
+            "description": "EnergyGrid Customer Site ID",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "granularity",
+            "in": "query",
+            "required": false,
+            "description": "Granularity type: day, week, month, or billingperiod",
+            "schema": {
+              "type": "string",
+              "enum": ["day", "week", "month", "billingperiod"]
+            }
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "required": false,
+            "description": "Start date (ISO 8601 format)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "required": false,
+            "description": "End date (ISO 8601 format)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. Returns budget information.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BudgetResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      },
+      "post": {
+        "summary": "Sets customer budget based on object data",
+        "description": "Sets customer budget based on the provided goal type.",
+        "operationId": "setBudget",
+        "tags": ["Customer"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "description": "EnergyGrid Customer ID",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "customerSiteId",
+            "in": "path",
+            "required": true,
+            "description": "EnergyGrid Customer Site ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetBudgetRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success. Budget updated."
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      }
+    },
+    "/Customer/{customerId}/{customerSiteId}/homeprofile": {
+      "get": {
+        "summary": "Gets customer home profile for given customer and site.",
+        "description": "Retrieves home profile information for a customer site.",
+        "operationId": "getHomeProfile",
+        "tags": ["Customer"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "description": "EnergyGrid Customer ID",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "customerSiteId",
+            "in": "path",
+            "required": true,
+            "description": "EnergyGrid Customer Site ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. Returns home profile.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HomeProfileResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      },
+      "post": {
+        "summary": "Creates customer home profile for values in request.",
+        "description": "Updates home profile information for a customer site.",
+        "operationId": "updateHomeProfile",
+        "tags": ["Customer"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "description": "EnergyGrid Customer ID",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "customerSiteId",
+            "in": "path",
+            "required": true,
+            "description": "EnergyGrid Customer Site ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateHomeProfileRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success. Home profile updated."
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      }
+    },
+    "/Insights/{customerId}/{customerSiteId}/digdeeper": {
+      "get": {
+        "summary": "Gets \"dig deeper\" analysis.",
+        "description": "Gets a detailed breakdown of energy usage by category and subcategory.",
+        "operationId": "getDigDeeper",
+        "tags": ["Insights"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "description": "EnergyGrid Customer ID",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "customerSiteId",
+            "in": "path",
+            "required": true,
+            "description": "EnergyGrid Customer Site ID",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "granularity",
+            "in": "query",
+            "required": false,
+            "description": "Granularity: day, week, or month",
+            "schema": {
+              "type": "string",
+              "enum": ["day", "week", "month"]
+            }
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "required": false,
+            "description": "Start date (ISO 8601 local time)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "required": false,
+            "description": "End date (ISO 8601 local time)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "includeToday",
+            "in": "query",
+            "required": false,
+            "description": "Include current day data",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "fuelType",
+            "in": "query",
+            "required": false,
+            "description": "Fuel type: gas or electric",
+            "schema": {
+              "type": "string",
+              "enum": ["gas", "electric"]
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "description": "Category name filter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "subcategory",
+            "in": "query",
+            "required": false,
+            "description": "Subcategory name filter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. Returns detailed usage breakdown.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DigDeeperResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      }
+    },
+    "/Insights/{customerId}/{customerSiteId}/mainusesofenergy": {
+      "get": {
+        "summary": "Retrieves main uses of energy for Customer Site",
+        "description": "Retrieves the primary energy consumers for a customer site.",
+        "operationId": "getMainUsesOfEnergy",
+        "tags": ["Insights"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "description": "EnergyGrid Customer ID",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "customerSiteId",
+            "in": "path",
+            "required": true,
+            "description": "EnergyGrid Customer Site ID",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "granularity",
+            "in": "query",
+            "required": false,
+            "description": "Granularity: day, week, or month",
+            "schema": {
+              "type": "string",
+              "enum": ["day", "week", "month"]
+            }
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "required": false,
+            "description": "Start date (ISO 8601)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "required": false,
+            "description": "End date (ISO 8601)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "fuelType",
+            "in": "query",
+            "required": false,
+            "description": "Fuel type: gas or electric",
+            "schema": {
+              "type": "string",
+              "enum": ["gas", "electric"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. Returns main energy uses.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MainUsesOfEnergyItem"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      }
+    },
+    "/Insights/{customerId}/{customerSiteId}/messagecarousel": {
+      "get": {
+        "summary": "Returns message carousel items for given customer and site.",
+        "description": "Gets personalized messages and tips for the customer.",
+        "operationId": "getMessageCarousel",
+        "tags": ["Insights"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "description": "EnergyGrid Customer ID",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "customerSiteId",
+            "in": "path",
+            "required": true,
+            "description": "EnergyGrid Customer Site ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. Returns message carousel items.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageCarouselResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      }
+    },
+    "/SimilarHomes/{customerId}/{customerSiteId}": {
+      "get": {
+        "summary": "Returns similar homes response",
+        "description": "Compares a customer's energy usage with similar homes in the area.",
+        "operationId": "getSimilarHomes",
+        "tags": ["Similar Homes"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "description": "EnergyGrid Customer ID",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "customerSiteId",
+            "in": "path",
+            "required": true,
+            "description": "EnergyGrid Customer Site ID",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "required": false,
+            "description": "Start date of the comparison interval",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "required": false,
+            "description": "End date of the comparison interval",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "granularity",
+            "in": "query",
+            "required": false,
+            "description": "Granularity type for the comparison",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. Returns similar homes comparison.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SimilarHomesResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      }
+    },
+    "/Usage/{customerId}/{customerSiteId}/filter": {
+      "get": {
+        "summary": "Main usage search action.",
+        "description": "Retrieves detailed energy usage data with flexible filtering options.",
+        "operationId": "filterUsage",
+        "tags": ["Usage"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "description": "EnergyGrid Customer ID",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "customerSiteId",
+            "in": "path",
+            "required": true,
+            "description": "EnergyGrid Customer Site ID",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "required": false,
+            "description": "Usage start date (ISO 8601 local time)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "required": false,
+            "description": "Usage end date (ISO 8601 local time)",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "granularity",
+            "in": "query",
+            "required": false,
+            "description": "Granularity: interval (15-min), hour, day, week, month, or billingperiod",
+            "schema": {
+              "type": "string",
+              "enum": ["interval", "hour", "day", "week", "month", "billingperiod"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. Returns usage data.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsageFilterResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      }
+    },
+    "/MetaData/thingtypes": {
+      "get": {
+        "summary": "Returns thing types",
+        "description": "Gets all supported device and meter types.",
+        "operationId": "getThingTypes",
+        "tags": ["Metadata"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. Returns array of thing types.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ThingType"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      }
+    },
+    "/MetaData/thingcategories": {
+      "get": {
+        "summary": "Returns thing categories",
+        "description": "Gets device categories.",
+        "operationId": "getThingCategories",
+        "tags": ["Metadata"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. Returns array of thing categories.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ThingCategory"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      }
+    },
+    "/MetaData/granularitytypes": {
+      "get": {
+        "summary": "Returns granularity types",
+        "description": "Gets available time granularities for data queries.",
+        "operationId": "getGranularityTypes",
+        "tags": ["Metadata"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. Returns array of granularity types.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GranularityType"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      }
+    },
+    "/MetaData/propertytypes": {
+      "get": {
+        "summary": "Returns thing property types",
+        "description": "Gets available property types for things.",
+        "operationId": "getPropertyTypes",
+        "tags": ["Metadata"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. Returns array of property types.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PropertyType"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      }
+    },
+    "/MetaData/metrictypes": {
+      "get": {
+        "summary": "Home Profile Metric types",
+        "description": "Gets home profile metric types.",
+        "operationId": "getMetricTypes",
+        "tags": ["Metadata"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. Returns array of metric types.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MetricType"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      }
+    },
+    "/RateData/rategroups/{customerId}": {
+      "get": {
+        "summary": "Returns rate groups.",
+        "description": "Gets rate groupings used for cost calculations.",
+        "operationId": "getRateGroups",
+        "tags": ["Rate Data"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "description": "EnergyGrid Customer ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. Returns array of rate groups.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RateGroup"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      }
+    },
+    "/RateData/cycledates/{billingYearId}/{billingCycleId}": {
+      "get": {
+        "summary": "Billing Cycle dates",
+        "description": "Gets billing cycle start and end dates.",
+        "operationId": "getBillingCycleDates",
+        "tags": ["Rate Data"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "billingYearId",
+            "in": "path",
+            "required": true,
+            "description": "Billing year (calendar year)",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "billingCycleId",
+            "in": "path",
+            "required": true,
+            "description": "Billing cycle ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. Returns array of billing cycle dates.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BillingCycleDate"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "EnergyGrid authentication token obtained from /Customer/login"
+      }
+    },
+    "schemas": {
+      "LoginRequest": {
+        "type": "object",
+        "required": ["token"],
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "Token from utility identity system",
+            "example": "TOKEN_FROM_UTILITY_IDENTITY_SYSTEM"
+          }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "EnergyGrid authentication token for subsequent API calls",
+            "example": "eyJhbGciOiJIUzI1NiIs..."
+          },
+          "scheme": {
+            "type": "string",
+            "description": "Authentication scheme (always Bearer)",
+            "example": "Bearer"
+          }
+        }
+      },
+      "CustomerInfo": {
+        "type": "object",
+        "properties": {
+          "customerId": {
+            "type": "integer",
+            "description": "EnergyGrid's internal customer ID",
+            "example": 699493
+          },
+          "clientId": {
+            "type": "string",
+            "description": "Utility's BPN, billing ID, profile, or client ID",
+            "example": "1102135077"
+          },
+          "sites": {
+            "type": "array",
+            "description": "List of customer sites (premises)",
+            "items": {
+              "$ref": "#/components/schemas/Site"
+            }
+          }
+        }
+      },
+      "Site": {
+        "type": "object",
+        "properties": {
+          "customerSiteId": {
+            "type": "integer",
+            "description": "EnergyGrid's internal site ID",
+            "example": 799644
+          },
+          "externalSiteId": {
+            "type": "string",
+            "description": "Utility's premise, site, or service point location identifier",
+            "example": "5111586293"
+          },
+          "billingId": {
+            "type": "string",
+            "description": "Billing ID associated with the premise",
+            "example": "B123456"
+          },
+          "things": {
+            "type": "array",
+            "description": "Array of devices and meters at this site",
+            "items": {
+              "$ref": "#/components/schemas/Thing"
+            }
+          }
+        }
+      },
+      "Thing": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Thing type",
+            "example": "electric ami (1 day)"
+          },
+          "category": {
+            "type": "string",
+            "description": "Thing category",
+            "example": "Whole Home Meter"
+          },
+          "minimumGranularityType": {
+            "type": "string",
+            "description": "Minimum granularity type the thing supports",
+            "example": "hour"
+          },
+          "externalDeviceId": {
+            "type": "string",
+            "description": "Utility's meter number or service point number",
+            "example": "5723840"
+          },
+          "fuel": {
+            "type": "string",
+            "description": "Fuel type: electric or gas",
+            "example": "electric"
+          },
+          "name": {
+            "type": "string",
+            "description": "Thing name assigned by EnergyGrid",
+            "example": "Electric Meter Ami"
+          },
+          "powerCoreId": {
+            "type": "integer",
+            "description": "EnergyGrid's device or service point ID",
+            "example": 2303158
+          },
+          "isUsageLoaded": {
+            "type": "boolean",
+            "description": "Indicates if usage data is loaded",
+            "example": true
+          },
+          "minimumGranularityTypeId": {
+            "type": "integer",
+            "example": 4
+          },
+          "thingTypeId": {
+            "type": "integer",
+            "example": 13
+          },
+          "thingCategoryId": {
+            "type": "integer",
+            "example": 5
+          },
+          "billingCycleId": {
+            "type": "integer",
+            "example": 1
+          },
+          "usageSummary": {
+            "$ref": "#/components/schemas/UsageSummary"
+          },
+          "usage": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UsageDataPoint"
+            }
+          },
+          "forecast": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UsageDataPoint"
+            }
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "UsageSummary": {
+        "type": "object",
+        "properties": {
+          "min": {
+            "type": "number",
+            "description": "Minimum usage value",
+            "example": 0.0
+          },
+          "max": {
+            "type": "number",
+            "description": "Maximum usage value",
+            "example": 10.0
+          },
+          "avg": {
+            "type": "number",
+            "description": "Average usage value",
+            "example": 5.0
+          },
+          "sum": {
+            "type": "number",
+            "description": "Total usage sum",
+            "example": 15.0
+          }
+        }
+      },
+      "UsageDataPoint": {
+        "type": "object",
+        "properties": {
+          "totalUnit": {
+            "type": "number",
+            "description": "Total energy units consumed",
+            "example": 15.0
+          },
+          "timeStamp": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Usage data timestamp (ISO 8601)",
+            "example": "2024-05-01T00:00:00"
+          },
+          "cost": {
+            "type": "number",
+            "description": "Cost for this usage period",
+            "example": 1.0
+          },
+          "costContainers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CostContainer"
+            }
+          }
+        }
+      },
+      "CostContainer": {
+        "type": "object",
+        "properties": {
+          "totalUnit": {
+            "type": "number",
+            "description": "Energy units for this rate group",
+            "example": 15.0
+          },
+          "cost": {
+            "type": "number",
+            "description": "Cost for this rate group",
+            "example": 1.0
+          },
+          "intervalTypeId": {
+            "type": "integer",
+            "example": 1
+          },
+          "rateGroupingId": {
+            "type": "integer",
+            "description": "Rate grouping ID",
+            "example": 2
+          },
+          "calculatorRateId": {
+            "type": "integer",
+            "nullable": true
+          }
+        }
+      },
+      "BudgetResponse": {
+        "type": "object",
+        "properties": {
+          "customerId": {
+            "type": "integer",
+            "example": 699493
+          },
+          "customerSiteId": {
+            "type": "integer",
+            "example": 799644
+          },
+          "goalType": {
+            "type": "string",
+            "description": "Budget goal type: standard, eco, or custom",
+            "example": "standard"
+          },
+          "standardAmount": {
+            "type": "number",
+            "example": 150.00
+          },
+          "ecoAmount": {
+            "type": "number",
+            "example": 120.00
+          },
+          "customAmount": {
+            "type": "number",
+            "nullable": true
+          },
+          "costSoFar": {
+            "type": "number",
+            "example": 75.50
+          },
+          "costPredicted": {
+            "type": "number",
+            "example": 145.00
+          },
+          "kwhSoFar": {
+            "type": "number",
+            "example": 450.5
+          },
+          "kwhPredicted": {
+            "type": "number",
+            "example": 890.0
+          },
+          "granularityTypeId": {
+            "type": "integer",
+            "example": 7
+          },
+          "granularityType": {
+            "type": "string",
+            "example": "month"
+          }
+        }
+      },
+      "SetBudgetRequest": {
+        "type": "object",
+        "required": ["goalType"],
+        "properties": {
+          "goalType": {
+            "type": "string",
+            "description": "Budget goal type: standard, eco, or custom",
+            "enum": ["standard", "eco", "custom"],
+            "example": "custom"
+          },
+          "customAmount": {
+            "type": "number",
+            "description": "Custom monthly dollar amount (required when goalType is custom)",
+            "example": 200.00
+          }
+        }
+      },
+      "HomeProfileResponse": {
+        "type": "object",
+        "properties": {
+          "customerId": {
+            "type": "integer",
+            "example": 699493
+          },
+          "customerSiteId": {
+            "type": "integer",
+            "example": 799644
+          },
+          "hasCompletedProfile": {
+            "type": "boolean",
+            "example": true
+          },
+          "metrics": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/HomeProfileMetric"
+            }
+          },
+          "unverifiedMetrics": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "unverifiedMetricsRaw": {
+            "type": "object",
+            "nullable": true
+          }
+        }
+      },
+      "HomeProfileMetric": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Metric name",
+            "example": "HomeType"
+          },
+          "value": {
+            "type": "integer",
+            "description": "Numeric value representing the selection or count",
+            "example": 1
+          },
+          "stringValue": {
+            "type": "string",
+            "description": "Text representation of the value",
+            "example": "Single-family Detached"
+          },
+          "count": {
+            "type": "integer",
+            "nullable": true
+          }
+        }
+      },
+      "UpdateHomeProfileRequest": {
+        "type": "object",
+        "properties": {
+          "hasCompletedProfile": {
+            "type": "boolean",
+            "example": true
+          },
+          "metrics": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "HomeType"
+                },
+                "value": {
+                  "type": "integer",
+                  "example": 1
+                }
+              }
+            }
+          }
+        }
+      },
+      "DigDeeperResponse": {
+        "type": "object",
+        "properties": {
+          "customerId": {
+            "type": "integer",
+            "example": 699493
+          },
+          "customerSiteId": {
+            "type": "integer",
+            "example": 799644
+          },
+          "granularityTypeId": {
+            "type": "integer",
+            "example": 7
+          },
+          "billContributors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BillContributor"
+            }
+          }
+        }
+      },
+      "BillContributor": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Category name",
+            "example": "Kitchen"
+          },
+          "usages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UsageDetail"
+            }
+          }
+        }
+      },
+      "UsageDetail": {
+        "type": "object",
+        "properties": {
+          "subCategory": {
+            "type": "string",
+            "example": "Cooking"
+          },
+          "cost": {
+            "type": "number",
+            "example": 15.50
+          },
+          "totalUnit": {
+            "type": "number",
+            "example": 45.2
+          },
+          "percentage": {
+            "type": "number",
+            "example": 12.5
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-05-01T00:00:00"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-06-01T00:00:00"
+          }
+        }
+      },
+      "MainUsesOfEnergyItem": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Heating And Cooling"
+          },
+          "currentCost": {
+            "type": "number",
+            "example": 45.50
+          },
+          "previousCost": {
+            "type": "number",
+            "example": 52.30
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-05-01T00:00:00"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-06-01T00:00:00"
+          },
+          "previousStartDate": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-04-01T00:00:00"
+          },
+          "previousEndDate": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-05-01T00:00:00"
+          }
+        }
+      },
+      "MessageCarouselResponse": {
+        "type": "object",
+        "properties": {
+          "customerId": {
+            "type": "integer",
+            "example": 699493
+          },
+          "customerSiteId": {
+            "type": "integer",
+            "example": 799644
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MessageCarouselItem"
+            }
+          }
+        }
+      },
+      "MessageCarouselItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "example": "Energy Saving Tip"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-05-01T00:00:00"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-06-01T00:00:00"
+          },
+          "bodyText": {
+            "type": "string",
+            "example": "Consider adjusting your thermostat by 2 degrees to save up to 5% on cooling costs."
+          }
+        }
+      },
+      "SimilarHomesResponse": {
+        "type": "object",
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-05-01T00:00:00"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-06-01T00:00:00"
+          },
+          "granularity": {
+            "type": "string",
+            "example": "month"
+          },
+          "similarHomes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SimilarHomeData"
+            }
+          }
+        }
+      },
+      "SimilarHomeData": {
+        "type": "object",
+        "properties": {
+          "totalUsage": {
+            "type": "number",
+            "example": 850.5
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-05-15T00:00:00"
+          },
+          "alwaysOn": {
+            "type": "number",
+            "example": 120.0
+          },
+          "electricVehicle": {
+            "type": "number",
+            "example": 50.0
+          },
+          "refrigeration": {
+            "type": "number",
+            "example": 45.0
+          },
+          "laundry": {
+            "type": "number",
+            "example": 35.0
+          },
+          "cooking": {
+            "type": "number",
+            "example": 40.0
+          },
+          "lighting": {
+            "type": "number",
+            "example": 60.0
+          },
+          "entertainment": {
+            "type": "number",
+            "example": 80.0
+          },
+          "heatingCooling": {
+            "type": "number",
+            "example": 300.0
+          },
+          "waterHeating": {
+            "type": "number",
+            "example": 70.5
+          },
+          "poolSauna": {
+            "type": "number",
+            "example": 0.0
+          },
+          "everythingElse": {
+            "type": "number",
+            "example": 50.0
+          }
+        }
+      },
+      "UsageFilterResponse": {
+        "type": "object",
+        "properties": {
+          "customerId": {
+            "type": "integer",
+            "example": 699493
+          },
+          "clientId": {
+            "type": "string",
+            "example": "1102135077"
+          },
+          "sites": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Site"
+            }
+          }
+        }
+      },
+      "ThingType": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "electric ami (15 minute)"
+          },
+          "granularity": {
+            "type": "string",
+            "example": "interval"
+          },
+          "fuelType": {
+            "type": "string",
+            "example": "electric"
+          },
+          "defaultColor": {
+            "type": "string",
+            "example": "#2CCA86"
+          },
+          "defaultIcon": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "ThingCategory": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "device"
+          }
+        }
+      },
+      "GranularityType": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 4
+          },
+          "name": {
+            "type": "string",
+            "example": "hour"
+          }
+        }
+      },
+      "PropertyType": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "meter rate code"
+          }
+        }
+      },
+      "MetricType": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "RateGroup": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 3
+          },
+          "name": {
+            "type": "string",
+            "example": "OnPeak"
+          },
+          "colorCode": {
+            "type": "string",
+            "example": "FF5733"
+          },
+          "distinguish": {
+            "type": "boolean",
+            "example": true
+          },
+          "description": {
+            "type": "string",
+            "example": "On-peak rate period"
+          },
+          "type": {
+            "type": "string",
+            "example": "standard"
+          }
+        }
+      },
+      "BillingCycleDate": {
+        "type": "object",
+        "properties": {
+          "billingCycleId": {
+            "type": "integer",
+            "example": 1
+          },
+          "billingPeriodId": {
+            "type": "integer",
+            "example": 5
+          },
+          "billingYearId": {
+            "type": "integer",
+            "example": 2024
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-05-01T00:00:00"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2024-05-31T23:59:59"
+          },
+          "billingCycle": {
+            "$ref": "#/components/schemas/BillingCycle"
+          }
+        }
+      },
+      "BillingCycle": {
+        "type": "object",
+        "properties": {
+          "billingCycleId": {
+            "type": "integer",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Cycle 1"
+          },
+          "isBiMonthly": {
+            "type": "boolean",
+            "example": false
+          }
+        }
+      }
+    }
+  }
+}

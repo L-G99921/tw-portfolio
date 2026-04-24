@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-energy-bridge/energy-bridge-hub-setup-guide-pacific-grid" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.9.2">
+<title data-rh="true">DataBridge Hub Setup Guide | EnergyGrid</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://l-g99921.github.io/tw-portfolio/img/energygrid-logo.svg"><meta data-rh="true" name="twitter:image" content="https://l-g99921.github.io/tw-portfolio/img/energygrid-logo.svg"><meta data-rh="true" property="og:url" content="https://l-g99921.github.io/tw-portfolio/docs/energy-bridge/energy-bridge-hub-setup-guide-pacific-grid"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="DataBridge Hub Setup Guide | EnergyGrid"><meta data-rh="true" name="description" content="Setup guide for the DataBridge Hub, covering app sign-in, device placement, Bluetooth pairing, Wi-Fi connection, and smart meter binding."><meta data-rh="true" property="og:description" content="Setup guide for the DataBridge Hub, covering app sign-in, device placement, Bluetooth pairing, Wi-Fi connection, and smart meter binding."><link data-rh="true" rel="icon" href="/tw-portfolio/img/faviconV2.png"><link data-rh="true" rel="canonical" href="https://l-g99921.github.io/tw-portfolio/docs/energy-bridge/energy-bridge-hub-setup-guide-pacific-grid"><link data-rh="true" rel="alternate" href="https://l-g99921.github.io/tw-portfolio/docs/energy-bridge/energy-bridge-hub-setup-guide-pacific-grid" hreflang="en"><link data-rh="true" rel="alternate" href="https://l-g99921.github.io/tw-portfolio/docs/energy-bridge/energy-bridge-hub-setup-guide-pacific-grid" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"DataBridge Hub Setup","item":"https://l-g99921.github.io/tw-portfolio/docs/energy-bridge/energy-bridge-hub-setup-guide-pacific-grid"}]}</script><link rel="alternate" type="application/rss+xml" href="/tw-portfolio/blog/rss.xml" title="EnergyGrid RSS Feed">
+<link rel="alternate" type="application/atom+xml" href="/tw-portfolio/blog/atom.xml" title="EnergyGrid Atom Feed"><link rel="stylesheet" href="/tw-portfolio/assets/css/styles.08c27784.css">
+<script src="/tw-portfolio/assets/js/runtime~main.66c21b0a.js" defer="defer"></script>
+<script src="/tw-portfolio/assets/js/main.0bab5377.js" defer="defer"></script>
+</head>
+<body class="navigation-with-keyboard">
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),document.documentElement.setAttribute("data-theme-choice",t||"system")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><link rel="preload" as="image" href="/tw-portfolio/img/energygrid-logo-navbar.svg"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/tw-portfolio/"><div class="navbar__logo"><img src="/tw-portfolio/img/energygrid-logo-navbar.svg" alt="EnergyGrid" class="themedComponent_mlkZ themedComponent--light_NVdE" style="height:36px;width:auto"><img src="/tw-portfolio/img/energygrid-logo-navbar.svg" alt="EnergyGrid" class="themedComponent_mlkZ themedComponent--dark_xIcU" style="height:36px;width:auto"></div><b class="navbar__title text--truncate"></b></a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/tw-portfolio/docs">Docs</a><a class="navbar__item navbar__link" href="/tw-portfolio/docs/api/powerbox-api">API Reference</a><a class="navbar__item navbar__link" href="/tw-portfolio/blog">Blog</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/tw-portfolio/docs"><span title="Welcome" class="linkLabel_WmDU">Welcome</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/tw-portfolio/docs/integration-guide"><span title="Integration Guide" class="linkLabel_WmDU">Integration Guide</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" href="/tw-portfolio/docs/energy-bridge/energy-bridge-installation-guide-atlas-insight"><span title="DataBridge" class="categoryLinkLabel_W154">DataBridge</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/tw-portfolio/docs/energy-bridge/energy-bridge-installation-guide-atlas-insight"><span title="DataBridge Installation" class="linkLabel_WmDU">DataBridge Installation</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/tw-portfolio/docs/energy-bridge/energy-bridge-hub-setup-guide-pacific-grid"><span title="DataBridge Hub Setup" class="linkLabel_WmDU">DataBridge Hub Setup</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/tw-portfolio/docs/powerlync/powerlync-installation-guide"><span title="SmartLink" class="categoryLinkLabel_W154">SmartLink</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" href="/tw-portfolio/docs/billwise-ai/overview"><span title="BillSense AI" class="categoryLinkLabel_W154">BillSense AI</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/tw-portfolio/docs/api/powerbox-api"><span title="API Reference" class="categoryLinkLabel_W154">API Reference</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/tw-portfolio/docs/api/powerbox-api"><span title="Introduction" class="linkLabel_WmDU">Introduction</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/tw-portfolio/docs/api/sync-customer"><span title="Customer" class="categoryLinkLabel_W154">Customer</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/tw-portfolio/docs/api/bind-device"><span title="Hardware" class="categoryLinkLabel_W154">Hardware</span></a></div></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="false" tabindex="0" href="/tw-portfolio/docs/api/usage-api/energygrid-usage-api"><span title="Usage API" class="categoryLinkLabel_W154">Usage API</span></a></div></li></ul></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/tw-portfolio/docs/data-dictionary"><span title="Data Dictionary" class="linkLabel_WmDU">Data Dictionary</span></a></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_xLCN"><div class="docItemContainer_jfFK"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/tw-portfolio/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">DataBridge</span></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">DataBridge Hub Setup</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><div class="row"><div class="col col--12 markdown"><header><h1>DataBridge Hub Setup Guide</h1></header>
+<p>This guide walks you through setting up your DataBridge Hub and connecting it to your smart meter.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="before-you-begin">Before You Begin<a href="#before-you-begin" class="hash-link" aria-label="Direct link to Before You Begin" title="Direct link to Before You Begin" translate="no">​</a></h2>
+<p>Gather the following items:</p>
+<ul>
+<li class="">DataBridge Hub</li>
+<li class="">Included power adapter</li>
+<li class="">Your Wi-Fi network name and password</li>
+<li class="">A phone or tablet with the EnergyGrid App installed</li>
+<li class="">Your EnergyGrid account credentials</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="sign-in-to-the-energygrid-app">Sign In to the EnergyGrid App<a href="#sign-in-to-the-energygrid-app" class="hash-link" aria-label="Direct link to Sign In to the EnergyGrid App" title="Direct link to Sign In to the EnergyGrid App" translate="no">​</a></h2>
+<ol>
+<li class="">
+<p><strong>Open the App</strong></p>
+<p>Tap <strong>Get Started</strong> on the welcome screen.</p>
+</li>
+<li class="">
+<p><strong>Enter Your Credentials</strong></p>
+<p>Enter your EnergyGrid account email and password to sign in.</p>
+</li>
+<li class="">
+<p><strong>Reset Your Password if Needed</strong></p>
+<p>Tap <strong>Forgot Password?</strong> at the bottom of the sign-in screen to reset your password.</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>Note:</strong> Use the email address associated with your EnergyGrid account as your username.</p>
+</blockquote>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="navigate-the-app">Navigate the App<a href="#navigate-the-app" class="hash-link" aria-label="Direct link to Navigate the App" title="Direct link to Navigate the App" translate="no">​</a></h2>
+<p>The navigation bar at the bottom of the screen provides access to the main features:</p>
+<table><thead><tr><th style="text-align:left">Section</th><th style="text-align:left">Description</th></tr></thead><tbody><tr><td style="text-align:left"><strong>Home</strong></td><td style="text-align:left">Track your progress against energy goals and view alerts when on-peak hours approach.</td></tr><tr><td style="text-align:left"><strong>Advisor</strong></td><td style="text-align:left">View personalized data and tips to save energy and reduce costs.</td></tr><tr><td style="text-align:left"><strong>Usage</strong></td><td style="text-align:left">View your home&#x27;s energy usage in real time.</td></tr><tr><td style="text-align:left"><strong>Toolkit</strong></td><td style="text-align:left">Manage smart home devices, set automation rules, and check DataBridge Hub connectivity.</td></tr><tr><td style="text-align:left"><strong>Menu</strong></td><td style="text-align:left">View your plan, settings, energy tips, and help resources.</td></tr></tbody></table>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="access-help-and-support">Access Help and Support<a href="#access-help-and-support" class="hash-link" aria-label="Direct link to Access Help and Support" title="Direct link to Access Help and Support" translate="no">​</a></h2>
+<ol>
+<li class="">
+<p><strong>Open the Menu</strong></p>
+<p>Tap the <strong>Menu</strong> icon in the navigation bar.</p>
+</li>
+<li class="">
+<p><strong>Find Articles and Guides</strong></p>
+<p>Select <strong>Help Center</strong> to browse app features and how-to guides.</p>
+</li>
+<li class="">
+<p><strong>Contact Support</strong></p>
+<p>Select <strong>Support Center</strong> to start a live chat or find the support phone number and email address.</p>
+</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="set-up-your-databridge-hub">Set Up Your DataBridge Hub<a href="#set-up-your-databridge-hub" class="hash-link" aria-label="Direct link to Set Up Your DataBridge Hub" title="Direct link to Set Up Your DataBridge Hub" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="find-the-right-location">Find the Right Location<a href="#find-the-right-location" class="hash-link" aria-label="Direct link to Find the Right Location" title="Direct link to Find the Right Location" translate="no">​</a></h3>
+<ol>
+<li class="">
+<p><strong>Choose a Spot Near Your Meter</strong></p>
+<p>Place the DataBridge Hub within 30 feet of your smart meter. Avoid placing it near routers or large metal objects such as refrigerators.</p>
+</li>
+<li class="">
+<p><strong>Have Your Wi-Fi Password Ready</strong></p>
+<p>You&#x27;ll need this password to connect the DataBridge Hub to your network.</p>
+</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="power-the-device">Power the Device<a href="#power-the-device" class="hash-link" aria-label="Direct link to Power the Device" title="Direct link to Power the Device" translate="no">​</a></h3>
+<ol>
+<li class="">
+<p><strong>Connect the Power Adapter</strong></p>
+<p>Plug the included power adapter into the DataBridge Hub, then plug the other end into a wall outlet.</p>
+</li>
+<li class="">
+<p><strong>Wait for the Green Light</strong></p>
+<p>The green LED indicates the device is ready. This may take a few moments.</p>
+</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="start-the-setup-in-the-app">Start the Setup in the App<a href="#start-the-setup-in-the-app" class="hash-link" aria-label="Direct link to Start the Setup in the App" title="Direct link to Start the Setup in the App" translate="no">​</a></h3>
+<ol>
+<li class="">
+<p><strong>Open the EnergyGrid App</strong></p>
+<p>Sign in if you haven&#x27;t already done so.</p>
+</li>
+<li class="">
+<p><strong>Go to Toolkit</strong></p>
+<p>Tap the <strong>Toolkit</strong> icon in the navigation bar.</p>
+</li>
+<li class="">
+<p><strong>Select DataBridge Hub</strong></p>
+<p>Choose the DataBridge Hub from the device options.</p>
+</li>
+<li class="">
+<p><strong>Tap Continue</strong></p>
+<p>The button activates when the app detects the device. Tap <strong>Continue</strong> to proceed.</p>
+</li>
+<li class="">
+<p><strong>Tap Begin Setup</strong></p>
+<p>Follow the on-screen instructions to prepare for pairing.</p>
+</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="enable-bluetooth">Enable Bluetooth<a href="#enable-bluetooth" class="hash-link" aria-label="Direct link to Enable Bluetooth" title="Direct link to Enable Bluetooth" translate="no">​</a></h3>
+<ol>
+<li class="">
+<p><strong>Turn On Bluetooth</strong></p>
+<p>Enable Bluetooth on your phone or tablet from the device settings or Control Center.</p>
+</li>
+<li class="">
+<p><strong>Tap Begin DataBridge Setup</strong></p>
+<p>The app uses Bluetooth to communicate with the DataBridge Hub during pairing.</p>
+</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="pair-the-device">Pair the Device<a href="#pair-the-device" class="hash-link" aria-label="Direct link to Pair the Device" title="Direct link to Pair the Device" translate="no">​</a></h3>
+<ol>
+<li class="">
+<p><strong>Place Your Phone Next to the DataBridge Hub</strong></p>
+<p>Hold your phone directly against the DataBridge Hub as shown in the app.</p>
+</li>
+<li class="">
+<p><strong>Wait for the LED to Turn Blue</strong></p>
+<p>The blue LED indicates that pairing is in progress.</p>
+</li>
+<li class="">
+<p><strong>Confirm the Connection</strong></p>
+<p>A <strong>Success</strong> message appears when pairing completes. Tap <strong>Next</strong> to continue.</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>Tip:</strong> If pairing fails, verify that Bluetooth is enabled and that no other Bluetooth devices are near the DataBridge Hub. Remove your phone case and try again.</p>
+</blockquote>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="connect-to-wi-fi">Connect to Wi-Fi<a href="#connect-to-wi-fi" class="hash-link" aria-label="Direct link to Connect to Wi-Fi" title="Direct link to Connect to Wi-Fi" translate="no">​</a></h3>
+<ol>
+<li class="">
+<p><strong>Wait for the Network Scan</strong></p>
+<p>The app scans for available Wi-Fi networks.</p>
+</li>
+<li class="">
+<p><strong>Select Your Network</strong></p>
+<p>Choose your home Wi-Fi network from the list. Select the 2.4 GHz network for best results.</p>
+</li>
+<li class="">
+<p><strong>Enter Your Password</strong></p>
+<p>Type your Wi-Fi password and tap <strong>Enter</strong>.</p>
+</li>
+<li class="">
+<p><strong>Wait for the Connection</strong></p>
+<p>The app displays a confirmation when the DataBridge Hub connects to Wi-Fi.</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>Note:</strong> Select <strong>Use Wired Ethernet Setup</strong> if you prefer a wired connection instead of Wi-Fi. Select <strong>Enter Network Details Manually</strong> if your Wi-Fi network does not appear in the scanned list.</p>
+</blockquote>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="bind-to-your-smart-meter">Bind to Your Smart Meter<a href="#bind-to-your-smart-meter" class="hash-link" aria-label="Direct link to Bind to Your Smart Meter" title="Direct link to Bind to Your Smart Meter" translate="no">​</a></h3>
+<ol>
+<li class="">
+<p><strong>Request the Bind</strong></p>
+<p>After the Wi-Fi connection succeeds, the app automatically submits a bind request to your smart meter.</p>
+</li>
+<li class="">
+<p><strong>Wait for the Process to Complete</strong></p>
+<p>Binding typically completes within 15 minutes, but may take up to 48 hours depending on network conditions. You do not need to keep the app open or stay near the DataBridge Hub during this time. Keep the device powered and within 30 feet of the smart meter throughout the process.</p>
+</li>
+<li class="">
+<p><strong>Check the Status</strong></p>
+<p>The app displays <strong>Bind Request Complete</strong> when the connection succeeds. Tap <strong>Explore the App</strong> to start using your DataBridge Hub.</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>Note:</strong> If the app still shows the DataBridge Hub searching for the smart meter after 48 hours, contact support through the app.</p>
+</blockquote>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="get-more-support">Get More Support<a href="#get-more-support" class="hash-link" aria-label="Direct link to Get More Support" title="Direct link to Get More Support" translate="no">​</a></h2>
+<p>Contact the EnergyGrid support team for additional help:</p>
+<ul>
+<li class=""><strong>Live chat:</strong> Open the EnergyGrid App and go to <strong>Menu</strong> &gt; <strong>Support Center</strong></li>
+<li class=""><strong>Email:</strong> <a href="mailto:support@energygrid.com" target="_blank" rel="noopener noreferrer" class="">support@energygrid.com</a></li>
+<li class=""><strong>Phone:</strong> Contact your utility provider for the support phone number</li>
+</ul>
+<p><strong>Support hours:</strong> Contact your utility provider for support hours.</p></div></div></div><div class="row"><div class="col col--12"><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-tags-row"><div class="col"><b>Tags:</b><ul class="tags_jXut padding--none margin-left--sm"><li class="tag_QGVx"><a rel="tag" class="tag_zVej tagRegular_sFm0" href="/tw-portfolio/docs/tags/energy-bridge">energy-bridge</a></li><li class="tag_QGVx"><a rel="tag" class="tag_zVej tagRegular_sFm0" href="/tw-portfolio/docs/tags/installation">installation</a></li></ul></div></div></footer><div class="feedbackWidget_IwTX"><div class="divider_ebRF"></div><div class="prompt_kkz1"><span class="question_gDYE">Was this page helpful?</span><div class="buttons_y3aw"><button class="button_tVHf undefined" aria-label="Yes, this page was helpful">👍 Yes</button><button class="button_tVHf undefined" aria-label="No, this page was not helpful">👎 No</button></div></div></div></div></div></article><div class="row"><div class="col col--12"><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/tw-portfolio/docs/energy-bridge/energy-bridge-installation-guide-atlas-insight"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">DataBridge Installation</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/tw-portfolio/docs/powerlync/powerlync-installation-guide"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">SmartLink Installation</div></a></nav></div></div></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#before-you-begin" class="table-of-contents__link toc-highlight">Before You Begin</a></li><li><a href="#sign-in-to-the-energygrid-app" class="table-of-contents__link toc-highlight">Sign In to the EnergyGrid App</a></li><li><a href="#navigate-the-app" class="table-of-contents__link toc-highlight">Navigate the App</a></li><li><a href="#access-help-and-support" class="table-of-contents__link toc-highlight">Access Help and Support</a></li><li><a href="#set-up-your-databridge-hub" class="table-of-contents__link toc-highlight">Set Up Your DataBridge Hub</a><ul><li><a href="#find-the-right-location" class="table-of-contents__link toc-highlight">Find the Right Location</a></li><li><a href="#power-the-device" class="table-of-contents__link toc-highlight">Power the Device</a></li><li><a href="#start-the-setup-in-the-app" class="table-of-contents__link toc-highlight">Start the Setup in the App</a></li><li><a href="#enable-bluetooth" class="table-of-contents__link toc-highlight">Enable Bluetooth</a></li><li><a href="#pair-the-device" class="table-of-contents__link toc-highlight">Pair the Device</a></li><li><a href="#connect-to-wi-fi" class="table-of-contents__link toc-highlight">Connect to Wi-Fi</a></li><li><a href="#bind-to-your-smart-meter" class="table-of-contents__link toc-highlight">Bind to Your Smart Meter</a></li></ul></li><li><a href="#get-more-support" class="table-of-contents__link toc-highlight">Get More Support</a></li></ul></div></div></div></div></main></div></div></div><footer class="footer-simple"><div class="footer-simple__container"><div class="footer-simple__contact"><a href="mailto:info@energygrid.com">info@energygrid.com</a><span class="footer-simple__sep">|</span><a href="tel:+10000000000">+1 (000) 000-0000</a><span class="footer-simple__sep">|</span><span>123 Lorem St, Suite 000 Ipsum City, ST 00000</span></div><div class="footer-simple__bottom"><span class="footer-simple__copyright">© 2026 EnergyGrid Inc. All rights reserved.</span><div class="footer-simple__social"><a href="https://www.youtube.com/@EnergyGrid" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a><a href="https://x.com/EnergyGrid" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fab fa-x-twitter"></i></a><a href="https://www.linkedin.com/company/energygrid/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a></div></div></div></footer></div>
+</body>
+</html>

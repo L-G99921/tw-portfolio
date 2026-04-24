@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="atom.xsl"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://l-g99921.github.io/tw-portfolio/blog</id>
+    <title>EnergyGrid Blog</title>
+    <updated>2025-01-30T00:00:00.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://l-g99921.github.io/tw-portfolio/blog"/>
+    <subtitle>EnergyGrid Blog</subtitle>
+    <icon>https://l-g99921.github.io/tw-portfolio/img/faviconV2.png</icon>
+    <entry>
+        <title type="html"><![CDATA[SmartLink Installation Guide and API Reference Now Available]]></title>
+        <id>https://l-g99921.github.io/tw-portfolio/blog/2025/01/30/powerlync-and-api-docs</id>
+        <link href="https://l-g99921.github.io/tw-portfolio/blog/2025/01/30/powerlync-and-api-docs"/>
+        <updated>2025-01-30T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Announcing the SmartLink Installation Guide and updated API Reference documentation for ConnectBox API and EnergyGrid Usage API.]]></summary>
+        <content type="html"><![CDATA[<p>We are excited to announce the release of two major additions to our documentation: the <strong>SmartLink Installation Guide</strong> and the updated <strong>API Reference</strong> for both the ConnectBox API and the Usage Data API.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="smartlink-installation-guide">SmartLink Installation Guide<a href="https://l-g99921.github.io/tw-portfolio/blog/2025/01/30/powerlync-and-api-docs#smartlink-installation-guide" class="hash-link" aria-label="Direct link to SmartLink Installation Guide" title="Direct link to SmartLink Installation Guide" translate="no">​</a></h2>
+<p>The SmartLink is a compact smart plug that doubles as a whole-home energy meter. The new <a class="" href="https://l-g99921.github.io/tw-portfolio/docs/powerlync/powerlync-installation-guide">SmartLink Installation Guide</a> walks you through the complete setup process, covering:</p>
+<ul>
+<li class=""><strong>Requirements and prerequisites</strong> — everything you need before starting, including device placement guidelines and Wi-Fi requirements.</li>
+<li class=""><strong>Mobile app setup</strong> — step-by-step instructions for signing in, scanning the QR code, connecting to Wi-Fi, and binding to your smart meter.</li>
+<li class=""><strong>Installation verification</strong> — how to confirm your SmartLink is online and reporting real-time energy data.</li>
+<li class=""><strong>Troubleshooting</strong> — solutions for common issues such as connection failures, communication errors, and LED status indicators.</li>
+</ul>
+<p>The guide includes screenshots for each step of the setup process.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="api-reference-updates">API Reference Updates<a href="https://l-g99921.github.io/tw-portfolio/blog/2025/01/30/powerlync-and-api-docs#api-reference-updates" class="hash-link" aria-label="Direct link to API Reference Updates" title="Direct link to API Reference Updates" translate="no">​</a></h2>
+<p>Our API documentation now covers two complete API systems:</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="connectbox-api">ConnectBox API<a href="https://l-g99921.github.io/tw-portfolio/blog/2025/01/30/powerlync-and-api-docs#connectbox-api" class="hash-link" aria-label="Direct link to ConnectBox API" title="Direct link to ConnectBox API" translate="no">​</a></h3>
+<p>The <a class="" href="https://l-g99921.github.io/tw-portfolio/docs/api/powerbox-api">ConnectBox API</a> provides integration between utility backend systems and the EnergyGrid Platform. It includes:</p>
+<ul>
+<li class=""><strong>Customer Synchronization</strong> (<code>POST /powerbox/customer</code>) — sync customer account details, service addresses, and meter configurations from your utility CIS.</li>
+<li class=""><strong>Hardware Binding</strong> (<code>POST /powerbox/bind</code>) — link a DataBridge or SmartLink device to an AMI meter via Zigbee.</li>
+</ul>
+<p>Authentication uses OAuth 2.0 Bearer tokens in JWT format.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="usage-api">Usage API<a href="https://l-g99921.github.io/tw-portfolio/blog/2025/01/30/powerlync-and-api-docs#usage-api" class="hash-link" aria-label="Direct link to Usage API" title="Direct link to Usage API" translate="no">​</a></h3>
+<p>The <a class="" href="https://l-g99921.github.io/tw-portfolio/docs/api/usage-api/energygrid-usage-api">Usage API</a> exposes endpoints for accessing energy usage data and insights. Categories include:</p>
+<ul>
+<li class=""><strong>Customer</strong> — login, profile management, budget settings, and home profile configuration.</li>
+<li class=""><strong>Insights</strong> — energy usage breakdowns, main uses of energy, and message carousels.</li>
+<li class=""><strong>Similar Homes</strong> — comparison data against similar households.</li>
+<li class=""><strong>Usage</strong> — filtered energy usage data.</li>
+<li class=""><strong>Metadata</strong> — thing types, categories, granularity types, property types, and metric types.</li>
+<li class=""><strong>Rate Data</strong> — rate groups and billing cycle dates.</li>
+</ul>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="integration-guide">Integration Guide<a href="https://l-g99921.github.io/tw-portfolio/blog/2025/01/30/powerlync-and-api-docs#integration-guide" class="hash-link" aria-label="Direct link to Integration Guide" title="Direct link to Integration Guide" translate="no">​</a></h3>
+<p>For a high-level walkthrough of how these APIs work together, see the <a class="" href="https://l-g99921.github.io/tw-portfolio/docs/integration-guide">Integration Guide</a>, which covers the full flow from hosting the ConnectBox middleware through OAuth setup, customer synchronization, bulk data ingestion, and hardware binding.</p>]]></content>
+        <category label="SmartLink" term="SmartLink"/>
+        <category label="API" term="API"/>
+        <category label="Documentation" term="Documentation"/>
+    </entry>
+</feed>
