@@ -10,20 +10,20 @@ tags: [smartlink, installation, setup]
 
 ## Overview
 
-The SmartLink Plug is a compact smart plug and whole-home energy meter. It connects the EnergyGrid App to your utility smart meter and provides real-time energy usage data. The SmartLink Plug also controls compatible Zigbee smart devices.
+The SmartLink Plug is a compact smart plug and whole-home energy meter. It connects the EnergyGrid App to your utility smart meter and provides real-time energy usage data. The SmartLink Plug also controls compatible mesh smart devices.
 
 ### Key Features
 
 - Real-time electricity usage monitoring via the utility smart meter
-- Smart device control for Zigbee Home Automation devices (plugs, bulbs, sensors, and thermostats)
+- Smart device control for compatible mesh home-automation devices (plugs, bulbs, sensors, and thermostats)
 - Local energy measurement for devices plugged directly into the SmartLink Plug outlet
 - Compact plug-in form factor
 
 ### Limitations
 
-- No Z-Wave support — use the DataBridge Hub for Z-Wave devices
+- No support for extended-range smart-home devices — use the DataBridge Hub for those
 - No built-in automations, schedules, or notifications
-- Best results with 5 or fewer connected Zigbee devices
+- Best results with 5 or fewer connected mesh smart devices
 
 ## Before You Begin
 

@@ -66,8 +66,14 @@ function FeaturesGrid() {
             to="/docs"
           />
           <Card
+            title="Methodology — Google Style + Diátaxis"
+            description="The two frameworks I specialize in: Google's Developer Documentation Style Guide for sentence-level rules, and Diátaxis for page-level content taxonomy."
+            icon="fas fa-compass"
+            to="/docs/methodology"
+          />
+          <Card
             title="Integration Guide"
-            description="OAuth 2.0 / OIDC flow, CIS data sync, and SFTP/S3 bulk ingestion — written for utility backend engineers."
+            description="OAuth 2.0 / OIDC flow, CIS data sync, and bulk ingestion via SFTP / object storage — written for utility backend engineers."
             icon="fas fa-plug"
             to="/docs/integration-guide"
           />
@@ -79,7 +85,7 @@ function FeaturesGrid() {
           />
           <Card
             title="Hardware Install Guides"
-            description="Consumer-friendly step-by-step guides for smart-meter hardware — QR codes, Bluetooth pairing, Wi-Fi provisioning."
+            description="Consumer-friendly step-by-step guides for smart-meter hardware — QR codes, mobile pairing, and Wi-Fi provisioning."
             icon="fas fa-wifi"
             to="/docs/energy-bridge/energy-bridge-installation-guide-atlas-insight"
           />
@@ -91,7 +97,7 @@ function FeaturesGrid() {
           />
           <Card
             title="Writing Style Guide"
-            description="Internal style guide adapted from the Microsoft Writing Style Guide — voice, tone, UX patterns, and a pre-publication checklist."
+            description="Applied style guide built on Google Developer Style + Diátaxis — voice, tone, UX patterns, and a pre-publication checklist."
             icon="fas fa-book-open"
             to="/docs/writing-guideline"
           />

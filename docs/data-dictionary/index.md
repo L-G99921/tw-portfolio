@@ -19,7 +19,7 @@ This document describes all data sources used across EnergyGrid utility partner 
 **All customers**
 
 - **MDM RDS Instance** — Database: `mdmusage`
-- **S3 MDM files:**
+- **Object-storage MDM files:**
   - Electric
   - Gas
 
@@ -41,7 +41,7 @@ This document describes all data sources used across EnergyGrid utility partner 
 **All customers**
 
 - **CorePlatform RDS Instance** — Database: `EGCore_UDX` — Table: `dbo.PaymentPlans`
-- S3 Payment Plan files
+- Object-storage Payment Plan files
 
 ---
 
@@ -76,9 +76,9 @@ This document describes all data sources used across EnergyGrid utility partner 
 **All customers**
 
 - **MDM RDS Instance** — Database: `atls_bill_sense`
-- S3 BillSense AI files
+- Object-storage BillSense AI files
 
-Additional BillSense AI storage locations (S3 staging buckets and intermediate processing tables) are documented separately in the BillSense AI integration runbook.
+Additional BillSense AI storage locations (object-storage staging buckets and intermediate processing tables) are documented separately in the BillSense AI integration runbook.
 
 ---
 
@@ -91,7 +91,7 @@ Additional BillSense AI storage locations (S3 staging buckets and intermediate p
 - **Brainstem RDS Instance** — Database: `brainstem`
   - Read-only instance available
   - Table: `data.meter_contract_history`
-- S3 Meter Contract History files
+- Object-storage Meter Contract History files
 
 ---
 
@@ -122,7 +122,7 @@ Additional BillSense AI storage locations (S3 staging buckets and intermediate p
 - **Brainstem RDS Instance** — Database: `brainstem`
   - Read-only instance available
   - The `public.*_usage` tables, granularity minute and higher
-- **S3 files** — Includes:
+- **Object-storage files** — Includes:
   - Home Minute Usage
   - Device Minute Usage
   - AMR Gas Hour Usage
@@ -188,7 +188,7 @@ The Data Warehouse consolidates usage, billing, and disaggregation data. Schema 
 - **Brainstem RDS Instance** — Database: `brainstem`
   - Read-only instance available
   - The `public.*_usage` tables, granularity hour and higher
-- S3 MDM usage data
+- Object-storage MDM usage data
 
 ---
 
@@ -238,7 +238,7 @@ The Data Warehouse consolidates usage, billing, and disaggregation data. Schema 
 - **Brainstem RDS Instance** — Database: `brainstem`
   - Read-only instance available
   - The `public.*_usage` tables, granularity minute and higher
-- **S3 files** — Includes:
+- **Object-storage files** — Includes:
   - Home Minute Usage
   - Device Minute Usage
   - AMR Gas Hour Usage
@@ -258,7 +258,7 @@ The Data Warehouse consolidates usage, billing, and disaggregation data. Schema 
 - **Brainstem RDS Instance** — Database: `brainstem`
   - Read-only instance available
   - The `public.*_usage` tables, granularity minute and higher
-- S3 files
+- Object-storage files
 
 ---
 
@@ -290,11 +290,11 @@ The Data Warehouse consolidates usage, billing, and disaggregation data. Schema 
 
 **All customers**
 
-- S3 MDM files
+- Object-storage MDM files
 
 **Registered customers**
 
-- **Brainstem AWS RDS Instance** — Database: `brainstem_spec`
+- **Brainstem RDS Instance** — Database: `brainstem_spec`
   - Read-only instance available
   - The `public.*_usage` tables, granularity hour and higher
 
@@ -306,7 +306,7 @@ The Data Warehouse consolidates usage, billing, and disaggregation data. Schema 
 
 - **CorePlatform RDS Instance** — Database: `EGCore_SPEC`
 - **CorePlatform Central RDS Instance** — All databases on instance
-- **Brainstem AWS RDS Instance** — Database: `brainstem_spec`
+- **Brainstem RDS Instance** — Database: `brainstem_spec`
   - Read-only instance available
   - Tables:
     - `public.people`
@@ -327,7 +327,7 @@ The Data Warehouse consolidates usage, billing, and disaggregation data. Schema 
 
 **All customers**
 
-- **Brainstem AWS RDS Instance** — Database: `brainstem_spec`
+- **Brainstem RDS Instance** — Database: `brainstem_spec`
   - Read-only instance available
   - Table: `data.ntg_daily_disaggregation_partitioned`
 
@@ -343,7 +343,7 @@ The Data Warehouse consolidates usage, billing, and disaggregation data. Schema 
 
 **Registered customers**
 
-- **Data Warehouse AWS RDS Instance** — Database: `datawarehouse_spec`
+- **Data Warehouse RDS Instance** — Database: `datawarehouse_spec`
   - Read-only instance available
   - Schema: `coaching`
   - Tables:

@@ -250,6 +250,16 @@ const sidebars = {
       id: 'data-dictionary/data-dictionary',
       label: 'Data Dictionary',
     },
+    {
+      type: 'doc',
+      id: 'writing-guideline',
+      label: 'Writing Guideline',
+    },
+    {
+      type: 'doc',
+      id: 'methodology',
+      label: 'Methodology',
+    },
   ],
 };
 

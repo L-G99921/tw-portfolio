@@ -20,9 +20,9 @@ Start with the [Integration Guide](/docs/integration-guide) to connect your util
 
 ## Products
 
-**DataBridge Hub** — An enterprise-grade hardware device that connects to Advanced Metering Infrastructure (AMI) smart meters via Zigbee. It enables real-time energy data streaming and Z-Wave smart home device control.
+**DataBridge Hub** — An enterprise-grade hardware device that connects to Advanced Metering Infrastructure (AMI) smart meters over the utility's wireless mesh radio. It enables real-time energy data streaming and control of compatible smart home devices.
 
-**SmartLink Plug** — A compact smart plug with integrated whole-home energy metering. It connects to utility smart meters and controls Zigbee devices in a simplified form factor.
+**SmartLink Plug** — A compact smart plug with integrated whole-home energy metering. It connects to utility smart meters and controls compatible mesh smart devices in a simplified form factor.
 
 **BillSense AI** — An intelligent billing analysis system that explains bill changes, identifies usage patterns, and provides actionable insights to customers.
 
@@ -47,7 +47,7 @@ A middleware service hosted within utility infrastructure that handles:
 - Customer profile synchronization from the Customer Information System (CIS)
 - Hardware binding requests for DataBridge Hub and SmartLink Plug devices
 
-### Bulk Data Layer (SFTP/S3)
+### Bulk Data Layer (SFTP / Object Storage)
 
 A batch ingestion pipeline for high-volume data required by BillSense AI:
 
@@ -61,10 +61,10 @@ EnergyGrid offers two hardware options for smart meter connectivity.
 
 | Device | Connection | Best For |
 |--------|------------|----------|
-| **DataBridge Hub** | Ethernet or Wi-Fi | Full smart home integration with Z-Wave support |
-| **SmartLink Plug** | Wi-Fi only | Simplified deployment with Zigbee device control |
+| **DataBridge Hub** | Ethernet or Wi-Fi | Full smart home integration with extended mesh device support |
+| **SmartLink Plug** | Wi-Fi only | Simplified deployment with mesh smart device control |
 
-Both devices communicate with utility AMI meters via Zigbee and require a bind request to join the Home Area Network (HAN).
+Both devices communicate with utility AMI meters over the utility's wireless mesh radio and require a bind request to join the Home Area Network (HAN).
 
 ## Support
 

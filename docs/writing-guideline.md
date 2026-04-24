@@ -1,324 +1,294 @@
 ---
 id: writing-guideline
 title: Writing Guideline
-description: "Standards for professional writing style, voice, tone, grammar, and content quality across all product and technical documentation."
+description: "EnergyGrid documentation style guide — based on the Google Developer Documentation Style Guide and the Diátaxis Framework."
 sidebar_label: Writing Guideline
 sidebar_position: 5
-tags: [writing, style-guide, standards]
+tags: [writing, style-guide, google-style, diataxis, standards]
 ---
 
-# Professional Writing Style Guide
+# Documentation Style Guide
 
-This Writing Style Guide defines the standards for all product, technical, UX, and customer-facing documentation produced within the company. It is adapted from the Microsoft Style Guide and optimized for clarity, consistency, inclusiveness, and accuracy across all communication channels. All contributors—writers, designers, engineers, and product teams—must follow these guidelines to ensure a cohesive content experience.
+This guide defines the standards for all product, technical, UX, and customer-facing documentation produced for the EnergyGrid platform. It is built on two industry-standard foundations:
 
----
+- **[Google Developer Documentation Style Guide](https://developers.google.com/style)** — for voice, tone, grammar, and formatting.
+- **[Diátaxis Framework](https://diataxis.fr/)** — for content type, structure, and information architecture.
 
-## 1. Voice and Tone
+For background on why these two frameworks were chosen, see [Documentation Methodology](/docs/methodology).
 
-### 1.1 Voice
-Our voice represents the company’s commitment to clarity, reliability, and customer trust. All content must be:
-
-* **Knowledgeable and confident** – Demonstrate expertise without creating barriers for the user.
-* **Supportive and solution-oriented** – Anticipate needs and guide users confidently.
-* **Consistent** – Maintain a recognizable and unified communication style.
-
-### 1.2 Tone
-Tone adapts to context but remains professional, approachable, and clear.
-
-#### Customer Communications (notifications, emails, in-product guidance)
-* **Tone Keywords:** Friendly, instructional, encouraging, clear.
-* **Style:** Provide direct guidance that helps users understand what to do and why.
-
-#### Data Accuracy and Confidence (usage, billing, disaggregation, rates)
-* **Tone Keywords:** Transparent, accessible, trustworthy.
-* **Style:** Explain data simply and clearly. Help users build confidence in insights and billing information.
-
-#### AI and Machine Learning (recommendations, projections)
-* **Tone Keywords:** Actionable, empowering, benefit-focused.
-* **Style:** Highlight user benefits and practical next steps. Avoid unnecessary technical detail.
-
-#### Disclaimers and Learn More Sections
-* **Tone Keywords:** Direct, factual, user-friendly.
-* **Style:** Provide essential information clearly and concisely without overwhelming the user.
+:::tip Quick rule
+If this guide doesn't answer your question, defer to the Google Developer Documentation Style Guide. If the question is "where should this content live?", defer to Diátaxis.
+:::
 
 ---
 
-## 2. App and Web Content Standards
+## 1. Content Types — Diátaxis
 
-### 2.0 UX Writing Patterns
-**Purpose:** Establish consistent patterns for writing in-product text across interfaces.
+Every page in the documentation belongs to exactly one of four content types. Mixing types is the most common cause of confusing documentation.
 
-**Guidelines:**
-* Prioritize clarity and actionability.
-* Write microcopy that guides users through tasks with minimal friction.
-* Keep wording predictable: similar actions should use identical phrasing.
-* Avoid duplicating information already conveyed visually.
+| Type | Purpose | User question | Example in this site |
+|------|---------|---------------|----------------------|
+| **Tutorial** | Learning by doing | "Teach me." | First-time integration walkthrough |
+| **How-to guide** | Goal-oriented steps | "Show me how to do X." | [Hardware Install Guide](/docs/energy-bridge/energy-bridge-installation-guide-atlas-insight) |
+| **Reference** | Information lookup | "Tell me what this is." | [API Reference](/docs/api/powerbox-api), [Data Dictionary](/docs/data-dictionary) |
+| **Explanation** | Conceptual understanding | "Help me understand." | [Integration Guide](/docs/integration-guide) (architecture sections) |
 
-**Examples:**
-* Error pattern: "Something went wrong. Try again or contact support if the issue continues."
-* Success pattern: "Your changes have been saved."
-* Empty-state pattern: "No data available yet. Check back soon."
+### Rules
 
-### 2.1 Headings and Subheadings
-**Purpose:** Provide structure and help users quickly understand content.
+- **One type per page.** If a page is doing two jobs, split it.
+- **Tutorials are for beginners.** They guarantee an outcome. They never link to reference until the end.
+- **How-to guides assume competence.** They don't teach; they remind.
+- **Reference is dry, accurate, and complete.** No prose, no opinions, no story.
+- **Explanation gives context.** It can branch, compare, and discuss trade-offs.
 
-**Guidelines:**
-* Write clear, descriptive headings.
-* Use action-oriented or benefit-focused phrases where appropriate.
-* Avoid vague or overly technical terms.
-
-**Examples:**
-* H1: "Manage Your Energy Use"
-* H2: "Personalized Savings Recommendations"
-* H3: "Understanding Your Energy Report"
-
-### 2.2 Alerts and Notifications
-**Purpose:** Communicate timely or required actions.
-
-**Guidelines:**
-* Keep messages brief and direct.
-* Focus on the most important information first.
-* Avoid jargon and technical complexity.
-
-**Examples:**
-* "Your energy use is higher than usual today. Here are ways to save."
-* "New recommendations available—see how to reduce your bill."
-
-### 2.3 Navigation and Button Labels
-**Purpose:** Improve ease of use and ensure intuitive navigation.
-
-**Guidelines:**
-* Use short labels (2–3 words).
-* Start with clear action verbs.
-* Ensure users understand what will happen when they click.
-
-**Examples:**
-* "View Usage"
-* "Check My Bill"
-* "Update Preferences"
-
-### 2.4 Links and Calls to Action (CTAs)
-**Links:**
-* Use descriptive link text, not "click here."
-* Clearly indicate the destination or purpose.
-
-**CTAs:**
-* Begin with strong, user-centered action verbs.
-* Convey the benefit to the user.
-
-**Examples:**
-* "Explore Energy Insights"
-* "Manage Your Usage"
-* "Get Personalized Tips"
+For deeper guidance on each content type, see [Documentation Methodology](/docs/methodology#diátaxis-framework).
 
 ---
 
-## 3. Data Presentation and Visual Standards
+## 2. Voice and Tone
 
-### Purpose
-Ensure clarity, accuracy, and usability when presenting data, metrics, or insights.
+Per the Google Developer Documentation Style Guide:
 
-### General Guidelines
-* Use visuals (charts, icons, infographics) to simplify complex ideas.
-* Label all visuals clearly and consistently.
-* Provide brief explanations or key takeaways alongside visuals.
-* Avoid visual clutter—highlight only the most relevant information.
+- **Conversational, but not overly casual.** Friendly without being cute.
+- **Confident, never condescending.** Don't say "obviously," "simply," "just," or "easy."
+- **User-focused.** Use second person ("you") and active voice.
 
-### Recommended Practices by Chart Type
+### Tone by audience
 
-#### Line Charts
-**Use for:** Trends over time or continuous data.
-* Plot no more than 3–4 lines to maintain readability.
-* Use consistent scales on axes to avoid misinterpretation.
-* Highlight the primary trend with a slightly bolder line.
-* Provide context when showing spikes or dips.
-
-#### Bar Charts
-**Use for:** Comparing discrete categories.
-* Keep bar spacing even and avoid decorative effects.
-* Use horizontal bars for long category names.
-* Order categories logically (descending, ascending, or grouped).
-* Use stacked bars only when emphasizing part-to-whole relationships.
-
-#### Pie and Donut Charts
-**Use for:** Showing proportions when there are few segments (ideally 2–5).
-* Avoid using when exact comparisons are important—prefer bars instead.
-* Label segments directly; avoid legends when possible.
-* Do not use 3D effects, gradients, or unnecessary embellishments.
-
-#### Area Charts
-**Use for:** Changes over time where total volume matters.
-* Use sparingly and with transparency to avoid overlapping confusion.
-* Avoid stacked areas when more than three categories are involved.
-
-#### Tables
-**Use for:** Precise values, dense data, or when users need detailed comparison.
-* Align numbers for easy scanning (right-align for values).
-* Use concise headers and keep table width manageable.
-* Add highlights or bolding sparingly to draw attention.
-
-### Examples of Data Labels
-* "This Month’s Energy Use"
-* "Usage Compared to Last Month"
-* "Projected Savings"
+| Audience | Tone | Example |
+|----------|------|---------|
+| Developers (API, integration) | Direct, precise, terminology-heavy | "Authenticate the request with a Bearer token in JWT format." |
+| End users (app, hardware) | Friendly, instructional, low-jargon | "Plug in the SmartLink. The light blinks blue when it's ready." |
+| Support agents (BillSense AI) | Clear, scannable, action-oriented | "If the bill explanation is missing, check the customer's billing-cycle ID." |
+| Disclaimers / legal | Direct, factual, plain-language | "Estimates are based on past usage and may vary." |
 
 ---
 
-## 4. Accessibility and Mobile Readiness
+## 3. UX Writing — In-Product Text
 
-### Guidelines
-* Keep content scannable with concise headings and short paragraphs.
-* Provide alt text for all meaningful images and diagrams.
-* Ensure interactive elements are large enough and spaced appropriately for touch.
-* Avoid idioms, culturally specific references, or metaphors that may not translate.
+Microcopy follows the same principles as long-form documentation: clarity first, predictability second.
 
----
+### Patterns
 
-## 5. Product Names and Naming Conventions
+- **Errors:** State what went wrong, then what to do. "Couldn't load your usage. Try again or contact support."
+- **Success:** Past tense, specific. "Saved your changes."
+- **Empty states:** Explain why and offer a next step. "No data yet. Connect your meter to get started."
+- **Loading:** Be specific about what's loading. "Loading your usage history…"
 
-Use official product names consistently across all platforms.
+### Buttons and links
 
-**Examples:**
-* GridConnect: GridConnect Hub, GridConnect App, DataBridge Hub, SmartLink Plug
-* Meridian Energy: Energy Analyzer
-* EnergyGrid: DataBridge Hub, EnergyGrid App, BillSense AI
+- Lead with a verb: **View usage**, **Set budget**, **Reset password**.
+- Use sentence case (per Google style — not Title Case).
+- Make link text descriptive — never "click here" or "learn more" without context.
+- Two to four words is ideal. If a button label is longer, the action is probably too complex for a button.
 
-Follow internal naming rules for new features and flows.
+### Headings
 
----
-
-## 6. Grammar and Mechanics
-
-To support new writers, this section includes additional positive and negative examples that illustrate correct application of the guidelines, helping clarify common mistakes and preferred patterns.
-
-### 6.1 General Principles
-* Write for skimmability.
-* Begin sections with the most important information.
-* Keep content concise and focused.
-* Follow all conventions in this guide.
-
-### 6.2 Abbreviations and Acronyms
-* Spell out on first use unless universally recognized.
-* Include the acronym in parentheses.
-* Use the acronym alone afterwards.
-
-**Example:** "Customer Information System (CIS)" → "CIS"
-
-### 6.3 Active vs. Passive Voice
-Prefer active voice.
-* **Yes:** "The system updated your account."
-* **No:** "Your account was updated by the system."
-
-### 6.4 Capitalization
-* Use **sentence case** for headings.
-* Use **sentence case** for standard text.
-* URLs and email addresses should be lowercase.
-
-### 6.5 Contractions
-Contractions are acceptable to maintain approachability.
-
-### 6.6 Emoji
-Use sparingly and only to support clarity.
-
-### 6.7 Numbers
-* Use numerals except when starting a sentence.
-* Add commas to numbers 1,000 and above.
-* Abbreviate large numbers (e.g., 1k, 150k) when appropriate.
-
-### 6.8 Dates
-* Preferred: "Friday, March 10"
-* When space is limited: "Fri., Mar. 10"
-
-### 6.9 Percentages
-Use the % symbol.
-
-### 6.10 Ranges
-Use an en dash without spaces for numerical ranges: 20–30 users.
-
-### 6.11 Currency
-Use currency symbols with numerals: $20.00.
-
-### 6.12 Phone Numbers
-Format with dashes and country code: +1-555-123-4567.
-
-### 6.13 Temperature
-Use the degree symbol and unit: 72°F.
-
-### 6.14 Time
-Use numerals and lowercase am/pm:
-* "9 am", "10:30 pm"
-* Include time zones when needed.
-
-### 6.15 Punctuation
-* Use apostrophes for possession and contractions.
-* Always use the Oxford comma.
-* Use hyphens, en dashes, and em dashes appropriately.
-* Use exclamation points sparingly.
-
-### 6.16 Pronouns
-Default to gender-neutral terms ("they/them").
-
-### 6.17 Geographic Names
-Spell out states, cities, and countries unless brand exceptions apply.
-
-### 6.18 URLs and Websites
-* Capitalize website names.
-* Keep URLs lowercase; omit "www" unless required.
+- **Sentence case for everything.** "Manage your energy use" — not "Manage Your Energy Use".
+- Use action verbs in tutorials and how-to guides. Use noun phrases in reference and explanation.
+- Don't end headings with punctuation (except question marks, sparingly).
 
 ---
 
-## 7. Quality Checklist
+## 4. Data Presentation
 
-Use this checklist before publishing any document. It ensures completeness, accuracy, and adherence to writing, technical, and UX standards.
+### General
 
-### 7.1 Content and Purpose
-* The document includes a clear overview or purpose statement.
-* The target audience is defined and addressed correctly.
-* The content solves a real user problem or supports a key product task.
-* The document avoids unnecessary information and stays within scope.
+- Use visuals to simplify, not to decorate.
+- Label every axis, legend, and unit.
+- Provide a one-line takeaway above or below every chart.
+- Right-align numerical columns in tables.
 
-### 7.2 Information Architecture
-* Headings follow a clear hierarchy (H1 → H2 → H3…).
-* Sections flow logically and support user decision-making.
-* Content is broken into scannable blocks (lists, short paragraphs, tables).
-* Related resources or next steps are linked appropriately.
+### Chart types
 
-### 7.3 Clarity and Writing Quality
-* Text is concise, unambiguous, and written in active voice.
-* Tone matches the context (technical, instructional, customer-facing, etc.).
-* Terminology and naming conventions are consistent.
-* Acronyms are spelled out on first use.
-* Grammar, punctuation, and formatting follow this style guide.
+| Use this | When | Avoid |
+|----------|------|-------|
+| Line chart | Trends over time, continuous data | More than 4 lines on one axis |
+| Bar chart | Comparing discrete categories | Decorative effects, 3D |
+| Pie / donut | 2–5 segments, simple proportions | Anything where exact comparison matters — use bars instead |
+| Area chart | Cumulative volume over time | Stacked areas with > 3 categories |
+| Table | Precise values, dense reference data | Tables when a chart would tell the story |
 
-### 7.4 Technical Accuracy and Completeness
-* Steps, actions, and UI labels match the product exactly.
-* Screenshots and diagrams reflect the latest interface.
-* Data values, units, and metrics are correct.
-* API or code examples have been tested.
-* System behavior aligns with the most recent release.
+---
 
-### 7.5 Visuals and Data Representation
-* Visuals enhance clarity and do not duplicate text unnecessarily.
-* Chart types follow the recommended practices in Section 3.
-* Labels, legends, and annotations are accurate and consistent.
-* Visuals include short explanations or context.
+## 5. Accessibility
 
-### 7.6 Accessibility and Mobile Readiness
-* All images and diagrams have descriptive alt text.
-* Interactive elements and references are mobile-safe.
-* Language avoids idioms and culturally dependent expressions.
-* Tables and complex visuals can be interpreted with assistive technologies.
+- Every meaningful image has alt text. Decorative images have empty alt (`alt=""`).
+- Color is never the only signal. Pair color with text, an icon, or a pattern.
+- Headings follow a strict hierarchy: H1 → H2 → H3. Don't skip levels.
+- Touch targets are at least 44×44 px.
+- Language avoids idioms and culture-specific references that don't translate.
 
-### 7.7 Publication Requirements
-* The correct publishing platform has been selected (Confluence, Docusaurus, KB, etc.).
-* Document version number has been assigned or updated.
-* All required reviews (SME, engineering, UX, legal if applicable) are complete.
-* All internal notes, drafts, or placeholders have been removed.
-* The document owner and last-updated date are included.
-* Release notes or version summaries have been logged when relevant.
+---
 
-### 7.8 Final Validation
-* The document can be skimmed in under 30 seconds with clear takeaways.
-* Examples are accurate, relevant, and easy to follow.
-* No outdated content or deprecated terminology remains.
-* The document is ready for publishing across all required channels.
+## 6. Naming Conventions
+
+Use official product names exactly as defined. Don't invent variants.
+
+**Correct:**
+- DataBridge Hub (not DataBridge or Data Bridge)
+- SmartLink Plug (not SmartLink or Smart Link)
+- BillSense AI (not BillSense or Bill Sense AI)
+- PowerBox API (not Powerbox or Power Box API)
+- EnergyGrid (one word, capital E and G)
+
+When introducing a product, use the full name. Subsequent mentions in the same section can use the short form if it's unambiguous.
+
+---
+
+## 7. Grammar and Mechanics
+
+These rules align with the Google Developer Documentation Style Guide.
+
+### 7.1 Voice and tense
+
+- **Active voice.** "The system saves your changes" — not "Your changes are saved by the system."
+- **Present tense for behavior.** "The endpoint returns a 200 response" — not "The endpoint will return…"
+- **Imperative mood for instructions.** "Click Save" — not "You should click Save."
+
+### 7.2 Words to avoid
+
+- **"Please"** — don't use in instructions. ("Click Save" — not "Please click Save.")
+- **"Simply", "just", "easily", "obviously"** — they assume the reader's experience.
+- **"May"** for ability — use **"can"**. ("You can configure the budget" — not "You may configure the budget.")
+- **"Will"** for present behavior — use present tense. ("The API returns…" — not "The API will return…")
+- **Latin abbreviations** — write out: "for example" (not e.g.), "that is" (not i.e.), "and so on" (not etc.).
+
+### 7.3 Capitalization
+
+- **Sentence case** for all headings, button labels, and UI strings.
+- **Lowercase** for URLs, email addresses, and file extensions (`json`, not `JSON` when referring to a file).
+- **Capitalize** product names, acronyms (API, JWT, OAuth), and the first word of sentences.
+
+### 7.4 Acronyms
+
+- Spell out on first use, with the acronym in parentheses: "Customer Information System (CIS)".
+- Use the acronym alone for the rest of the page.
+- Don't introduce an acronym you only use once.
+
+### 7.5 Contractions
+
+Contractions are encouraged in user-facing content (it's, don't, you're). They make text more conversational and accessible.
+
+### 7.6 Numbers
+
+- Use numerals for 10 and above; spell out zero through nine — except in technical contexts (port numbers, status codes, version numbers, measurements).
+- Add commas to numbers 1,000 and above.
+- For large round numbers, use abbreviations: 1k, 150k, 2M (only when space is constrained).
+
+### 7.7 Dates and times
+
+- **Long form:** April 24, 2026.
+- **In tables:** 2026-04-24 (ISO 8601).
+- **12-hour clock:** 9 am, 10:30 pm (lowercase, no period).
+- Include the time zone when relevant: "9 am UTC".
+
+### 7.8 Punctuation
+
+- **Oxford comma:** always.
+- **Em dash** (—): for breaks in thought, no spaces around it.
+- **En dash** (–): for ranges, no spaces. "20–30 users", "Mon–Fri".
+- **Hyphen** (-): for compound modifiers. "real-time data", "low-power radio".
+- **Exclamation points:** rarely. Never in error messages.
+
+### 7.9 Pronouns
+
+- Use **"they/them"** as the default singular pronoun.
+- Use **"you"** to address the reader.
+- Use **"we"** for the team's recommendations only when needed; default to imperative.
+
+### 7.10 Lists
+
+- Use a bulleted list when order doesn't matter.
+- Use a numbered list when order matters.
+- Each item starts with a capital letter.
+- End each item with a period if any item is a complete sentence; otherwise no terminal punctuation.
+- Keep items grammatically parallel.
+
+### 7.11 Code formatting
+
+- **Inline code** for parameters, properties, file names, and command names: `meterId`, `package.json`, `npm install`.
+- **Code blocks** with a language hint for runnable code:
+  ```bash
+  curl https://api.example.com/v1/users
+  ```
+- Show realistic, runnable examples. Don't use `foo`, `bar`, or `baz` in user-facing samples.
+
+### 7.12 Currency, percentages, and units
+
+- Use the symbol with the numeral, no space: $20.00, 75%, 72°F.
+- Use SI units in technical contexts; add the imperial equivalent in parentheses for user-facing content if relevant.
+
+### 7.13 Phone numbers and URLs
+
+- **Phone:** +1-555-123-4567 (with country code, dashes).
+- **URLs:** lowercase, no "www." unless required by the host. Don't underline; the link styling handles that.
+
+---
+
+## 8. Pre-publication Checklist
+
+Run through this before publishing any page.
+
+### Content type (Diátaxis)
+
+- [ ] The page is exactly one Diátaxis type — tutorial, how-to, reference, or explanation.
+- [ ] If it's drifting between types, it's been split into separate pages.
+
+### Audience and purpose
+
+- [ ] The target audience is identified in the first paragraph.
+- [ ] The page solves a real task or answers a real question.
+- [ ] Out-of-scope topics are explicitly excluded or linked elsewhere.
+
+### Structure
+
+- [ ] H1 → H2 → H3 hierarchy with no skipped levels.
+- [ ] Sections are scannable in under 30 seconds.
+- [ ] Related pages and next steps are linked.
+
+### Voice and grammar
+
+- [ ] Active voice, present tense, second person.
+- [ ] No "please", "simply", "just", "obviously", "easily".
+- [ ] "Can" instead of "may"; present tense instead of "will".
+- [ ] Sentence case for all headings and UI strings.
+- [ ] Oxford commas, em/en dash usage correct.
+
+### Technical accuracy
+
+- [ ] Every UI label, parameter, and code sample matches the current product.
+- [ ] API examples have been run; status codes and payloads are real.
+- [ ] Screenshots are dated within the last release cycle.
+
+### Accessibility
+
+- [ ] All images have descriptive alt text.
+- [ ] Color isn't the sole carrier of meaning.
+- [ ] Tables have header rows; complex tables have captions.
+
+### Code quality
+
+- [ ] Code blocks have language hints.
+- [ ] Examples are realistic, not placeholder.
+- [ ] Long examples link to a runnable repo or sandbox if possible.
+
+### Publication
+
+- [ ] Owner and last-updated date are present.
+- [ ] All review checks (SME, engineering, UX, legal) are complete.
+- [ ] No drafts, TODOs, or placeholder text remain.
+- [ ] Release notes are logged if the change is user-visible.
+
+---
+
+## 9. Where to look first
+
+When in doubt:
+
+1. Check this guide.
+2. Check the [Google Developer Documentation Style Guide](https://developers.google.com/style).
+3. Check the [Diátaxis Framework](https://diataxis.fr/) for content-type questions.
+4. Ask in the docs review channel.
+
+For a deeper introduction to why these two frameworks anchor everything in this portal, see [Documentation Methodology](/docs/methodology).

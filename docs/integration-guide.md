@@ -16,7 +16,7 @@ This guide describes how to integrate your utility's backend systems with the En
 The integration consists of two layers:
 
 1. **Real-Time Layer (PowerBox API):** Middleware hosted in your infrastructure that handles customer authentication and profile synchronization.
-2. **Bulk Data Layer (SFTP/S3):** A batch ingestion pipeline for high-volume usage data (MDM), billing financial data, billing cycles, and rate information required by BillSense AI.
+2. **Bulk Data Layer (SFTP / Object Storage):** A batch ingestion pipeline for high-volume usage data (MDM), billing financial data, billing cycles, and rate information required by BillSense AI.
 
 ---
 
@@ -213,7 +213,7 @@ If premise and meter IDs are permanent (they do not change between tenants), Ene
 | `isPrimary` | Boolean | **Yes** | `true` for the main meter when multiple meters exist at a site. If a site has an interruptible HVAC meter and a standard meter, the standard meter is marked primary. |
 | `isAMI` | Boolean | **Yes** | `true` if this is an Advanced Metering Infrastructure (AMI) smart meter. AMI meters have radios that form a mesh network and send data automatically. If `isAMI = true`, a DataBridge Hub can be added. |
 | `isAMR` | Boolean | Optional | `true` if this is an Advanced Meter Reading (AMR) meter — uses RFID, read by a drive-by vehicle. |
-| `PANID` | Alphanumeric | Optional | **Obsolete.** Personal Area Network (PAN) ID of the AMI meter. Previously used by DataBridge Hub for Zigbee binding. |
+| `PANID` | Alphanumeric | Optional | **Obsolete.** Personal Area Network (PAN) ID of the AMI meter. Previously used by DataBridge Hub for mesh binding. |
 | `rateCode` | Alphanumeric | **Yes** | Meter rate code that determines which billing calculator to use. See [Rate Information](#step-6-rate-information-required-for-billsense-ai). |
 | `rateMultiplier` | Numeric | Optional | **Obsolete.** Rate multiplier for usage computation. |
 | `billingCycleId` | Integer | **Yes** | Customer's billing cycle ID. References the billing cycle schedule. See [Billing Cycle Schedule](#step-5-billing-cycle-schedule). |
@@ -252,7 +252,7 @@ If the utility does not have AMI meters and lacks hourly resolution, the platfor
 
 - **Full Batch:** Receive data for all utility customers, store it, and load it upon user registration.
 - **Registered Only:** Receive data only for customers who have registered.
-- **API Backfill:** Request historical data at registration time via API, followed by standard SFTP or S3 updates the next day.
+- **API Backfill:** Request historical data at registration time via API, followed by standard SFTP or object-storage updates the next day.
 
 #### File Format
 
@@ -402,7 +402,7 @@ A single average per-kWh amount applied uniformly to all usage.
 
 ## Step 7: Hardware Binding (Optional)
 
-If the integration includes DataBridge Hub hardware, the bind endpoint links the device to the AMI meter via Zigbee.
+If the integration includes DataBridge Hub hardware, the bind endpoint links the device to the AMI meter over the utility's wireless mesh radio.
 
 **Endpoint:** `POST /powerbox/bind`
 
@@ -449,7 +449,7 @@ The following methods are supported for bulk data exchange between the utility a
 |--------|-------|
 | **SFTP** | Standard method for MDM data |
 | **FTP** | Legacy option |
-| **S3 Replication** | AWS S3 bucket sync |
+| **Object-storage replication** | Bucket-to-bucket sync between utility and EnergyGrid object stores |
 | **API** | For on-demand backfill or real-time feeds |
 | **File Exchange** | Generic file drop mechanism |
 

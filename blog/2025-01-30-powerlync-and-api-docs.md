@@ -28,7 +28,7 @@ Our API documentation now covers two complete API systems:
 The [ConnectBox API](/docs/api/powerbox-api) provides integration between utility backend systems and the EnergyGrid Platform. It includes:
 
 - **Customer Synchronization** (`POST /powerbox/customer`) — sync customer account details, service addresses, and meter configurations from your utility CIS.
-- **Hardware Binding** (`POST /powerbox/bind`) — link a DataBridge or SmartLink device to an AMI meter via Zigbee.
+- **Hardware Binding** (`POST /powerbox/bind`) — link a DataBridge or SmartLink device to an AMI meter over the utility's wireless mesh radio.
 
 Authentication uses OAuth 2.0 Bearer tokens in JWT format.
 

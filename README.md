@@ -14,7 +14,7 @@ The portfolio is organized around a featured documentation project: **EnergyGrid
 
 Three audiences, three content types, one portal:
 
-- **Utility integration engineers** — OAuth 2.0 / OIDC flow, CIS data synchronization, bulk MDM and billing ingestion via SFTP/S3, rate information, hardware binding.
+- **Utility integration engineers** — OAuth 2.0 / OIDC flow, CIS data synchronization, bulk MDM and billing ingestion via SFTP / object storage, rate information, hardware binding.
 - **Field technicians / end users** — step-by-step installation guides for DataBridge Hub and SmartLink Plug smart-meter hardware.
 - **Customer support agents** — BillSense AI user guide and troubleshooting reference for an AI-powered bill analysis tool.
 
@@ -28,17 +28,21 @@ Three audiences, three content types, one portal:
 | API Reference (OpenAPI) | Auto-generated interactive API docs from OpenAPI specs |
 | Hardware Install Guides | Consumer-friendly UX writing — QR codes, Bluetooth pairing, Wi-Fi setup |
 | BillSense AI Docs | AI-tool user guide + troubleshooting reference for support agents |
-| Writing Style Guide | Voice, tone, UX patterns, pre-publication checklist |
+| Writing Style Guide | Voice, tone, UX patterns, pre-publication checklist (Google + Diátaxis applied) |
+| Methodology | Deep-dive on Google Developer Documentation Style Guide and the Diátaxis Framework |
 | Data Dictionary | Structured reference content with schema-style tables |
 
 ---
 
 ## Writing standards applied
 
-- **Microsoft Writing Style Guide** — sentence case, active voice, second person, contractions
+- **[Google Developer Documentation Style Guide](https://developers.google.com/style)** — sentence case, active voice, second person, banned filler words ("simply", "just", "may"), realistic examples
+- **[Diátaxis Framework](https://diataxis.fr/)** — every page is exactly one of: tutorial, how-to guide, reference, or explanation
 - **Structured authoring** — consistent admonitions (note, tip, warning, caution, danger)
 - **Docs-as-code** — Markdown/MDX, version-controlled in Git, reviewed as code
 - **OpenAPI-driven API docs** — single source of truth from the spec, no manual duplication
+
+See [Documentation Methodology](https://l-g99921.github.io/tw-portfolio/docs/methodology) for a deep dive on both frameworks and how they're applied across the site.
 
 ---
 
