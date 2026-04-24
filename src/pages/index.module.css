@@ -1,0 +1,400 @@
+:root {
+  /* Design System Colors */
+  --color-bg-deep: #111111;
+  --color-bg-surface: #1C1C1E;
+  --color-brand-navy: #0D1B35;
+  --color-brand-blue: #3B82F6;
+  --color-text-white: #ffffff;
+  --color-text-gray: #9CA3AF;
+  --color-border-subtle: #2A2A2A;
+}
+
+/* Dark Mode Overrides for Docusaurus context */
+[data-theme='dark'] {
+  --ifm-background-color: var(--color-bg-deep);
+}
+
+/* Body styles are now handled by theme-specific rules below */
+
+/* Animations */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hero Section - Same structure for both themes */
+.hero {
+  background: linear-gradient(135deg, #060e1a 0%, var(--color-brand-navy) 50%, #060e1a 100%);
+  padding: 4rem 2rem 10rem; /* Reduced top padding */
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 0;
+}
+
+/* Hero Logo */
+.heroLogo {
+  max-width: 450px;
+  height: auto;
+  margin-bottom: 0;
+  opacity: 0;
+  animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.hero h1 {
+  font-size: 4rem;
+  font-weight: 800;
+  color: var(--color-text-white);
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  opacity: 0; /* For animation */
+  animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.hero p {
+  font-size: 1.25rem;
+  color: var(--color-text-gray);
+  max-width: 700px;
+  margin: 0 auto 3rem;
+  line-height: 1.6;
+  opacity: 0; /* For animation */
+  animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s forwards;
+}
+
+.ctaButtons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  opacity: 0;
+  animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s forwards;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 32px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btnPrimary {
+  background-color: var(--color-brand-blue);
+  color: #ffffff !important;
+  border: 1px solid var(--color-brand-blue);
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+}
+
+.btnPrimary:hover {
+  background-color: #2563EB;
+  border-color: #2563EB;
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+  transform: translateY(-2px);
+  text-decoration: none;
+  color: #ffffff !important;
+}
+
+.btnOutline {
+  background-color: transparent;
+  color: var(--color-text-white);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.btnOutline:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--color-text-white);
+  color: var(--color-text-white);
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+/* Main Section - Same structure for both themes */
+.section {
+  background: transparent;
+  margin-top: -7rem; /* Overlap into hero */
+  position: relative;
+  z-index: 10;
+  padding-top: 0;
+  padding-bottom: 4rem;
+}
+
+/* Background split effect - works for both themes */
+.section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5rem; /* Dark portion behind top of cards */
+  background: linear-gradient(135deg, #060e1a 0%, var(--color-brand-navy) 50%, #060e1a 100%);
+  z-index: -1;
+}
+
+.section::after {
+  content: '';
+  position: absolute;
+  top: 5rem;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--color-bg-deep);
+  z-index: -1;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Card Grid - 3 columns like reference */
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  position: relative;
+  z-index: 20;
+}
+
+/* Card - Same structure for both themes */
+.card {
+  background-color: var(--color-bg-surface);
+  border: none;
+  border-radius: 12px;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-decoration: none !important;
+  transition: all 0.3s ease;
+  position: relative;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+}
+
+/* Card Icon - Box style for both themes */
+.cardIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  margin-bottom: 1.25rem;
+  color: var(--color-brand-blue);
+  background-color: rgba(59, 130, 246, 0.12);
+}
+
+.cardTitle {
+  color: var(--color-text-white);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.cardDescription {
+  color: var(--color-text-gray);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.cardArrow {
+  color: var(--color-brand-blue);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  margin-top: auto;
+}
+
+.cardArrow i {
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.card:hover .cardArrow i {
+  transform: translateX(6px);
+}
+
+/* =============================================
+   RESPONSIVE - BOTH THEMES
+   ============================================= */
+
+@media (max-width: 1024px) {
+  .cardGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 3rem 1.5rem 8rem;
+  }
+
+  .heroLogo {
+    max-width: 300px;
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .ctaButtons {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .btn {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .section {
+    margin-top: -5rem;
+    padding-bottom: 3rem;
+  }
+
+  .section::before {
+    height: 3rem;
+  }
+
+  .section::after {
+    top: 3rem;
+  }
+
+  .cardGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .card {
+    padding: 1.5rem;
+  }
+
+  .container {
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroLogo {
+    max-width: 250px;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero p {
+    font-size: 0.9rem;
+  }
+
+  .cardTitle {
+    font-size: 1rem;
+  }
+
+  .cardDescription {
+    font-size: 0.85rem;
+  }
+
+  .cardIcon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.1rem;
+  }
+}
+
+/* ===========================================
+   LIGHT MODE - COLOR OVERRIDES ONLY
+   (Structure is same as dark mode)
+   =========================================== */
+
+/* Light Mode - Hero colors */
+:global([data-theme='light']) .hero {
+  background: linear-gradient(135deg, #060e1a 0%, #0D1B35 50%, #060e1a 100%);
+}
+
+:global([data-theme='light']) .hero p {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Light Mode - Section background */
+:global([data-theme='light']) .section::before {
+  background: linear-gradient(135deg, #060e1a 0%, #0D1B35 50%, #060e1a 100%);
+}
+
+:global([data-theme='light']) .section::after {
+  background-color: #f5f7f8;
+}
+
+/* Light Mode - Buttons */
+:global([data-theme='light']) .btnPrimary {
+  background-color: #2563EB;
+  border-color: #2563EB;
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+}
+
+:global([data-theme='light']) .btnPrimary:hover {
+  background-color: #1D4ED8;
+  border-color: #1D4ED8;
+  color: #ffffff;
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+}
+
+:global([data-theme='light']) .btnOutline {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Light Mode - Cards */
+:global([data-theme='light']) .card {
+  background-color: #ffffff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+:global([data-theme='light']) .card:hover {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Light Mode - Card Icon */
+:global([data-theme='light']) .cardIcon {
+  color: #2563EB;
+  background-color: rgba(37, 99, 235, 0.10);
+}
+
+/* Light Mode - Card Text */
+:global([data-theme='light']) .cardTitle {
+  color: #1a202c;
+}
+
+:global([data-theme='light']) .cardDescription {
+  color: #64748b;
+}
+
+:global([data-theme='light']) .cardArrow {
+  color: #2563EB;
+}

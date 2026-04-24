@@ -1,0 +1,64 @@
+---
+id: get-thing-types
+title: "Returns thing types"
+description: "Gets all supported device and meter types."
+sidebar_label: "Returns thing types"
+hide_title: true
+hide_table_of_contents: true
+api: eJyVVMFu4zYQ/RViemkBwooX26LQLU23QQq0WDQOegh8GFNjibsUqR0O3biC/n1BSkm0yWLR+mJZfjPzOHzvjdBQNGwHscFDDdckUaFzKqZhCCzUqIZO1pBC36iehFjJeaC4AQ1hIMZceNNADS3JrrO+3eW/QYNgG6G+hz9IsEFB2GuIZBJbOUN9P8KBkIkvk3RQ3++nvQamOAQfKUI9wpuLi/z1Jb/bZAzFuFF/kST2USEznlU4Ksmzn7mZ4IW85A44DM6aQrT6EHObEaLpqMf8lCughtIHNFihPq7eh8MHMgIaBs7HFTuTs80KY71QSwwa6AH7wRHU20mDx55WqChsfbsGATkywtYo7K36fvuj6q1PQj/ApKFl9MnhvK1vNcnT+YQuFx0TuV1B/pexuaKhIyYnV8EF/nbVd2+uri5//mlVdGPmZb6s8ck5POQi4UTTpEGslB5PAoEpfzS8/dol/4KNYvqUKMoGCmj7GnTnMUkX2P5LzYJ6+xr1ZxB1DMlnyKShJ+nCItZ8p5i1B1WW6K8oWBURySLgSHwijkWriR3U0IkMsa4qHOyGPHF7btk2GxP6KkVsqTptQb9g8J5Dk0z+oeaGMK2McJt1OEtqbYenneaJmUqBQb2AQC8PvwXuUaCG3//evZr8rjC8ZtuovCrysrhASfhIXoWDoPXUqCOHXlVXKUroiSsXWuvLuqw/hkJmub5Vx7t8XnX5/ubV2F1H6mtANXA42YaiwuJhJUHNS1Q9emypJy8qJ4U6BlZJrLNyVmahFTdq19lYOqFz4Z+o6EGIPTq1cnhpuzouqRSJo1ZMwpZO9DizXFgZp5f56pCaliTqknULSeujbbscioeQ5LHYBB9TX06sBpRMo6RO1su8he3mYnOx5BCakkNzHqyXeDuHbNn1EKL06FfAx4hbJdvLZY/POff/onuRl9CDVIPDfN96Fvm4uGIO7uyKDH/2xV5DF6JkwDgeMNIdu2nKrz8l4pzsew0nZDsnwP1+0tARNsTFSB/pDDVcGkNDduAJXSrx+zKjs0me3Hr9Lqsbv7TGCyuU7o9h7s+r3uM4I3ZZ9dMEeiFRXADTfpqmzyF9cRg=
+sidebar_class_name: "get api-method"
+info_path: docs/api/usage-api/energygrid-usage-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Returns thing types"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/MetaData/thingtypes"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Gets all supported device and meter types.
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Success. Returns array of thing types.","content":{"application/json":{"schema":{"type":"array","items":{"type":"object","properties":{"id":{"type":"integer","example":1},"name":{"type":"string","example":"electric ami (15 minute)"},"granularity":{"type":"string","example":"interval"},"fuelType":{"type":"string","example":"electric"},"defaultColor":{"type":"string","example":"#2CCA86"},"defaultIcon":{"type":"string","nullable":true}},"title":"ThingType"}}}}},"400":{"description":"Bad request."},"401":{"description":"Unauthorized."},"404":{"description":"Not found."}}}
+>
+  
+</StatusCodes>
+
+
+      

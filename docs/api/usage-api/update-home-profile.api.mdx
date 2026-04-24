@@ -1,0 +1,72 @@
+---
+id: update-home-profile
+title: "Creates customer home profile for values in request."
+description: "Updates home profile information for a customer site."
+sidebar_label: "Creates customer home profile for values in request."
+hide_title: true
+hide_table_of_contents: true
+api: eJytVk1v20YQ/SuLOTUAK9lFTrwlTtK4h9awbPRg6DAiR+Qm5C6zO5StEvzvxezyS5KDAG100Qffzte+N08d5OQzpxvW1kAKj02OTF6VtibVOLvXFSlt9tbVKBC1t06hylrPtianvGZaQQK2IRcAtzmk0IYon21NdzEEJMBYeEif4GY4CtsEPGWt03yE9KmDHaEj967lEtKnbb9NoEGHNTE5HwAGa4IUxty3OSSgpegGuYQEHH1rtaMcUnYtJWedfTTkiuPvTudqLEHdfoAEfFZSjZB2wMdGEmjDVJCDvk8ukm40009ILGF+mH0bI5Pn9zY/CuQ8UWYNk2F5hE1T6SxcwfqLl8TdZWy7+0IZQwKNkwtjTV6eluhvbN1UxJSPFzYf2llbERpIgF5QUDF7n0BN7HTmF1h0Do8yHaba/zhxHO6E8uy0KZaJQDj0IE/7BA5YtfTKpBb4615eCbDmcPzxnIj3caAQYY58Y42Pxfx2dSVvp5e3abOMvF+pz0tBRH7nK6nq7WvH3mOuhrsbQNeXoEeDLZfW6X+mUG8vUX9aVnvbGoHEmZdWNNZYHwYqFExhPVJr3c366Ocvkbf9WnTdTJr05A6julpXQQolc+PT9RobvaJA3MLpfJXZet16LGh9uIZzgt85m7dZ2A4xIPQLbW+EhHHCS4VPtygZRx0EugUQJMOHT2HzQAp//P1wkXkhLRklGR4koNh+JaPsjlEbytXe2VrNM6psoU0Yp0jlfhbZx5FI3xFFlN3E+3kpTTydaHrdb3tZE3sbmh0Iuaj4Ueap3t3dXrT1UJJ6DSj8O+icvMLASsVWxUtSNRosqCbDKkfGsKZb1pXm47Ss/Uo9lNqHSFhV9tkremFyBiu1WB8h7GKcpFpPzifKSdt0oDFnIERIlwz51a7NC2KfKDT5WKQ2Xhcle4U72/J4OLPGt3XoWDXIUoYXIxE+xilcr65WVxCXHGY874vlEDdt01jH4S5FETWaBfDGUXCzya5ObE1mFC5LapzlenYb3bxl/7M7DlRneuF1U6FwL4mC6wYBL3wxgfTE4tIL71mKeCtfPUuErtuhp0dX9b38/K0lJ866FUo6jTsh4FMHufbyOYd0j5U/t6tlu7/cD37zRn3XPV9tbXQDc5z1AJDAVzqeGrg47E+rZzbV/1HUMOQg3pIwJxeGFkE3sZRfT5V+6b2y/6ZFfffXRjbXbvDw2uZyxuGz/HPA51iEDe2GLRl+66BCU7RYCDbGFIrj6e4825Wh0lfb7LqIeJC12PdT12FNSrN9/y+/6oJO
+sidebar_class_name: "post api-method"
+info_path: docs/api/usage-api/energygrid-usage-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Creates customer home profile for values in request."}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/Customer/{customerId}/{customerSiteId}/homeprofile"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Updates home profile information for a customer site.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"customerId","in":"path","required":true,"description":"EnergyGrid Customer ID","schema":{"type":"integer"}},{"name":"customerSiteId","in":"path","required":true,"description":"EnergyGrid Customer Site ID","schema":{"type":"integer"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"required":true,"content":{"application/json":{"schema":{"type":"object","properties":{"hasCompletedProfile":{"type":"boolean","example":true},"metrics":{"type":"array","items":{"type":"object","properties":{"name":{"type":"string","example":"HomeType"},"value":{"type":"integer","example":1}}}}},"title":"UpdateHomeProfileRequest"}}}}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Success. Home profile updated."},"400":{"description":"Bad request."},"401":{"description":"Unauthorized."},"404":{"description":"Not found."}}}
+>
+  
+</StatusCodes>
+
+
+      

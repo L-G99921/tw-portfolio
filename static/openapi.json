@@ -1,0 +1,223 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "PowerBox API",
+    "description": "API for integrating utility backend systems with the EnergyGrid Platform",
+    "version": "1.0.0",
+    "contact": {
+      "name": "EnergyGrid Support"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.energygrid.com/v1",
+      "description": "Production server"
+    }
+  ],
+  "paths": {
+    "/powerbox/customer": {
+      "post": {
+        "summary": "Customer Synchronization",
+        "description": "Syncs customer account details, service addresses (Premises), and meter configurations from the utility CIS to EnergyGrid.",
+        "operationId": "syncCustomer",
+        "tags": ["Customer"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Customer data synchronized successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or expired token"
+          },
+          "403": {
+            "description": "Forbidden - Account locked or closed"
+          }
+        }
+      }
+    },
+    "/powerbox/bind": {
+      "post": {
+        "summary": "Hardware Binding",
+        "description": "Links an DataBridge or SmartLink device to the AMI Meter via Zigbee.",
+        "operationId": "bindDevice",
+        "tags": ["Hardware"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BindRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Bind request submitted successfully"
+          },
+          "400": {
+            "description": "Invalid request payload"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "OAuth 2.0 Bearer token from the Utility IDP"
+      }
+    },
+    "schemas": {
+      "CustomerResponse": {
+        "type": "object",
+        "properties": {
+          "clientId": {
+            "type": "string",
+            "description": "Unique customer identifier",
+            "example": "123456789"
+          },
+          "firstName": {
+            "type": "string",
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Doe"
+          },
+          "AcctStatus": {
+            "type": "string",
+            "description": "Account status (A = Active)",
+            "example": "A"
+          },
+          "customerSites": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CustomerSite"
+            }
+          }
+        }
+      },
+      "CustomerSite": {
+        "type": "object",
+        "properties": {
+          "externalSiteId": {
+            "type": "string",
+            "description": "Premise ID from utility CIS",
+            "example": "5113305555"
+          },
+          "isPrimary": {
+            "type": "boolean",
+            "example": true
+          },
+          "address1": {
+            "type": "string",
+            "example": "123 Main St."
+          },
+          "city": {
+            "type": "string",
+            "example": "Detroit"
+          },
+          "state": {
+            "type": "string",
+            "example": "MI"
+          },
+          "postalCode": {
+            "type": "string",
+            "example": "48067"
+          },
+          "meters": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Meter"
+            }
+          }
+        }
+      },
+      "Meter": {
+        "type": "object",
+        "properties": {
+          "meterId": {
+            "type": "string",
+            "example": "123456789"
+          },
+          "meterType": {
+            "type": "string",
+            "enum": ["Electric", "Gas"],
+            "example": "Electric"
+          },
+          "unitOfMeasure": {
+            "type": "string",
+            "example": "kWh"
+          },
+          "isAMI": {
+            "type": "boolean",
+            "description": "Indicates if meter supports Advanced Metering Infrastructure",
+            "example": true
+          },
+          "rateCode": {
+            "type": "string",
+            "example": "RES1"
+          },
+          "billingCycleId": {
+            "type": "integer",
+            "example": 1
+          }
+        }
+      },
+      "BindRequest": {
+        "type": "object",
+        "required": ["hemProfileId", "macAddress", "installCode", "meterId", "actionCode"],
+        "properties": {
+          "hemProfileId": {
+            "type": "string",
+            "description": "Customer GUID",
+            "example": "CustomerGuid"
+          },
+          "macAddress": {
+            "type": "string",
+            "description": "DataBridge MAC address",
+            "example": "EB_MAC_Address"
+          },
+          "installCode": {
+            "type": "string",
+            "description": "DataBridge install code",
+            "example": "EB_Install_Code"
+          },
+          "meterId": {
+            "type": "string",
+            "example": "123456789"
+          },
+          "actionCode": {
+            "type": "integer",
+            "description": "1 = Bind, 0 = Unbind",
+            "enum": [0, 1],
+            "example": 1
+          }
+        }
+      }
+    }
+  }
+}

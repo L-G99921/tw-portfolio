@@ -1,0 +1,1366 @@
+/**
+ * Custom CSS for EnergyGrid Documentation Site
+ */
+
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
+
+:root {
+  /* Core Palette - Dark Mode */
+  --color-electric-blue: #3B82F6;
+  --color-navy-dark: #0D1B35;
+  --color-navy-dark-end: #0F2347;
+  --color-gray-bg-section: #1a1a1a;
+  --color-gray-card: #252525;
+  --color-footer-bg: #091525;
+  --color-text-white: #ffffff;
+  --color-text-gray: #b0b0b0;
+
+  /* Docusaurus Overrides */
+  --ifm-color-primary: #3B82F6;
+  --ifm-color-primary-dark: #2563EB;
+  --ifm-color-primary-darker: #1D4ED8;
+  --ifm-color-primary-darkest: #1E40AF;
+  --ifm-color-primary-light: #60A5FA;
+  --ifm-color-primary-lighter: #93C5FD;
+  --ifm-color-primary-lightest: #BFDBFE;
+
+  --ifm-navbar-background-color: var(--color-navy-dark);
+  --ifm-navbar-link-color: var(--color-text-white);
+  --ifm-navbar-link-hover-color: var(--color-electric-blue);
+  --ifm-footer-background-color: var(--color-footer-bg);
+  --ifm-footer-color: var(--color-text-gray);
+  --ifm-footer-link-color: var(--color-text-white);
+
+  --ifm-font-family-base: 'Inter', system-ui, -apple-system, sans-serif;
+  --ifm-background-color: var(--color-gray-bg-section);
+
+  --ifm-navbar-search-input-background-color: rgba(255,255,255,0.1);
+}
+
+/* Light Theme */
+[data-theme='light'] {
+  --ifm-color-primary: #2563EB;
+  --ifm-color-primary-dark: #1D4ED8;
+  --ifm-color-primary-darker: #1E40AF;
+  --ifm-color-primary-darkest: #1E3A8A;
+  --ifm-color-primary-light: #3B82F6;
+  --ifm-color-primary-lighter: #60A5FA;
+  --ifm-color-primary-lightest: #93C5FD;
+
+  --ifm-background-color: #f5f7f8;
+  --ifm-navbar-background-color: #0D1B35;
+  --ifm-navbar-link-color: #ffffff;
+  --ifm-navbar-link-hover-color: #60A5FA;
+  --ifm-footer-background-color: #091525;
+  --ifm-footer-color: #9ca3af;
+  --ifm-footer-link-color: #ffffff;
+
+  /* Light mode specific */
+  --color-light-bg: #f5f7f8;
+  --color-light-card: #ffffff;
+  --color-light-text-primary: #1a202c;
+  --color-light-text-secondary: #64748b;
+  --color-light-border: #e2e8f0;
+  --color-light-blue: #2563EB;
+  --color-light-blue-bg: rgba(37, 99, 235, 0.1);
+}
+
+/* Dark Theme */
+[data-theme='dark'] {
+  --ifm-background-color: var(--color-gray-bg-section);
+  --ifm-color-primary: var(--color-electric-blue);
+}
+
+/* Navbar Styling */
+.navbar {
+  background: linear-gradient(180deg, var(--color-navy-dark) 0%, var(--color-navy-dark-end) 100%);
+  border-bottom: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Center navbar links, logo on left */
+.navbar__inner {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  max-width: 100%;
+}
+
+.navbar__brand {
+  position: absolute;
+  left: 1rem;
+}
+
+.navbar__items {
+  flex: none;
+}
+
+.navbar__items--right {
+  position: absolute;
+  right: 1rem;
+}
+
+.navbar__title {
+  color: var(--color-text-white);
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.navbar__item {
+  color: var(--color-text-white);
+  font-weight: 500;
+}
+
+/* Remove separator if present */
+.navbar__link:after {
+  display: none;
+}
+
+/* Navbar Toggle & Icons */
+.navbar__items--right {
+  gap: 1rem;
+}
+
+.clean-btn {
+  color: var(--color-text-white);
+}
+
+/* Footer Styling */
+.footer {
+  background-color: var(--color-footer-bg);
+  color: var(--color-text-gray);
+  border-top: none;
+}
+
+.footer__title {
+  color: var(--color-text-white);
+  font-weight: 700;
+}
+
+.footer__link-item {
+  color: var(--color-text-gray);
+}
+
+.footer__link-item:hover {
+  color: var(--color-electric-blue);
+  text-decoration: none;
+}
+
+.footer__copyright {
+  color: var(--color-text-gray);
+  margin-top: 2rem;
+  font-size: 0.9rem;
+}
+
+/* Light Mode - Navbar */
+[data-theme='light'] .navbar {
+  background: linear-gradient(135deg, #0D1B35 0%, #162346 50%, #0D1B35 100%);
+}
+
+[data-theme='light'] .navbar__title,
+[data-theme='light'] .navbar__item,
+[data-theme='light'] .navbar__link {
+  color: #ffffff;
+}
+
+[data-theme='light'] .navbar__link:hover {
+  color: #60A5FA;
+}
+
+/* Light Mode - Footer */
+[data-theme='light'] .footer {
+  background-color: #0D1B35;
+}
+
+[data-theme='light'] .footer__link-item:hover {
+  color: #60A5FA;
+}
+
+/* Light Mode - Main content and doc pages */
+[data-theme='light'] .main-wrapper {
+  background-color: #f5f7f8;
+}
+
+[data-theme='light'] main {
+  background-color: #f5f7f8;
+}
+
+/* Light Mode - Doc page content */
+[data-theme='light'] article {
+  color: #1a202c;
+}
+
+/* Light Mode - Sidebar */
+[data-theme='light'] .theme-doc-sidebar-container {
+  background-color: #ffffff;
+  border-right: 1px solid #e2e8f0;
+}
+
+[data-theme='light'] .menu__link {
+  color: #4a5568;
+}
+
+[data-theme='light'] .menu__link:hover {
+  color: #2563EB;
+}
+
+[data-theme='light'] .menu__link--active {
+  color: #2563EB;
+}
+
+/* Light Mode - Breadcrumbs */
+[data-theme='light'] .breadcrumbs__link {
+  color: #64748b;
+}
+
+/* Light Mode - Table of Contents */
+[data-theme='light'] .table-of-contents__link {
+  color: #64748b;
+}
+
+[data-theme='light'] .table-of-contents__link--active {
+  color: #2563EB;
+}
+
+/* Light Mode - Code blocks */
+[data-theme='light'] pre {
+  background-color: #f8fafc !important;
+  border: 1px solid #e2e8f0;
+}
+
+[data-theme='light'] code {
+  background-color: #f1f5f9;
+  color: #1e293b;
+}
+
+/* Light Mode - Headings and text */
+[data-theme='light'] h1,
+[data-theme='light'] h2,
+[data-theme='light'] h3,
+[data-theme='light'] h4,
+[data-theme='light'] h5,
+[data-theme='light'] h6 {
+  color: #1a202c;
+}
+
+[data-theme='light'] p,
+[data-theme='light'] li,
+[data-theme='light'] td,
+[data-theme='light'] th {
+  color: #374151;
+}
+
+/* Light Mode - Links */
+[data-theme='light'] a {
+  color: #2563EB;
+}
+
+[data-theme='light'] a:hover {
+  color: #1D4ED8;
+}
+
+/* Light Mode - Tables */
+[data-theme='light'] table {
+  border-color: #e2e8f0;
+}
+
+[data-theme='light'] th {
+  background-color: #f8fafc;
+}
+
+[data-theme='light'] tr:nth-child(even) {
+  background-color: #f8fafc;
+}
+
+/* Light Mode - Blockquotes */
+[data-theme='light'] blockquote {
+  border-left-color: #2563EB;
+  background-color: #f0fdf4;
+  color: #374151;
+}
+
+/* Light Mode - Alerts/Admonitions */
+[data-theme='light'] .alert {
+  background-color: #ffffff;
+  border-color: #e2e8f0;
+}
+
+/* Light Mode - Search */
+[data-theme='light'] .navbar__search-input {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #1a202c;
+}
+
+/* Light Mode - Pagination */
+[data-theme='light'] .pagination-nav__link {
+  background-color: #ffffff;
+  border-color: #e2e8f0;
+}
+
+[data-theme='light'] .pagination-nav__label {
+  color: #1a202c;
+}
+
+[data-theme='light'] .pagination-nav__sublabel {
+  color: #64748b;
+}
+
+/* =============================================
+   DARK MODE EXPLICIT STYLES
+   ============================================= */
+
+[data-theme='dark'] body {
+  background-color: #111111;
+  color: #ffffff;
+}
+
+[data-theme='dark'] main {
+  background-color: #111111;
+}
+
+[data-theme='dark'] .main-wrapper {
+  background-color: #111111;
+}
+
+/* Dark Mode - Headings and text */
+[data-theme='dark'] h1,
+[data-theme='dark'] h2,
+[data-theme='dark'] h3,
+[data-theme='dark'] h4,
+[data-theme='dark'] h5,
+[data-theme='dark'] h6 {
+  color: #ffffff;
+}
+
+[data-theme='dark'] p,
+[data-theme='dark'] li,
+[data-theme='dark'] td,
+[data-theme='dark'] th {
+  color: #b0b0b0;
+}
+
+/* Dark Mode - Links */
+[data-theme='dark'] a {
+  color: #3B82F6;
+}
+
+[data-theme='dark'] a:hover {
+  color: #60A5FA;
+}
+
+/* Dark Mode - Sidebar */
+[data-theme='dark'] .theme-doc-sidebar-container {
+  background-color: #1a1a1a;
+  border-right: 1px solid #2A2A2A;
+}
+
+[data-theme='dark'] .menu__link {
+  color: #b0b0b0;
+}
+
+[data-theme='dark'] .menu__link:hover {
+  color: #3B82F6;
+}
+
+[data-theme='dark'] .menu__link--active {
+  color: #3B82F6;
+}
+
+/* Dark Mode - Code blocks */
+[data-theme='dark'] pre {
+  background-color: #1C1C1E !important;
+  border: 1px solid #2A2A2A;
+}
+
+[data-theme='dark'] code {
+  background-color: #252525;
+  color: #e2e8f0;
+}
+
+/* Dark Mode - Tables */
+[data-theme='dark'] table {
+  border-color: #2A2A2A;
+}
+
+[data-theme='dark'] th {
+  background-color: #1C1C1E;
+  color: #ffffff;
+}
+
+[data-theme='dark'] tr:nth-child(even) {
+  background-color: #1C1C1E;
+}
+
+/* Dark Mode - Blockquotes */
+[data-theme='dark'] blockquote {
+  border-left-color: #3B82F6;
+  background-color: rgba(59, 130, 246, 0.1);
+  color: #b0b0b0;
+}
+
+/* Dark Mode - TOC */
+[data-theme='dark'] .table-of-contents__link {
+  color: #b0b0b0;
+}
+
+[data-theme='dark'] .table-of-contents__link--active {
+  color: #3B82F6;
+}
+
+/* Dark Mode - Breadcrumbs */
+[data-theme='dark'] .breadcrumbs__link {
+  color: #b0b0b0;
+}
+
+/* Dark Mode - Pagination */
+[data-theme='dark'] .pagination-nav__link {
+  background-color: #1C1C1E;
+  border-color: #2A2A2A;
+}
+
+[data-theme='dark'] .pagination-nav__label {
+  color: #ffffff;
+}
+
+[data-theme='dark'] .pagination-nav__sublabel {
+  color: #b0b0b0;
+}
+
+/* Dark Mode - Search */
+[data-theme='dark'] .navbar__search-input {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+/* =============================================
+   RESPONSIVE STYLES FOR BOTH THEMES
+   ============================================= */
+
+@media (max-width: 996px) {
+  .navbar__items--right {
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer__links {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .footer__col {
+    text-align: center;
+  }
+}
+
+/* =============================================
+   DOCS - CENTER ALL IMAGES
+   ============================================= */
+
+.markdown img {
+  display: block;
+  margin: 1.5rem auto;
+  max-width: 350px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.markdown p > img {
+  display: block;
+  margin: 1.5rem auto;
+  max-width: 350px;
+}
+
+/* Center image captions (italic text after images) */
+.markdown p > em:only-child {
+  display: block;
+  text-align: center;
+  color: var(--ifm-color-emphasis-600);
+  font-size: 0.9rem;
+  margin-top: -1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Tables with images */
+.markdown table img {
+  margin: 0 auto;
+  max-width: 250px;
+}
+
+/* Wide images (navigation bars, diagrams) */
+.markdown img[alt*="navigation"],
+.markdown img[alt*="bar"],
+.markdown img[alt*="diagram"],
+.markdown img[alt*="overview"] {
+  max-width: 500px;
+}
+
+/* Small icons */
+.markdown img[alt*="icon"] {
+  max-width: 80px;
+}
+
+.markdown table {
+  display: table;
+  width: 100%;
+}
+
+.markdown table td,
+.markdown table th {
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* =============================================
+   DOCS - STYLED ORDERED LISTS (Convey Style)
+   ============================================= */
+
+.markdown ol {
+  list-style: none;
+  counter-reset: styled-counter;
+  padding-left: 0;
+  margin: 1.5rem 0;
+}
+
+.markdown ol > li {
+  counter-increment: styled-counter;
+  position: relative;
+  padding-left: 3.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+/* Content wrapper for hover effect */
+.markdown ol > li > *:not(ol):not(ul) {
+  position: relative;
+  z-index: 2;
+}
+
+/* Hover background that doesn't cover circles/lines */
+.markdown ol > li > p,
+.markdown ol > li > strong {
+  padding: 0.5rem 0.75rem;
+  margin-left: -0.75rem;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.markdown ol > li:hover > p,
+.markdown ol > li:hover > strong {
+  background-color: rgba(59, 130, 246, 0.05);
+}
+
+/* Connecting line between items */
+.markdown ol > li::after {
+  content: '';
+  position: absolute;
+  left: 15px;
+  top: 32px;
+  width: 1px;
+  height: calc(100% - 16px);
+  background-color: #3B82F6;
+  opacity: 0.4;
+  transition: all 0.3s ease;
+}
+
+/* Hover effect on line - neon glow */
+.markdown ol > li:hover::after {
+  opacity: 1;
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.5);
+}
+
+/* Remove line from last item */
+.markdown ol > li:last-child::after {
+  display: none;
+}
+
+.markdown ol > li:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+/* Number circle */
+.markdown ol > li::before {
+  content: counter(styled-counter);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 32px;
+  height: 32px;
+  background-color: #3B82F6;
+  color: #0a1527;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+/* Hover effect on number circle - neon glow */
+.markdown ol > li:hover::before {
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.6), 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+/* Bold title styling (first strong element in list item) */
+.markdown ol > li > strong:first-child,
+.markdown ol > li > p:first-child > strong:first-child {
+  display: block;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: var(--ifm-heading-color);
+}
+
+/* Content inside list items */
+.markdown ol > li > p {
+  margin-bottom: 0.75rem;
+}
+
+/* Nested ordered lists */
+.markdown ol ol {
+  counter-reset: nested-counter;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding-left: 0;
+}
+
+.markdown ol ol > li {
+  counter-increment: nested-counter;
+  padding-left: 2.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+}
+
+.markdown ol ol > li::before {
+  content: counter(nested-counter, lower-alpha);
+  width: 24px;
+  height: 24px;
+  font-size: 0.8rem;
+  background-color: #2563EB;
+  left: 4px;
+}
+
+.markdown ol ol > li::after {
+  left: 15px;
+  top: 24px;
+  height: calc(100% - 12px);
+  background-color: #2563EB;
+}
+
+/* Third level nested lists */
+.markdown ol ol ol {
+  counter-reset: deep-counter;
+}
+
+.markdown ol ol ol > li {
+  counter-increment: deep-counter;
+  padding-left: 2rem;
+}
+
+.markdown ol ol ol > li::before {
+  content: counter(deep-counter, lower-roman);
+  width: 22px;
+  height: 22px;
+  font-size: 0.75rem;
+  background-color: #1D4ED8;
+}
+
+.markdown ol ol ol > li::after {
+  background-color: #1D4ED8;
+}
+
+/* Unordered lists inside ordered lists */
+.markdown ol ul {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+  padding-left: 1.5rem;
+}
+
+.markdown ol ul > li {
+  padding-left: 0;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0;
+}
+
+.markdown ol ul > li::before {
+  display: none;
+}
+
+.markdown ol ul > li::after {
+  display: none;
+}
+
+.markdown ol ul > li::marker {
+  color: #3B82F6;
+}
+
+/* Light mode adjustments */
+[data-theme='light'] .markdown ol > li::before {
+  background-color: #2563EB;
+  color: #ffffff;
+}
+
+[data-theme='light'] .markdown ol > li:hover::before {
+  box-shadow: 0 0 12px rgba(37, 99, 235, 0.5), 0 0 20px rgba(37, 99, 235, 0.25);
+}
+
+[data-theme='light'] .markdown ol > li::after {
+  background-color: #2563EB;
+}
+
+[data-theme='light'] .markdown ol > li:hover::after {
+  box-shadow: 0 0 8px rgba(37, 99, 235, 0.4);
+}
+
+[data-theme='light'] .markdown ol > li:hover > p,
+[data-theme='light'] .markdown ol > li:hover > strong {
+  background-color: rgba(37, 99, 235, 0.06);
+}
+
+[data-theme='light'] .markdown ol > li:hover::before {
+  box-shadow: 0 0 10px rgba(37, 99, 235, 0.4);
+}
+
+[data-theme='light'] .markdown ol ol > li::before {
+  background-color: #60A5FA;
+}
+
+[data-theme='light'] .markdown ol ol > li::after {
+  background-color: #60A5FA;
+}
+
+[data-theme='light'] .markdown ol ol ol > li::before {
+  background-color: #60A5FA;
+}
+
+[data-theme='light'] .markdown ol ol ol > li::after {
+  background-color: #60A5FA;
+}
+
+[data-theme='light'] .markdown ol ul > li::marker {
+  color: #2563EB;
+}
+
+/* =============================================
+   IMAGE LIGHTBOX / ZOOM
+   ============================================= */
+
+/* Make doc images clickable */
+.markdown img {
+  cursor: zoom-in;
+}
+
+/* Lightbox overlay */
+#image-lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+#image-lightbox.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Lightbox content */
+.lightbox-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+
+#image-lightbox.active .lightbox-content {
+  transform: scale(1);
+}
+
+.lightbox-content img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 0 40px rgba(59, 130, 246, 0.3);
+  cursor: zoom-out;
+}
+
+/* Close button */
+.lightbox-close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  width: 36px;
+  height: 36px;
+  background-color: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  line-height: 1;
+}
+
+.lightbox-close:hover {
+  background-color: #3B82F6;
+  border-color: #3B82F6;
+  color: #0a1527;
+}
+
+/* Light mode lightbox */
+[data-theme='light'] .lightbox-content img {
+  box-shadow: 0 0 40px rgba(37, 99, 235, 0.3);
+}
+
+[data-theme='light'] .lightbox-close:hover {
+  background-color: #2563EB;
+  border-color: #2563EB;
+}
+
+/* =============================================
+   OPENAPI DOCS STYLING - Match documentation pattern
+   ============================================= */
+
+/* Remove OpenAPI specific badges styling inconsistencies */
+.openapi__heading {
+  margin-bottom: 1rem;
+}
+
+/* Style API method badges */
+.api-method {
+  position: relative;
+}
+
+.api-method.post .menu__link::before {
+  content: 'POST';
+  background-color: #49cc90;
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 3px;
+  margin-right: 8px;
+}
+
+.api-method.get .menu__link::before {
+  content: 'GET';
+  background-color: #61affe;
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 3px;
+  margin-right: 8px;
+}
+
+.api-method.put .menu__link::before {
+  content: 'PUT';
+  background-color: #fca130;
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 3px;
+  margin-right: 8px;
+}
+
+.api-method.delete .menu__link::before {
+  content: 'DEL';
+  background-color: #f93e3e;
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 3px;
+  margin-right: 8px;
+}
+
+/* OpenAPI version badge */
+.theme-doc-version-badge {
+  margin-bottom: 1rem;
+}
+
+/* Make OpenAPI content follow the same styling */
+.openapi-tabs__schema-container,
+.openapi-tabs__request-container {
+  margin: 1rem 0;
+}
+
+/* =============================================
+   SIMPLE FOOTER STYLES
+   ============================================= */
+
+.footer-simple {
+  background: #060e1a;
+  padding: 1.5rem 0;
+  font-family: var(--ifm-font-family-base);
+}
+
+.footer-simple__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.footer-simple__contact {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  color: #9ca3af;
+  font-size: 0.85rem;
+}
+
+.footer-simple__contact a {
+  color: #9ca3af;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-simple__contact a:hover {
+  color: #3B82F6;
+}
+
+.footer-simple__sep {
+  color: #4b5563;
+  margin: 0 0.25rem;
+}
+
+.footer-simple__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 0.5rem;
+}
+
+.footer-simple__copyright {
+  color: #6b7280;
+  font-size: 0.8rem;
+}
+
+.footer-simple__social {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.footer-simple__social a {
+  color: #6b7280;
+  font-size: 1rem;
+  transition: color 0.2s ease;
+}
+
+.footer-simple__social a:hover {
+  color: #3B82F6;
+}
+
+/* Light Theme */
+[data-theme='light'] .footer-simple {
+  background: #0D1B35;
+}
+
+[data-theme='light'] .footer-simple__contact a:hover,
+[data-theme='light'] .footer-simple__social a:hover {
+  color: #60A5FA;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .footer-simple__contact {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .footer-simple__sep {
+    display: none;
+  }
+
+  .footer-simple__bottom {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+/* =============================================
+   OPENAPI PARAMETERS STYLING (Redocly-like)
+   ============================================= */
+
+/* OpenAPI CSS Variables */
+:root {
+  --openapi-tree-line-color: #e2e8f0;
+  --openapi-required: #e53e3e;
+  --openapi-nullable: #718096;
+  --openapi-deprecated: #f6ad55;
+}
+
+[data-theme='dark'] {
+  --openapi-tree-line-color: #3a3a3a;
+  --openapi-required: #fc8181;
+  --openapi-nullable: #a0aec0;
+  --openapi-deprecated: #fbd38d;
+}
+
+/* Parameters list container */
+.openapi-params__list-item {
+  margin: 0 0 0 1rem !important;
+  position: relative;
+  padding: 12px 0 12px 1.25rem !important;
+  border-left: 1px solid var(--openapi-tree-line-color) !important;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+[data-theme='dark'] .openapi-params__list-item {
+  border-bottom-color: #2a2a2a;
+}
+
+/* Remove border from last item */
+.openapi-params__list-item:last-child {
+  border-bottom: none;
+}
+
+/* Horizontal connector line */
+.openapi-params__list-item::before {
+  position: absolute;
+  top: 18px;
+  left: 0;
+  width: 1rem;
+  height: 1px;
+  border-bottom: 1px solid var(--openapi-tree-line-color);
+  content: "";
+  display: inline-block;
+}
+
+/* Schema list items */
+.openapi-schema__list-item {
+  list-style: none;
+  position: relative;
+  margin: 0 !important;
+  padding: 12px 0 12px 1.25rem !important;
+  border-left: 1px solid var(--openapi-tree-line-color) !important;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+[data-theme='dark'] .openapi-schema__list-item {
+  border-bottom-color: #2a2a2a;
+}
+
+.openapi-schema__list-item:last-child {
+  border-bottom: none;
+}
+
+/* Horizontal connector line for schema */
+.openapi-schema__list-item::before {
+  position: absolute;
+  top: 18px;
+  left: 0;
+  width: 1rem;
+  height: 1px;
+  border-bottom: 1px solid var(--openapi-tree-line-color);
+  content: "";
+  display: inline-block;
+}
+
+/* Property name styling */
+.openapi-schema__property {
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--ifm-heading-color);
+  transition: color 0.2s ease;
+}
+
+[data-theme='dark'] .openapi-schema__property {
+  color: #ffffff;
+}
+
+/* Type styling */
+.openapi-schema__type,
+.openapi-schema__name {
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+  font-size: 0.8rem;
+  opacity: 0.7;
+  padding-left: 0.5rem;
+  color: var(--ifm-color-emphasis-600);
+}
+
+[data-theme='dark'] .openapi-schema__type,
+[data-theme='dark'] .openapi-schema__name {
+  color: #888888;
+}
+
+/* Required badge */
+.openapi-schema__required {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--openapi-required) !important;
+  margin-left: 0.75rem;
+  background-color: transparent;
+  letter-spacing: 0.5px;
+}
+
+/* Nullable badge */
+.openapi-schema__nullable {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--openapi-nullable) !important;
+  margin-left: 0.75rem;
+  background-color: transparent;
+  letter-spacing: 0.5px;
+}
+
+/* Deprecated badge */
+.openapi-schema__deprecated {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--openapi-deprecated) !important;
+  margin-left: 0.75rem;
+  background-color: transparent;
+  letter-spacing: 0.5px;
+}
+
+/* Container for property info */
+.openapi-schema__container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Divider line */
+.openapi-schema__divider {
+  flex-grow: 1;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+  margin: 0 1rem;
+  min-width: 2rem;
+}
+
+[data-theme='dark'] .openapi-schema__divider {
+  border-bottom-color: #2a2a2a;
+}
+
+/* Description text */
+.openapi-markdown__details p,
+.openapi-schema__list-item > div:last-child,
+.openapi-params__list-item > div:last-child {
+  font-size: 0.875rem;
+  color: var(--ifm-color-emphasis-700);
+  line-height: 1.6;
+  margin-top: 0.25rem;
+}
+
+[data-theme='dark'] .openapi-markdown__details p,
+[data-theme='dark'] .openapi-schema__list-item > div:last-child,
+[data-theme='dark'] .openapi-params__list-item > div:last-child {
+  color: #b0b0b0;
+}
+
+/* Section headers */
+.openapi-tabs__heading {
+  font-size: 0.7rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--ifm-color-emphasis-500) !important;
+  margin-bottom: 1rem;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+[data-theme='dark'] .openapi-tabs__heading {
+  color: #666666 !important;
+}
+
+/* Collapsible details styling */
+details.openapi-markdown__details {
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 8px;
+  margin: 1rem 0;
+  overflow: hidden;
+  background-color: var(--ifm-background-color);
+}
+
+[data-theme='dark'] details.openapi-markdown__details {
+  border-color: #2a2a2a;
+  background-color: #1a1a1a;
+}
+
+details.openapi-markdown__details > summary {
+  padding: 0.875rem 1rem;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.9rem;
+  background-color: var(--ifm-color-emphasis-100);
+  transition: background-color 0.2s ease;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+details.openapi-markdown__details > summary::-webkit-details-marker {
+  display: none;
+}
+
+[data-theme='dark'] details.openapi-markdown__details > summary {
+  background-color: #1f1f1f;
+}
+
+details.openapi-markdown__details > summary:hover {
+  background-color: var(--ifm-color-emphasis-200);
+}
+
+[data-theme='dark'] details.openapi-markdown__details > summary:hover {
+  background-color: #282828;
+}
+
+details.openapi-markdown__details[open] > summary {
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+[data-theme='dark'] details.openapi-markdown__details[open] > summary {
+  border-bottom-color: #2a2a2a;
+}
+
+details.openapi-markdown__details > div {
+  padding: 1rem;
+}
+
+/* Hover effects on parameters */
+.openapi-params__list-item:hover .openapi-schema__property,
+.openapi-schema__list-item:hover .openapi-schema__property {
+  color: var(--ifm-color-primary);
+}
+
+/* Clean list styling */
+.openapi-params__list,
+.openapi-schema__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Code blocks in descriptions */
+.openapi-markdown__details code,
+.openapi-params__list-item code,
+.openapi-schema__list-item code {
+  font-size: 0.8rem;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  background-color: var(--ifm-color-emphasis-200);
+}
+
+[data-theme='dark'] .openapi-markdown__details code,
+[data-theme='dark'] .openapi-params__list-item code,
+[data-theme='dark'] .openapi-schema__list-item code {
+  background-color: #2a2a2a;
+}
+
+/* Pre blocks inside parameters (description boxes) */
+.openapi-params__list-item pre,
+.openapi-schema__list-item pre,
+.openapi-markdown__details pre {
+  background-color: #1e1e1e !important;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin: 0.75rem 0 0.5rem 0;
+  font-size: 0.85rem;
+  line-height: 1.7;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+  color: #e2e8f0;
+  border: 1px solid #2a2a2a;
+}
+
+[data-theme='light'] .openapi-params__list-item pre,
+[data-theme='light'] .openapi-schema__list-item pre,
+[data-theme='light'] .openapi-markdown__details pre {
+  background-color: #f8f9fa !important;
+  color: #1a202c;
+  border: 1px solid #e2e8f0;
+}
+
+/* Code inside pre blocks */
+.openapi-params__list-item pre code,
+.openapi-schema__list-item pre code,
+.openapi-markdown__details pre code {
+  background-color: transparent !important;
+  padding: 0;
+  font-size: inherit;
+  color: inherit;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Markdown formatting inside parameter descriptions */
+.openapi-params__list-item .openapi-markdown__details,
+.openapi-schema__list-item .openapi-markdown__details {
+  margin-top: 0.5rem;
+}
+
+/* Lists inside descriptions */
+.openapi-params__list-item ul,
+.openapi-params__list-item ol,
+.openapi-schema__list-item ul,
+.openapi-schema__list-item ol {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.openapi-params__list-item li,
+.openapi-schema__list-item li {
+  margin-bottom: 0.25rem;
+  line-height: 1.5;
+}
+
+/* Inline text formatting in descriptions */
+.openapi-params__list-item strong,
+.openapi-schema__list-item strong {
+  font-weight: 600;
+  color: var(--ifm-heading-color);
+}
+
+[data-theme='dark'] .openapi-params__list-item strong,
+[data-theme='dark'] .openapi-schema__list-item strong {
+  color: #ffffff;
+}
+
+/* Description paragraphs */
+.openapi-params__list-item p,
+.openapi-schema__list-item p {
+  margin: 0.25rem 0;
+  line-height: 1.6;
+}

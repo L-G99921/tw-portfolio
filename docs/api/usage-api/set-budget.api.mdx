@@ -1,0 +1,72 @@
+---
+id: set-budget
+title: "Sets customer budget based on object data"
+description: "Sets customer budget based on the provided goal type."
+sidebar_label: "Sets customer budget based on object data"
+hide_title: true
+hide_table_of_contents: true
+api: eJytVcFy4zYM/RUOTrszrO3s7Em3ZHfbSQ9tJk6mh4wPsIhI3JVILQkmcTX69w4oyXbstJ1p92SLBIEH4OGhB0OxDLZj6x0UsCaOqkyRfUtBbZOpiNUWIxnlneKaVBf8kzVkVOWxUbzraAEafEcBxce1gQIi8VV+ChoYqwjFA3yanMJGQ6QyBcs7KB562BIGCpeJaygeNsNGQ4cBW2IKMRs4bAkKmFFdG9BgBWyHXIOGQN+TDWSg4JBIn2T0xVGodr8Ea9QMQV1/Bg2xrKlFKHqQJKAA65gqCjAM+izo2jL9gMDi5l+jb0bPFPnKm52YnAYqvWNyLFfYdY0tc+mXX6ME7s99++1XKvkV4geQ/t3JvVQ8SAPZUpRX+5uDh8jBugpOcxy7fKBCoSKjMxiMVlR6rXyY2AQayKVWAs8mclR60FORBQe9YNs1h8LDMN9etj6NGU+IXGq3FM4QjaVWrXdcNztlfNNgUJhfq3dz/uq5JqfmPJWdOf8ejjB8WK2GQQNbzojWM6lvx+bAMMh1oNh5F8fKfVit5OdkplJZUowLNVUrdQaZzEKS+/jWgys0amLAZHRxbnTvMHHtg/1z7+rjudVvntWjT05MBg0tce1lQjsfhQ+ZyAUsZ4Iu+8OUDYePkf3DcjsPdaTwNI9nCg0UUDN3sVgusbMLysyvgjWL0rfLFLGi5dPFWa9ugjeplA81OoThSBzWwuKxrMcSsSeARJwHSb5HI9DTn599aJGhgF//uDuLfDSbUkVyPM2QYv+NnPJbRuvIqMfgW3UoT+Mr63IlZdZuD1P6ZSbN8fTAnvqvOSzEEiV59DmdiV9HmO6lYury5voM+F1N6i3DWZajwkw2xV6NbVAtOqyoJcfKIKN69EElto3l3V7p40Ld1TZmT9g0/jkqemEKDht1pDDZ7VHBSKVIIWoViIOlJ5pj5pbncHqKP+2SqBU6M4O0Ltqq5qhw6xPPj0vvYmpzxqpDFhhRdowwbqzCxWK1WMGog1hmVZj0+qg269R1PnDultC9RXdk+M+LbhTMnMBpC/qD+v7nbTkxmOmFl12DQik9zlE/jeTRvtRQvFp9xdlOmsZyo6GWsS4eoO8FxX1ohkGOvycKsmw3Gp4wWNwK4R56MDbKfwPFIzbxdIMdZ/rudlLO9+pvF+qbWU2H6HbSQWySfIGGb7R7vdNl6f4wPIc9+z9ATfUdNoOGmtBQyEUbjT6NUH7Kk35wcraORdH2qnvz+1q0aDut9dYbeRPwWVYzPo8gfE43614+66FBVyWsxHb0KZTG12p4on4Z6Ztp9v1ocSdCNwz7rLPwSbLD8Bdz+INa
+sidebar_class_name: "post api-method"
+info_path: docs/api/usage-api/energygrid-usage-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Sets customer budget based on object data"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/Customer/{customerId}/{customerSiteId}/budget"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Sets customer budget based on the provided goal type.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"customerId","in":"path","required":true,"description":"EnergyGrid Customer ID","schema":{"type":"integer"}},{"name":"customerSiteId","in":"path","required":true,"description":"EnergyGrid Customer Site ID","schema":{"type":"integer"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"required":true,"content":{"application/json":{"schema":{"type":"object","required":["goalType"],"properties":{"goalType":{"type":"string","description":"Budget goal type: standard, eco, or custom","enum":["standard","eco","custom"],"example":"custom"},"customAmount":{"type":"number","description":"Custom monthly dollar amount (required when goalType is custom)","example":200}},"title":"SetBudgetRequest"}}}}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Success. Budget updated."},"400":{"description":"Bad request."},"401":{"description":"Unauthorized."},"404":{"description":"Not found."}}}
+>
+  
+</StatusCodes>
+
+
+      

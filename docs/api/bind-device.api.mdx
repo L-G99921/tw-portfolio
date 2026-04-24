@@ -1,0 +1,72 @@
+---
+id: bind-device
+title: "Hardware Binding"
+description: "Links an DataBridge or SmartLink device to the AMI Meter via Zigbee."
+sidebar_label: "Hardware Binding"
+hide_title: true
+hide_table_of_contents: true
+api: eJytVdtu4zYQ/RVinrW+pNubgH2wkzR10WCNTYwCaxjBSBzL3EiklqTsqIL+vRhKiWU7QFGgT5Y595lzZhqQ5FKrSq+Mhhj+VPrZCdTiBj3OrZIZCWPFQ4HWs0xI2quUhDfC70jM7hfinjxZsVcovqosIRpBBKYki+xyISGGRGl5E+wgAo+Zg3gNv6OVB7QEmwgcpZVVvoZ43UBCaMnOKr+DeL1pNxFY+l6R83Mja4ib8FdZkhB7W1EEqdGetGcRlmWu0hB5/M1xRQ24dEcF8pevS4IYTPKNUg/RwNEadlQsrdmqnBYSIigwnUlpyTmIQGnnMc+vjeQCCq43KGHKgcLzJoLSctVekeNYJ/6OsZ23SmcQnbX9unLeFGTF3WpxAxHQCxZlTgPJXaUktCeJ/avXwQzvZ9cC3wo6ur+dP93Prp9eXbanxf6XCL2dSLsunYRYdLKn4LQ9tvAd/0e76dUPH3/86edffmWLQauPRkp7ysheZDUVn8RcaRmJifgkVprxx651VUC8nkTTzSDOtG0j8MqHmGz1pUMbtC1LLLnSaNcN9Woy4Z/TaGwjeogKVyWF8p6kcFWaknPbKs9rruDje7YLvcdcHc1LrHODstOfXuqvNFZ+Z6z6myS0XSd3hjlWGseQLpFpA+PSHMgm5mXc1+7I7sm6QLDK5hDDzvvSxeMxlmpEmmxWZ1bJUWqK8X560dKlNbIKMxCdK2gHvH1ginUtGrL3bVAci5MIarwQghJE/cdvxhboIYY//nq8iPyZfYmr0UTMg7Lw5pm02FpThBW08ipXvhaLm2XoCNP+y3Fh3L7O+ZySp8w6JdY5Lc5YcQHpAaIHsD1F7TRwa2tCW3q4LXlKc/MiZsvFReGz5UJsjRUB5bxNdSaqvtgE02fSUrjaeSqcOCi/C924DZO8s0qKZY5+a2wBEfDoe2qMJqMJdDsT07AzNYaZDCwfqrI01od2Mq4K1APF18UdKPbOUmiOC/n/Oic9jDy9+HGZo9JMkADjpkf8Gl4Rz6hizG8i2DEn4jU0TYKOVjZvW37+XpHlU7OJYI9WYcKzWG/aCHaEkmwgyTPVjJGukg+PnACr5xUncnFmmAxvVFx+fmAYJ/25KjrMWDzwycEDxBAuJFsHyoS3BnLUWYUZ63Y+uf14SqQz4oRMexHqepBh03Qaj0yWtoWoLyiQB9pN27b/AOYyuQI=
+sidebar_class_name: "post api-method"
+info_path: docs/api/powerbox-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Hardware Binding"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/powerbox/bind"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Links an DataBridge or SmartLink device to the AMI Meter via Zigbee.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"required":true,"content":{"application/json":{"schema":{"type":"object","required":["hemProfileId","macAddress","installCode","meterId","actionCode"],"properties":{"hemProfileId":{"type":"string","description":"Customer GUID","example":"CustomerGuid"},"macAddress":{"type":"string","description":"DataBridge MAC address","example":"EB_MAC_Address"},"installCode":{"type":"string","description":"DataBridge install code","example":"EB_Install_Code"},"meterId":{"type":"string","example":"123456789"},"actionCode":{"type":"integer","description":"1 = Bind, 0 = Unbind","enum":[0,1],"example":1}},"title":"BindRequest"}}}}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Bind request submitted successfully"},"400":{"description":"Invalid request payload"},"401":{"description":"Unauthorized"}}}
+>
+  
+</StatusCodes>
+
+
+      

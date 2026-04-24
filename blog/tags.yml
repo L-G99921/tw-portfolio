@@ -1,0 +1,19 @@
+smartlink:
+  label: SmartLink
+  permalink: /smartlink
+  description: Updates related to the SmartLink device and setup
+
+api:
+  label: API
+  permalink: /api
+  description: Updates related to API documentation and endpoints
+
+documentation:
+  label: Documentation
+  permalink: /documentation
+  description: General documentation updates and improvements
+
+release:
+  label: Release
+  permalink: /release
+  description: New releases and version updates

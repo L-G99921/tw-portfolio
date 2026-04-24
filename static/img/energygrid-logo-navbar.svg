@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 44" fill="none">
+  <!-- Icon: lightning bolt in rounded square -->
+  <rect x="0" y="0" width="40" height="40" rx="10" fill="#3B82F6"/>
+  <polygon points="23,5 13,23 20,23 15,38 27,20 20,20" fill="white"/>
+
+  <!-- Text: EnergyGrid -->
+  <text x="52" y="29"
+    font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    font-size="22"
+    font-weight="700"
+    letter-spacing="-0.5"
+    fill="#FFFFFF">EnergyGrid</text>
+</svg>

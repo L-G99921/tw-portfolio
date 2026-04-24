@@ -1,0 +1,72 @@
+---
+id: customer-login
+title: "Login"
+description: "Authenticates a customer using a utility identity system token and returns a EnergyGrid authentication token."
+sidebar_label: "Login"
+hide_title: true
+hide_table_of_contents: true
+api: eJy9Vk1v20YQ/SuLubQFWMoufOLNTp1AbmIbloQiMARjSI7JTchdZndWNiPovxezpCzJTuI2h+oiajVf+96bGa6hJF843bG2BjI4DVyTYV0gk1eoiuDZtuRU8NpUClVg3WjulS7FjHvle8/UKrafySg0pXLEwRlxPjfkqv6d06XCXVxtzWCdQgK2IxePpiVksM323lbaQAKMlYfsFt6M57BMwNGXQJ7PbNlDto4/taMSMnaBEiisYTIsf2HXNWPCyScv11uDL2pqUZ647wgysPknKhiSvUC3EMuTZJ2TAlmTjy7xeOfr2WlTQfIMw3mE4t7Z9ntoQQL0iG3XSJT51V/nl3dvb64+3C3m0/fT+ce76Z/nl3N5mH2czc8/wGaTAGuO5hGbmwEE2GzkL0e+s8YPRf5xdCRfhyXNQlGQ96m6Gcnhml6jRw3QCEs/DepP4fdaXffWKR9yLxgYVqfXU1Vg0/gDVKm/qPN3hb7SF9PF1+nxpZ76NE1hkwzl0ut1nB4mH9zUr9g8YO/VGaEj99tB0uHsW3QNBI18nXyLojOU1om0pmpe0+6yLbLSXmmzwkaX8QonR8cvIyyMwGWd/krlfojChqY0v7DKScUQyLQNc/IyzKVldW+DGWM8TYDSkpco9Kg9K22ihkpkVJ6tozReuyWurbRyZ30UAHINGUy2HTxpxtb25FbkpLvXEFwDGdTMnc8mE+x0SlECldNlWth2EjxWNFkdv6Do2tkyFAM9MSBslhK7CE5zP4uMRenlkRlhdI93yQg7PYxGkIwPbyP0kMHF3/P/LFKbM2pD5TAHnt9foJLuudkNs/Otip765F9NhgS0ubfRa1TcXmULwU0a5OWMOuz/J0PVObvSpcz+ODEUWzWQoVo0WFErLRdZlzbczretSLxoRvsYCZvGPnhFj0zOYKP2JkcMuwcbqeDJ+UR2h9O0om3OSHxMl4z5VR7KitgncdeMRWrjdVWzV5jbwFvnwhof2nhj1SFLGV6mmehuQOE4PUqPxvmGRZxvBttnIM5C11nHkTNRdYtmz3C7qg7gXe8m5v++UUdtMz3ypGtQxJYMHbYeu3FvnyYw6HGZQC0Nm93Cep2jp4VrNhs5/hLI9ZDdLhNYodOYi8Zul5sEasKSXGzgz9RDBm+GO/8+lwrEvAlSyYuNsUm2HqdFQR3/0Ha5N1Our2bSiPm4+ltbio/DB1nf+AAZxDeKqLD4biBna2jQVAErsR1iyucfsJ4n3A==
+sidebar_class_name: "post api-method"
+info_path: docs/api/usage-api/energygrid-usage-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Login"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"post"}
+  path={"/Customer/login"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Authenticates a customer using a utility identity system token and returns a EnergyGrid authentication token.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"required":true,"content":{"application/json":{"schema":{"type":"object","required":["token"],"properties":{"token":{"type":"string","description":"Token from utility identity system","example":"TOKEN_FROM_UTILITY_IDENTITY_SYSTEM"}},"title":"LoginRequest"}}}}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Success. Returns the EnergyGrid authentication token object.","content":{"application/json":{"schema":{"type":"object","properties":{"token":{"type":"string","description":"EnergyGrid authentication token for subsequent API calls","example":"eyJhbGciOiJIUzI1NiIs..."},"scheme":{"type":"string","description":"Authentication scheme (always Bearer)","example":"Bearer"}},"title":"LoginResponse"}}}},"400":{"description":"Bad request. The token format is invalid."},"401":{"description":"Unauthorized. The token couldn't be validated."},"404":{"description":"Not found. The customer doesn't exist in the data store."}}}
+>
+  
+</StatusCodes>
+
+
+      

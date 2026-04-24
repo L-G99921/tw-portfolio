@@ -1,0 +1,50 @@
+# Node modules
+node_modules
+npm-debug.log
+
+# Build output
+build
+.docusaurus
+.cache-loader
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# CI/CD
+bitbucket-pipelines.yml
+.github
+
+# Documentation
+README.md
+CLAUDE.md
+*.md
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs
+*.log
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Testing
+coverage
+.nyc_output
+
+# Temporary files
+*.tmp
+*.temp

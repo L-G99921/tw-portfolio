@@ -1,0 +1,72 @@
+---
+id: get-message-carousel
+title: "Returns message carousel items for given customer and site."
+description: "Gets personalized messages and tips for the customer."
+sidebar_label: "Returns message carousel items for given customer and site."
+hide_title: true
+hide_table_of_contents: true
+api: eJytVm1v2zYQ/ivEAQM2gLGdzM0QfcvSLvCADUXiYB8Cf6DFs8RUIlXe0Ysr6L8PpOREsdMUWAsYMCkcn3t4L8+xBY2Ue9OwcRYyuEYm0aAnZ1VlvqAWNRKpAkkoqwWbhsTGecElijwQuxr9BCS4Br2KGAsNGRTIf/XHrpR3gbACCawKguweFpZMUTLBSgJhHrzhHWT3LaxRefSXgUvI7lfdSkKjvKqR0VMysKpGyGDvd6FBgomsG8UlSPD4ORiPGjL2AeXB1T5Y9MXu2hstrgYEsXgPEigvsVaQtcC7JjowlrFAD10nj5zeGsYf4DjCfNP7KiJT4ywhRYOz2Sz+vUS/DXmORBNxgxy8pX3CRD6EXhjGmmKScmcZLUcM1TSVyVPGpg8UgdpjJm79gDmDhMbH/LLpaYzif8xaAj6quqkQsvOLi/nFr508jN2bh367uDifzzsJifXIVnmvdnD8/SskzTf8nHYS2HBcPpkRe2OLsdWQO3GrtsYWYmka6CQQK8/vFb96duN8rRgy0IrxhE2NLwDPZmfzk9m7k9npcjbL0i9CotXfBXh+CLh2erfER377elfOktHohdIPgTjecedCam9fO2LFYr0TZ0Jj4RFJsBOktihCE5fvfhLOity5Kh7MHTFNYtPsAwsHIrBgrKF7w+BmqPZo1EmYv1bvvystYr8h8QSS0emx0Z1VgUvno4INVvNjq78di40LVvesa+TSDfIV6yn2dgbTvV5N2+fC7543fVF306Ht8mfBI/TbvXQFX0EGJXND2XSqGjPBVFmFN3qSu3oa4uHp9hQO1eOjdzrkcSN6QOhGwnkbe7av+LF8PuU8etyLTNz3RiCHxR/72vrzn+WR55FuxWii5UExBLtPaIVbszIWtdh4V4vpXtumlSuMTRE1duMSmSHdI8S7pFGXHxdHbpclitcMRePd1ug4iZLixQrsgyhqZVWBNVoWWrFKEyqwqQzvnqYUTcSyNJSQVFW5f0ngI6O3qhIjNUywo+uiCISepPDI3uAW9z5TwpI7OfgX66ALZJJpVA4kzVA9Qq1d4P3h3FkKdbqxaBRHGkmhY730UTidzCazQbNVntp4mESj2NyGpnGeU6wbR1wrOzJ8eyCkIBVmi/YpRIk3GcbJYVLa59nxv58IQ0UyPvK0qVQsEdn3RTv02uhtICF7Meazo/l72G8rCaUjjihtu1aEd77quvj5c0AfXxgrCVvljVrHWrxvQRuKaw3ZRlV0OLbHV/75Zhjwv4ivviJevd5+dtk4ubaqCnEHEj7h7uVDJr40fhif58fFd5AaAt2tOgklKo0+Ba03usxzbHh0/Og9EUXqSVCvP0R1US+l6UCKEvqr1Nq2t1hG1em6J6ZJhSLBrvsPxMO60w==
+sidebar_class_name: "get api-method"
+info_path: docs/api/usage-api/energygrid-usage-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Returns message carousel items for given customer and site."}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/Insights/{customerId}/{customerSiteId}/messagecarousel"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Gets personalized messages and tips for the customer.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"customerId","in":"path","required":true,"description":"EnergyGrid Customer ID","schema":{"type":"integer"}},{"name":"customerSiteId","in":"path","required":true,"description":"EnergyGrid Customer Site ID","schema":{"type":"integer"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Success. Returns message carousel items.","content":{"application/json":{"schema":{"type":"object","properties":{"customerId":{"type":"integer","example":699493},"customerSiteId":{"type":"integer","example":799644},"items":{"type":"array","items":{"type":"object","properties":{"id":{"type":"integer","example":1},"title":{"type":"string","example":"Energy Saving Tip"},"startDate":{"type":"string","format":"date-time","example":"2024-05-01T00:00:00"},"endDate":{"type":"string","format":"date-time","example":"2024-06-01T00:00:00"},"bodyText":{"type":"string","example":"Consider adjusting your thermostat by 2 degrees to save up to 5% on cooling costs."}},"title":"MessageCarouselItem"}}},"title":"MessageCarouselResponse"}}}},"400":{"description":"Bad request."},"401":{"description":"Unauthorized."},"404":{"description":"Not found."}}}
+>
+  
+</StatusCodes>
+
+
+      

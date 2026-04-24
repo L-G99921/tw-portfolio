@@ -1,0 +1,56 @@
+.feedbackWidget {
+  margin-top: 2rem;
+}
+
+.divider {
+  height: 1px;
+  background: var(--ifm-color-emphasis-300);
+  margin-bottom: 1.5rem;
+}
+
+.prompt {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.question {
+  font-size: 0.95rem;
+  color: var(--ifm-color-content-secondary);
+  font-weight: 500;
+}
+
+.buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.button {
+  padding: 0.4rem 1.1rem;
+  border-radius: 2rem;
+  border: 1px solid var(--ifm-color-emphasis-400);
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: var(--ifm-color-content);
+  transition: border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.button:hover {
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+  box-shadow: 0 0 8px rgba(0, 230, 153, 0.3);
+}
+
+.thanks {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--ifm-color-primary);
+}
+
+.thankIcon {
+  font-size: 1rem;
+}
