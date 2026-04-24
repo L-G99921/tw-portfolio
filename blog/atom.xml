@@ -29,7 +29,7 @@
 <p>The <a class="" href="https://l-g99921.github.io/tw-portfolio/docs/api/powerbox-api">ConnectBox API</a> provides integration between utility backend systems and the EnergyGrid Platform. It includes:</p>
 <ul>
 <li class=""><strong>Customer Synchronization</strong> (<code>POST /powerbox/customer</code>) — sync customer account details, service addresses, and meter configurations from your utility CIS.</li>
-<li class=""><strong>Hardware Binding</strong> (<code>POST /powerbox/bind</code>) — link a DataBridge or SmartLink device to an AMI meter via Zigbee.</li>
+<li class=""><strong>Hardware Binding</strong> (<code>POST /powerbox/bind</code>) — link a DataBridge or SmartLink device to an AMI meter over the utility's wireless mesh radio.</li>
 </ul>
 <p>Authentication uses OAuth 2.0 Bearer tokens in JWT format.</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="usage-api">Usage API<a href="https://l-g99921.github.io/tw-portfolio/blog/2025/01/30/powerlync-and-api-docs#usage-api" class="hash-link" aria-label="Direct link to Usage API" title="Direct link to Usage API" translate="no">​</a></h3>

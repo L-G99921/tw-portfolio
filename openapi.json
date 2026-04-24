@@ -49,7 +49,7 @@
     "/powerbox/bind": {
       "post": {
         "summary": "Hardware Binding",
-        "description": "Links an DataBridge or SmartLink device to the AMI Meter via Zigbee.",
+        "description": "Links a DataBridge or SmartLink device to the AMI meter over the utility's wireless mesh radio (Home Area Network).",
         "operationId": "bindDevice",
         "tags": ["Hardware"],
         "security": [
