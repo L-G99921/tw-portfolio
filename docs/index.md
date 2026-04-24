@@ -1,12 +1,16 @@
 ---
 slug: /
-title: Welcome
-description: EnergyGrid Technical Documentation
+title: Featured Project — EnergyGrid Docs
+description: Portfolio sample by Leandro Gabriel — a technical documentation portal for a fictional utility platform.
 sidebar_position: 1
-tags: [welcome, getting-started]
+tags: [portfolio, featured-project, getting-started]
 ---
 
-# Welcome to EnergyGrid Documentation
+# Featured Project — EnergyGrid Documentation
+
+:::info Portfolio sample
+This is a featured project in [Leandro Gabriel's](https://www.linkedin.com/in/leandro-gabriel-8aab31167/) technical writing portfolio — a full documentation portal for a **fictional** utility energy platform, built to demonstrate information architecture, docs-as-code workflows, and Docusaurus theming.
+:::
 
 The EnergyGrid Platform is an energy management solution that connects utility partners, smart meters, and customers through integrated hardware and software. It delivers real-time energy monitoring, smart device control, and AI-powered billing insights.
 

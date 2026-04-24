@@ -2,25 +2,29 @@ import React from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import useBaseUrl from '@docusaurus/useBaseUrl';
 import styles from './index.module.css';
 
 function Hero() {
-  const logoUrl = useBaseUrl('/img/energygrid-logo.svg');
   return (
     <header className={styles.hero}>
       <div className="container">
-        <img
-          src={logoUrl}
-          alt="EnergyGrid"
-          className={styles.heroLogo}
-        />
+        <div className={styles.heroBadge}>Technical Writer · Docs-as-Code · API Documentation</div>
+        <h1 className={styles.heroTitle}>
+          Hi, I'm <span className={styles.heroAccent}>Leandro Gabriel</span>
+        </h1>
+        <p className={styles.heroSubtitle}>
+          I turn complex systems into clear, developer-first documentation. 7+ years building
+          API references, integration guides, and AI-assisted docs pipelines for enterprise
+          teams in fintech, retail, and cybersecurity.
+        </p>
         <div className={styles.ctaButtons}>
-          <Link className={`${styles.btn} ${styles.btnPrimary}`} to="/docs/integration-guide">
-            Get Started
+          <Link className={`${styles.btn} ${styles.btnPrimary}`} to="/docs">
+            View Featured Project
           </Link>
-          <Link className={`${styles.btn} ${styles.btnOutline}`} to="/docs/api/powerbox-api">
-            View API Reference
+          <Link
+            className={`${styles.btn} ${styles.btnOutline}`}
+            to="https://www.linkedin.com/in/leandro-gabriel-8aab31167/">
+            Connect on LinkedIn
           </Link>
         </div>
       </div>
@@ -28,7 +32,7 @@ function Hero() {
   );
 }
 
-function Card({title, description, icon, to}) {
+function Card({title, description, icon, to, external}) {
   return (
     <Link to={to} className={styles.card}>
       <div className={styles.cardIcon}>
@@ -37,7 +41,7 @@ function Card({title, description, icon, to}) {
       <h3 className={styles.cardTitle}>{title}</h3>
       <p className={styles.cardDescription}>{description}</p>
       <div className={styles.cardArrow}>
-        Learn more <i className="fas fa-arrow-right"></i>
+        {external ? 'Visit' : 'Explore'} <i className="fas fa-arrow-right"></i>
       </div>
     </Link>
   );
@@ -47,43 +51,77 @@ function FeaturesGrid() {
   return (
     <section className={styles.section}>
       <div className={styles.container}>
+        <div className={styles.sectionHeader}>
+          <h2 className={styles.sectionTitle}>Portfolio Highlights</h2>
+          <p className={styles.sectionLead}>
+            A curated set of documentation samples spanning developer APIs, hardware
+            installation guides, AI-assisted content, and style governance.
+          </p>
+        </div>
         <div className={styles.cardGrid}>
           <Card
+            title="EnergyGrid — Featured Project"
+            description="An end-to-end documentation portal for a fictional utility platform — showcases information architecture, docs-as-code, and Docusaurus theming."
+            icon="fas fa-star"
+            to="/docs"
+          />
+          <Card
             title="Integration Guide"
-            description="Comprehensive guides to integrate your utility backend systems with the EnergyGrid Platform."
+            description="OAuth 2.0 / OIDC flow, CIS data sync, and SFTP/S3 bulk ingestion — written for utility backend engineers."
             icon="fas fa-plug"
             to="/docs/integration-guide"
           />
           <Card
-            title="DataBridge"
-            description="Technical specifications, installation guides, and troubleshooting for the DataBridge hardware."
-            icon="fas fa-wifi"
-            to="/docs/energy-bridge/energy-bridge-installation-guide-atlas-insight"
-          />
-          <Card
-            title="BillSense AI"
-            description="Leverage our advanced AI to provide personalized bill insights and disaggregation."
-            icon="fas fa-brain"
-            to="/docs/integration-guide#step-4-bulk-data-ingestion-required-for-billsense"
-          />
-          <Card
-            title="API Reference"
-            description="Explore the complete PowerBox API documentation, endpoints, and schemas."
+            title="API Reference (OpenAPI)"
+            description="Interactive API docs auto-generated from OpenAPI specs using docusaurus-plugin-openapi-docs."
             icon="fas fa-code"
             to="/docs/api/powerbox-api"
           />
           <Card
-            title="Utility Portal"
-            description="Manage customer accounts, view analytics, and configure settings."
-            icon="fas fa-chart-line"
-            to="/docs"
+            title="Hardware Install Guides"
+            description="Consumer-friendly step-by-step guides for smart-meter hardware — QR codes, Bluetooth pairing, Wi-Fi provisioning."
+            icon="fas fa-wifi"
+            to="/docs/energy-bridge/energy-bridge-installation-guide-atlas-insight"
           />
           <Card
-            title="Resources & Support"
-            description="Access marketing assets, FAQs, and contact our support team."
-            icon="fas fa-book-open"
-            to="/docs"
+            title="BillSense AI — Support Docs"
+            description="User guide and troubleshooting reference for an AI-powered bill analysis tool, written for customer support agents."
+            icon="fas fa-brain"
+            to="/docs/billwise-ai/overview"
           />
+          <Card
+            title="Writing Style Guide"
+            description="Internal style guide adapted from the Microsoft Writing Style Guide — voice, tone, UX patterns, and a pre-publication checklist."
+            icon="fas fa-book-open"
+            to="/docs/writing-guideline"
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function AboutStrip() {
+  return (
+    <section className={styles.aboutStrip}>
+      <div className={styles.container}>
+        <div className={styles.aboutGrid}>
+          <div className={styles.aboutItem}>
+            <div className={styles.aboutNumber}>7+</div>
+            <div className={styles.aboutLabel}>Years writing enterprise docs</div>
+          </div>
+          <div className={styles.aboutItem}>
+            <div className={styles.aboutNumber}>75%</div>
+            <div className={styles.aboutLabel}>Rework reduced via modular docs</div>
+          </div>
+          <div className={styles.aboutItem}>
+            <div className={styles.aboutNumber}>4.6/5</div>
+            <div className={styles.aboutLabel}>Dev documentation satisfaction</div>
+          </div>
+          <div className={styles.aboutItem}>
+            <div className={styles.aboutNumber}>3</div>
+            <div className={styles.aboutLabel}>Languages — PT · EN · ES</div>
+          </div>
         </div>
       </div>
     </section>
@@ -94,11 +132,12 @@ export default function Home() {
   const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-      title={`Home`}
-      description="EnergyGrid Technical Documentation">
+      title="Home"
+      description="Leandro Gabriel — Technical Writer building clear, developer-first documentation for enterprise teams.">
       <Hero />
       <main>
         <FeaturesGrid />
+        <AboutStrip />
       </main>
     </Layout>
   );

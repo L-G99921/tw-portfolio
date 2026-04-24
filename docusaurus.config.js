@@ -1,4 +1,4 @@
-﻿// @ts-check
+// @ts-check
 // `@type` JSDoc annotations allow editor autocompletion and type checking
 // (when paired with `@ts-check`).
 // There are various equivalent ways to declare your Docusaurus config.
@@ -13,9 +13,9 @@ const measurementId = process.env.GA_MEASUREMENT_ID;
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'EnergyGrid',
-  tagline: 'Empowering Utility Customer Engagement',
-  favicon: 'img/faviconV2.png',
+  title: 'Leandro Gabriel — Technical Writer',
+  tagline: 'Turning complex systems into clear, developer-first documentation',
+  favicon: 'img/favicon.svg',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
@@ -111,15 +111,15 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // Replace with your project's social card
-      image: 'img/energygrid-logo.svg',
+      image: 'img/lg-logo.svg',
       colorMode: {
         respectPrefersColorScheme: true,
       },
       navbar: {
         title: '',
         logo: {
-          alt: 'EnergyGrid',
-          src: 'img/energygrid-logo-navbar.svg',
+          alt: 'Leandro Gabriel — Technical Writer',
+          src: 'img/lg-logo-navbar.svg',
           style: {height: '36px', width: 'auto'},
         },
         items: [
@@ -127,17 +127,27 @@ const config = {
             type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
             position: 'left',
-            label: 'Docs',
+            label: 'Portfolio',
           },
           {
             to: '/docs/api/powerbox-api',
             position: 'left',
-            label: 'API Reference',
+            label: 'API Sample',
           },
           {
             to: '/blog',
             label: 'Blog',
             position: 'left',
+          },
+          {
+            href: 'https://www.linkedin.com/in/leandro-gabriel-8aab31167/',
+            label: 'LinkedIn',
+            position: 'right',
+          },
+          {
+            href: 'https://github.com/L-G99921',
+            label: 'GitHub',
+            position: 'right',
           },
         ],
       },
@@ -145,37 +155,53 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Docs',
+            title: 'Portfolio',
             items: [
+              {
+                label: 'Featured Project',
+                to: '/docs',
+              },
               {
                 label: 'Integration Guide',
                 to: '/docs/integration-guide',
               },
               {
-                label: 'API Reference',
+                label: 'API Reference Sample',
                 to: '/docs/api/powerbox-api',
               },
             ],
           },
           {
-            title: 'Resources',
+            title: 'Samples',
             items: [
+              {
+                label: 'Hardware Install Guide',
+                to: '/docs/energy-bridge/energy-bridge-installation-guide-atlas-insight',
+              },
+              {
+                label: 'Writing Style Guide',
+                to: '/docs/writing-guideline',
+              },
               {
                 label: 'Data Dictionary',
                 to: '/docs/data-dictionary',
               },
-              {
-                label: 'Writing Guidelines',
-                to: '/docs/writing-guideline',
-              },
             ],
           },
           {
-            title: 'More',
+            title: 'Connect',
             items: [
               {
-                label: 'Blog',
-                to: '/blog',
+                label: 'LinkedIn',
+                href: 'https://www.linkedin.com/in/leandro-gabriel-8aab31167/',
+              },
+              {
+                label: 'GitHub',
+                href: 'https://github.com/L-G99921',
+              },
+              {
+                label: 'Email',
+                href: 'mailto:lgos99921@gmail.com',
               },
             ],
           },
@@ -183,18 +209,18 @@ const config = {
         copyright: `
           <div style="display: flex; flex-direction: column; align-items: center; gap: 1.5rem; margin-top: 1rem;">
             <div style="display: flex; gap: 1.5rem;">
-              <a href="https://www.youtube.com/@EnergyGrid" target="_blank" rel="noopener noreferrer" style="color: #3B82F6; font-size: 1.5rem; transition: color 0.2s;" onmouseover="this.style.color='#2563EB'" onmouseout="this.style.color='#3B82F6'" aria-label="YouTube">
-                <i class="fab fa-youtube"></i>
-              </a>
-              <a href="https://x.com/EnergyGrid" target="_blank" rel="noopener noreferrer" style="color: #3B82F6; font-size: 1.5rem; transition: color 0.2s;" onmouseover="this.style.color='#2563EB'" onmouseout="this.style.color='#3B82F6'" aria-label="X (Twitter)">
-                <i class="fab fa-x-twitter"></i>
-              </a>
-              <a href="https://www.linkedin.com/company/energygrid/" target="_blank" rel="noopener noreferrer" style="color: #3B82F6; font-size: 1.5rem; transition: color 0.2s;" onmouseover="this.style.color='#2563EB'" onmouseout="this.style.color='#3B82F6'" aria-label="LinkedIn">
+              <a href="https://www.linkedin.com/in/leandro-gabriel-8aab31167/" target="_blank" rel="noopener noreferrer" style="color: #A78BFA; font-size: 1.5rem; transition: color 0.2s;" onmouseover="this.style.color='#8B5CF6'" onmouseout="this.style.color='#A78BFA'" aria-label="LinkedIn">
                 <i class="fab fa-linkedin"></i>
+              </a>
+              <a href="https://github.com/L-G99921" target="_blank" rel="noopener noreferrer" style="color: #A78BFA; font-size: 1.5rem; transition: color 0.2s;" onmouseover="this.style.color='#8B5CF6'" onmouseout="this.style.color='#A78BFA'" aria-label="GitHub">
+                <i class="fab fa-github"></i>
+              </a>
+              <a href="mailto:lgos99921@gmail.com" style="color: #A78BFA; font-size: 1.5rem; transition: color 0.2s;" onmouseover="this.style.color='#8B5CF6'" onmouseout="this.style.color='#A78BFA'" aria-label="Email">
+                <i class="fas fa-envelope"></i>
               </a>
             </div>
             <div style="opacity: 0.8; font-size: 0.9rem;">
-              Copyright © ${new Date().getFullYear()} EnergyGrid Inc. Built with Docusaurus.
+              Copyright © ${new Date().getFullYear()} Leandro Gabriel Oliveira de Souza. Built with Docusaurus.
             </div>
           </div>
         `,

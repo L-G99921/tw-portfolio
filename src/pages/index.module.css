@@ -1,12 +1,12 @@
 :root {
   /* Design System Colors */
-  --color-bg-deep: #111111;
-  --color-bg-surface: #1C1C1E;
-  --color-brand-navy: #0D1B35;
-  --color-brand-blue: #3B82F6;
+  --color-bg-deep: #0D0818;
+  --color-bg-surface: #1C1A28;
+  --color-brand-navy: #140E25;
+  --color-brand-blue: #8B5CF6;
   --color-text-white: #ffffff;
   --color-text-gray: #9CA3AF;
-  --color-border-subtle: #2A2A2A;
+  --color-border-subtle: #2A2540;
 }
 
 /* Dark Mode Overrides for Docusaurus context */
@@ -30,23 +30,64 @@
 
 /* Hero Section - Same structure for both themes */
 .hero {
-  background: linear-gradient(135deg, #060e1a 0%, var(--color-brand-navy) 50%, #060e1a 100%);
-  padding: 4rem 2rem 10rem; /* Reduced top padding */
+  background:
+    radial-gradient(ellipse at 20% 10%, rgba(139, 92, 246, 0.18) 0%, transparent 50%),
+    radial-gradient(ellipse at 85% 90%, rgba(124, 58, 237, 0.15) 0%, transparent 55%),
+    linear-gradient(135deg, #060413 0%, var(--color-brand-navy) 50%, #060413 100%);
+  padding: 6rem 2rem 11rem;
   text-align: center;
   position: relative;
   overflow: hidden;
   margin-bottom: 0;
 }
 
-/* Hero Logo */
-.heroLogo {
-  max-width: 450px;
-  height: auto;
-  margin-bottom: 0;
+/* Hero Badge (role pill) */
+.heroBadge {
+  display: inline-block;
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  background-color: rgba(139, 92, 246, 0.12);
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  color: #C4B5FD;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 1.5rem;
   opacity: 0;
   animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
+/* Hero Title */
+.heroTitle {
+  font-size: 4rem;
+  font-weight: 800;
+  color: var(--color-text-white);
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  opacity: 0;
+  animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.1s forwards;
+}
+
+.heroAccent {
+  background: linear-gradient(135deg, #A78BFA 0%, #8B5CF6 50%, #7C3AED 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Hero Subtitle */
+.heroSubtitle {
+  font-size: 1.2rem;
+  color: var(--color-text-gray);
+  max-width: 720px;
+  margin: 0 auto 3rem;
+  line-height: 1.6;
+  opacity: 0;
+  animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s forwards;
+}
+
+/* Legacy hero selectors kept for any remaining markdown usage */
 .hero h1 {
   font-size: 4rem;
   font-weight: 800;
@@ -54,18 +95,14 @@
   margin-bottom: 1.5rem;
   line-height: 1.1;
   letter-spacing: -0.03em;
-  opacity: 0; /* For animation */
-  animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
 .hero p {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   color: var(--color-text-gray);
-  max-width: 700px;
+  max-width: 720px;
   margin: 0 auto 3rem;
   line-height: 1.6;
-  opacity: 0; /* For animation */
-  animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s forwards;
 }
 
 .ctaButtons {
@@ -73,7 +110,7 @@
   justify-content: center;
   gap: 1rem;
   opacity: 0;
-  animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s forwards;
+  animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s forwards;
 }
 
 /* Buttons */
@@ -94,13 +131,13 @@
   background-color: var(--color-brand-blue);
   color: #ffffff !important;
   border: 1px solid var(--color-brand-blue);
-  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
 }
 
 .btnPrimary:hover {
-  background-color: #2563EB;
-  border-color: #2563EB;
-  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+  background-color: #7C3AED;
+  border-color: #7C3AED;
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5);
   transform: translateY(-2px);
   text-decoration: none;
   color: #ffffff !important;
@@ -138,7 +175,7 @@
   left: 0;
   right: 0;
   height: 5rem; /* Dark portion behind top of cards */
-  background: linear-gradient(135deg, #060e1a 0%, var(--color-brand-navy) 50%, #060e1a 100%);
+  background: linear-gradient(135deg, #060413 0%, var(--color-brand-navy) 50%, #060413 100%);
   z-index: -1;
 }
 
@@ -199,7 +236,7 @@
   font-size: 1.25rem;
   margin-bottom: 1.25rem;
   color: var(--color-brand-blue);
-  background-color: rgba(59, 130, 246, 0.12);
+  background-color: rgba(139, 92, 246, 0.12);
 }
 
 .cardTitle {
@@ -335,7 +372,7 @@
 
 /* Light Mode - Hero colors */
 :global([data-theme='light']) .hero {
-  background: linear-gradient(135deg, #060e1a 0%, #0D1B35 50%, #060e1a 100%);
+  background: linear-gradient(135deg, #060413 0%, #140E25 50%, #060413 100%);
 }
 
 :global([data-theme='light']) .hero p {
@@ -344,7 +381,7 @@
 
 /* Light Mode - Section background */
 :global([data-theme='light']) .section::before {
-  background: linear-gradient(135deg, #060e1a 0%, #0D1B35 50%, #060e1a 100%);
+  background: linear-gradient(135deg, #060413 0%, #140E25 50%, #060413 100%);
 }
 
 :global([data-theme='light']) .section::after {
@@ -353,17 +390,17 @@
 
 /* Light Mode - Buttons */
 :global([data-theme='light']) .btnPrimary {
-  background-color: #2563EB;
-  border-color: #2563EB;
+  background-color: #7C3AED;
+  border-color: #7C3AED;
   color: #ffffff;
-  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+  box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
 }
 
 :global([data-theme='light']) .btnPrimary:hover {
-  background-color: #1D4ED8;
-  border-color: #1D4ED8;
+  background-color: #6D28D9;
+  border-color: #6D28D9;
   color: #ffffff;
-  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.5);
 }
 
 :global([data-theme='light']) .btnOutline {
@@ -382,8 +419,8 @@
 
 /* Light Mode - Card Icon */
 :global([data-theme='light']) .cardIcon {
-  color: #2563EB;
-  background-color: rgba(37, 99, 235, 0.10);
+  color: #7C3AED;
+  background-color: rgba(124, 58, 237, 0.10);
 }
 
 /* Light Mode - Card Text */
@@ -396,5 +433,148 @@
 }
 
 :global([data-theme='light']) .cardArrow {
-  color: #2563EB;
+  color: #7C3AED;
+}
+
+/* =============================================
+   SECTION HEADER
+   ============================================= */
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sectionTitle {
+  color: var(--color-text-white);
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
+}
+
+.sectionLead {
+  color: var(--color-text-gray);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+:global([data-theme='light']) .sectionTitle {
+  color: #1a202c;
+}
+
+:global([data-theme='light']) .sectionLead {
+  color: #64748b;
+}
+
+/* =============================================
+   ABOUT / STATS STRIP
+   ============================================= */
+
+.aboutStrip {
+  padding: 3rem 2rem 5rem;
+  background-color: var(--color-bg-deep);
+  position: relative;
+  z-index: 5;
+}
+
+.aboutGrid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.aboutItem {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 12px;
+  padding: 1.75rem 1.25rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.aboutItem:hover {
+  transform: translateY(-3px);
+  border-color: rgba(139, 92, 246, 0.45);
+  box-shadow: 0 10px 30px rgba(139, 92, 246, 0.15);
+}
+
+.aboutNumber {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #A78BFA 0%, #8B5CF6 50%, #7C3AED 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+  line-height: 1;
+}
+
+.aboutLabel {
+  color: var(--color-text-gray);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+:global([data-theme='light']) .aboutStrip {
+  background-color: #f5f7f8;
+}
+
+:global([data-theme='light']) .aboutItem {
+  background-color: #ffffff;
+  border-color: #e2e8f0;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+:global([data-theme='light']) .aboutItem:hover {
+  border-color: rgba(124, 58, 237, 0.45);
+  box-shadow: 0 10px 30px rgba(124, 58, 237, 0.12);
+}
+
+:global([data-theme='light']) .aboutLabel {
+  color: #64748b;
+}
+
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: 2.5rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.6rem;
+  }
+
+  .aboutGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .aboutNumber {
+    font-size: 2rem;
+  }
+
+  .aboutStrip {
+    padding: 2rem 1rem 3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroTitle {
+    font-size: 2rem;
+  }
+
+  .heroBadge {
+    font-size: 0.7rem;
+    padding: 0.35rem 0.8rem;
+  }
 }

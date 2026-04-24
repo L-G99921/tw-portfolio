@@ -1,52 +1,44 @@
-# EnergyGrid Docs
+# Leandro Gabriel — Technical Writer Portfolio
 
-A technical documentation portal for a fictional utility energy platform. Built as a portfolio project to demonstrate technical writing skills across multiple content types — API references, hardware installation guides, integration workflows, and UX-facing content.
+Personal portfolio site for **Leandro Gabriel Oliveira de Souza**, Technical Writer with 7+ years of experience building API references, integration guides, and AI-assisted documentation pipelines for enterprise teams in fintech, retail, and cybersecurity.
 
-Built with [Docusaurus 3](https://docusaurus.io/) and deployed via Docker on AWS ECS.
+Built with [Docusaurus 3](https://docusaurus.io/) and deployed to GitHub Pages.
 
----
-
-## About this project
-
-EnergyGrid is a white-label platform that utility companies use to offer energy monitoring and bill analysis to their residential customers. This documentation portal serves three audiences:
-
-- **Utility integration engineers** — implementing the PowerBox API middleware and bulk data pipelines
-- **Field technicians** — installing DataBridge Hub and SmartLink Plug hardware
-- **Customer support agents** — using BillSense AI to assist customers with billing inquiries
+**Live site:** https://l-g99921.github.io/tw-portfolio/
 
 ---
 
-## What's included
+## Featured project — EnergyGrid Docs
 
-### Integration Guide
-End-to-end integration reference for utility backend engineers. Covers OAuth 2.0 / OIDC authentication flow, customer data synchronization, bulk MDM and billing data ingestion via SFTP/S3, billing cycle schedules, rate information, and optional hardware binding.
+The portfolio is organized around a featured documentation project: **EnergyGrid**, a fictional utility platform documented end-to-end to demonstrate multi-audience technical writing.
 
-### API Reference
-Auto-generated interactive API docs from OpenAPI specs using the `docusaurus-plugin-openapi-docs` plugin.
+Three audiences, three content types, one portal:
 
-- **ConnectBox API** — customer authentication, profile sync, and hardware binding endpoints
-- **Usage Data API** — energy consumption, billing, home profile, and rate plan endpoints
+- **Utility integration engineers** — OAuth 2.0 / OIDC flow, CIS data synchronization, bulk MDM and billing ingestion via SFTP/S3, rate information, hardware binding.
+- **Field technicians / end users** — step-by-step installation guides for DataBridge Hub and SmartLink Plug smart-meter hardware.
+- **Customer support agents** — BillSense AI user guide and troubleshooting reference for an AI-powered bill analysis tool.
 
-### Hardware guides
-Step-by-step installation guides for two smart home devices, written for non-technical end users.
+---
 
-- **DataBridge Hub** — Bluetooth pairing, Wi-Fi setup, and smart meter binding (two white-label variants)
-- **SmartLink Plug** — QR code scanning, Wi-Fi provisioning, and meter binding
+## What the site showcases
 
-### BillSense AI docs
-User guide and troubleshooting reference for a bill analysis tool used by customer support agents. Includes feature walkthroughs, escalation paths, and data interpretation guidance.
-
-### Writing guideline
-Internal style guide adapted from the Microsoft Writing Style Guide, covering voice and tone, UX writing patterns, data presentation standards, grammar rules, and a pre-publication checklist.
+| Sample | What it demonstrates |
+|--------|----------------------|
+| Integration Guide | Long-form developer docs, sequence diagrams, structured authoring |
+| API Reference (OpenAPI) | Auto-generated interactive API docs from OpenAPI specs |
+| Hardware Install Guides | Consumer-friendly UX writing — QR codes, Bluetooth pairing, Wi-Fi setup |
+| BillSense AI Docs | AI-tool user guide + troubleshooting reference for support agents |
+| Writing Style Guide | Voice, tone, UX patterns, pre-publication checklist |
+| Data Dictionary | Structured reference content with schema-style tables |
 
 ---
 
 ## Writing standards applied
 
-- Microsoft Writing Style Guide — sentence case headings, active voice, second person, contractions
-- Structured authoring — consistent use of admonitions (note, tip, warning, caution, danger)
-- Docs-as-code workflow — Markdown and MDX, version-controlled in Git
-- OpenAPI-driven API docs — single source of truth from the spec, no manual duplication
+- **Microsoft Writing Style Guide** — sentence case, active voice, second person, contractions
+- **Structured authoring** — consistent admonitions (note, tip, warning, caution, danger)
+- **Docs-as-code** — Markdown/MDX, version-controlled in Git, reviewed as code
+- **OpenAPI-driven API docs** — single source of truth from the spec, no manual duplication
 
 ---
 
@@ -57,8 +49,7 @@ Internal style guide adapted from the Microsoft Writing Style Guide, covering vo
 | Docusaurus 3 | Static site framework |
 | `docusaurus-plugin-openapi-docs` | Interactive API reference from OpenAPI specs |
 | SASS | Custom theming |
-| Docker + nginx | Production containerization |
-| AWS ECR + ECS | Container registry and deployment |
+| GitHub Pages + GitHub Actions | Hosting and CI/CD |
 
 ---
 
@@ -73,9 +64,23 @@ npm start
 
 The site runs at `http://localhost:3000`.
 
-To build for production:
+Build for production:
 
 ```bash
 npm run build
 npm run serve
 ```
+
+---
+
+## Deployment
+
+Pushes to `main` trigger [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml), which builds the site and publishes the output to the `gh-pages` branch. GitHub Pages serves from that branch at the `url` + `baseUrl` configured in [`docusaurus.config.js`](./docusaurus.config.js).
+
+---
+
+## Contact
+
+- **LinkedIn:** [leandro-gabriel-8aab31167](https://www.linkedin.com/in/leandro-gabriel-8aab31167/)
+- **Email:** lgos99921@gmail.com
+- **Location:** João Pessoa, Brazil
