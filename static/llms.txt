@@ -1,0 +1,43 @@
+# Leandro Gabriel — Technical Writer Portfolio
+
+> Personal portfolio site for Leandro Gabriel Oliveira de Souza, Senior Technical Writer with 6+ years of experience building API references, integration guides, and AI-assisted documentation pipelines for enterprise teams across fintech (Itaú PIX), retail (Sephora LATAM), beauty data infrastructure (L'Oréal France), and logistics (Crane Worldwide).
+
+The site is organised around two showcase domains: a fictional utility platform (EnergyGrid) documented end-to-end across three audiences, and Brazil's PIX instant-payments rail documented in all four Diátaxis types. Every page is exactly one of: tutorial, how-to guide, reference, or explanation. Style is the Google Developer Documentation Style Guide, enforced in CI by Vale with `fail_on_error: true`.
+
+This `llms.txt` follows the [llmstxt.org proposal](https://llmstxt.org/) and lists the canonical pages grouped by purpose. The companion file `llms-full.txt` (planned) will carry the concatenated full text of the canonical pages for direct ingestion.
+
+## About the portfolio
+
+- [Welcome / landing](https://l-g99921.github.io/tw-portfolio/): One-page overview of the portfolio, the maintainer, and the showcase domains.
+- [Methodology](https://l-g99921.github.io/tw-portfolio/docs/methodology): Why this site uses the Google Developer Documentation Style Guide for sentence-level rules and the Diátaxis Framework for page-level taxonomy.
+- [Writing guideline](https://l-g99921.github.io/tw-portfolio/docs/writing-guideline): The applied style guide — voice, tone, banned filler words, admonition conventions, pre-publication checklist.
+- [Architecture decision records overview](https://l-g99921.github.io/tw-portfolio/docs/adr): Index of the non-obvious tooling and content choices behind the portfolio, each in a one-page ADR.
+- [Using these docs with AI](https://l-g99921.github.io/tw-portfolio/docs/using-these-docs-with-ai): How the content is structured for predictable LLM ingestion, why Diátaxis helps, how to point a chatbot at this site.
+
+## Featured project — EnergyGrid (fictional utility platform)
+
+- [Integration guide](https://l-g99921.github.io/tw-portfolio/docs/integration-guide): Long-form developer documentation covering OAuth 2.0 / OIDC, CIS data sync, bulk MDM and billing ingestion via SFTP / object storage, rate information, hardware binding. (How-to + Explanation)
+- [PowerBox API reference](https://l-g99921.github.io/tw-portfolio/docs/api/powerbox-api): Interactive OpenAPI-generated reference for the utility-to-platform integration API (customer sync, hardware binding). (Reference)
+- [EnergyGrid Usage API reference](https://l-g99921.github.io/tw-portfolio/docs/api/usage-api/energygrid-usage-api): Interactive OpenAPI-generated reference for the customer-facing read API (usage history, budgets, AI insights). (Reference)
+- [DataBridge install guide](https://l-g99921.github.io/tw-portfolio/docs/databridge/databridge-installation-guide-atlas-insight): Consumer-friendly install guide for the DataBridge smart-meter hardware. (How-to)
+- [SmartLink install guide](https://l-g99921.github.io/tw-portfolio/docs/smartlink/smartlink-installation-guide-pluginsight): Consumer-friendly install guide for the SmartLink Plug hardware. (How-to)
+- [BillSense AI user guide](https://l-g99921.github.io/tw-portfolio/docs/billsense-ai/about): User guide and troubleshooting reference for an AI-powered bill analysis tool. (How-to + Reference + Explanation)
+- [Data dictionary](https://l-g99921.github.io/tw-portfolio/docs/data-dictionary): Schema-style reference content for the platform's data model. (Reference)
+
+## PIX (Brazil's instant-payments rail) — Diátaxis showcase
+
+- [About PIX](https://l-g99921.github.io/tw-portfolio/docs/pix/about-pix): Conceptual overview of the PIX rail — what it is, who uses it, why it matters. (Explanation)
+- [Tutorial — first payment](https://l-g99921.github.io/tw-portfolio/docs/pix/tutorial-first-payment): Step-by-step tutorial that takes a developer from zero to a successful PIX charge. (Tutorial)
+- [How-to — handle webhooks](https://l-g99921.github.io/tw-portfolio/docs/pix/how-to-handle-webhooks): Goal-oriented how-to for receiving and processing PIX webhook callbacks. (How-to)
+- [PIX API reference](https://l-g99921.github.io/tw-portfolio/docs/api/pix-api/instant-payments-api-pix-sample): Interactive OpenAPI-generated reference, anonymised sample modelled on the public PIX PSP standard. (Reference)
+
+## Long-form writing
+
+- [Documenting PIX — five lessons from owning the official Itaú PIX API documentation](https://l-g99921.github.io/tw-portfolio/blog/documenting-pix-lessons): Long-form blog post covering structural lessons from owning the official PIX API documentation at Itaú Unibanco (via Zup Innovation, 2022–2024).
+
+## Optional
+
+- [GitHub repository](https://github.com/L-G99921/tw-portfolio): Source code, CI workflows, Vale configuration, OpenAPI specs.
+- [CONTRIBUTING.md](https://github.com/L-G99921/tw-portfolio/blob/main/CONTRIBUTING.md): How the docs-as-code workflow operates — local setup, PR checklist, page-creation steps, OpenAPI regeneration.
+- [CHANGELOG.md](https://github.com/L-G99921/tw-portfolio/blob/main/CHANGELOG.md): Release history in Keep a Changelog format.
+- [Maintainer profile (LinkedIn)](https://www.linkedin.com/in/leandro-gabriel-8aab31167/): Professional background, experience timeline, contact.
