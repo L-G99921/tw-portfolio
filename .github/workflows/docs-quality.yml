@@ -77,8 +77,8 @@ jobs:
             dest=".lychee-tmp/$src"
             mkdir -p "$(dirname "$dest")"
             sed -E \
-              -e 's|\]\(/(docs|blog)/[^)]*\)|](https://example.com/_skipped)|g' \
-              -e 's|href=\{"/(docs\|blog)/[^"]*"\}|href={"https://example.com/_skipped"}|g' \
+              -e 's#\]\(/(docs|blog)/[^)]*\)#](https://example.com/_skipped)#g' \
+              -e 's#href=\{"/(docs|blog)/[^"]*"\}#href={"https://example.com/_skipped"}#g' \
               "$src" > "$dest"
           done < <(find docs blog -type f \( -name '*.md' -o -name '*.mdx' \); echo README.md; echo CONTRIBUTING.md)
       - name: Run Lychee
