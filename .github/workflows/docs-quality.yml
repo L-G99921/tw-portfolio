@@ -72,9 +72,13 @@ jobs:
             --cache
             --max-cache-age 1d
             --no-progress
+            --root-dir "$GITHUB_WORKSPACE"
+            --accept '200..=299,999'
             --exclude '^/'
             --exclude 'localhost'
             --exclude 'example\.com'
+            --exclude 'energygrid\.example'
+            --exclude 'instant-payments\.example'
             --exclude 'taskflow\.io'
             'docs/**/*.md'
             'docs/**/*.mdx'

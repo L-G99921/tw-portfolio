@@ -35,7 +35,7 @@ The [Google Developer Documentation Style Guide](https://developers.google.com/s
 - **Conversational but precise.** Write like a knowledgeable colleague — never condescending, never academic.
 - **Active voice, present tense, second person.** "The API returns a token" — not "A token will be returned by the API."
 - **Sentence case everywhere.** Headings, button labels, UI strings. "Manage your usage" — not "Manage Your Usage".
-- **No filler words.** "Just", "simply", "obviously", "easily", "please" — banned. They assume the reader's experience or condescend.
+- **No filler words.** `Just`, `simply`, `obviously`, `easily`, `please` — banned. They assume the reader's experience or condescend.
 - **"Can", not "may".** Reserve "may" for permission. Use "can" for ability.
 - **Spell out Latin abbreviations.** "for example", not "e.g."; "that is", not "i.e."
 - **Realistic examples.** No `foo`, `bar`, `baz`. Use values that look like real data.
@@ -95,7 +95,7 @@ The site's information architecture maps directly onto Diátaxis:
 
 | This site's page | Diátaxis type | Why |
 |------------------|---------------|-----|
-| [Integration Guide](/docs/integration-guide) | **Explanation** + structured **how-to** (recognized pragmatic exception) | Architecture sections explain *why*; step sections show *how* — clearly separated. The single-page format reflects how integration teams actually use the doc (sequential read), but the trade-off is acknowledged |
+| [Integration Guide](/docs/integration-guide) | **Explanation** + structured **how-to** (recognised pragmatic exception) | Architecture sections explain *why*; step sections show *how* — kept clearly separated. The single-page format reflects how integration teams actually use the doc (sequential read), but the trade-off is acknowledged |
 | [API Reference](/docs/api/powerbox-api) | **Reference** | Auto-generated from OpenAPI; no opinions, no narrative |
 | [Hardware Install Guide](/docs/databridge/databridge-installation-guide-atlas-insight) | **How-to guide** | Assumes the reader has the hardware in hand and wants the steps |
 | [Data Dictionary](/docs/data-dictionary) | **Reference** | Look-up table of fields and storage locations |
