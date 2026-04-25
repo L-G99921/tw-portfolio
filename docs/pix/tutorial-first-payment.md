@@ -103,7 +103,7 @@ A `cob` (charge) is a payment intent that the customer settles. The merchant sup
     "ATIVA"
     ```
 
-    The full response is now in `charge.json`. The fields you care about for later steps are `txid`, `revisao`, and `loc.id` (the QR code reference).
+    The full response is now in `charge.json`. The fields you need for later steps are `txid`, `revisao`, and `loc.id` (the QR code reference). Register the PIX key webhook in the next step.
 
 > **Note:** The `chave` (`merchant@example.com`) is a sandbox key pre-registered to your client. In production you would register your own key first — see the [API reference](/docs/api/pix-api/instant-payments-api-pix-sample) for the `PUT /webhook/{chave}` flow.
 
@@ -273,7 +273,7 @@ The webhook is your source of truth. The API is your verification path.
     }
     ```
 
-You have just settled a payment, received a webhook, and reconciled both sides. That's the entire happy path.
+You have just settled a payment, received a webhook, and reconciled both sides. You have completed the entire happy path.
 
 ## What you built
 

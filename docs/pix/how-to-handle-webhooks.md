@@ -186,7 +186,7 @@ Treat the `e2eId` as the idempotency key. Persist it before doing anything that 
 
     `INSERT ... ON CONFLICT DO NOTHING` is the cleanest pattern. The first delivery wins; subsequent deliveries become no-ops without an extra round trip.
 
-> **Tip:** Storing `raw_payload` as `JSONB` is non-negotiable. When a payment dispute lands six months later, you'll need the original webhook body, not your post-processed view of it.
+> **Tip:** Always store `raw_payload` as `JSONB`. When a payment dispute lands six months later, you need the original webhook body, not your post-processed view of it.
 
 ## Recover from a listener outage
 

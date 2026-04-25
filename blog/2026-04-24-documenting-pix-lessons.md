@@ -20,8 +20,6 @@ The rail itself is closed. Only licensed PSPs — banks, fintechs, and a handful
 
 There is a [public OpenAPI standard](https://bacen.github.io/pix-api/) for PSP APIs, published by Bacen. Every PSP implements that standard. But the docs each PSP ships on top of the standard are where developer experience actually happens — and where my work lived.
 
-> **About this article:** I'm Leandro Gabriel, a Senior Technical Writer with 8+ years writing developer documentation across fintech, retail, and beauty data infrastructure. I owned the official PIX API documentation at Itaú Unibanco (via Zup Innovation, 2022–2024). The lessons below are general; I've kept specifics off the page where they would identify particular internal systems.
-
 ## Lesson 1 — reference is the floor, not the ceiling
 
 Most developer documentation guides treat API reference as the boring part — the auto-generated thing you produce from an OpenAPI spec and link to. Your real value, the argument goes, lives in tutorials and concept docs.
@@ -86,7 +84,7 @@ What we did instead:
 - **The standard's Portuguese terms are listed in a glossary**, with the English concept and a one-line definition. Integrators have a mental map without us lying about the contract.
 - **Error reason codes ship as-is**, with the English explanation in the corresponding row of the errors table.
 
-The lesson generalises: when the underlying system has a canonical language, your job is to bridge to it, not paper over it. Hiding the canonical names is a leaky abstraction that costs you trust.
+The lesson generalizes: when the underlying system has a canonical language, your job is to bridge to it, not paper over it. Hiding the canonical names is a leaky abstraction that costs you trust.
 
 ## Lesson 4 — webhook docs are 60% of integration support
 
@@ -143,7 +141,7 @@ The mistake we made was treating reference as the foundation. It isn't. Referenc
 
 ## What translates
 
-Most of the lessons above generalise beyond PIX. The specifics that do:
+Most of the lessons above generalize beyond PIX. The specifics that do:
 
 - **Any rail-level integration**: the rail's canonical language belongs in your docs, not a translated abstraction. (PIX in Portuguese; SWIFT in English-with-codes; Open Banking in jurisdiction-specific JSON; CBDC pilots in whatever the local central bank publishes.)
 - **Any high-volume webhook system**: the webhook page should be three pages, not one, and the dedupe pattern should be a primary-key constraint at the storage layer.
@@ -159,4 +157,4 @@ But those are mechanics. The structural lessons — reference is the floor, idem
 
 ---
 
-*If you're building docs for a payments rail or any high-volume API and want a second pair of eyes, [I'm reachable on LinkedIn](https://www.linkedin.com/in/leandro-gabriel-8aab31167/). The portfolio this article is published on includes the structural samples I'd use to start: a [Diátaxis-organised PIX section](/docs/pix/about-pix), a [PIX-inspired OpenAPI sample](/docs/api/pix-api/instant-payments-api-pix-sample), and the [docs-as-code pipeline](https://github.com/L-G99921/tw-portfolio/blob/main/.github/workflows/docs-quality.yml) running Vale and Lychee on every change.*
+*About the author: I'm Leandro Gabriel, a Senior Technical Writer with 8+ years writing developer documentation across fintech, retail, and beauty data infrastructure. I owned the official PIX API documentation at Itaú Unibanco (via Zup Innovation, 2022–2024). If you're building docs for a payments rail or any high-volume API and want a second pair of eyes, [I'm reachable on LinkedIn](https://www.linkedin.com/in/leandro-gabriel-8aab31167/). The portfolio this article is published on includes the structural samples I'd use to start: a [Diátaxis-organized PIX section](/docs/pix/about-pix), a [PIX-inspired OpenAPI sample](/docs/api/pix-api/instant-payments-api-pix-sample), and the [docs-as-code pipeline](https://github.com/L-G99921/tw-portfolio/blob/main/.github/workflows/docs-quality.yml) running Vale and Lychee on every change.*
