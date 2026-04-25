@@ -1,0 +1,39 @@
+# CODEOWNERS for tw-portfolio
+#
+# GitHub auto-requests review from the listed owner whenever a matching path
+# changes in a pull request. Syntax: https://docs.github.com/en/repositories/managing-your-repositories-settings-and-features/customizing-your-repository/about-code-owners
+#
+# This is a solo-maintained repo — every change routes to @L-G99921. The file
+# exists so the workflow mirrors how a multi-maintainer documentation project
+# would be structured (per-area owners, fallback owner at the root).
+
+# Default owner — applies to anything not matched by a more specific rule below.
+*                               @L-G99921
+
+# Authored content — Diátaxis-organised Markdown.
+/docs/                          @L-G99921
+/blog/                          @L-G99921
+
+# Generated content — regenerate via `npm run docusaurus -- gen-api-docs`,
+# do not hand-edit. Owner review still required.
+/docs/api/                      @L-G99921
+/static/*.yaml                  @L-G99921
+/static/*.json                  @L-G99921
+
+# Site framework, theming, and build configuration.
+/src/                           @L-G99921
+/docusaurus.config.js           @L-G99921
+/sidebars.js                    @L-G99921
+/package.json                   @L-G99921
+/package-lock.json              @L-G99921
+
+# Style governance — Vale rules, vocabulary, and CI.
+/.vale.ini                      @L-G99921
+/.vale/                         @L-G99921
+/.github/                       @L-G99921
+
+# Repository meta-documentation.
+/README.md                      @L-G99921
+/CONTRIBUTING.md                @L-G99921
+/CHANGELOG.md                   @L-G99921
+/MAINTAINERS.md                 @L-G99921

@@ -19,7 +19,7 @@ Every page on this site is built on two industry-standard frameworks. Together, 
 Style without structure produces beautiful prose nobody can navigate. Structure without style produces clean architecture full of unreadable pages. You need both.
 
 :::info About this page
-I'm **Leandro Gabriel** — a Senior Technical Writer with 8+ years applying these frameworks at scale across fintech (Itaú/PIX), enterprise retail (Sephora LATAM), beauty data infrastructure (L'Oréal France), and logistics (Crane Worldwide). This page is both an explanation of the frameworks and a record of my specialization in them.
+I'm **Leandro Gabriel** — a Senior Technical Writer with 6+ years applying these frameworks at scale across fintech (Itaú/PIX), enterprise retail (Sephora LATAM), beauty data infrastructure (L'Oréal France), and logistics (Crane Worldwide). This page is both an explanation of the frameworks and a record of my specialization in them.
 :::
 
 ---

@@ -1,6 +1,6 @@
 # Leandro Gabriel — Technical Writer Portfolio
 
-Personal portfolio site for **Leandro Gabriel Oliveira de Souza**, Senior Technical Writer with 8+ years of experience building API references, integration guides, and AI-assisted documentation pipelines for enterprise teams across fintech (Itaú PIX — BRL 17T+/year, 150M+ users), retail (Sephora LATAM, 5+ countries), beauty data infrastructure (L'Oréal France), and logistics (Crane Worldwide).
+Personal portfolio site for **Leandro Gabriel Oliveira de Souza**, Senior Technical Writer with 6+ years of experience building API references, integration guides, and AI-assisted documentation pipelines for enterprise teams across fintech (Itaú PIX — BRL 17T+/year, 150M+ users), retail (Sephora LATAM, 5+ countries), beauty data infrastructure (L'Oréal France), and logistics (Crane Worldwide).
 
 Built with [Docusaurus 3](https://docusaurus.io/) and deployed to GitHub Pages.
 

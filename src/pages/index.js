@@ -14,7 +14,7 @@ function Hero() {
         </h1>
         <p className={styles.heroSubtitle}>
           I turn complex APIs, data infrastructure, and enterprise workflows into documentation
-          developers and business teams actually use. 8+ years across fintech (Itaú PIX —
+          developers and business teams actually use. 6+ years across fintech (Itaú PIX —
           BRL 17T+/year, 150M+ users), retail (Sephora LATAM), beauty data infrastructure
           (L'Oréal France), and logistics (Crane Worldwide).
         </p>
@@ -56,7 +56,7 @@ function FeaturesGrid() {
           <h2 className={styles.sectionTitle}>Portfolio Highlights</h2>
           <p className={styles.sectionLead}>
             A curated set of documentation samples — developer APIs, hardware install guides,
-            AI-tool support docs, and style governance — anchored in 8+ years of real
+            AI-tool support docs, and style governance — anchored in 6+ years of real
             enterprise engagements (Itaú PIX, Sephora LATAM, L'Oréal France, Crane Worldwide).
           </p>
         </div>
