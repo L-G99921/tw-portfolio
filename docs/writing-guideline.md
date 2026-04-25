@@ -50,7 +50,7 @@ For deeper guidance on each content type, see [Documentation Methodology](/docs/
 Per the Google Developer Documentation Style Guide:
 
 - **Conversational, but not overly casual.** Friendly without being cute.
-- **Confident, never condescending.** Don't say "obviously," "simply," "just," or "easy."
+- **Confident, never condescending.** Don't say `obviously`, `simply`, `just`, or `easy`.
 - **User-focused.** Use second person ("you") and active voice.
 
 ### Tone by audience
@@ -129,7 +129,7 @@ Use official product names exactly as defined. Don't invent variants.
 - DataBridge Hub (not DataBridge or Data Bridge)
 - SmartLink Plug (not SmartLink or Smart Link)
 - BillSense AI (not BillSense or Bill Sense AI)
-- PowerBox API (not Powerbox or Power Box API)
+- PowerBox API (not `Powerbox` or `Power Box API`)
 - EnergyGrid (one word, capital E and G)
 
 When introducing a product, use the full name. Subsequent mentions in the same section can use the short form if it's unambiguous.
@@ -148,11 +148,11 @@ These rules align with the Google Developer Documentation Style Guide.
 
 ### 7.2 Words to avoid
 
-- **"Please"** — don't use in instructions. ("Click Save" — not "Please click Save.")
-- **"Simply", "just", "easily", "obviously"** — they assume the reader's experience.
-- **"May"** for ability — use **"can"**. ("You can configure the budget" — not "You may configure the budget.")
-- **"Will"** for present behavior — use present tense. ("The API returns…" — not "The API will return…")
-- **Latin abbreviations** — write out: "for example" (not e.g.), "that is" (not i.e.), "and so on" (not etc.).
+- **`Please`** — don't use in instructions. ("Click Save" — not "Please click Save.")
+- **`Simply`, `just`, `easily`, `obviously`** — they assume the reader's experience.
+- **`May`** for ability — use **`can`**. ("You can configure the budget" — not "You may configure the budget.")
+- **`Will`** for present behavior — use present tense. ("The API returns…" — not "The API will return…")
+- **Latin abbreviations** — write out: `for example` (not e.g.), `that is` (not i.e.), `and so on` (not etc.).
 
 ### 7.3 Capitalization
 
@@ -250,8 +250,8 @@ Run through this before publishing any page.
 ### Voice and grammar
 
 - [ ] Active voice, present tense, second person.
-- [ ] No "please", "simply", "just", "obviously", "easily".
-- [ ] "Can" instead of "may"; present tense instead of "will".
+- [ ] No `please`, `simply`, `just`, `obviously`, `easily`.
+- [ ] `Can` instead of `may`; present tense instead of `will`.
 - [ ] Sentence case for all headings and UI strings.
 - [ ] Oxford commas, em/en dash usage correct.
 

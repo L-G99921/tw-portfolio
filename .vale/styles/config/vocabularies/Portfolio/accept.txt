@@ -3,7 +3,6 @@ Docusaurus
 MDX
 OpenAPI
 PIX
-Pix
 ISPB
 DICT
 EFI
@@ -12,7 +11,6 @@ BCB
 Banco Central do Brasil
 Bacen
 PowerBox
-Powerbox
 BillSense
 DataBridge
 SmartLink
@@ -45,7 +43,6 @@ SLID
 TOU
 MRU
 QR
-LED
 EV
 Bluetooth
 Wi-Fi
@@ -74,7 +71,6 @@ Zup
 swizzle
 swizzled
 swizzling
-docs-as-code
 auth
 backend
 frontend

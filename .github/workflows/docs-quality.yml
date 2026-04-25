@@ -64,6 +64,23 @@ jobs:
           path: .lycheecache
           key: cache-lychee-${{ github.sha }}
           restore-keys: cache-lychee-
+      - name: Pre-process markdown to strip internal Docusaurus links
+        # Lychee's URL parser hard-fails on root-relative links like
+        # /docs/foo before --exclude can be applied, and the Docusaurus
+        # build job already validates internal links via
+        # onBrokenLinks: 'throw'. Strip them here so Lychee only sees
+        # external links — its actual job.
+        run: |
+          set -euo pipefail
+          mkdir -p .lychee-tmp
+          while IFS= read -r src; do
+            dest=".lychee-tmp/$src"
+            mkdir -p "$(dirname "$dest")"
+            sed -E \
+              -e 's#\]\(/(docs|blog)/[^)]*\)#](https://example.com/_skipped)#g' \
+              -e 's#href=\{"/(docs|blog)/[^"]*"\}#href={"https://example.com/_skipped"}#g' \
+              "$src" > "$dest"
+          done < <(find docs blog -type f \( -name '*.md' -o -name '*.mdx' \); echo README.md; echo CONTRIBUTING.md)
       - name: Run Lychee
         uses: lycheeverse/lychee-action@v2
         with:
@@ -72,15 +89,12 @@ jobs:
             --cache
             --max-cache-age 1d
             --no-progress
-            --exclude-mail
+            --accept '200..=299,999'
+            --scheme https
+            --scheme http
             --exclude '^/'
-            --exclude 'localhost'
-            --exclude 'example\.com'
-            --exclude 'taskflow\.io'
-            'docs/**/*.md'
-            'docs/**/*.mdx'
-            'blog/**/*.md'
-            'README.md'
-            'CONTRIBUTING.md'
+            --exclude '^https?://(localhost|example\.com|.*\.example|taskflow\.io)'
+            './.lychee-tmp/**/*.md'
+            './.lychee-tmp/**/*.mdx'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

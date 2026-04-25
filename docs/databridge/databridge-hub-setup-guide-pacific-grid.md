@@ -181,5 +181,5 @@ If the app still shows the DataBridge Hub searching for the smart meter after 48
 Contact the EnergyGrid support team for additional help:
 
 - **Live chat:** Open the EnergyGrid App and go to **Menu** > **Support Center**.
-- **Email:** support@energygrid.com
+- **Email:** `support@energygrid.com`
 - **Phone and hours:** Contact your utility provider for the support phone number and current hours.
