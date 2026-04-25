@@ -73,6 +73,7 @@ jobs:
             --max-cache-age 1d
             --no-progress
             --accept '200..=299,999'
+            --remap '^/(docs|blog) https://l-g99921.github.io/tw-portfolio/$1'
             --exclude '^/'
             --exclude '^file:'
             --exclude 'localhost'
