@@ -1,0 +1,665 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Instant Payments API (PIX sample)",
+    "version": "2.4.0",
+    "description": "Sample API for issuing and reconciling instant payments on Brazil's PIX rail. The endpoints, payloads, and error codes mirror the publicly-documented PIX PSP standard published by Banco Central do Brasil. Customer identifiers, ISPBs, and webhook URLs are illustrative.\n\n**This API is anonymized and synthetic.** It is published as a portfolio sample to demonstrate OpenAPI authoring conventions, Diátaxis-aligned reference structure, and the contract-first workflow used at scale on real PIX integrations.",
+    "contact": {
+      "name": "Leandro Gabriel",
+      "url": "https://www.linkedin.com/in/leandro-gabriel-8aab31167/"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://sandbox.instant-payments.example/v2",
+      "description": "Sandbox — synthetic PSP environment for testing"
+    },
+    {
+      "url": "https://api.instant-payments.example/v2",
+      "description": "Production — illustrative URL only"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Charges",
+      "description": "Immediate charges (`cob`). A charge is a payment intent that the debtor settles by reading a QR code or entering a transaction ID."
+    },
+    {
+      "name": "Received payments",
+      "description": "Inbound PIX payments after settlement on the rail. Retrieved by end-to-end ID (`e2eId`)."
+    },
+    {
+      "name": "Webhooks",
+      "description": "Outbound notifications fired when the rail confirms a payment. Each PIX key has at most one registered webhook."
+    },
+    {
+      "name": "Keys",
+      "description": "PIX keys (CPF, CNPJ, email, phone, or random EVP). Used to address a creditor without sharing bank account details."
+    }
+  ],
+  "paths": {
+    "/cob/{txid}": {
+      "put": {
+        "tags": ["Charges"],
+        "summary": "Create an immediate charge",
+        "description": "Creates an immediate charge (`cob`) addressed to the creditor's PIX key. The debtor settles the charge by reading the returned QR code or by entering the transaction ID. The `txid` is supplied by the caller and must be unique across the PSP for at least 365 days.",
+        "operationId": "createCharge",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Txid"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChargeRequest"
+              },
+              "example": {
+                "calendario": {
+                  "expiracao": 3600
+                },
+                "devedor": {
+                  "cpf": "12345678909",
+                  "nome": "Maria Silva"
+                },
+                "valor": {
+                  "original": "150.00"
+                },
+                "chave": "merchant@example.com",
+                "solicitacaoPagador": "Cobrança referente ao pedido #4821"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Charge created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Charge"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "409": {
+            "description": "A charge with this `txid` already exists. Resubmissions of an identical body are idempotent; differing bodies return `409`.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["Charges"],
+        "summary": "Retrieve a charge",
+        "description": "Returns the full state of a charge, including any received PIX linked to its `txid`.",
+        "operationId": "getCharge",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Txid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Charge found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Charge"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Charges"],
+        "summary": "Update a charge",
+        "description": "Updates an open charge. You can revise the amount, the debtor, the message to the payer, or mark the charge as `REMOVIDA_PELO_USUARIO_RECEBEDOR`. Charges with status `CONCLUIDA` cannot be updated.",
+        "operationId": "updateCharge",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Txid"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChargePatch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Charge updated.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Charge"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "409": {
+            "description": "The charge is in a state that does not allow updates.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pix/{e2eId}": {
+      "get": {
+        "tags": ["Received payments"],
+        "summary": "Retrieve a received PIX",
+        "description": "Returns a single received PIX by its end-to-end ID. The `e2eId` is the canonical identifier for a settled payment on the rail.",
+        "operationId": "getReceivedPix",
+        "parameters": [
+          {
+            "name": "e2eId",
+            "in": "path",
+            "required": true,
+            "description": "End-to-end ID. Format: `E` + ISPB (8 digits) + `YYYYMMDDHHMM` + 11-character suffix.",
+            "schema": {
+              "type": "string",
+              "pattern": "^E\\d{8}[0-9]{12}\\w{11}$",
+              "example": "E12345678202602241430A1B2C3D4E5F"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Payment found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReceivedPix"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/webhook/{chave}": {
+      "put": {
+        "tags": ["Webhooks"],
+        "summary": "Register a webhook for a PIX key",
+        "description": "Associates a webhook URL with a PIX key the PSP holds for the merchant. After registration, every received PIX addressed to this key triggers an HTTPS `POST` to the URL with the payment payload. The endpoint must respond `2xx` within 5 seconds; otherwise the rail retries with exponential backoff for up to 24 hours.\n\nA key supports one webhook at a time. Calling this endpoint a second time replaces the previous registration.",
+        "operationId": "registerWebhook",
+        "parameters": [
+          {
+            "name": "chave",
+            "in": "path",
+            "required": true,
+            "description": "The PIX key. URL-encoded if it contains special characters (for example, an email key).",
+            "schema": {
+              "type": "string",
+              "example": "merchant@example.com"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WebhookRegistration"
+              },
+              "example": {
+                "webhookUrl": "https://merchant.example/payments/pix-callback"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Webhook registered.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Webhook"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ValidationError"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Webhooks"],
+        "summary": "Retrieve the webhook for a PIX key",
+        "operationId": "getWebhook",
+        "parameters": [
+          {
+            "name": "chave",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Webhook found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Webhook"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Webhooks"],
+        "summary": "Remove the webhook for a PIX key",
+        "operationId": "deleteWebhook",
+        "parameters": [
+          {
+            "name": "chave",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Webhook removed."
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "OAuth2": {
+        "type": "oauth2",
+        "flows": {
+          "clientCredentials": {
+            "tokenUrl": "https://sandbox.instant-payments.example/oauth/token",
+            "scopes": {
+              "cob.write": "Create and update charges",
+              "cob.read": "Read charges",
+              "pix.read": "Read received payments",
+              "webhook.write": "Register and remove webhooks",
+              "webhook.read": "Read webhook registrations"
+            }
+          }
+        }
+      }
+    },
+    "parameters": {
+      "Txid": {
+        "name": "txid",
+        "in": "path",
+        "required": true,
+        "description": "Caller-supplied transaction ID. Alphanumeric, 26 to 35 characters, unique within the PSP for at least 365 days.",
+        "schema": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9]{26,35}$",
+          "example": "INV4821a1b2c3d4e5f6g7h8i9j0k1l2"
+        }
+      }
+    },
+    "responses": {
+      "ValidationError": {
+        "description": "Request payload failed validation.",
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            }
+          }
+        }
+      },
+      "Forbidden": {
+        "description": "The OAuth scope is insufficient or the PIX key does not belong to the caller.",
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "Resource not found.",
+        "content": {
+          "application/problem+json": {
+            "schema": {
+              "$ref": "#/components/schemas/Problem"
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "ChargeRequest": {
+        "type": "object",
+        "required": ["calendario", "valor", "chave"],
+        "properties": {
+          "calendario": {
+            "type": "object",
+            "required": ["expiracao"],
+            "properties": {
+              "expiracao": {
+                "type": "integer",
+                "minimum": 60,
+                "maximum": 86400,
+                "description": "Charge lifetime in seconds, counted from creation. After expiry the charge cannot be paid."
+              }
+            }
+          },
+          "devedor": {
+            "$ref": "#/components/schemas/Person"
+          },
+          "valor": {
+            "type": "object",
+            "required": ["original"],
+            "properties": {
+              "original": {
+                "type": "string",
+                "pattern": "^\\d{1,10}\\.\\d{2}$",
+                "description": "Amount in BRL with two decimal places. String representation prevents float drift."
+              }
+            }
+          },
+          "chave": {
+            "type": "string",
+            "description": "Creditor's PIX key. Must belong to the merchant authenticated via OAuth."
+          },
+          "solicitacaoPagador": {
+            "type": "string",
+            "maxLength": 140,
+            "description": "Free-form message displayed to the debtor at payment time."
+          }
+        }
+      },
+      "ChargePatch": {
+        "type": "object",
+        "properties": {
+          "valor": {
+            "type": "object",
+            "properties": {
+              "original": {
+                "type": "string",
+                "pattern": "^\\d{1,10}\\.\\d{2}$"
+              }
+            }
+          },
+          "devedor": {
+            "$ref": "#/components/schemas/Person"
+          },
+          "solicitacaoPagador": {
+            "type": "string",
+            "maxLength": 140
+          },
+          "status": {
+            "type": "string",
+            "enum": ["REMOVIDA_PELO_USUARIO_RECEBEDOR"]
+          }
+        }
+      },
+      "Charge": {
+        "type": "object",
+        "properties": {
+          "txid": {
+            "type": "string"
+          },
+          "revisao": {
+            "type": "integer",
+            "description": "Increments by 1 on every update. Use as an optimistic-concurrency token."
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ATIVA",
+              "CONCLUIDA",
+              "REMOVIDA_PELO_USUARIO_RECEBEDOR",
+              "REMOVIDA_PELO_PSP"
+            ]
+          },
+          "calendario": {
+            "type": "object",
+            "properties": {
+              "criacao": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "expiracao": {
+                "type": "integer"
+              }
+            }
+          },
+          "devedor": {
+            "$ref": "#/components/schemas/Person"
+          },
+          "valor": {
+            "type": "object",
+            "properties": {
+              "original": {
+                "type": "string"
+              }
+            }
+          },
+          "chave": {
+            "type": "string"
+          },
+          "solicitacaoPagador": {
+            "type": "string"
+          },
+          "pix": {
+            "type": "array",
+            "description": "Received PIX linked to this charge. Empty until the debtor pays.",
+            "items": {
+              "$ref": "#/components/schemas/ReceivedPix"
+            }
+          },
+          "loc": {
+            "type": "object",
+            "description": "Payload location for QR code generation.",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "location": {
+                "type": "string"
+              },
+              "tipoCob": {
+                "type": "string",
+                "enum": ["cob", "cobv"]
+              }
+            }
+          }
+        }
+      },
+      "ReceivedPix": {
+        "type": "object",
+        "properties": {
+          "endToEndId": {
+            "type": "string",
+            "description": "Canonical identifier issued by the rail at settlement."
+          },
+          "txid": {
+            "type": "string",
+            "description": "The charge `txid` that this payment settled. Empty for direct PIX without an associated charge."
+          },
+          "valor": {
+            "type": "string"
+          },
+          "horario": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "infoPagador": {
+            "type": "string",
+            "description": "Optional free-form message from the debtor."
+          },
+          "pagador": {
+            "$ref": "#/components/schemas/PaymentParticipant"
+          }
+        }
+      },
+      "WebhookRegistration": {
+        "type": "object",
+        "required": ["webhookUrl"],
+        "properties": {
+          "webhookUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "HTTPS URL the PSP posts to when a payment settles. Must use TLS 1.2 or higher and a publicly-resolvable certificate."
+          }
+        }
+      },
+      "Webhook": {
+        "type": "object",
+        "properties": {
+          "webhookUrl": {
+            "type": "string",
+            "format": "uri"
+          },
+          "chave": {
+            "type": "string"
+          },
+          "criacao": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Person": {
+        "type": "object",
+        "description": "A natural person (CPF) or legal entity (CNPJ).",
+        "oneOf": [
+          {
+            "required": ["cpf", "nome"],
+            "properties": {
+              "cpf": {
+                "type": "string",
+                "pattern": "^\\d{11}$"
+              },
+              "nome": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "required": ["cnpj", "nome"],
+            "properties": {
+              "cnpj": {
+                "type": "string",
+                "pattern": "^\\d{14}$"
+              },
+              "nome": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "PaymentParticipant": {
+        "type": "object",
+        "properties": {
+          "cpf": {
+            "type": "string"
+          },
+          "cnpj": {
+            "type": "string"
+          },
+          "nome": {
+            "type": "string"
+          }
+        }
+      },
+      "Problem": {
+        "type": "object",
+        "description": "Error response in `application/problem+json` format (RFC 7807).",
+        "required": ["type", "title", "status"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "format": "uri",
+            "example": "https://instant-payments.example/errors/charge-already-exists"
+          },
+          "title": {
+            "type": "string",
+            "example": "A charge with this txid already exists."
+          },
+          "status": {
+            "type": "integer",
+            "example": 409
+          },
+          "detail": {
+            "type": "string"
+          },
+          "violacoes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "razao": {
+                  "type": "string"
+                },
+                "propriedade": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "OAuth2": ["cob.write", "cob.read", "pix.read", "webhook.write", "webhook.read"]
+    }
+  ]
+}
