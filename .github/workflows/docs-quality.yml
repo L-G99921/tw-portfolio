@@ -90,6 +90,8 @@ jobs:
             --max-cache-age 1d
             --no-progress
             --accept '200..=299,999'
+            --scheme https
+            --scheme http
             --exclude '^/'
             --exclude '^https?://(localhost|example\.com|.*\.example|taskflow\.io)'
             './.lychee-tmp/**/*.md'
