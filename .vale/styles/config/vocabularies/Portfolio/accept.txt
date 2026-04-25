@@ -3,7 +3,6 @@ Docusaurus
 MDX
 OpenAPI
 PIX
-Pix
 ISPB
 DICT
 EFI

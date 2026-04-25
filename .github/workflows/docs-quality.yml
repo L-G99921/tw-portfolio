@@ -72,7 +72,6 @@ jobs:
             --cache
             --max-cache-age 1d
             --no-progress
-            --exclude-mail
             --exclude '^/'
             --exclude 'localhost'
             --exclude 'example\.com'
