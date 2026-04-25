@@ -71,8 +71,6 @@ Zup
 swizzle
 swizzled
 swizzling
-docs-as-code
-Docs-as-code
 auth
 backend
 frontend

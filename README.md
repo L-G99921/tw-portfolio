@@ -37,7 +37,7 @@ Three audiences, three content types, one portal:
 
 ## Writing standards applied
 
-- **[Google Developer Documentation Style Guide](https://developers.google.com/style)** — sentence case, active voice, second person, banned filler words ("simply", "just", "may"), realistic examples
+- **[Google Developer Documentation Style Guide](https://developers.google.com/style)** — sentence case, active voice, second person, banned filler words (`simply`, `just`, `may`), realistic examples
 - **[Diátaxis Framework](https://diataxis.fr/)** — every page is exactly one of: tutorial, how-to guide, reference, or explanation
 - **Structured authoring** — consistent admonitions (note, tip, warning, caution, danger)
 - **Docs-as-code** — Markdown/MDX, version-controlled in Git, reviewed as code

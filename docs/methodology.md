@@ -95,7 +95,7 @@ The site's information architecture maps directly onto Diátaxis:
 
 | This site's page | Diátaxis type | Why |
 |------------------|---------------|-----|
-| [Integration Guide](/docs/integration-guide) | **Explanation** + structured **how-to** (recognised pragmatic exception) | Architecture sections explain *why*; step sections show *how* — kept clearly separated. The single-page format reflects how integration teams actually use the doc (sequential read), but the trade-off is acknowledged |
+| [Integration Guide](/docs/integration-guide) | **Explanation** + structured **how-to** (recognised pragmatic exception) | Architecture sections explain *why*; step sections show *how* — kept in distinct sections. The single-page format reflects how integration teams actually use the doc (sequential read), but the trade-off is acknowledged |
 | [API Reference](/docs/api/powerbox-api) | **Reference** | Auto-generated from OpenAPI; no opinions, no narrative |
 | [Hardware Install Guide](/docs/databridge/databridge-installation-guide-atlas-insight) | **How-to guide** | Assumes the reader has the hardware in hand and wants the steps |
 | [Data Dictionary](/docs/data-dictionary) | **Reference** | Look-up table of fields and storage locations |
@@ -111,7 +111,7 @@ If you spot a page that violates the one-type rule, it's a bug. Open an issue.
 Style guides and content frameworks solve different problems. Most documentation projects pick one and ignore the other:
 
 - **Style-only orgs** produce beautifully-written content that's impossible to navigate. Every page reads well in isolation but the IA is a maze.
-- **Structure-only orgs** produce well-organized content that's painful to read line-by-line. The taxonomy is correct, but the prose is academic, passive, and full of "may" and "please".
+- **Structure-only orgs** produce well-organized content that's painful to read line-by-line. The taxonomy is correct, but the prose is academic, passive, and full of `may` and `please`.
 
 Pairing **Google's style guide** (sentence-level rules) with **Diátaxis** (page-level taxonomy) closes the gap. You get answers to:
 
