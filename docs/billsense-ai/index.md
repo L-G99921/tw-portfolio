@@ -1,14 +1,14 @@
 ---
-title: User Guide
+title: User guide
 description: "Step-by-step guide for using BillSense AI to analyze energy bills, review usage patterns, and manage customer profiles."
-sidebar_label: User Guide
+sidebar_label: User guide
 sidebar_position: 3
-tags: [billwise-ai, user-guide]
+tags: [billsense-ai, user-guide]
 ---
 
-# BillSense AI User Guide
+# BillSense AI user guide
 
-This guide covers the main features and workflows within BillSense AI. It is intended for utility customer service representatives and support agents who use BillSense AI to assist customers with billing inquiries.
+Use this guide if you are a utility customer service representative or support agent assisting customers with billing inquiries. It covers the main features and workflows in BillSense AI.
 
 ## Insights Dashboard
 
@@ -194,7 +194,7 @@ The My Home section stores the customer's appliance information. Accurate applia
 
     Changes save automatically when selections are modified.
 
-### Heating and Cooling Options
+### Heating and cooling options
 
 | Option | Description |
 |--------|-------------|
@@ -204,7 +204,7 @@ The My Home section stores the customer's appliance information. Accurate applia
 | Central or Ductless Heat Pump | Heat pump system |
 | Hybrid/Dual-Fuel System | Combined heat pump and furnace |
 
-### Electric Vehicle Configuration
+### Electric vehicle configuration
 
 1. **Indicate EV Ownership**
 
@@ -218,7 +218,7 @@ The My Home section stores the customer's appliance information. Accurate applia
 
     Choose from Level 1 (110V), Level 2 (220V), Both, or "I don't charge at home."
 
-:::important
+:::caution
 EV charger type affects scheduled charging recommendations. Verify this setting if the customer reports inaccurate EV-related suggestions.
 :::
 
@@ -267,46 +267,48 @@ Available rate plans vary by utility. Common plan types include:
 Customers in a 12-month agreement cannot switch plans until the agreement expires. The expiration date appears in the plan card.
 :::
 
-## Best Practices
+## Conduct a billing inquiry
 
-### Start the Conversation
+Use this workflow to lead a customer through a billing question with BillSense AI. Each step uses one of the sections covered above.
+
+### Start the conversation
 
 1. **Begin with Insights**
 
     Open the Insights dashboard first to understand the full billing picture.
 
-2. **Acknowledge Changes**
+2. **Acknowledge changes**
 
     Note whether the bill increased or decreased compared to previous periods.
 
-3. **Identify Key Factors**
+3. **Identify key factors**
 
     Point out the top contributors to bill changes.
 
-### Explain Usage Patterns
+### Explain usage patterns
 
-1. **Use the Charts**
+1. **Use the charts**
 
     Charts help explain complex usage patterns in a clear, visual format.
 
-2. **Highlight Peak Times**
+2. **Highlight peak times**
 
     Explain the cost difference between on-peak and off-peak usage.
 
-3. **Show Category Breakdown**
+3. **Show category breakdown**
 
     Use category percentages to illustrate where the customer's energy goes.
 
-### Present Savings Opportunities
+### Present savings opportunities
 
-1. **Quantify the Benefit**
+1. **Quantify the benefit**
 
     Use the dollar amounts shown on recommendation cards.
 
-2. **Prioritize High-Impact Items**
+2. **Prioritize high-impact items**
 
     Focus on recommendations with the largest potential savings.
 
-3. **Connect to Usage Data**
+3. **Connect to usage data**
 
     Reference specific categories when explaining why a recommendation applies.

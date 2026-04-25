@@ -78,7 +78,7 @@ This document describes all data sources used across EnergyGrid utility partner 
 - **MDM RDS Instance** — Database: `atls_bill_sense`
 - Object-storage BillSense AI files
 
-Additional BillSense AI storage locations (object-storage staging buckets and intermediate processing tables) are documented separately in the BillSense AI integration runbook.
+**See also:** BillSense AI integration runbook — additional object-storage staging buckets and intermediate processing tables.
 
 ---
 
@@ -154,7 +154,7 @@ The Data Warehouse consolidates usage, billing, and disaggregation data. Schema 
 
 ---
 
-### Data Required for the EnergyGrid App
+### Data required for the EnergyGrid App
 
 - MDM Usage Data
 - Customer Data
@@ -164,7 +164,7 @@ The Data Warehouse consolidates usage, billing, and disaggregation data. Schema 
 
 ---
 
-### Data Required for Bill Management
+### Data required for bill management
 
 - MDM Usage Data
 - Customer Data
@@ -271,7 +271,7 @@ The Data Warehouse consolidates usage, billing, and disaggregation data. Schema 
 
 ---
 
-### Data Required for the EnergyGrid App
+### Data required for the EnergyGrid App
 
 - MDM Usage Data
 - Customer Data
@@ -354,7 +354,7 @@ Tables reside in the `public` schema. The `coaching` schema contains additional 
 
 ---
 
-### Data Required for the External API
+### Data required for the external API
 
 - MDM Usage Data
 - Customer Data

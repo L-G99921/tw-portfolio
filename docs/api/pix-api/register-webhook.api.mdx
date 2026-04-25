@@ -1,0 +1,74 @@
+---
+id: register-webhook
+title: "Register a webhook for a PIX key"
+description: "Associates a webhook URL with a PIX key the PSP holds for the merchant. After registration, every received PIX addressed to this key triggers an HTTPS `POST` to the URL with the payment payload. The endpoint must respond `2xx` within 5 seconds; otherwise the rail retries with exponential backoff for up to 24 hours."
+sidebar_label: "Register a webhook for a PIX key"
+hide_title: true
+hide_table_of_contents: true
+api: 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
+sidebar_class_name: "put api-method"
+info_path: docs/api/pix-api/instant-payments-api-pix-sample
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Register a webhook for a PIX key"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"put"}
+  path={"/webhook/{chave}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Associates a webhook URL with a PIX key the PSP holds for the merchant. After registration, every received PIX addressed to this key triggers an HTTPS `POST` to the URL with the payment payload. The endpoint must respond `2xx` within 5 seconds; otherwise the rail retries with exponential backoff for up to 24 hours.
+
+A key supports one webhook at a time. Calling this endpoint a second time replaces the previous registration.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"chave","in":"path","required":true,"description":"The PIX key. URL-encoded if it contains special characters (for example, an email key).","schema":{"type":"string","example":"merchant@example.com"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"required":true,"content":{"application/json":{"schema":{"type":"object","required":["webhookUrl"],"properties":{"webhookUrl":{"type":"string","format":"uri","description":"HTTPS URL the PSP posts to when a payment settles. Must use TLS 1.2 or higher and a publicly-resolvable certificate."}},"title":"WebhookRegistration"},"example":{"webhookUrl":"https://merchant.example/payments/pix-callback"}}}}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"201":{"description":"Webhook registered.","content":{"application/json":{"schema":{"type":"object","properties":{"webhookUrl":{"type":"string","format":"uri"},"chave":{"type":"string"},"criacao":{"type":"string","format":"date-time"}},"title":"Webhook"}}}},"400":{"description":"Request payload failed validation.","content":{"application/problem+json":{"schema":{"type":"object","description":"Error response in `application/problem+json` format (RFC 7807).","required":["type","title","status"],"properties":{"type":{"type":"string","format":"uri","example":"https://instant-payments.example/errors/charge-already-exists"},"title":{"type":"string","example":"A charge with this txid already exists."},"status":{"type":"integer","example":409},"detail":{"type":"string"},"violacoes":{"type":"array","items":{"type":"object","properties":{"razao":{"type":"string"},"propriedade":{"type":"string"}}}}},"title":"Problem"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

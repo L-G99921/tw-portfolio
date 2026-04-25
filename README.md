@@ -1,6 +1,6 @@
 # Leandro Gabriel — Technical Writer Portfolio
 
-Personal portfolio site for **Leandro Gabriel Oliveira de Souza**, Technical Writer with 7+ years of experience building API references, integration guides, and AI-assisted documentation pipelines for enterprise teams in fintech, retail, and cybersecurity.
+Personal portfolio site for **Leandro Gabriel Oliveira de Souza**, Senior Technical Writer with 8+ years of experience building API references, integration guides, and AI-assisted documentation pipelines for enterprise teams across fintech (Itaú PIX — BRL 17T+/year, 150M+ users), retail (Sephora LATAM, 5+ countries), beauty data infrastructure (L'Oréal France), and logistics (Crane Worldwide).
 
 Built with [Docusaurus 3](https://docusaurus.io/) and deployed to GitHub Pages.
 
@@ -28,6 +28,7 @@ Three audiences, three content types, one portal:
 | API Reference (OpenAPI) | Auto-generated interactive API docs from OpenAPI specs |
 | Hardware Install Guides | Consumer-friendly UX writing — QR codes, Bluetooth pairing, Wi-Fi setup |
 | BillSense AI Docs | AI-tool user guide + troubleshooting reference for support agents |
+| **PIX — Diátaxis showcase** | One page of each Diátaxis type (tutorial, how-to, reference, explanation) for Brazil's instant-payments rail. Anonymized OpenAPI sample modelled on the public PIX PSP standard |
 | Writing Style Guide | Voice, tone, UX patterns, pre-publication checklist (Google + Diátaxis applied) |
 | Methodology | Deep-dive on Google Developer Documentation Style Guide and the Diátaxis Framework |
 | Data Dictionary | Structured reference content with schema-style tables |
@@ -53,7 +54,19 @@ See [Documentation Methodology](https://l-g99921.github.io/tw-portfolio/docs/met
 | Docusaurus 3 | Static site framework |
 | `docusaurus-plugin-openapi-docs` | Interactive API reference from OpenAPI specs |
 | SASS | Custom theming |
+| [Vale](https://vale.sh/) | Prose lint, configured against the Google Developer Documentation Style Guide |
+| [Lychee](https://github.com/lycheeverse/lychee) | External link checker |
 | GitHub Pages + GitHub Actions | Hosting and CI/CD |
+
+## Docs-as-code pipeline
+
+Every change to `docs/`, `blog/`, or `src/` triggers [.github/workflows/docs-quality.yml](.github/workflows/docs-quality.yml), which runs three jobs in parallel:
+
+- **Vale** — prose lint against Google Style + the project vocabulary in [.vale](.vale/styles/config/vocabularies/Portfolio/). Surfaces violations as PR review comments.
+- **Build** — `docusaurus build` with `onBrokenLinks: 'throw'` catches every broken internal link before merge.
+- **Lychee** — checks every external HTTP(S) link in the docs and the README.
+
+The expected workflow is documented in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 

@@ -1,0 +1,72 @@
+---
+id: get-charge
+title: "Retrieve a charge"
+description: "Returns the full state of a charge, including any received PIX linked to its `txid`."
+sidebar_label: "Retrieve a charge"
+hide_title: true
+hide_table_of_contents: true
+api: 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
+sidebar_class_name: "get api-method"
+info_path: docs/api/pix-api/instant-payments-api-pix-sample
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Retrieve a charge"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/cob/{txid}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Returns the full state of a charge, including any received PIX linked to its `txid`.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"txid","in":"path","required":true,"description":"Caller-supplied transaction ID. Alphanumeric, 26 to 35 characters, unique within the PSP for at least 365 days.","schema":{"type":"string","pattern":"^[a-zA-Z0-9]{26,35}$","example":"INV4821a1b2c3d4e5f6g7h8i9j0k1l2"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Charge found.","content":{"application/json":{"schema":{"type":"object","properties":{"txid":{"type":"string"},"revisao":{"type":"integer","description":"Increments by 1 on every update. Use as an optimistic-concurrency token."},"status":{"type":"string","enum":["ATIVA","CONCLUIDA","REMOVIDA_PELO_USUARIO_RECEBEDOR","REMOVIDA_PELO_PSP"]},"calendario":{"type":"object","properties":{"criacao":{"type":"string","format":"date-time"},"expiracao":{"type":"integer"}}},"devedor":{"type":"object","description":"A natural person (CPF) or legal entity (CNPJ).","oneOf":[{"required":["cpf","nome"],"properties":{"cpf":{"type":"string","pattern":"^\\d{11}$"},"nome":{"type":"string"}}},{"required":["cnpj","nome"],"properties":{"cnpj":{"type":"string","pattern":"^\\d{14}$"},"nome":{"type":"string"}}}],"title":"Person"},"valor":{"type":"object","properties":{"original":{"type":"string"}}},"chave":{"type":"string"},"solicitacaoPagador":{"type":"string"},"pix":{"type":"array","description":"Received PIX linked to this charge. Empty until the debtor pays.","items":{"type":"object","properties":{"endToEndId":{"type":"string","description":"Canonical identifier issued by the rail at settlement."},"txid":{"type":"string","description":"The charge `txid` that this payment settled. Empty for direct PIX without an associated charge."},"valor":{"type":"string"},"horario":{"type":"string","format":"date-time"},"infoPagador":{"type":"string","description":"Optional free-form message from the debtor."},"pagador":{"type":"object","properties":{"cpf":{"type":"string"},"cnpj":{"type":"string"},"nome":{"type":"string"}},"title":"PaymentParticipant"}},"title":"ReceivedPix"}},"loc":{"type":"object","description":"Payload location for QR code generation.","properties":{"id":{"type":"integer"},"location":{"type":"string"},"tipoCob":{"type":"string","enum":["cob","cobv"]}}}},"title":"Charge"}}}},"404":{"description":"Resource not found.","content":{"application/problem+json":{"schema":{"type":"object","description":"Error response in `application/problem+json` format (RFC 7807).","required":["type","title","status"],"properties":{"type":{"type":"string","format":"uri","example":"https://instant-payments.example/errors/charge-already-exists"},"title":{"type":"string","example":"A charge with this txid already exists."},"status":{"type":"integer","example":409},"detail":{"type":"string"},"violacoes":{"type":"array","items":{"type":"object","properties":{"razao":{"type":"string"},"propriedade":{"type":"string"}}}}},"title":"Problem"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

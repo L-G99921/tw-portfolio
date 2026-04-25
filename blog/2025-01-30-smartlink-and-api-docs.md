@@ -4,24 +4,22 @@ description: "Announcing the SmartLink Installation Guide and updated API Refere
 tags: [smartlink, api, documentation]
 ---
 
-We are excited to announce the release of two major additions to our documentation: the **SmartLink Installation Guide** and the updated **API Reference** for both the ConnectBox API and the Usage Data API.
+Two new documentation sections are now available: the **SmartLink Installation Guide** and the updated **API Reference** for both the ConnectBox API and the Usage Data API.
 
 <!--truncate-->
 
 ## SmartLink Installation Guide
 
-The SmartLink is a compact smart plug that doubles as a whole-home energy meter. The new [SmartLink Installation Guide](/docs/powerlync/powerlync-installation-guide) walks you through the complete setup process, covering:
+The SmartLink is a compact smart plug that doubles as a whole-home energy meter. The new [SmartLink Installation Guide](/docs/smartlink/smartlink-installation-guide) walks you through the complete setup process, covering:
 
 - **Requirements and prerequisites** — everything you need before starting, including device placement guidelines and Wi-Fi requirements.
 - **Mobile app setup** — step-by-step instructions for signing in, scanning the QR code, connecting to Wi-Fi, and binding to your smart meter.
 - **Installation verification** — how to confirm your SmartLink is online and reporting real-time energy data.
 - **Troubleshooting** — solutions for common issues such as connection failures, communication errors, and LED status indicators.
 
-The guide includes screenshots for each step of the setup process.
+## API reference updates
 
-## API Reference Updates
-
-Our API documentation now covers two complete API systems:
+The API reference now covers two complete API systems:
 
 ### ConnectBox API
 

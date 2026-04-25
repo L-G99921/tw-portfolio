@@ -13,8 +13,8 @@ const measurementId = process.env.GA_MEASUREMENT_ID;
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Leandro Gabriel — Technical Writer',
-  tagline: 'Turning complex systems into clear, developer-first documentation',
+  title: 'Leandro Gabriel — Senior Technical Writer',
+  tagline: 'API documentation, docs-as-code, and AI-assisted docs pipelines — for fintech, SaaS, and data infrastructure teams',
   favicon: 'img/favicon.svg',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -63,6 +63,13 @@ const config = {
           usageapi: {
             specPath: 'static/usage-api-openapi.json',
             outputDir: 'docs/api/usage-api',
+            sidebarOptions: {
+              groupPathsBy: 'tag',
+            },
+          },
+          pixapi: {
+            specPath: 'static/pix-api-openapi.json',
+            outputDir: 'docs/api/pix-api',
             sidebarOptions: {
               groupPathsBy: 'tag',
             },
@@ -135,6 +142,11 @@ const config = {
             label: 'API Sample',
           },
           {
+            to: '/docs/pix/about-pix',
+            position: 'left',
+            label: 'PIX',
+          },
+          {
             to: '/blog',
             label: 'Blog',
             position: 'left',
@@ -169,6 +181,10 @@ const config = {
                 label: 'API Reference Sample',
                 to: '/docs/api/powerbox-api',
               },
+              {
+                label: 'PIX — Diátaxis showcase',
+                to: '/docs/pix/about-pix',
+              },
             ],
           },
           {
@@ -176,7 +192,7 @@ const config = {
             items: [
               {
                 label: 'Hardware Install Guide',
-                to: '/docs/energy-bridge/energy-bridge-installation-guide-atlas-insight',
+                to: '/docs/databridge/databridge-installation-guide-atlas-insight',
               },
               {
                 label: 'Writing Style Guide',
@@ -185,6 +201,10 @@ const config = {
               {
                 label: 'Data Dictionary',
                 to: '/docs/data-dictionary',
+              },
+              {
+                label: 'PIX API Reference',
+                to: '/docs/api/pix-api/instant-payments-api-pix-sample',
               },
             ],
           },

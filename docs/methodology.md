@@ -19,7 +19,7 @@ Every page on this site is built on two industry-standard frameworks. Together, 
 Style without structure produces beautiful prose nobody can navigate. Structure without style produces clean architecture full of unreadable pages. You need both.
 
 :::info About this page
-I'm **Leandro Gabriel** — a Technical Writer with 7+ years applying these frameworks at scale across fintech (Itaú/PIX), enterprise retail (Sephora LATAM), healthcare (Infomed Benner), and cybersecurity. This page is both an explanation of the frameworks and a record of my specialization in them.
+I'm **Leandro Gabriel** — a Senior Technical Writer with 8+ years applying these frameworks at scale across fintech (Itaú/PIX), enterprise retail (Sephora LATAM), beauty data infrastructure (L'Oréal France), and logistics (Crane Worldwide). This page is both an explanation of the frameworks and a record of my specialization in them.
 :::
 
 ---
@@ -50,7 +50,7 @@ In a docs-as-code workflow, a public style guide also doubles as a review refere
 
 Open any page on this site and you'll find:
 
-- **Sentence-case headings** — see [Integration Guide](/docs/integration-guide), [Hardware Install Guide](/docs/energy-bridge/energy-bridge-installation-guide-atlas-insight).
+- **Sentence-case headings** — see [Integration Guide](/docs/integration-guide), [Hardware Install Guide](/docs/databridge/databridge-installation-guide-atlas-insight).
 - **Imperative-mood instructions** in tutorials and how-to guides — "Click Connect", not "You should click Connect".
 - **Realistic API examples** — every payload in the [API Reference](/docs/api/powerbox-api) uses field names and values that map to a believable utility data model.
 - **Banned-word audits** baked into the [Writing Guideline](/docs/writing-guideline#72-words-to-avoid).
@@ -95,11 +95,11 @@ The site's information architecture maps directly onto Diátaxis:
 
 | This site's page | Diátaxis type | Why |
 |------------------|---------------|-----|
-| [Integration Guide](/docs/integration-guide) | **Explanation** + structured **how-to** | Architecture sections explain *why*; step sections show *how* — clearly separated |
+| [Integration Guide](/docs/integration-guide) | **Explanation** + structured **how-to** (recognized pragmatic exception) | Architecture sections explain *why*; step sections show *how* — clearly separated. The single-page format reflects how integration teams actually use the doc (sequential read), but the trade-off is acknowledged |
 | [API Reference](/docs/api/powerbox-api) | **Reference** | Auto-generated from OpenAPI; no opinions, no narrative |
-| [Hardware Install Guide](/docs/energy-bridge/energy-bridge-installation-guide-atlas-insight) | **How-to guide** | Assumes the reader has the hardware in hand and wants the steps |
+| [Hardware Install Guide](/docs/databridge/databridge-installation-guide-atlas-insight) | **How-to guide** | Assumes the reader has the hardware in hand and wants the steps |
 | [Data Dictionary](/docs/data-dictionary) | **Reference** | Look-up table of fields and storage locations |
-| [BillSense AI](/docs/billwise-ai/overview) | **Explanation** + **how-to** | Concept page separated from troubleshooting steps |
+| [BillSense AI](/docs/billsense-ai/overview) | **Explanation** + **how-to** | Concept page separated from troubleshooting steps |
 | [Writing Guideline](/docs/writing-guideline) | **Reference** | Look-up rules, not a tutorial on how to write |
 
 If you spot a page that violates the one-type rule, it's a bug. Open an issue.
@@ -130,14 +130,16 @@ The result is documentation that's both *readable line-by-line* and *navigable a
 
 | Where | What I built |
 |-------|--------------|
-| **Sephora LATAM** (via Amaris Consulting, 2024–present) | Restructured enterprise documentation around Diátaxis content types, reducing rework by 75% and accelerating onboarding by 40%. Aligned voice and tone with Google-style conventions across compliance manuals and process flows. |
-| **Itaú Unibanco** (via Zup Innovation, 2022–2024) | Authored API documentation and integration guides for the PIX payment system using Google-style conventions and Diátaxis content separation. Drove developer-doc satisfaction from 3.8 → 4.6 / 5 in six months. |
-| **Infomed Benner** (2021–2022) | Healthcare documentation using strict reference-vs-how-to separation; cut recurring support tickets by 25% via better information architecture. |
-| **EnergyGrid Portfolio** (this site) | A reference implementation showing how Google + Diátaxis apply across six audience types: developers, integrators, field technicians, end users, support agents, and AI-tool operators. |
+| **Lean Tech / Crane Worldwide Logistics** (Feb 2026 – present) | Senior Technical Writer (Contract). Own the full documentation lifecycle and knowledge governance for Crane Worldwide's operational knowledge base in Doc360, partnering with Business Analysts and SMEs across three regions. |
+| **L'Oréal France** (Nov 2025 – Feb 2026) | Defined the documentation strategy for L'Oréal's data infrastructure — dataflows, database schemas, and SQL views → Power BI lineage. Established docs-as-code culture (Markdown + Git + Vale-style linting + CI-validated code samples) on a team previously reliant on SharePoint. |
+| **Sephora LATAM** (via Amaris Consulting, 2024 – 2025) | Led the documentation architecture transformation for Sephora's LATAM retail tech platforms using TOGAF, unifying standards across 5+ countries and reducing redundant documentation by ~30% (measured via Confluence content audit). Migrated legacy content into Docusaurus; mentored 3 junior writers in docs-as-code practices. |
+| **Itaú Unibanco** (via Zup Innovation, 2022 – 2024) | Owned the official PIX API documentation — Brazil's instant-payments rail (BRL 17T+/year, 150M+ users). Authored 37+ endpoint references, integration guides, release notes, and migration docs on the Bitbucket docs-as-code pipeline. Cut L1 support tickets ~45% on the PIX integration queue (6mo post-launch); lifted developer satisfaction from 3.8 → 4.6 / 5 (n=60+, quarterly DX survey). |
+| **Infomed Benner** (2021 – 2022) | Healthcare software documentation analyst. Remodelled the documentation framework and updated system manuals with user-centric language; engaged in software quality control. |
+| **EnergyGrid Portfolio** (this site) | A reference implementation showing how Google + Diátaxis apply across six audience types — developers, integrators, field technicians, end users, support agents, and AI-tool operators. The PIX section showcases the full Diátaxis cycle (tutorial, how-to, reference, explanation) anchored in real domain expertise. |
 
 ### What "specialist" means in practice
 
-I don't just *know* these frameworks — I've migrated organizations onto them. That work involves:
+I don't only *know* these frameworks — I've migrated organizations onto them. That work involves:
 
 - **Auditing existing docs against Diátaxis** to find pages that try to be two things at once, and proposing splits.
 - **Writing style-guide adoption playbooks** that work for technical writers, engineers, and product managers — each of whom needs different on-ramps.

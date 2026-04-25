@@ -1,0 +1,72 @@
+---
+id: delete-webhook
+title: "Remove the webhook for a PIX key"
+description: "Remove the webhook for a PIX key"
+sidebar_label: "Remove the webhook for a PIX key"
+hide_title: true
+hide_table_of_contents: true
+api: eJyVVl1uGzcQvsqAL03cleS4RpPqzXHcwkCKCP5BCzgGMiJHWsZcckvOSlYEAT1EL9Cz9CY9STHcXVm2FaDRi3aX8/Pxm2+GXCvGeVLjG/UbTcsQ7pK6LVSoKSLb4M+NGitDjpi6dVWoGiNWxBTFb608VqTGSpe4IFUo69VY1cilKlSkPxobyagxx4YKlXRJFarxWvGqFqfE0fq52mxuxTjVwSdKsn50eCx/hpKOthYoatxDhEhVWJAZqk2hjvcZXlAKTdQEPjDMQuPNUBVKB8/kWcyxrp3VeYujOoapo+r7z0l8189Bhuln0qyKJ0nOYgwRetRgPXz6WthPMAuxQoYXFz+fwus3h69fDh/Rc9PmKhRbdvKfGLnJtaijVINty0sL6Sl/hWrjq7FqolWFonusaicWJXOdxqOR9YnR86DGVUWe07AzGZFsI410iXFOA3SR0KwGdG8TJyG4RbQn5UOOE2i9YWm5BC5tAr63Brpg0AbL5er29RDOeqY5xd14x4c/bYRsRuv2aKVQCxsc6rDLiMIYcSXyY6rSvuI95jHiFwx7g4tdtGTQ7Nn1Rn5bTtSkrXH/+akIRaXAJcGyE+4sRECYnP8OdyRgK+IyPLRY7i0u1ViNOo/ROrfVRhRBcdG3XBPdTmkTejMN98Ovlnhx9Ey8l60P/PvnX5BWnktiq2FyOQHyCxuDlwgZL1PilpqnebG235RzEoNptLzktNa5JrHMmQXB9cV7CN6tlEyCRLqJlld5rx9OGi6PpEV0mA6X0Wae5FnEJZTZ+/6xY21r1b/n5dvd0JfS5K0U+gQPksH8oVAzF5bZRDtLnk8jGfJs0bUCC3fkr7+tEjn0KHtKSXWoWwwPWxur00jIBOgNNLWRx7a70u62RV5odla2LHQrkTTZBRnoMTyjRwznNjHFnKsdqr1U01P2urDL7QgW1/aQSL3+rZ+1PdW1x3lLA0w6CHAyOYcXIv+U6XipCiWabuVxNDweHu4RqlhmT1GjTamxft4h1sFr6+S9Y3y7Wwge3kb8Yt13KTdcROuGcFUSkDd1sJ5TIdYuoElFjpcnIehgKEFl84s0b91MndVuNTBBNxKcTI4ozSJJDUbTGqWSDExX8Ba9DnBKniM6MEGQJEl/2iQOFUWwWUgzSzEVcH45edtB6Om9vnifACM9apLhR//RHxxcyXwVPmwC9MGvKvuFTHbfdvLw4ADOWSwegGEChDpEngVnQ1cC4ACGquBzEoIPNXmJLToNMvJAB78QsMGnAt7Zf/5mvLdpgM7OPUkRZhTJa4LEsdHcRGq3ItTJiRtR82BmY2JYhngnPQVNEjwMSaMjKVUkdJnUfBx0surPbNT5zO7uGe8JvYkBfsFptORU8WQqLZfLobP+joz1Qx2qkfUj1/oM5q3P4A3i9IdXr358PZKJ76wmn2gnx6/nV8/ihpp8e6sYhjgfdU5pJLYi/jokrtDvRPkfB8AjrW8HENM9j2qH1gu8DGPdnQw3fVeqQo3bK9dtocqQWNbW6ykmuo5us5HPfzQUZYjeFmqB0eJUuvJmrYxN8mzUeIYu0TMY24uSenHRXVFeglxO9sHrz18v+1mga+RNFUo22N8KN7ebQpWEhmIG0K6daE0173h99VYmk3t7Vr47e392daY2m/8AQ5DBQw==
+sidebar_class_name: "delete api-method"
+info_path: docs/api/pix-api/instant-payments-api-pix-sample
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Remove the webhook for a PIX key"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"delete"}
+  path={"/webhook/{chave}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Remove the webhook for a PIX key
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"chave","in":"path","required":true,"schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"204":{"description":"Webhook removed."},"404":{"description":"Resource not found.","content":{"application/problem+json":{"schema":{"type":"object","description":"Error response in `application/problem+json` format (RFC 7807).","required":["type","title","status"],"properties":{"type":{"type":"string","format":"uri","example":"https://instant-payments.example/errors/charge-already-exists"},"title":{"type":"string","example":"A charge with this txid already exists."},"status":{"type":"integer","example":409},"detail":{"type":"string"},"violacoes":{"type":"array","items":{"type":"object","properties":{"razao":{"type":"string"},"propriedade":{"type":"string"}}}}},"title":"Problem"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

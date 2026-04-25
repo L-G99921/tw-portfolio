@@ -8,14 +8,15 @@ function Hero() {
   return (
     <header className={styles.hero}>
       <div className="container">
-        <div className={styles.heroBadge}>Technical Writer · Docs-as-Code · API Documentation</div>
+        <div className={styles.heroBadge}>Senior Technical Writer · API Documentation · Docs-as-Code · Fintech &amp; SaaS</div>
         <h1 className={styles.heroTitle}>
           Hi, I'm <span className={styles.heroAccent}>Leandro Gabriel</span>
         </h1>
         <p className={styles.heroSubtitle}>
-          I turn complex systems into clear, developer-first documentation. 7+ years building
-          API references, integration guides, and AI-assisted docs pipelines for enterprise
-          teams in fintech, retail, and cybersecurity.
+          I turn complex APIs, data infrastructure, and enterprise workflows into documentation
+          developers and business teams actually use. 8+ years across fintech (Itaú PIX —
+          BRL 17T+/year, 150M+ users), retail (Sephora LATAM), beauty data infrastructure
+          (L'Oréal France), and logistics (Crane Worldwide).
         </p>
         <div className={styles.ctaButtons}>
           <Link className={`${styles.btn} ${styles.btnPrimary}`} to="/docs">
@@ -54,8 +55,9 @@ function FeaturesGrid() {
         <div className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>Portfolio Highlights</h2>
           <p className={styles.sectionLead}>
-            A curated set of documentation samples spanning developer APIs, hardware
-            installation guides, AI-assisted content, and style governance.
+            A curated set of documentation samples — developer APIs, hardware install guides,
+            AI-tool support docs, and style governance — anchored in 8+ years of real
+            enterprise engagements (Itaú PIX, Sephora LATAM, L'Oréal France, Crane Worldwide).
           </p>
         </div>
         <div className={styles.cardGrid}>
@@ -87,13 +89,19 @@ function FeaturesGrid() {
             title="Hardware Install Guides"
             description="Consumer-friendly step-by-step guides for smart-meter hardware — QR codes, mobile pairing, and Wi-Fi provisioning."
             icon="fas fa-wifi"
-            to="/docs/energy-bridge/energy-bridge-installation-guide-atlas-insight"
+            to="/docs/databridge/databridge-installation-guide-atlas-insight"
           />
           <Card
             title="BillSense AI — Support Docs"
             description="User guide and troubleshooting reference for an AI-powered bill analysis tool, written for customer support agents."
             icon="fas fa-brain"
-            to="/docs/billwise-ai/overview"
+            to="/docs/billsense-ai/overview"
+          />
+          <Card
+            title="PIX — Diátaxis Showcase"
+            description="One of each Diátaxis type — tutorial, how-to, reference, explanation — built around Brazil's instant-payments rail. Anonymized API sample modelled on the public PIX PSP standard."
+            icon="fas fa-bolt"
+            to="/docs/pix/about-pix"
           />
           <Card
             title="Writing Style Guide"
@@ -113,7 +121,7 @@ function AboutStrip() {
       <div className={styles.container}>
         <div className={styles.aboutGrid}>
           <div className={styles.aboutItem}>
-            <div className={styles.aboutNumber}>7+</div>
+            <div className={styles.aboutNumber}>8+</div>
             <div className={styles.aboutLabel}>Years writing enterprise docs</div>
           </div>
           <div className={styles.aboutItem}>

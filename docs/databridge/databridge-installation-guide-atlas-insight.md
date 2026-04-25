@@ -1,14 +1,14 @@
 ---
-title: DataBridge Installation Guide
+title: DataBridge installation guide
 description: "Installation guide for the DataBridge Hub, covering physical setup, mobile app pairing via Bluetooth, Wi-Fi connection, and smart meter binding."
-sidebar_label: DataBridge Installation
+sidebar_label: DataBridge installation
 sidebar_position: 1
-tags: [energy-bridge, installation]
+tags: [databridge, installation]
 ---
 
-# DataBridge Installation Guide
+# DataBridge installation guide
 
-## Before You Begin
+## Before you begin
 
 Gather the following before starting the installation:
 
@@ -18,41 +18,41 @@ Gather the following before starting the installation:
 - **2.4 GHz Wi-Fi network** — The DataBridge Hub does not support 5 GHz networks.
 - **Power adapter** — Confirm the MicroUSB power adapter is included in the box.
 
-## Physical Setup
+## Physical setup
 
-1. **Power the Device**
+1. **Power the device**
 
     Plug the power adapter into the MicroUSB port on the back of the DataBridge Hub, then plug the adapter into a wall outlet.
 
-2. **Connect to the Network**
+2. **Connect to the network**
 
-    Plug an Ethernet cable into the square port on the DataBridge Hub and connect the other end to your router. Ethernet provides a stable connection and is recommended, but it's optional. If you prefer a wireless connection, skip this step and follow the [Wi-Fi Connection](#wi-fi-connection) instructions instead.
+    Plug an Ethernet cable into the square port on the DataBridge Hub and connect the other end to your router. Ethernet provides a stable connection and is recommended, but it's optional. If you prefer a wireless connection, skip this step and follow the [Wi-Fi connection](#wi-fi-connection) instructions instead.
 
     :::tip
     You can select the Ethernet option during the Wi-Fi setup step in the app if you decide to use a wired connection at any point.
     :::
 
-3. **Check the Status Light**
+3. **Check the status light**
 
     Watch the LED on the front of the device. Wait for it to turn solid green before continuing.
 
-## Mobile App Setup
+## Mobile app setup
 
 Power on the hardware first. Then use the EnergyGrid App to connect the DataBridge Hub to your account.
 
-### Start Setup
+### Start setup
 
-1. **Begin the Installation**
+1. **Begin the installation**
 
     Open the EnergyGrid App and tap **Begin DataBridge Setup**. This option is also available under **My Devices**.
 
-2. **Follow On-Screen Instructions**
+2. **Follow on-screen instructions**
 
     The app guides you through each step. The setup screen confirms which requirements must be met before you can proceed.
 
 ### Pairing
 
-1. **Scan for the Device**
+1. **Scan for the device**
 
     Tap **Start Scanning**.
 
@@ -60,29 +60,33 @@ Power on the hardware first. Then use the EnergyGrid App to connect the DataBrid
 
     Hold the phone against the DataBridge Hub. The LED turns blue when pairing begins.
 
-### Wi-Fi Connection
+### Wi-Fi connection
 
-1. **Select the Network**
+1. **Select the network**
 
     Choose your home Wi-Fi network from the list. Select the 2.4 GHz network.
 
-2. **Enter the Password**
+2. **Enter the password**
 
     Type the Wi-Fi password and tap **Continue**.
 
-### Meter Binding
+### Meter binding
 
-1. **Request the Bind**
+:::caution Stay in range during binding
+Keep the DataBridge Hub within 25 feet of your smart meter for the duration of the binding step. The device must remain reachable on the Home Area Network for the bind to complete.
+:::
+
+1. **Request the bind**
 
     Tap **Request Bind**. This sends a request through the meter network. The DataBridge Hub joins the Home Area Network (HAN) and receives real-time usage data directly from your smart meter.
 
-2. **Wait for the Connection**
+2. **Wait for the connection**
 
-    Binding typically completes within 15 minutes, but may take up to 48 hours depending on network conditions. Keep the DataBridge Hub within 25 feet of your smart meter during this process.
+    Binding typically completes within 15 minutes, but can take up to 48 hours depending on network conditions. Keep the DataBridge Hub within 25 feet of your smart meter during this process.
 
-### Finish Setup
+### Finish setup
 
-1. **Confirm Successful Connection**
+1. **Confirm successful connection**
 
     The **Successfully Connected** screen appears when setup is complete. Real-time energy data begins flowing into the app.
 
@@ -92,4 +96,4 @@ Power on the hardware first. Then use the EnergyGrid App to connect the DataBrid
 |-------|-------|----------|
 | LED does not turn solid green | Power adapter not fully seated | Verify the adapter is fully inserted into both the MicroUSB port and the wall outlet. Try a different outlet. Contact EnergyGrid support if the LED remains off or flashes red. |
 | Bluetooth scan finds no device | Bluetooth disabled or phone too far away | Enable Bluetooth on your phone and hold the phone within a few inches of the DataBridge Hub. Restart the app and scan again. If the device still does not appear, power-cycle the DataBridge Hub by unplugging it for 10 seconds. |
-| Meter binding does not complete | Device out of range or network delay | Confirm the DataBridge Hub is within 25 feet of your smart meter. Binding may take up to 15 minutes depending on the utility network. If it does not complete after 15 minutes, tap **Request Bind** again. Contact EnergyGrid support if the issue persists. |
+| Meter binding does not complete | Device out of range or network delay | Confirm the DataBridge Hub is within 25 feet of your smart meter. Binding can take up to 15 minutes depending on the utility network. If it does not complete after 15 minutes, tap **Request Bind** again. Contact EnergyGrid support if the issue persists. |

@@ -1,0 +1,86 @@
+name: Docs quality
+
+on:
+  pull_request:
+    paths:
+      - 'docs/**'
+      - 'blog/**'
+      - 'src/**'
+      - 'static/**'
+      - '.vale.ini'
+      - '.vale/**'
+      - 'docusaurus.config.js'
+      - 'sidebars.js'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/docs-quality.yml'
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  vale:
+    name: Prose lint (Vale + Google style)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Vale
+        uses: errata-ai/vale-action@reviewdog
+        with:
+          version: 3.9.1
+          fail_on_error: true
+          filter_mode: nofilter
+          reporter: github-pr-review
+          files: '["docs", "blog", "CONTRIBUTING.md", "README.md"]'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build:
+    name: Build (catches broken internal links)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+        env:
+          GA_MEASUREMENT_ID: ''
+
+  links:
+    name: External link check (Lychee)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Restore Lychee cache
+        uses: actions/cache@v4
+        with:
+          path: .lycheecache
+          key: cache-lychee-${{ github.sha }}
+          restore-keys: cache-lychee-
+      - name: Run Lychee
+        uses: lycheeverse/lychee-action@v2
+        with:
+          fail: true
+          args: >-
+            --cache
+            --max-cache-age 1d
+            --no-progress
+            --exclude-mail
+            --exclude '^/'
+            --exclude 'localhost'
+            --exclude 'example\.com'
+            --exclude 'taskflow\.io'
+            'docs/**/*.md'
+            'docs/**/*.mdx'
+            'blog/**/*.md'
+            'README.md'
+            'CONTRIBUTING.md'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

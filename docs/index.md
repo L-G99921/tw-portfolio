@@ -6,15 +6,13 @@ sidebar_position: 1
 tags: [portfolio, featured-project, getting-started]
 ---
 
-# Featured Project — EnergyGrid Documentation
+# Featured project — EnergyGrid documentation
 
-:::info Portfolio sample
-This is a featured project in [Leandro Gabriel's](https://www.linkedin.com/in/leandro-gabriel-8aab31167/) technical writing portfolio — a full documentation portal for a **fictional** utility energy platform, built to demonstrate information architecture, docs-as-code workflows, and Docusaurus theming.
-:::
+*A featured project in [Leandro Gabriel's](https://www.linkedin.com/in/leandro-gabriel-8aab31167/) technical writing portfolio — a full documentation portal for a **fictional** utility energy platform, built to demonstrate information architecture, docs-as-code workflows, and Docusaurus theming.*
 
 The EnergyGrid Platform is an energy management solution that connects utility partners, smart meters, and customers through integrated hardware and software. It delivers real-time energy monitoring, smart device control, and AI-powered billing insights.
 
-:::note Looking to integrate?
+:::tip Looking to integrate?
 Start with the [Integration Guide](/docs/integration-guide) to connect your utility's backend systems with the EnergyGrid Platform.
 :::
 
@@ -26,14 +24,15 @@ Start with the [Integration Guide](/docs/integration-guide) to connect your util
 
 **BillSense AI** — An intelligent billing analysis system that explains bill changes, identifies usage patterns, and provides actionable insights to customers.
 
-## Get Started
+## Get started
 
 | Resource | Description |
 |----------|-------------|
 | [Integration Guide](/docs/integration-guide) | Configure PowerBox API middleware, OAuth authentication, and data ingestion pipelines. |
 | [API Reference](/docs/api/powerbox-api) | Explore endpoints, authentication methods, and implementation examples. |
-| [DataBridge Hub Installation](/docs/energy-bridge/energy-bridge-installation-guide-atlas-insight) | Deploy and configure DataBridge Hub hardware for smart meter connectivity. |
-| [SmartLink Plug Installation](/docs/powerlync/powerlync-installation-guide) | Install and bind SmartLink Plug devices to utility smart meters. |
+| [DataBridge Hub Installation](/docs/databridge/databridge-installation-guide-atlas-insight) | Deploy and configure DataBridge Hub hardware for smart meter connectivity. |
+| [SmartLink Plug Installation](/docs/smartlink/smartlink-installation-guide) | Install and bind SmartLink Plug devices to utility smart meters. |
+| [PIX — Diátaxis showcase](/docs/pix/about-pix) | A second domain — Brazil's instant-payments rail — with one page of each Diátaxis type and an anonymized OpenAPI sample modelled on the public PIX PSP standard. |
 
 ## Platform Architecture
 

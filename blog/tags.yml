@@ -17,3 +17,28 @@ release:
   label: Release
   permalink: /release
   description: New releases and version updates
+
+pix:
+  label: PIX
+  permalink: /pix
+  description: Posts about PIX, Brazil's instant-payments rail
+
+api-documentation:
+  label: API documentation
+  permalink: /api-documentation
+  description: Posts about writing and structuring API documentation
+
+technical-writing:
+  label: Technical writing
+  permalink: /technical-writing
+  description: Posts on the craft of technical writing
+
+brazil:
+  label: Brazil
+  permalink: /brazil
+  description: Posts on Brazilian fintech and infrastructure
+
+fintech:
+  label: Fintech
+  permalink: /fintech
+  description: Posts on fintech systems and integrations

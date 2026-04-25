@@ -116,7 +116,7 @@ After authentication, EnergyGrid fetches the customer's account details, service
 
 **Endpoint:** `POST /powerbox/customer`
 
-This endpoint is called in conjunction with login to capture the most current customer information. It fires each time a token expires, the customer logs out, or the customer reinstalls the app.
+EnergyGrid calls this endpoint together with login to capture the most current customer information. The call fires each time a token expires, the customer logs out, or the customer reinstalls the app.
 
 **Request payload:** OAuth token (Bearer header)
 
@@ -200,7 +200,7 @@ If premise and meter IDs are permanent (they do not change between tenants), Ene
 | `city` | String | **Yes** | City. |
 | `state` | String | **Yes** | Two-character state or province code. |
 | `postalCode` | String | **Yes** | US: 5-digit zip code. Canada: 6-character postal code with space (for example, `V6M 2T5`). |
-| `meters` | Array | **Yes** | Meters at this site. A site may have more than one meter of any type. |
+| `meters` | Array | **Yes** | Meters at this site. A site can have more than one meter of any type. |
 
 ### Meter Fields
 
@@ -229,7 +229,7 @@ At a minimum, the customer response must include: `clientId`, at least one `cust
 
 The PowerBox API establishes who the customer is. BillSense AI also requires how much energy the customer used and what they were billed in order to generate insights.
 
-:::important
+:::caution
 Without rate information and billing data, BillSense AI cannot function. Projected bills will not match actual bills, which drives unnecessary call center volume.
 :::
 
@@ -309,7 +309,7 @@ If the utility provides billing line items (a detailed breakdown of charges), th
 | **Account Termination** | List of closed accounts to trigger data cleanup | Daily (or as needed) |
 
 :::note Solar Billing
-Solar billing structures are complex and not yet standardized across utility partners. The current approach uses net metering. Solar-specific billing structures are handled on a case-by-case basis.
+Solar billing structures are complex and not yet standardized across utility partners. The current approach uses net metering. EnergyGrid handles solar-specific billing structures on a case-by-case basis.
 :::
 
 ---
@@ -318,7 +318,7 @@ Solar billing structures are complex and not yet standardized across utility par
 
 Billing cycles — also called Meter Reading Schedule or Meter Reading Units (MRU) — define the service intervals for which utility customers are billed. The `billingCycleId` on each meter references this schedule.
 
-Utility partners stagger billing cycles to distribute processing load. A typical arrangement serves approximately 100,000 customers per cycle per day in rotation. A utility may have as few as 20 billing cycles or several thousand MRUs.
+Utility partners stagger billing cycles to distribute processing load. A typical arrangement serves approximately 100,000 customers per cycle per day in rotation. A utility can have as few as 20 billing cycles or several thousand MRUs.
 
 EnergyGrid requires the complete cycle schedule to evaluate billing period costs and charges.
 
@@ -347,7 +347,7 @@ Cycle IDs are not limited to numeric values. They can be alphanumeric depending 
 
 ## Step 6: Rate Information (Required for BillSense AI)
 
-:::danger Non-Negotiable
+:::warning Non-negotiable
 Without rate information, BillSense AI will not function. Projected bills will not match actual bills, which generates unnecessary calls to the utility's call center.
 :::
 
@@ -386,7 +386,7 @@ Time-of-Use (TOU) rates require:
 | Off-Peak M-F | 0.0479 | 23 | 24 | 2025-06-01 | 2025-09-30 |
 | Off-Peak Wknd/Holiday | 0.0479 | 0 | 24 | 2025-06-01 | 2025-09-30 |
 
-Each day is split into intervals on a 24-hour clock. Weekends and holidays are treated as off-peak. The start and end dates define the summer period. Winter periods follow the same structure with different amounts, typically running from October 1 to May 31, then cycling back to summer rates.
+EnergyGrid splits each day into intervals on a 24-hour clock. Weekends and holidays count as off-peak. The start and end dates define the summer period. Winter periods follow the same structure with different amounts, typically running from October 1 to May 31, then cycling back to summer rates.
 
 Concurrent rates (delivery, energy waste reduction, distribution) can be rolled into the peak windows or evaluated separately.
 
@@ -443,7 +443,7 @@ For error responses, see [Error Codes](#error-codes).
 
 ## Step 8: Data Transport Options
 
-The following methods are supported for bulk data exchange between the utility and EnergyGrid:
+EnergyGrid supports the following transport methods for bulk data exchange with the utility:
 
 | Method | Notes |
 |--------|-------|
@@ -466,10 +466,10 @@ Agree on the transport method and hosting responsibility (utility-hosted vs. Ene
 | 401 | 3 | Invalid credentials. One authentication attempt remaining. |
 | 401 | 4 | Account is locked. The customer must contact the utility to remove the lock. |
 | 401 | 86 | Account is closed, finaled, or no longer accessible. EnergyGrid may or may not have an associated record. |
-| 503 | — | PowerBox API outage or maintenance. No error model body is returned. |
+| 503 | — | PowerBox API outage or maintenance. The response has no error model body. |
 
 :::note
-Error codes 2–4 apply only to existing utility customers. HTTP 503 may be returned without an error model body to indicate PowerBox API outages or scheduled maintenance.
+Error codes 2–4 apply only to existing utility customers. The PowerBox API returns HTTP 503 without an error model body during outages or scheduled maintenance.
 :::
 
 ## Appendix B: Account Status Codes {#account-status-codes}

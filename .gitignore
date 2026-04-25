@@ -1,6 +1,9 @@
 # Claude Code
 .claude/
 
+# Internal career planning — not portfolio content
+OSS-CONTRIBUTION-PLAN.md
+
 # Dependencies
 node_modules/
 

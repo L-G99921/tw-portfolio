@@ -1,0 +1,72 @@
+---
+id: update-charge
+title: "Update a charge"
+description: "Updates an open charge. You can revise the amount, the debtor, the message to the payer, or mark the charge as `REMOVIDA_PELO_USUARIO_RECEBEDOR`. Charges with status `CONCLUIDA` cannot be updated."
+sidebar_label: "Update a charge"
+hide_title: true
+hide_table_of_contents: true
+api: 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
+sidebar_class_name: "patch api-method"
+info_path: docs/api/pix-api/instant-payments-api-pix-sample
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Update a charge"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"patch"}
+  path={"/cob/{txid}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Updates an open charge. You can revise the amount, the debtor, the message to the payer, or mark the charge as `REMOVIDA_PELO_USUARIO_RECEBEDOR`. Charges with status `CONCLUIDA` cannot be updated.
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"txid","in":"path","required":true,"description":"Caller-supplied transaction ID. Alphanumeric, 26 to 35 characters, unique within the PSP for at least 365 days.","schema":{"type":"string","pattern":"^[a-zA-Z0-9]{26,35}$","example":"INV4821a1b2c3d4e5f6g7h8i9j0k1l2"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"required":true,"content":{"application/json":{"schema":{"type":"object","properties":{"valor":{"type":"object","properties":{"original":{"type":"string","pattern":"^\\d{1,10}\\.\\d{2}$"}}},"devedor":{"type":"object","description":"A natural person (CPF) or legal entity (CNPJ).","oneOf":[{"required":["cpf","nome"],"properties":{"cpf":{"type":"string","pattern":"^\\d{11}$"},"nome":{"type":"string"}}},{"required":["cnpj","nome"],"properties":{"cnpj":{"type":"string","pattern":"^\\d{14}$"},"nome":{"type":"string"}}}],"title":"Person"},"solicitacaoPagador":{"type":"string","maxLength":140},"status":{"type":"string","enum":["REMOVIDA_PELO_USUARIO_RECEBEDOR"]}},"title":"ChargePatch"}}}}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Charge updated.","content":{"application/json":{"schema":{"type":"object","properties":{"txid":{"type":"string"},"revisao":{"type":"integer","description":"Increments by 1 on every update. Use as an optimistic-concurrency token."},"status":{"type":"string","enum":["ATIVA","CONCLUIDA","REMOVIDA_PELO_USUARIO_RECEBEDOR","REMOVIDA_PELO_PSP"]},"calendario":{"type":"object","properties":{"criacao":{"type":"string","format":"date-time"},"expiracao":{"type":"integer"}}},"devedor":{"type":"object","description":"A natural person (CPF) or legal entity (CNPJ).","oneOf":[{"required":["cpf","nome"],"properties":{"cpf":{"type":"string","pattern":"^\\d{11}$"},"nome":{"type":"string"}}},{"required":["cnpj","nome"],"properties":{"cnpj":{"type":"string","pattern":"^\\d{14}$"},"nome":{"type":"string"}}}],"title":"Person"},"valor":{"type":"object","properties":{"original":{"type":"string"}}},"chave":{"type":"string"},"solicitacaoPagador":{"type":"string"},"pix":{"type":"array","description":"Received PIX linked to this charge. Empty until the debtor pays.","items":{"type":"object","properties":{"endToEndId":{"type":"string","description":"Canonical identifier issued by the rail at settlement."},"txid":{"type":"string","description":"The charge `txid` that this payment settled. Empty for direct PIX without an associated charge."},"valor":{"type":"string"},"horario":{"type":"string","format":"date-time"},"infoPagador":{"type":"string","description":"Optional free-form message from the debtor."},"pagador":{"type":"object","properties":{"cpf":{"type":"string"},"cnpj":{"type":"string"},"nome":{"type":"string"}},"title":"PaymentParticipant"}},"title":"ReceivedPix"}},"loc":{"type":"object","description":"Payload location for QR code generation.","properties":{"id":{"type":"integer"},"location":{"type":"string"},"tipoCob":{"type":"string","enum":["cob","cobv"]}}}},"title":"Charge"}}}},"404":{"description":"Resource not found.","content":{"application/problem+json":{"schema":{"type":"object","description":"Error response in `application/problem+json` format (RFC 7807).","required":["type","title","status"],"properties":{"type":{"type":"string","format":"uri","example":"https://instant-payments.example/errors/charge-already-exists"},"title":{"type":"string","example":"A charge with this txid already exists."},"status":{"type":"integer","example":409},"detail":{"type":"string"},"violacoes":{"type":"array","items":{"type":"object","properties":{"razao":{"type":"string"},"propriedade":{"type":"string"}}}}},"title":"Problem"}}}},"409":{"description":"The charge is in a state that does not allow updates.","content":{"application/problem+json":{"schema":{"type":"object","description":"Error response in `application/problem+json` format (RFC 7807).","required":["type","title","status"],"properties":{"type":{"type":"string","format":"uri","example":"https://instant-payments.example/errors/charge-already-exists"},"title":{"type":"string","example":"A charge with this txid already exists."},"status":{"type":"integer","example":409},"detail":{"type":"string"},"violacoes":{"type":"array","items":{"type":"object","properties":{"razao":{"type":"string"},"propriedade":{"type":"string"}}}}},"title":"Problem"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

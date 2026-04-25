@@ -1,0 +1,72 @@
+---
+id: get-webhook
+title: "Retrieve the webhook for a PIX key"
+description: "Retrieve the webhook for a PIX key"
+sidebar_label: "Retrieve the webhook for a PIX key"
+hide_title: true
+hide_table_of_contents: true
+api: eJyVVl1uGzcQvgrBlybuauWkRpPqzXHTwECKCHaMFnAMZESOtIy55GY4K1kRFugheoGepTfpSYrZH1m2nLp5kricn28+fjPkRjMskp5c6t9wVsR4nfRVpmOFBOxiOLV6ohfI/abOdAUEJTKSOG10gBL1RJsClqgz7YKe6Aq40Jkm/Fw7QqsnTDVmOpkCS9CTjeZ1JU6JyYWFbporMU5VDAmT7D8/PJQfi8mQqwSHngz41DzWweY60yYGxsBiCVXlnWkRjz8lMd/sp4uzT2hYSiCpj12XbNXFvSC/Dy3T80glsJ7ompxusr7Q/RoybciBgfifQSwwjtiVqJsm0+zY421lumnk69Hh0X7xZ5hiTQZViPwoAxXFmcfy+8eZuJvkNVEkNZyEckF9/FrYj6qrST05++VEvXh5+OJpfufIL7tcQ5GZTgxct+K6S38H6RHiM403UFYtWwVzlSbjsQuJIfCognWJgVPem4xRykhjUwAtcASeEOx6hDcucdK3tO+nvM1xrDpvtXJcKC5cUnzjrOqDqS5YLtH6um7DucC4QNqNd3T4UyNkM7gHRNZkeumiBxN3GdFABGtpKcYyPS5jgi8Pia/p7MihBfuQcDvRDVKcdmc8fL4vQiaHS1RcoFpt25EUqOnp7+oaBW6JXMR+arTjggs90ePefLxpG6gRQSAthylSS/NtTzZBsLN4k3/1hJfP97R73vmof/74U6V14ALZGTU9nyoMS0cxSIQWLGPijpn7eaFy35RzStHWRhZtWud9nVjm5hLVxdlbFYNfaxluCU1Njtdtre+Oay6eS4eYOMtX5BjbVp7loi2hzN0Mf3vWtlbDut2+2g19Lj3eKWFIcKsYaD9keu7jqjUx3mHgE0KLgR34Tl/xGsPFt51EG3rcesqRmlh1GG5Lm+gTQmBUEKyqK5mAfXOl3bJFXWB3drYs9DuEBt0SrRow7NEjhguXGKnNRVjG5Van6T57fdhBxtS6dpdeGuTvwrxrqb47Tjsa1LSHoI6np+qJaD+1dDzVmRZNd/J4nh/lhw8IVSxbT1GjS6l2YdEjNjEY52XdM76tVsWgXhF8cf671HYbgfO5el+gwmCr6AKnTKx9BJuyNl47CJWJFpMqXbuQzq3qmXfGr0c2mlqCo20jSrNIUgtkO6NUoFWztXoFwUR1goEJvLJRkCRJf1InjiWScq2Q5g4pZer0fPqqhzDQe3H2NikgvNMk+YfwIRwcvJfxKny4pCDEsC7dF7St+7aT84MDdcpicQsMkgJVReJ59C72R6A4KotlDG0SVO8qDBJbdBpl4ikTw1LAxpAy9bP7+y+GG5dG4N0ioBzCHAmDQZWYasM1YVeKUCcXLoHh0dxRYrWKdC09peokeFglAx7lqAjBt6S2t0Evq+HKBtNe2f3T6S1CsBTVG5iRQ6+ze1NptVrl3oVrtC7kJpZjF8a+8xktOp/RS4DZD8+e/fhiLAPfO4Mh4U6OX0/f78WNFYbuUZFHWox7pzQWWxF/FROXEHai/K/5f0ft2xHEeMPjyoMLArDu3lrd3XA59KXO9KR7Xl1luoiJZW+zmUHCC/JNI58/10gyRq8yvQRyMJO+vNxo65L8t3oyB59wD8b2paSfnPVvlKdKXicPwRsu4CD1LMHXstKZlgKHp25z1WS6QLBILYBu79gYrHjHa+9hKjN7e0W+eS1U/wurTwXR
+sidebar_class_name: "get api-method"
+info_path: docs/api/pix-api/instant-payments-api-pix-sample
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+import Translate from "@docusaurus/Translate";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Retrieve the webhook for a PIX key"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"get"}
+  path={"/webhook/{chave}"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Retrieve the webhook for a PIX key
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+>
+  <Translate id="theme.openapi.request.title">Request</Translate>
+</Heading>
+
+<ParamsDetails
+  parameters={[{"name":"chave","in":"path","required":true,"schema":{"type":"string"}}]}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={undefined}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Webhook found.","content":{"application/json":{"schema":{"type":"object","properties":{"webhookUrl":{"type":"string","format":"uri"},"chave":{"type":"string"},"criacao":{"type":"string","format":"date-time"}},"title":"Webhook"}}}},"404":{"description":"Resource not found.","content":{"application/problem+json":{"schema":{"type":"object","description":"Error response in `application/problem+json` format (RFC 7807).","required":["type","title","status"],"properties":{"type":{"type":"string","format":"uri","example":"https://instant-payments.example/errors/charge-already-exists"},"title":{"type":"string","example":"A charge with this txid already exists."},"status":{"type":"integer","example":409},"detail":{"type":"string"},"violacoes":{"type":"array","items":{"type":"object","properties":{"razao":{"type":"string"},"propriedade":{"type":"string"}}}}},"title":"Problem"}}}}}}
+>
+  
+</StatusCodes>
+
+
+      

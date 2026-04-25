@@ -1,13 +1,13 @@
 ---
 id: writing-guideline
-title: Writing Guideline
+title: Writing guideline
 description: "EnergyGrid documentation style guide — based on the Google Developer Documentation Style Guide and the Diátaxis Framework."
-sidebar_label: Writing Guideline
+sidebar_label: Writing guideline
 sidebar_position: 5
 tags: [writing, style-guide, google-style, diataxis, standards]
 ---
 
-# Documentation Style Guide
+# Writing guideline
 
 This guide defines the standards for all product, technical, UX, and customer-facing documentation produced for the EnergyGrid platform. It is built on two industry-standard foundations:
 
@@ -29,7 +29,7 @@ Every page in the documentation belongs to exactly one of four content types. Mi
 | Type | Purpose | User question | Example in this site |
 |------|---------|---------------|----------------------|
 | **Tutorial** | Learning by doing | "Teach me." | First-time integration walkthrough |
-| **How-to guide** | Goal-oriented steps | "Show me how to do X." | [Hardware Install Guide](/docs/energy-bridge/energy-bridge-installation-guide-atlas-insight) |
+| **How-to guide** | Goal-oriented steps | "Show me how to do X." | [Hardware Install Guide](/docs/databridge/databridge-installation-guide-atlas-insight) |
 | **Reference** | Information lookup | "Tell me what this is." | [API Reference](/docs/api/powerbox-api), [Data Dictionary](/docs/data-dictionary) |
 | **Explanation** | Conceptual understanding | "Help me understand." | [Integration Guide](/docs/integration-guide) (architecture sections) |
 
@@ -157,7 +157,7 @@ These rules align with the Google Developer Documentation Style Guide.
 ### 7.3 Capitalization
 
 - **Sentence case** for all headings, button labels, and UI strings.
-- **Lowercase** for URLs, email addresses, and file extensions (`json`, not `JSON` when referring to a file).
+- **Lowercase** for URLs, email addresses, and file extensions — `.json` (not `.JSON`) when referring to a file on disk. Capitalize the format name itself: JSON, YAML, XML.
 - **Capitalize** product names, acronyms (API, JWT, OAuth), and the first word of sentences.
 
 ### 7.4 Acronyms
