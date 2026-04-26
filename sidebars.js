@@ -352,6 +352,53 @@ const sidebars = {
       id: 'methodology',
       label: 'Methodology',
     },
+    {
+      type: 'category',
+      label: 'About this site',
+      items: [
+        {
+          type: 'doc',
+          id: 'using-these-docs-with-ai',
+          label: 'Using these docs with AI',
+        },
+        {
+          type: 'category',
+          label: 'Architecture decision records',
+          items: [
+            {
+              type: 'doc',
+              id: 'adr/index',
+              label: 'Overview',
+            },
+            {
+              type: 'doc',
+              id: 'adr/001-docusaurus-over-mkdocs',
+              label: 'ADR-001 — Docusaurus over MkDocs',
+            },
+            {
+              type: 'doc',
+              id: 'adr/002-google-style-over-microsoft',
+              label: 'ADR-002 — Google over Microsoft style',
+            },
+            {
+              type: 'doc',
+              id: 'adr/003-diataxis-as-page-taxonomy',
+              label: 'ADR-003 — Diátaxis taxonomy',
+            },
+            {
+              type: 'doc',
+              id: 'adr/004-vale-fail-on-error',
+              label: 'ADR-004 — Vale fail-on-error',
+            },
+            {
+              type: 'doc',
+              id: 'adr/005-openapi-as-source-of-truth',
+              label: 'ADR-005 — OpenAPI source of truth',
+            },
+          ],
+        },
+      ],
+    },
   ],
 };
 

@@ -1,7 +1,7 @@
 ---
 id: energygrid-usage-api
 title: "EnergyGrid Usage API"
-description: "The EnergyGrid Usage API provides access to energy management data for utility customers. This API allows external applications to authenticate users, retrieve energy usage data, manage budgets, and access insights about energy consumption patterns."
+description: "The **EnergyGrid Usage API** is the customer-facing read API behind the EnergyGrid app and partner web experiences. It exposes the energy consumption, budgeting, and insight surfaces that customers see — authenticated as the customer, not the utility."
 sidebar_label: Introduction
 sidebar_position: 0
 hide_title: true
@@ -29,7 +29,35 @@ import Export from "@theme/ApiExplorer/Export";
 
 
 
-The EnergyGrid Usage API provides access to energy management data for utility customers. This API allows external applications to authenticate users, retrieve energy usage data, manage budgets, and access insights about energy consumption patterns.
+The **EnergyGrid Usage API** is the customer-facing read API behind the EnergyGrid app and partner web experiences. It exposes the energy consumption, budgeting, and insight surfaces that customers see — authenticated as the customer, not the utility.
+
+Where the [PowerBox API](/docs/api/powerbox-api) handles utility-to-platform integration (CIS sync, hardware binding), the Usage API handles customer-to-platform reads (usage history, budget management, AI-powered insights).
+
+## Audience
+
+This API is intended for partner mobile apps and white-labelled web portals that surface energy usage to end customers. All requests are made on behalf of an authenticated customer.
+
+## Authentication
+
+Clients exchange a utility identity token for an EnergyGrid customer token via `POST /Customer/login`. The returned token is bearer-format and scoped to the requesting customer — it cannot read data for other accounts. See the [Integration Guide — Configure authentication (OAuth)](/docs/integration-guide#step-2-configure-authentication-oauth) for the full handshake.
+
+## Base URL
+
+```
+https://api.energygrid.example/usage/v1
+```
+
+## Conventions
+
+- **Content type.** Requests and responses use `application/json`.
+- **Time series granularity.** Usage endpoints accept a `granularity` parameter — values come from `GET /Metadata/granularity-types`. Don't hard-code.
+- **Currency and units.** Monetary fields are returned in the customer's billing currency, energy fields in the meter's `unitOfMeasure` (typically `kWh` for electric, `therms` for gas).
+- **Pagination.** List endpoints page via `pageSize` and `pageToken`. The next token is returned in the response body when more results are available.
+- **Errors.** Errors follow [RFC 7807](https://tools.ietf.org/html/rfc7807) Problem Details, content type `application/problem+json`.
+
+## Sample
+
+This specification is published as a portfolio sample. The contracts and schemas are representative of the kind of customer-facing usage API that a residential energy management platform would expose. The hostnames are illustrative and do not resolve.
 
 <div
   style={{"marginBottom":"2rem"}}
@@ -86,7 +114,21 @@ The EnergyGrid Usage API provides access to energy management data for utility c
   >
     Contact
   </h3><span>
-    EnergyGrid Support: 
+    Leandro Gabriel — Technical Writer: [lgos99921@gmail.com](mailto:lgos99921@gmail.com)
+  </span><span>
+    URL: [https://www.linkedin.com/in/leandro-gabriel-8aab31167/](https://www.linkedin.com/in/leandro-gabriel-8aab31167/)
   </span>
+</div><div
+  style={{"marginBottom":"var(--ifm-paragraph-margin-bottom)"}}
+>
+  <h3
+    style={{"marginBottom":"0.25rem"}}
+  >
+    License
+  </h3><a
+    href={"https://opensource.org/licenses/MIT"}
+  >
+    MIT
+  </a>
 </div>
       
