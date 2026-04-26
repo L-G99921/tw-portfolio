@@ -121,7 +121,7 @@ function AboutStrip() {
       <div className={styles.container}>
         <div className={styles.aboutGrid}>
           <div className={styles.aboutItem}>
-            <div className={styles.aboutNumber}>8+</div>
+            <div className={styles.aboutNumber}>6+</div>
             <div className={styles.aboutLabel}>Years writing enterprise docs</div>
           </div>
           <div className={styles.aboutItem}>
