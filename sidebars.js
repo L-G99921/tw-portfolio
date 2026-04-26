@@ -23,6 +23,11 @@ const sidebars = {
     },
     {
       type: 'doc',
+      id: 'tutorial-first-integration',
+      label: 'Tutorial — first integration',
+    },
+    {
+      type: 'doc',
       id: 'integration-guide',
       label: 'Integration Guide',
     },

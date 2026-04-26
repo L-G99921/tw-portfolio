@@ -28,7 +28,7 @@ Every page in the documentation belongs to exactly one of four content types. Mi
 
 | Type | Purpose | User question | Example in this site |
 |------|---------|---------------|----------------------|
-| **Tutorial** | Learning by doing | "Teach me." | First-time integration walkthrough |
+| **Tutorial** | Learning by doing | "Teach me." | [Your first EnergyGrid integration in 30 minutes](/docs/tutorial-first-integration) |
 | **How-to guide** | Goal-oriented steps | "Show me how to do X." | [Hardware Install Guide](/docs/databridge/databridge-installation-guide-atlas-insight) |
 | **Reference** | Information lookup | "Tell me what this is." | [API Reference](/docs/api/powerbox-api), [Data Dictionary](/docs/data-dictionary) |
 | **Explanation** | Conceptual understanding | "Help me understand." | [Integration Guide](/docs/integration-guide) (architecture sections) |
