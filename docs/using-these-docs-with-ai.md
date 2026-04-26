@@ -17,7 +17,7 @@ This page explains the deliberate AI-readiness choices, points to the artifacts 
 
 Two files exist specifically for AI consumption:
 
-- **[`llms.txt`](https://l-g99921.github.io/tw-portfolio/llms.txt)** at the site root, following the [llmstxt.org proposal](https://llmstxt.org/). It lists the canonical pages of the site grouped by purpose, with one-line descriptions and absolute URLs.
+- **[`llms.txt`](pathname:///llms.txt)** at the site root, following the [llmstxt.org proposal](https://llmstxt.org/). It lists the canonical pages of the site grouped by purpose, with one-line descriptions and absolute URLs.
 - **`llms-full.txt`** (planned) — the concatenated full text of the canonical pages, suitable for direct ingestion into a context window or a vector store.
 
 A retrieval pipeline can:
@@ -38,7 +38,7 @@ The [Diátaxis Framework](https://diataxis.fr/) classifies every documentation p
 
 Every API reference on this site is generated from an OpenAPI spec under `static/`, with the rule that no generated `.mdx` is hand-edited (see [ADR-005](/docs/adr/005-openapi-as-source-of-truth)). The specs carry rich top-level metadata:
 
-- `info.description` — markdown overview of the API: audience, authentication, base URL, conventions, versioning policy.
+- `info.description` — Markdown overview of the API: audience, authentication, base URL, conventions, versioning policy.
 - `info.contact` — maintainer details (name, URL, email).
 - `tags[].description` — purpose of each operation group.
 - `servers[]` — production and staging base URLs.
