@@ -2,16 +2,26 @@
   "openapi": "3.0.3",
   "info": {
     "title": "EnergyGrid Usage API",
-    "description": "The EnergyGrid Usage API provides access to energy management data for utility customers. This API allows external applications to authenticate users, retrieve energy usage data, manage budgets, and access insights about energy consumption patterns.",
+    "description": "The **EnergyGrid Usage API** is the customer-facing read API behind the EnergyGrid app and partner web experiences. It exposes the energy consumption, budgeting, and insight surfaces that customers see — authenticated as the customer, not the utility.\n\nWhere the [PowerBox API](/docs/api/powerbox-api) handles utility-to-platform integration (CIS sync, hardware binding), the Usage API handles customer-to-platform reads (usage history, budget management, AI-powered insights).\n\n## Audience\n\nThis API is intended for partner mobile apps and white-labelled web portals that surface energy usage to end customers. All requests are made on behalf of an authenticated customer.\n\n## Authentication\n\nClients exchange a utility identity token for an EnergyGrid customer token via `POST /Customer/login`. The returned token is bearer-format and scoped to the requesting customer — it cannot read data for other accounts. See the [Integration Guide — Configure authentication (OAuth)](/docs/integration-guide#step-2-configure-authentication-oauth) for the full handshake.\n\n## Base URL\n\n```\nhttps://api.energygrid.example/usage/v1\n```\n\n## Conventions\n\n- **Content type.** Requests and responses use `application/json`.\n- **Time series granularity.** Usage endpoints accept a `granularity` parameter — values come from `GET /Metadata/granularity-types`. Don't hard-code.\n- **Currency and units.** Monetary fields are returned in the customer's billing currency, energy fields in the meter's `unitOfMeasure` (typically `kWh` for electric, `therms` for gas).\n- **Pagination.** List endpoints page via `pageSize` and `pageToken`. The next token is returned in the response body when more results are available.\n- **Errors.** Errors follow [RFC 7807](https://tools.ietf.org/html/rfc7807) Problem Details, content type `application/problem+json`.\n\n## Sample\n\nThis specification is published as a portfolio sample. The contracts and schemas are representative of the kind of customer-facing usage API that a residential energy management platform would expose. The hostnames are illustrative and do not resolve.",
     "version": "1.0.0",
     "contact": {
-      "name": "EnergyGrid Support"
+      "name": "Leandro Gabriel — Technical Writer",
+      "url": "https://www.linkedin.com/in/leandro-gabriel-8aab31167/",
+      "email": "lgos99921@gmail.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
     }
   },
   "servers": [
     {
-      "url": "https://api.energygrid.com/usage/v1",
-      "description": "Production server"
+      "url": "https://api.energygrid.example/usage/v1",
+      "description": "Production — illustrative URL, does not resolve"
+    },
+    {
+      "url": "https://staging.api.energygrid.example/usage/v1",
+      "description": "Staging — for integration testing against synthetic data"
     }
   ],
   "tags": [

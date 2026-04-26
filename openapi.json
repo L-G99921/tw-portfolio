@@ -2,16 +2,36 @@
   "openapi": "3.0.3",
   "info": {
     "title": "PowerBox API",
-    "description": "API for integrating utility backend systems with the EnergyGrid Platform",
+    "description": "The **PowerBox API** is the integration surface between a utility's back-office systems and the EnergyGrid platform. It carries the two flows a utility partner needs to wire up before customers can use any EnergyGrid-powered hardware or app:\n\n- **Customer synchronisation** — push customer accounts, service addresses (Premises), and meter configurations from the utility Customer Information System (CIS) into EnergyGrid.\n- **Hardware binding** — link a DataBridge or SmartLink device to its target Advanced Metering Infrastructure (AMI) meter over the utility's wireless mesh radio (Home Area Network).\n\nThis page is the entry point. Follow the operations in the sidebar for the full request/response contract, schema definitions, and error semantics.\n\n## Audience\n\nThis API is intended for utility backend engineers integrating their CIS and AMI head-end systems with EnergyGrid. It is **not** a public consumer API.\n\n## Authentication\n\nAll endpoints require an OAuth 2.0 Bearer token obtained from the utility's identity provider. Tokens are short-lived (typically one hour) and must be refreshed via the utility IDP — EnergyGrid does not issue tokens. Pass the token in the `Authorization` header as `Bearer <token>`. See the [Integration Guide — Configure authentication (OAuth)](/docs/integration-guide#step-2-configure-authentication-oauth) for the end-to-end exchange.\n\n## Base URL\n\nAll requests are made against the production base URL, scoped by API version:\n\n```\nhttps://api.energygrid.example/v1\n```\n\nA staging environment is available for integration testing — see the **Servers** dropdown on each operation page.\n\n## Conventions\n\n- **Content type.** Requests and responses use `application/json` unless otherwise noted.\n- **Identifiers.** Customer identifiers (`clientId`), Premise identifiers (`externalSiteId`), and Meter identifiers (`meterId`) are opaque strings owned by the utility CIS. EnergyGrid does not generate them.\n- **Account status.** The `AcctStatus` field uses the utility CIS encoding (`A` = Active, `C` = Closed, `S` = Suspended). EnergyGrid mirrors the value rather than translating it.\n- **Idempotency.** Customer sync (`POST /powerbox/customer`) is idempotent on `clientId` — repeating the call with the same payload is safe. Hardware binding (`POST /powerbox/bind`) is **not** idempotent; check `actionCode` and the meter's current bind state before retrying.\n- **Errors.** Errors return the relevant 4xx status code with no body. Reason codes are derived from the status: `400` invalid payload, `401` invalid or expired token, `403` account locked or closed, `404` unknown identifier.\n\n## Versioning\n\nThe API is versioned via the URL path (`/v1`). Breaking changes ship under a new major version with at least 90 days of overlap. Non-breaking additions (new optional fields, new enum values on extensible enums) ship within the current version.\n\n## Sample\n\nThis specification is published as a portfolio sample. The contracts, schemas, and conventions are representative of the kind of utility integration API that EnergyGrid (a fictional platform documented end-to-end on this site) would expose. The hostnames are illustrative and do not resolve.",
     "version": "1.0.0",
     "contact": {
-      "name": "EnergyGrid Support"
+      "name": "Leandro Gabriel — Technical Writer",
+      "url": "https://www.linkedin.com/in/leandro-gabriel-8aab31167/",
+      "email": "lgos99921@gmail.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
     }
   },
   "servers": [
     {
-      "url": "https://api.energygrid.com/v1",
-      "description": "Production server"
+      "url": "https://api.energygrid.example/v1",
+      "description": "Production — illustrative URL, does not resolve"
+    },
+    {
+      "url": "https://staging.api.energygrid.example/v1",
+      "description": "Staging — for integration testing against synthetic data"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Customer",
+      "description": "Customer Information System (CIS) synchronisation. Push account profiles, service addresses (Premises), and meter configurations from the utility CIS into EnergyGrid. Calls are idempotent on `clientId`."
+    },
+    {
+      "name": "Hardware",
+      "description": "Bind and unbind EnergyGrid-supplied devices (DataBridge, SmartLink) to AMI meters over the utility's Home Area Network mesh radio. Binding is not idempotent — check the meter's current bind state before retrying."
     }
   ],
   "paths": {
