@@ -1,45 +1,47 @@
 ---
 id: 004-vale-fail-on-error
 slug: /adr/004-vale-fail-on-error
-title: "ADR-004 — Vale CI blocks on error, not warning-only"
-description: "Why the Vale job in the docs-quality CI pipeline fails the pull request on prose-lint errors instead of surfacing them as warnings."
-sidebar_label: ADR-004 — Vale fail-on-error
+title: "ADR 004: Vale errors fail the build"
+description: "Why the Vale job in CI fails a pull request on prose errors instead of only leaving comments."
+sidebar_label: "ADR 004: Vale fails the build"
 sidebar_position: 4
 tags: [adr, decisions, vale, ci, governance]
 ---
 
-# ADR-004 — Vale CI blocks on error, not warning-only
+# ADR 004: Vale errors fail the build
 
-**Status:** Accepted (2026-04-24)
+**Status:** Accepted, 2026-04-24
 
 ## Context
 
-Vale's GitHub Action supports two modes for handling prose-lint findings:
+The Vale GitHub Action can handle findings in two ways:
 
-- **Warning-only** — surface findings as PR comments without failing the build. Authors see them but can merge through.
-- **Fail-on-error** — treat any finding at the `error` severity level as a build failure. The PR cannot merge until the prose passes.
+- **Comments only:** findings appear on the pull request, and the author can still merge.
+- **Fail on error:** any finding at `error` level fails the check, and the pull request can't merge until it's fixed.
 
-Most teams adopting Vale start in warning-only mode to avoid friction. The risk: warnings get ignored, the lint config drifts, and the style guide becomes aspirational rather than enforced.
+Teams often start with comments only, to avoid friction. Over time the comments get ignored, the configuration drifts, and the style guide stops being enforced.
 
 ## Decision
 
-Configure the Vale step in `.github/workflows/docs-quality.yml` with `fail_on_error: true` and `filter_mode: nofilter`:
+Run Vale in `.github/workflows/docs-quality.yml` with `fail_on_error: true`:
 
 ```yaml
-- name: Vale
+- name: Run Vale
   uses: errata-ai/vale-action@reviewdog
   with:
+    version: 3.9.1
     fail_on_error: true
     filter_mode: nofilter
     reporter: github-pr-review
 ```
 
-The Vale config (`.vale.ini`) classifies the Google package's most opinionated rules as `warning` rather than `error` (heading capitalisation, repetition heuristic) so that the *errors* that block merge are the rules the project genuinely defends — banned filler words, voice rules, mandatory front matter, code-fence languages.
+`.vale.ini` sets `MinAlertLevel = error`, so only errors are reported. That has a side effect: many Google rules, including its list of filler words, are warnings, so they'd never block anything. The site's own rule, `.vale/styles/Portfolio/WordsToAvoid.yml`, closes that gap. It raises the [words to avoid](/docs/writing-guideline#72-words-to-avoid) (`simply`, `just`, `easily`, `obviously`, `please`) to errors.
+
+Rules that produce more noise than value here are turned off one by one in `.vale.ini`, each with a comment explaining why. `Google.Headings` is one, because it flags product names like "DataBridge Hub."
 
 ## Consequences
 
-- A typo in a heading or a banned filler word (`simply`, `just`, `obviously`) blocks merge until fixed. Friction is real but small — Vale's auto-suggestions usually resolve in seconds.
-- The style guide is enforced, not aspirational. The portfolio's voice stays consistent across pages without a human reviewer line-editing every change.
-- New contributors (including future-me) hit the rule on their first PR and learn the conventions through the failure rather than through prose.
-- When a rule turns out to fight the project rather than help it, the response is to disable it explicitly in `.vale.ini` with a comment explaining why — not to lower the severity floor.
-- The decision is the disciplinary signal a hiring manager looks for. Warning-only Vale is documentation theatre; fail-on-error Vale is documentation governance.
+- A banned word blocks the merge until it's fixed. The friction is small, and the fix is usually obvious from the message.
+- The style guide is enforced, so the voice stays consistent across pages without a reviewer editing every line.
+- New contributors learn the rules from their first failed check.
+- When a rule works against the site, the fix is to turn it off in `.vale.ini` with a comment, not to lower the alert level for everything.

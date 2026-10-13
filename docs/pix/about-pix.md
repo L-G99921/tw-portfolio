@@ -1,6 +1,6 @@
 ---
 title: About PIX
-description: "How PIX works under the hood — the rail, the participants, the key types, and the trade-offs that shape API design."
+description: "How PIX works: the participants, the key types, the identifiers, and the trade-offs behind the API design."
 sidebar_label: About PIX
 sidebar_position: 1
 tags: [pix, conceptual, explanation, instant-payments]
@@ -8,151 +8,149 @@ tags: [pix, conceptual, explanation, instant-payments]
 
 # About PIX
 
-PIX is the instant-payments rail operated by [Banco Central do Brasil](https://www.bcb.gov.br/en/financialstability/pix_en) (BCB). It moves money between any two accounts in Brazil — across more than 800 participating institutions — in under 10 seconds, 24 hours a day, every day of the year, including holidays.
+PIX is Brazil's instant-payments system, run by the [Banco Central do Brasil](https://www.bcb.gov.br/en/financialstability/pix_en) (BCB). It moves money between accounts at hundreds of banks and fintechs in a few seconds, at any hour, on any day, including weekends and holidays.
 
-This page explains what that means for anyone who has to design, document, or integrate against the rail. It does not teach you how to use any specific API. For that, see [Send your first PIX payment](./tutorial-first-payment).
+This page explains how PIX works and why its API looks the way it does. It's written for people who design, document, or integrate payment APIs. It doesn't teach a specific API. For that, follow [Send your first PIX payment](./tutorial-first-payment).
 
 ## Why PIX exists
 
-Before 2020, moving money between Brazilian banks took business hours and at least one banking day. Inter-bank wires (`TED`) settled twice a day. Direct debits (`DOC`) settled the next business day. Cash and card-rail intermediation made up the rest.
+Before November 2020, moving money between Brazilian banks was slow. TED transfers settled on the same day, but only during banking hours. DOC transfers settled the next business day. Anything outside those windows waited.
 
-PIX replaces that whole layer with a single rail that:
+PIX replaced that with one system that:
 
-- Settles in real time, end-to-end, between any two accounts.
-- Operates 24/7/365.
-- Costs the receiving bank near-zero (free for individuals; capped for businesses).
-- Uses human-friendly identifiers (a phone number, an email, a tax ID) instead of branch and account numbers.
+- Settles each payment individually, in seconds.
+- Runs 24 hours a day, every day of the year.
+- Is free for individuals. Businesses pay their own bank's fees, which are usually lower than card fees.
+- Uses identifiers people already know, like a phone number, an email address, or a tax ID, instead of branch and account numbers.
 
-It went live in November 2020 and crossed [1 billion transactions per month](https://www.bcb.gov.br/en/financialstability/pix_en) inside its first year. It is the largest instant-payments deployment in the world by volume.
+It launched in November 2020 and reached [over a billion transactions a month](https://www.bcb.gov.br/en/financialstability/pix_en) within its first year. Today it's one of the largest instant-payment systems in the world, alongside India's UPI.
 
-## The two roles every integrator plays
+## Who's involved
 
-Every PIX integration sits between two parties:
+Every PIX payment has two sides:
 
-- The **payer** — the customer initiating the payment.
-- The **payee** — the merchant or recipient receiving it.
+- The **payer**, who sends the money.
+- The **payee**, the merchant or person who receives it.
 
-Each party has an account at a bank or fintech licensed by BCB. Those institutions are called **PSPs** (Payment Service Providers). PSPs are the only entities that talk directly to the rail; everyone else integrates through a PSP's API.
+Each side has an account at an institution licensed by the BCB, called a **payment service provider (PSP)**. Only PSPs connect to the central infrastructure. Everyone else, including merchants and most fintechs, integrates through a PSP's API.
 
 ```mermaid
 sequenceDiagram
     participant Payer App
     participant Payer PSP
-    participant SPI as PIX Rail (SPI)
+    participant SPI as PIX infrastructure (SPI)
     participant Payee PSP
     participant Payee App
 
-    Payer App->>Payer PSP: Initiate payment to PIX key
+    Payer App->>Payer PSP: Pay this PIX key
     Payer PSP->>SPI: Settlement request
     SPI->>Payee PSP: Credit notification
     Payee PSP->>Payee App: Webhook with e2eId
     Payer PSP-->>Payer App: Confirmation
-    Note over SPI: Settlement < 10 seconds
+    Note over SPI: The whole flow targets under 10 seconds
 ```
 
-Two messages cross the rail per payment. One asks for settlement; one confirms it. The whole round trip is faster than a cup of coffee.
+## What you integrate with
 
-## What you actually integrate against
+When a developer says they're "integrating PIX," they almost always mean a PSP's API, not the central infrastructure. The infrastructure is a [message network run by the BCB](https://www.bcb.gov.br/estabilidadefinanceira/pix) that only licensed institutions can join. PSPs expose an API on top of it for their business customers.
 
-When a developer says "integrating PIX," they usually mean integrating against a PSP's PSP API — not the rail itself. The rail is a [BCB-operated message bus](https://www.bcb.gov.br/estabilidadefinanceira/pix) that only licensed institutions can join. The PSP API is what banks expose to merchants and fintechs on top of the rail.
-
-The publicly-documented [PSP API standard](https://bacen.github.io/pix-api/) defines a small surface:
+The BCB publishes a [standard for that PSP API](https://bacen.github.io/pix-api/). Its main resources:
 
 | Resource | Purpose |
 | --- | --- |
-| `cob` | An immediate charge — a payment intent the merchant generates and the customer settles. |
-| `cobv` | A scheduled charge with a due date and optional fees, interest, and discount. |
-| `pix` | A received PIX, addressable by `e2eId`. |
-| `webhook` | A URL the PSP posts to when a payment settles for a given key. |
-| `lote` | A batch of charges (`cobs`) for high-volume merchants. |
+| `cob` | An immediate charge: a payment request the merchant creates and the customer pays. |
+| `cobv` | A charge with a due date, and optional fines, interest, and discounts. |
+| `pix` | A received payment, looked up by its `e2eId`. |
+| `webhook` | A URL the PSP calls when a payment to a given key settles. |
+| `lote` | A batch of due-date charges, for merchants with high volume. |
 
-The [Instant Payments API sample](/docs/api/pix-api/instant-payments-api-pix-sample) covers a focused subset of this surface — enough to issue, fetch, and reconcile a payment end-to-end.
+The [Instant Payments API sample](/docs/api/pix-api/instant-payments-api-pix-sample) on this site covers part of that standard: enough to create a charge, receive the payment, and reconcile it.
 
 ## PIX keys
 
-A **PIX key** (`chave`) is a human-readable handle that resolves to a bank account. There are five types, and the type matters because it constrains who can register the key and how the payer-facing UX renders.
+A **PIX key** (`chave`) is an alias that points to a bank account. There are five types. The type decides who can register the key and how apps should show it:
 
-| Type | Format | Who can register | UX cue |
+| Type | Format | Who can register it | How apps show it |
 | --- | --- | --- | --- |
-| **CPF** | 11 digits | The natural person who owns the CPF | Tax ID, masked (e.g. `***.456.789-**`) |
-| **CNPJ** | 14 digits | The legal entity that owns the CNPJ | Tax ID, full |
-| **Email** | RFC 5322 | Anyone, after email verification | Lowercase, no display masking |
-| **Phone** | E.164, prefixed `+55` | Anyone, after SMS verification | International format |
-| **EVP** | Random UUID-like string issued by the PSP | Anyone | Treated as opaque; never displayed prominently |
+| **CPF** | 11 digits | The person who owns the CPF | Partly masked, for example `***.456.789-**` |
+| **CNPJ** | 14 digits | The company that owns the CNPJ | In full |
+| **Email** | An email address | Anyone, after confirming the address | In lowercase |
+| **Phone** | E.164, starting with `+55` | Anyone, after confirming by SMS | In international format |
+| **Random key (EVP)** | A UUID generated by the PSP | Anyone | As a value to copy, rarely in full |
 
-A key is **resolved** through DICT (the Directory of Identifiers, operated by BCB). When a payer types a key into their app, the payer's PSP queries DICT to learn which PSP holds the key — and therefore where to route the payment.
+When a payer enters a key, their PSP looks it up in **DICT**, the key directory run by the BCB, to find which PSP holds the account and where to send the payment.
 
-Every account can hold up to five keys (CPF/CNPJ-bearer accounts can hold ten). A key cannot be shared across accounts.
+An account can have up to 5 keys if it belongs to a person, and up to 20 if it belongs to a company. A key can point to only one account.
 
-### Why the EVP exists
+### Why random keys exist
 
-The EVP — *chave aleatória* — is a privacy primitive. Customers who don't want their phone, email, or tax ID associated with their account use an EVP instead. The trade-off is that an EVP is harder to share verbally and impossible to memorize. Wallets render it as a copy-and-paste string or as a QR code.
+The random key, *chave aleatória*, is there for privacy. People who don't want to share their phone, email, or tax ID with whoever pays them use a random key instead. It's harder to read out over the phone and impossible to memorize, so apps share it as text to copy or as a QR code.
 
 ## End-to-end ID
 
-Every settled payment carries an **end-to-end ID** (`e2eId`) issued by the rail at settlement. The format is fixed:
+Every settled payment gets an **end-to-end ID** (`e2eId`), and its format is fixed:
 
 ```
-E + ISPB(8) + YYYYMMDDHHMM + suffix(11)
+E + ISPB (8) + yyyyMMddHHmm + suffix (11)
 ```
 
-| Segment | Meaning |
+| Part | Meaning |
 | --- | --- |
-| `E` | Literal prefix |
-| `ISPB` | The receiving PSP's 8-digit identifier in the BCB system |
-| `YYYYMMDDHHMM` | UTC settlement timestamp at minute resolution |
-| `suffix` | 11-character alphanumeric, unique within the minute |
+| `E` | Fixed prefix |
+| `ISPB` | The 8-digit code that identifies the payer's institution in the Brazilian payment system |
+| `yyyyMMddHHmm` | Creation time in UTC, to the minute |
+| `suffix` | 11 alphanumeric characters, unique within that minute |
 
-The `e2eId` is the canonical identifier for reconciliation. Every webhook, every refund request, and every audit trail anchors on it. If you only persist one field about a PIX payment, persist the `e2eId`.
+The `e2eId` is the identifier to reconcile on. Webhooks, refund requests, and audit trails all reference it. If you store only one field about a PIX payment, store the `e2eId`.
 
 ## Charges and the `txid`
 
-A `cob` (charge) is a payment intent. The merchant creates it; the rail does not know about it until the customer pays. Every charge carries a `txid` — a caller-supplied transaction ID, 26 to 35 alphanumeric characters, unique within the PSP for at least 365 days.
+A `cob` is a payment request. The merchant creates it, and the central infrastructure doesn't know about it until someone pays. Each charge has a `txid`: an ID the merchant chooses, 26 to 35 letters and digits long, unique at that PSP for at least 365 days.
 
-The relationship is:
+How they relate:
 
-- One `txid` → at most one charge → at most one settled `e2eId`.
-- One `e2eId` → at most one `txid` (can be empty for direct PIX without a charge).
+- One `txid` has at most one charge, and a charge has at most one settled `e2eId`.
+- An `e2eId` has at most one `txid`. A PIX sent without a charge has none.
 
-The `txid` is what merchants use to correlate a charge with their internal order. The `e2eId` is what the rail uses to correlate a payment with itself.
+Merchants use the `txid` to connect a charge to their own order. The payment system uses the `e2eId` to identify the payment.
 
 ```mermaid
 flowchart LR
-    Order[Internal order #4821] -->|generate| Txid[txid: INV4821a1b2...]
+    Order[Order 4821] -->|create| Txid[txid: INV4821a1b2...]
     Txid --> Cob[Charge: ATIVA]
-    Cob -->|customer pays| Settle((Rail settles))
+    Cob -->|customer pays| Settle((Settlement))
     Settle --> E2eId[e2eId: E12345678...]
-    Cob -->|status updates| Done[Charge: CONCLUIDA]
+    Cob -->|status changes| Done[Charge: CONCLUIDA]
     E2eId -.->|webhook| Merchant[Merchant backend]
-    Order -.->|reconcile by txid| Merchant
+    Order -.->|match by txid| Merchant
 ```
 
-## What "instant" actually means
+## What "instant" means
 
-The 10-second SLA is end-to-end: from the moment the payer's PSP sends the settlement request to the moment the payee's PSP confirms the credit. In practice, the inter-bank leg takes well under one second — the rest is the PSPs' internal processing.
+The 10-second target covers the whole flow, from the moment the payer's PSP sends the payment to the moment the payee's PSP confirms the credit. Most of that time goes to processing inside each PSP.
 
-A few consequences:
+This has consequences for integrators:
 
-- **No reversal window.** Once settled, a PIX payment cannot be unwound. Refunds (`devolução`) are new payments on the rail, not undo operations.
-- **Webhooks are the source of truth, not API polling.** A merchant that polls `GET /cob/{txid}` will see the charge transition from `ATIVA` to `CONCLUIDA` within seconds, but the webhook arrives faster and includes the full payment context.
-- **Idempotency matters at the rail boundary.** The rail will not deliver the same `e2eId` twice. The PSP webhook layer might. Merchants that double-credit because of a redelivered webhook owe a refund — which is itself a new PIX.
+- **Payments can't be undone.** A settled PIX can't be reversed. A refund (*devolução*) is a new transaction that references the original. The BCB's special return mechanism (MED) covers fraud cases, through the PSPs.
+- **Rely on webhooks, not polling.** Polling `GET /cob/{txid}` shows the status change from `ATIVA` to `CONCLUIDA`, but the webhook arrives sooner and carries the payment details.
+- **Expect duplicates.** The central infrastructure settles each `e2eId` once, but a PSP can deliver the same webhook more than once. If you credit a customer twice, the only fix is a refund, which is another PIX. [Handle PIX webhooks](./how-to-handle-webhooks) shows how to avoid that.
 
-## Where API design choices come from
+## Why the API looks the way it does
 
-A few design conventions in the public PIX standard look unusual to people coming from a Stripe-style API:
+Some conventions in the PIX standard surprise developers used to card APIs:
 
-- **The merchant supplies the `txid`, not the server.** This lets merchants generate idempotency tokens before they have a network round-trip — useful for offline-first POS systems.
-- **`PUT` creates, `PATCH` updates.** A `PUT /cob/{txid}` with an existing txid returns 409 unless the body matches exactly (idempotent re-create). This is opposite to most CRUD conventions but matches the rail's at-least-once guarantee.
-- **Amounts are strings, not numbers.** `"valor": { "original": "150.00" }`. JSON has no decimal type; floats drift; the spec ducks the problem by not letting clients use them.
-- **Field names are in Portuguese.** `cob`, `chave`, `devedor`, `valor`, `solicitacaoPagador`. The rail is national infrastructure and the spec was written for a Portuguese-speaking integrator audience first.
+- **The merchant chooses the `txid`.** The client creates the charge with `PUT /cob/{txid}` at a URL it picked. A retry after a timeout hits the same URL instead of creating a second charge. A retry with the same body succeeds, and a different body returns `409`. A point-of-sale system can also create the ID before it has a connection.
+- **`PUT` creates, `PATCH` changes.** That follows from the point above: the client knows the resource's URL in advance.
+- **Amounts are strings.** For example, `"valor": { "original": "150.00" }`. JSON numbers are often parsed as floating point, which can't represent every decimal exactly. A string keeps the amount exact.
+- **Field names are in Portuguese:** `cob`, `chave`, `devedor`, `valor`, `solicitacaoPagador`. PIX is national infrastructure, and the standard was written for Brazilian developers first.
 
-These are not arbitrary. Each one removes a class of bug that would otherwise show up in production at high volume.
+Each of these choices prevents a kind of bug that shows up at high volume.
 
 ## Further reading
 
-- [Banco Central do Brasil — PIX overview (English)](https://www.bcb.gov.br/en/financialstability/pix_en)
-- [PIX PSP API standard (Portuguese)](https://bacen.github.io/pix-api/) — the public OpenAPI spec the sample on this site is based on
-- [Manual de Uso do BR Code](https://www.bcb.gov.br/estabilidadefinanceira/spb_pix) — QR-code payload format used in PIX charges
-- [Send your first PIX payment](./tutorial-first-payment) — guided walkthrough of the sandbox flow
-- [Handle PIX webhook callbacks](./how-to-handle-webhooks) — how to set up the webhook listener
-- [Instant Payments API reference](/docs/api/pix-api/instant-payments-api-pix-sample) — the OpenAPI sample for this section
+- [Banco Central do Brasil: PIX overview, in English](https://www.bcb.gov.br/en/financialstability/pix_en)
+- [PIX PSP API standard, in Portuguese](https://bacen.github.io/pix-api/), the public OpenAPI specification the sample on this site is based on
+- [BR Code manual](https://www.bcb.gov.br/estabilidadefinanceira/spb_pix), with the QR code format used in PIX charges
+- [Send your first PIX payment](./tutorial-first-payment), a guided walkthrough in the sandbox
+- [Handle PIX webhooks](./how-to-handle-webhooks), for a webhook listener ready for production
+- [Instant Payments API reference](/docs/api/pix-api/instant-payments-api-pix-sample), the sample OpenAPI spec for this section

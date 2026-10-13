@@ -8,7 +8,11 @@ tags: [databridge, installation]
 
 # DataBridge Hub setup guide
 
-This guide walks you through setting up your DataBridge Hub and connecting it to your smart meter.
+This guide shows you how to set up the DataBridge Hub and connect it to your smart meter.
+
+:::info Which guide is this?
+Each utility that offers the DataBridge Hub publishes its own version of this guide. This is the version for **Pacific Grid** customers, whose app has a different layout. For Atlas Insight, see the [DataBridge installation guide](./databridge-installation-guide-atlas-insight).
+:::
 
 ## Before you begin
 
@@ -17,10 +21,10 @@ Gather the following items:
 - DataBridge Hub
 - Included power adapter
 - Your Wi-Fi network name and password
-- A phone or tablet with the EnergyGrid App installed
+- A phone or tablet with the EnergyGrid app installed
 - Your EnergyGrid account credentials
 
-## Sign in to the EnergyGrid App
+## Sign in to the EnergyGrid app
 
 1. **Open the app**
 
@@ -40,7 +44,7 @@ Use the email address associated with your EnergyGrid account as your username.
 
 ## Access help and support
 
-Use these reference links during setup if you need help with the app or with a specific step.
+If you get stuck during setup, help is in the app menu.
 
 1. **Open the menu**
 
@@ -70,7 +74,7 @@ The navigation bar at the bottom of the screen provides access to the main featu
 
 1. **Choose a spot near your meter**
 
-   Place the DataBridge Hub within 30 feet of your smart meter. Avoid placing it near routers or large metal objects such as refrigerators.
+   Place the DataBridge Hub within 30 feet (about 9 meters) of your smart meter, away from routers and large metal objects such as refrigerators.
 
 2. **Have your Wi-Fi password ready**
 
@@ -88,7 +92,7 @@ The navigation bar at the bottom of the screen provides access to the main featu
 
 ### Start the setup in the app
 
-1. **Open the EnergyGrid App**
+1. **Open the EnergyGrid app**
 
    Sign in if you haven't already done so.
 
@@ -166,7 +170,7 @@ Select **Use Wired Ethernet Setup** if you prefer a wired connection instead of 
 
 2. **Wait for the process to complete**
 
-   Binding typically completes within 15 minutes, but can take up to 48 hours depending on network conditions. You do not need to keep the app open or stay near the DataBridge Hub during this time. Keep the device powered and within 30 feet of the smart meter throughout the process.
+   Binding usually finishes within 15 minutes, and can take up to 48 hours with a weak signal. You can close the app and walk away, as long as the hub stays plugged in and within 30 feet (about 9 meters) of the meter.
 
 3. **Check the status**
 
@@ -180,6 +184,6 @@ If the app still shows the DataBridge Hub searching for the smart meter after 48
 
 Contact the EnergyGrid support team for additional help:
 
-- **Live chat:** Open the EnergyGrid App and go to **Menu** > **Support Center**.
-- **Email:** `support@energygrid.com`
+- **Live chat:** Open the EnergyGrid app and go to **Menu** > **Support Center**.
+- **Email:** `support@energygrid.example`
 - **Phone and hours:** Contact your utility provider for the support phone number and current hours.

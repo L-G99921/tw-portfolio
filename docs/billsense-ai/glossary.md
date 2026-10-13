@@ -8,14 +8,14 @@ tags: [billsense-ai, glossary, reference]
 
 # Glossary
 
-Terms used across the BillSense AI documentation and interface.
+Terms used in BillSense AI and in its documentation.
 
 | Term | Definition |
 |------|------------|
-| Always On | Energy consumed by devices in standby mode |
-| Disaggregation | Breaking down total usage into individual appliance categories |
-| kWh | Kilowatt-hour — the standard unit of energy consumption |
+| Always On | Energy used by devices in standby |
+| Disaggregation | Splitting total usage into appliance categories |
+| kWh | Kilowatt-hour, the standard unit of energy use |
 | Off-peak | Hours when electricity rates are lower |
 | On-peak | Hours when electricity rates are higher |
 | Rate plan | The pricing structure used to calculate the customer's electricity bill |
-| Time of Use (TOU) | A rate plan type where prices vary based on the time of day energy is consumed |
+| Time of use (TOU) | A rate plan where the price depends on the time of day the energy is used |

@@ -8,7 +8,7 @@ tags: [smartlink, installation, setup]
 
 # SmartLink Plug installation guide
 
-Install and bind the SmartLink Plug to your utility smart meter using the EnergyGrid App. The end-to-end setup takes about 10 minutes; meter binding can take 24–48 hours after the utility processes the request. For background on what the SmartLink Plug is and what it does, see the [Featured project overview](/docs/#products).
+This guide shows you how to install the SmartLink Plug and link it to your smart meter with the EnergyGrid app. Setup takes about 10 minutes. After that, your utility can take 24 to 48 hours to finish linking the plug to the meter. To learn what the SmartLink Plug does, see [Products](/docs/#products).
 
 ## Before you begin
 
@@ -17,7 +17,7 @@ Gather these items before starting the installation.
 ### Requirements
 
 - SmartLink Plug
-- EnergyGrid App installed on iOS or Android
+- EnergyGrid app installed on iOS or Android
 - EnergyGrid account credentials (administrator access required)
 - Home Wi-Fi network name and password
 - Wi-Fi enabled on the mobile device
@@ -41,13 +41,13 @@ Do not place the SmartLink Plug directly behind the meter, near metal racks, nea
 
 ## Mobile app setup
 
-Power on the SmartLink Plug first. Then use the EnergyGrid App to connect the device to your account.
+Power on the SmartLink Plug first. Then use the EnergyGrid app to connect the device to your account.
 
 ### Sign in
 
 1. **Open the app**
 
-    Launch the EnergyGrid App on your mobile device.
+    Launch the EnergyGrid app on your mobile device.
 
 2. **Enter your credentials**
 
@@ -128,7 +128,7 @@ Check these indicators after the utility processes the bind request, which typic
 ### Success indicators
 
 - The SmartLink Plug LED displays a steady state and is not flashing an error pattern
-- Real-time energy usage data appears in the EnergyGrid App
+- Real-time energy usage data appears in the EnergyGrid app
 - The SmartLink Plug appears as connected in the Toolkit section of the app
 
 ## Troubleshooting
@@ -183,5 +183,5 @@ Check these indicators after the utility processes the bind request, which typic
 
 Contact your utility support team for assistance.
 
-- **In-app chat:** Open the EnergyGrid App and go to **Menu > Support Center**.
+- **In-app chat:** Open the EnergyGrid app and go to **Menu > Support Center**.
 - **Phone and email:** Contact your utility provider for current support channels and hours.

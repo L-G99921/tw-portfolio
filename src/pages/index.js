@@ -1,141 +1,217 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './index.module.css';
+
+const LINKEDIN = 'https://www.linkedin.com/in/leandro-gabriel-8aab31167/';
+
+/* ---------- Live request card ---------- */
+
+// txid must be 26 to 35 alphanumeric characters (see the spec).
+const newTxid = () => ('LGDEMO' + Date.now().toString(36) + 'a1b2c3d4e5f6g7h8').slice(0, 32);
+const REQUEST_BODY = {
+  calendario: {expiracao: 3600},
+  devedor: {cpf: '12345678909', nome: 'Maria Silva'},
+  valor: {original: '150.00'},
+  chave: 'merchant@example.com',
+};
+
+function LiveRequest() {
+  const [state, setState] = useState({status: 'idle'});
+
+  async function run() {
+    setState({status: 'loading'});
+    try {
+      if ('serviceWorker' in navigator) {
+        await Promise.race([navigator.serviceWorker.ready, new Promise((r) => setTimeout(r, 3000))]);
+      }
+      const url = `https://sandbox.instant-payments.example/v2/cob/${newTxid()}`;
+      const res = await fetch(url, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json', Authorization: 'Bearer portfolio-demo'},
+        body: JSON.stringify(REQUEST_BODY),
+      });
+      const json = await res.json();
+      setState({status: 'done', code: res.status, json});
+    } catch {
+      setState({status: 'error'});
+    }
+  }
+
+  return (
+    <div className={styles.live}>
+      <div className={styles.liveBar}>
+        <span className={styles.method}>PUT</span>
+        <code className={styles.livePath}>/v2/cob/{'{txid}'}</code>
+        <button type="button" className={styles.runBtn} onClick={run} disabled={state.status === 'loading'}>
+          {state.status === 'loading' ? 'Sending…' : state.status === 'done' ? 'Send again' : 'Send request'}
+        </button>
+      </div>
+      <pre className={styles.liveCode}>
+        {state.status === 'done' ? (
+          <>
+            <span className={state.code < 300 ? styles.liveStatus : styles.liveStatusError}>HTTP {state.code}</span>
+            {'\n'}
+            {JSON.stringify(
+              state.code < 300
+                ? {txid: state.json.txid, status: state.json.status, revisao: state.json.revisao, valor: state.json.valor, loc: state.json.loc}
+                : state.json,
+              null,
+              2,
+            )}
+          </>
+        ) : state.status === 'error' ? (
+          'The sandbox could not start in this browser. Open the API reference to see the full examples.'
+        ) : (
+          JSON.stringify(REQUEST_BODY, null, 2)
+        )}
+      </pre>
+      <p className={styles.liveNote}>
+        Creates a PIX charge in the in-browser sandbox.{' '}
+        <Link to="/docs/api/pix-api/create-charge">Open the full reference</Link>
+      </p>
+    </div>
+  );
+}
+
+/* ---------- Sections ---------- */
 
 function Hero() {
   return (
     <header className={styles.hero}>
-      <div className="container">
-        <div className={styles.heroBadge}>Senior Technical Writer · API Documentation · Docs-as-Code · Fintech &amp; SaaS</div>
-        <h1 className={styles.heroTitle}>
-          Hi, I'm <span className={styles.heroAccent}>Leandro Gabriel</span>
-        </h1>
-        <p className={styles.heroSubtitle}>
-          I turn complex APIs, data infrastructure, and enterprise workflows into documentation
-          developers and business teams actually use. 6+ years across fintech (Itaú PIX —
-          BRL 17T+/year, 150M+ users), retail (Sephora LATAM), beauty data infrastructure
-          (L'Oréal France), and logistics (Crane Worldwide).
-        </p>
-        <div className={styles.ctaButtons}>
-          <Link className={`${styles.btn} ${styles.btnPrimary}`} to="/docs">
-            View Featured Project
-          </Link>
-          <Link
-            className={`${styles.btn} ${styles.btnOutline}`}
-            to="https://www.linkedin.com/in/leandro-gabriel-8aab31167/">
-            Connect on LinkedIn
-          </Link>
+      <div className={`container ${styles.heroGrid}`}>
+        <div>
+          <p className={styles.eyebrow}>Senior Technical Writer · João Pessoa, Brazil</p>
+          <h1 className={styles.heroTitle}>Documentation for APIs, payments, and data platforms</h1>
+          <p className={styles.heroLead}>
+            I'm Leandro Gabriel. For 6+ years I've written API references, integration guides, and
+            support docs for Itaú (the PIX instant-payments APIs), Sephora LATAM, L'Oréal France, and
+            Crane Worldwide. This site is my portfolio, built the way I build docs: in Git, linted in
+            CI, and generated from OpenAPI where it can be.
+          </p>
+          <div className={styles.ctas}>
+            <Link className={`${styles.btn} ${styles.btnPrimary}`} to="/docs">
+              See the featured project
+            </Link>
+            <Link className={`${styles.btn} ${styles.btnGhost}`} to={LINKEDIN}>
+              LinkedIn profile
+            </Link>
+          </div>
         </div>
+        <LiveRequest />
       </div>
     </header>
   );
 }
 
-function Card({title, description, icon, to, external}) {
-  return (
-    <Link to={to} className={styles.card}>
-      <div className={styles.cardIcon}>
-        <i className={icon}></i>
-      </div>
-      <h3 className={styles.cardTitle}>{title}</h3>
-      <p className={styles.cardDescription}>{description}</p>
-      <div className={styles.cardArrow}>
-        {external ? 'Visit' : 'Explore'} <i className="fas fa-arrow-right"></i>
-      </div>
-    </Link>
-  );
-}
+const SAMPLES = [
+  {type: 'Tutorial', title: 'Your first EnergyGrid integration', text: 'From sandbox credentials to a synced customer and a bound DataBridge device, in about 30 minutes.', to: '/docs/tutorial-first-integration'},
+  {type: 'Tutorial', title: 'Send your first PIX payment', text: 'Get a token, create a charge, receive the webhook, and reconcile the payment.', to: '/docs/pix/tutorial-first-payment'},
+  {type: 'How-to', title: 'Handle PIX webhooks', text: 'Signature checks, fast acknowledgment, idempotency, and recovery after an outage.', to: '/docs/pix/how-to-handle-webhooks'},
+  {type: 'How-to', title: 'PowerBox and BillSense AI integration guide', text: 'OAuth 2.0, customer sync, and bulk ingestion over SFTP for utility backend teams.', to: '/docs/integration-guide'},
+  {type: 'How-to', title: 'Hardware install guides', text: 'Step-by-step setup for smart-meter hardware, written for people at home.', to: '/docs/databridge/databridge-installation-guide-atlas-insight'},
+  {type: 'Reference', title: 'PIX API reference', text: 'Generated from OpenAPI, with a working sandbox on every endpoint.', to: '/docs/api/pix-api/instant-payments-api-pix-sample'},
+  {type: 'Reference', title: 'Data dictionary', text: 'Data sources, dependencies, and storage for three types of utility integration.', to: '/docs/data-dictionary'},
+  {type: 'Explanation', title: 'About PIX', text: "How Brazil's instant-payments rail works and why it's designed that way.", to: '/docs/pix/about-pix'},
+  {type: 'Support', title: 'BillSense AI user guide', text: 'Overview, setup, and troubleshooting for an AI tool that explains energy bills.', to: '/docs/billsense-ai/overview'},
+];
 
-function FeaturesGrid() {
+function Samples() {
   return (
     <section className={styles.section}>
-      <div className={styles.container}>
-        <div className={styles.sectionHeader}>
-          <h2 className={styles.sectionTitle}>Portfolio Highlights</h2>
-          <p className={styles.sectionLead}>
-            A curated set of documentation samples — developer APIs, hardware install guides,
-            AI-tool support docs, and style governance — anchored in 6+ years of real
-            enterprise engagements (Itaú PIX, Sephora LATAM, L'Oréal France, Crane Worldwide).
+      <div className="container">
+        <div className={styles.sectionHead}>
+          <h2>Work samples</h2>
+          <p>
+            Most samples belong to <strong>EnergyGrid</strong>, a fictional utility platform documented
+            end to end for three audiences: backend engineers, people installing hardware at home, and
+            support agents. The PIX set is modeled on the public PIX standard and anonymized. Each page
+            is one Diátaxis type, labeled below.
           </p>
         </div>
-        <div className={styles.cardGrid}>
-          <Card
-            title="EnergyGrid — Featured Project"
-            description="An end-to-end documentation portal for a fictional utility platform — showcases information architecture, docs-as-code, and Docusaurus theming."
-            icon="fas fa-star"
-            to="/docs"
-          />
-          <Card
-            title="Methodology — Google Style + Diátaxis"
-            description="The two frameworks I specialize in: Google's Developer Documentation Style Guide for sentence-level rules, and Diátaxis for page-level content taxonomy."
-            icon="fas fa-compass"
-            to="/docs/methodology"
-          />
-          <Card
-            title="Integration Guide"
-            description="OAuth 2.0 / OIDC flow, CIS data sync, and bulk ingestion via SFTP / object storage — written for utility backend engineers."
-            icon="fas fa-plug"
-            to="/docs/integration-guide"
-          />
-          <Card
-            title="API Reference (OpenAPI)"
-            description="Interactive API docs auto-generated from OpenAPI specs using docusaurus-plugin-openapi-docs."
-            icon="fas fa-code"
-            to="/docs/api/powerbox-api"
-          />
-          <Card
-            title="Hardware Install Guides"
-            description="Consumer-friendly step-by-step guides for smart-meter hardware — QR codes, mobile pairing, and Wi-Fi provisioning."
-            icon="fas fa-wifi"
-            to="/docs/databridge/databridge-installation-guide-atlas-insight"
-          />
-          <Card
-            title="BillSense AI — Support Docs"
-            description="User guide and troubleshooting reference for an AI-powered bill analysis tool, written for customer support agents."
-            icon="fas fa-brain"
-            to="/docs/billsense-ai/overview"
-          />
-          <Card
-            title="PIX — Diátaxis Showcase"
-            description="One of each Diátaxis type — tutorial, how-to, reference, explanation — built around Brazil's instant-payments rail. Anonymized API sample modelled on the public PIX PSP standard."
-            icon="fas fa-bolt"
-            to="/docs/pix/about-pix"
-          />
-          <Card
-            title="Writing Style Guide"
-            description="Applied style guide built on Google Developer Style + Diátaxis — voice, tone, UX patterns, and a pre-publication checklist."
-            icon="fas fa-book-open"
-            to="/docs/writing-guideline"
-          />
-        </div>
+        <ul className={styles.samples}>
+          {SAMPLES.map((s) => (
+            <li key={s.to}>
+              <Link to={s.to} className={styles.sample}>
+                <span className={`${styles.type} ${styles['type' + s.type.replace('-', '')]}`}>{s.type}</span>
+                <span className={styles.sampleTitle}>{s.title}</span>
+                <span className={styles.sampleText}>{s.text}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );
 }
 
-function AboutStrip() {
+function Results() {
+  const items = [
+    {n: '6+', l: 'years writing enterprise documentation'},
+    {n: '75%', l: 'less rework after moving Sephora LATAM docs to modular content'},
+    {n: '3.8 → 4.6', l: 'developer satisfaction with the docs at Itaú, out of 5, in six months'},
+    {n: 'PT · EN · ES', l: 'languages I write and review in'},
+  ];
   return (
-    <section className={styles.aboutStrip}>
-      <div className={styles.container}>
-        <div className={styles.aboutGrid}>
-          <div className={styles.aboutItem}>
-            <div className={styles.aboutNumber}>6+</div>
-            <div className={styles.aboutLabel}>Years writing enterprise docs</div>
-          </div>
-          <div className={styles.aboutItem}>
-            <div className={styles.aboutNumber}>75%</div>
-            <div className={styles.aboutLabel}>Rework reduced via modular docs</div>
-          </div>
-          <div className={styles.aboutItem}>
-            <div className={styles.aboutNumber}>4.6/5</div>
-            <div className={styles.aboutLabel}>Dev documentation satisfaction</div>
-          </div>
-          <div className={styles.aboutItem}>
-            <div className={styles.aboutNumber}>3</div>
-            <div className={styles.aboutLabel}>Languages — PT · EN · ES</div>
-          </div>
+    <section className={`${styles.section} ${styles.sectionAlt}`}>
+      <div className="container">
+        <ul className={styles.results}>
+          {items.map((i) => (
+            <li key={i.n}>
+              <strong>{i.n}</strong>
+              <span>{i.l}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+function Method() {
+  const items = [
+    {title: 'Google developer style', text: 'Sentence-level rules: second person, active voice, present tense, no filler.', to: '/docs/methodology'},
+    {title: 'Diátaxis', text: 'Page-level structure: every page is a tutorial, a how-to, a reference, or an explanation.', to: '/docs/adr/003-diataxis-as-page-taxonomy'},
+    {title: 'Vale in CI', text: 'Style rules run on every pull request, and an error blocks the merge.', to: '/docs/adr/004-vale-fail-on-error'},
+    {title: 'OpenAPI as the source', text: 'The reference pages and the sandbox both come from the same spec file.', to: '/docs/adr/005-openapi-as-source-of-truth'},
+  ];
+  return (
+    <section className={styles.section}>
+      <div className="container">
+        <div className={styles.sectionHead}>
+          <h2>How I work</h2>
+          <p>The decisions behind this site are written down as architecture decision records.</p>
+        </div>
+        <ul className={styles.principles}>
+          {items.map((i) => (
+            <li key={i.title}>
+              <Link to={i.to}>
+                <strong>{i.title}</strong>
+                <span>{i.text}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+function Contact() {
+  return (
+    <section className={styles.contact}>
+      <div className={`container ${styles.contactInner}`}>
+        <div>
+          <h2>Get in touch</h2>
+          <p>Email or LinkedIn. I write and review in English, Portuguese, and Spanish.</p>
+        </div>
+        <div className={styles.ctas}>
+          <a className={`${styles.btn} ${styles.btnPrimary}`} href="mailto:lgos99921@gmail.com">
+            lgos99921@gmail.com
+          </a>
+          <Link className={`${styles.btn} ${styles.btnGhost}`} to={LINKEDIN}>
+            LinkedIn
+          </Link>
         </div>
       </div>
     </section>
@@ -143,15 +219,16 @@ function AboutStrip() {
 }
 
 export default function Home() {
-  const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-      title="Home"
-      description="Leandro Gabriel — Technical Writer building clear, developer-first documentation for enterprise teams.">
+      title="Senior Technical Writer"
+      description="Leandro Gabriel, senior technical writer. API references, integration guides, and docs-as-code for fintech, retail, and data platforms.">
       <Hero />
       <main>
-        <FeaturesGrid />
-        <AboutStrip />
+        <Samples />
+        <Results />
+        <Method />
+        <Contact />
       </main>
     </Layout>
   );

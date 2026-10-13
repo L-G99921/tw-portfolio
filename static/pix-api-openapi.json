@@ -3,7 +3,7 @@
   "info": {
     "title": "Instant Payments API (PIX sample)",
     "version": "2.4.0",
-    "description": "Sample API for issuing and reconciling instant payments on Brazil's PIX rail. The endpoints, payloads, and error codes mirror the publicly-documented PIX PSP standard published by Banco Central do Brasil. Customer identifiers, ISPBs, and webhook URLs are illustrative.\n\n**This API is anonymized and synthetic.** It is published as a portfolio sample to demonstrate OpenAPI authoring conventions, Diátaxis-aligned reference structure, and the contract-first workflow used at scale on real PIX integrations.",
+    "description": "A sample API for creating and reconciling instant payments on PIX, Brazil's instant-payments system. The endpoints, payloads, and error codes follow the public PIX standard for payment service providers (PSPs) from Banco Central do Brasil. Customer identifiers, ISPBs, and webhook URLs are invented.\n\n**This API is anonymized and synthetic.** I wrote it for this portfolio, based on the conventions I used on real PIX integrations: contract-first OpenAPI, one reference page per operation, and errors as RFC 7807 problem details.\n\n## Try it in the browser\n\nEvery operation page has a **Send API Request** panel. The hosts in this spec don't exist, so the site answers those requests in your browser with a simulated server built from this spec. Use any value as the bearer token. Charges and webhooks keep state: create a charge with `PUT /cob/{txid}`, then read it with `GET` and change it with `PATCH`.",
     "contact": {
       "name": "Leandro Gabriel",
       "url": "https://www.linkedin.com/in/leandro-gabriel-8aab31167/"
@@ -16,11 +16,11 @@
   "servers": [
     {
       "url": "https://sandbox.instant-payments.example/v2",
-      "description": "Sandbox — synthetic PSP environment for testing"
+      "description": "Sandbox: synthetic PSP environment for testing"
     },
     {
       "url": "https://api.instant-payments.example/v2",
-      "description": "Production — illustrative URL only"
+      "description": "Production: illustrative URL only"
     }
   ],
   "tags": [
@@ -44,7 +44,9 @@
   "paths": {
     "/cob/{txid}": {
       "put": {
-        "tags": ["Charges"],
+        "tags": [
+          "Charges"
+        ],
         "summary": "Create an immediate charge",
         "description": "Creates an immediate charge (`cob`) addressed to the creditor's PIX key. The debtor settles the charge by reading the returned QR code or by entering the transaction ID. The `txid` is supplied by the caller and must be unique across the PSP for at least 365 days.",
         "operationId": "createCharge",
@@ -107,7 +109,9 @@
         }
       },
       "get": {
-        "tags": ["Charges"],
+        "tags": [
+          "Charges"
+        ],
         "summary": "Retrieve a charge",
         "description": "Returns the full state of a charge, including any received PIX linked to its `txid`.",
         "operationId": "getCharge",
@@ -133,7 +137,9 @@
         }
       },
       "patch": {
-        "tags": ["Charges"],
+        "tags": [
+          "Charges"
+        ],
         "summary": "Update a charge",
         "description": "Updates an open charge. You can revise the amount, the debtor, the message to the payer, or mark the charge as `REMOVIDA_PELO_USUARIO_RECEBEDOR`. Charges with status `CONCLUIDA` cannot be updated.",
         "operationId": "updateCharge",
@@ -181,7 +187,9 @@
     },
     "/pix/{e2eId}": {
       "get": {
-        "tags": ["Received payments"],
+        "tags": [
+          "Received payments"
+        ],
         "summary": "Retrieve a received PIX",
         "description": "Returns a single received PIX by its end-to-end ID. The `e2eId` is the canonical identifier for a settled payment on the rail.",
         "operationId": "getReceivedPix",
@@ -190,7 +198,7 @@
             "name": "e2eId",
             "in": "path",
             "required": true,
-            "description": "End-to-end ID. Format: `E` + ISPB (8 digits) + `YYYYMMDDHHMM` + 11-character suffix.",
+            "description": "End-to-end ID. Format: `E` + ISPB of the payer's institution (8 digits) + `yyyyMMddHHmm` + 11-character suffix.",
             "schema": {
               "type": "string",
               "pattern": "^E\\d{8}[0-9]{12}\\w{11}$",
@@ -217,7 +225,9 @@
     },
     "/webhook/{chave}": {
       "put": {
-        "tags": ["Webhooks"],
+        "tags": [
+          "Webhooks"
+        ],
         "summary": "Register a webhook for a PIX key",
         "description": "Associates a webhook URL with a PIX key the PSP holds for the merchant. After registration, every received PIX addressed to this key triggers an HTTPS `POST` to the URL with the payment payload. The endpoint must respond `2xx` within 5 seconds; otherwise the rail retries with exponential backoff for up to 24 hours.\n\nA key supports one webhook at a time. Calling this endpoint a second time replaces the previous registration.",
         "operationId": "registerWebhook",
@@ -263,7 +273,9 @@
         }
       },
       "get": {
-        "tags": ["Webhooks"],
+        "tags": [
+          "Webhooks"
+        ],
         "summary": "Retrieve the webhook for a PIX key",
         "operationId": "getWebhook",
         "parameters": [
@@ -293,7 +305,9 @@
         }
       },
       "delete": {
-        "tags": ["Webhooks"],
+        "tags": [
+          "Webhooks"
+        ],
         "summary": "Remove the webhook for a PIX key",
         "operationId": "deleteWebhook",
         "parameters": [
@@ -383,11 +397,17 @@
     "schemas": {
       "ChargeRequest": {
         "type": "object",
-        "required": ["calendario", "valor", "chave"],
+        "required": [
+          "calendario",
+          "valor",
+          "chave"
+        ],
         "properties": {
           "calendario": {
             "type": "object",
-            "required": ["expiracao"],
+            "required": [
+              "expiracao"
+            ],
             "properties": {
               "expiracao": {
                 "type": "integer",
@@ -402,7 +422,9 @@
           },
           "valor": {
             "type": "object",
-            "required": ["original"],
+            "required": [
+              "original"
+            ],
             "properties": {
               "original": {
                 "type": "string",
@@ -443,7 +465,9 @@
           },
           "status": {
             "type": "string",
-            "enum": ["REMOVIDA_PELO_USUARIO_RECEBEDOR"]
+            "enum": [
+              "REMOVIDA_PELO_USUARIO_RECEBEDOR"
+            ]
           }
         }
       },
@@ -514,7 +538,10 @@
               },
               "tipoCob": {
                 "type": "string",
-                "enum": ["cob", "cobv"]
+                "enum": [
+                  "cob",
+                  "cobv"
+                ]
               }
             }
           }
@@ -525,7 +552,7 @@
         "properties": {
           "endToEndId": {
             "type": "string",
-            "description": "Canonical identifier issued by the rail at settlement."
+            "description": "End-to-end ID, created by the payer's PSP. Use it to reconcile the payment."
           },
           "txid": {
             "type": "string",
@@ -549,7 +576,9 @@
       },
       "WebhookRegistration": {
         "type": "object",
-        "required": ["webhookUrl"],
+        "required": [
+          "webhookUrl"
+        ],
         "properties": {
           "webhookUrl": {
             "type": "string",
@@ -579,7 +608,10 @@
         "description": "A natural person (CPF) or legal entity (CNPJ).",
         "oneOf": [
           {
-            "required": ["cpf", "nome"],
+            "required": [
+              "cpf",
+              "nome"
+            ],
             "properties": {
               "cpf": {
                 "type": "string",
@@ -591,7 +623,10 @@
             }
           },
           {
-            "required": ["cnpj", "nome"],
+            "required": [
+              "cnpj",
+              "nome"
+            ],
             "properties": {
               "cnpj": {
                 "type": "string",
@@ -621,7 +656,11 @@
       "Problem": {
         "type": "object",
         "description": "Error response in `application/problem+json` format (RFC 7807).",
-        "required": ["type", "title", "status"],
+        "required": [
+          "type",
+          "title",
+          "status"
+        ],
         "properties": {
           "type": {
             "type": "string",
@@ -659,7 +698,13 @@
   },
   "security": [
     {
-      "OAuth2": ["cob.write", "cob.read", "pix.read", "webhook.write", "webhook.read"]
+      "OAuth2": [
+        "cob.write",
+        "cob.read",
+        "pix.read",
+        "webhook.write",
+        "webhook.read"
+      ]
     }
   ]
 }

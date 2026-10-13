@@ -1,6 +1,6 @@
 ---
 title: Architecture decision records
-description: "Index of the architecture decision records (ADRs) that document the non-obvious technology and content choices behind this portfolio."
+description: "Index of the architecture decision records (ADRs) behind the tooling and content choices on this site."
 sidebar_label: Overview
 sidebar_position: 0
 tags: [adr, decisions, meta]
@@ -8,34 +8,31 @@ tags: [adr, decisions, meta]
 
 # Architecture decision records
 
-This portfolio makes several non-obvious choices about tooling, content structure, and editorial workflow. Each one was a real trade-off — Vale could have been `write-good`, Docusaurus could have been MkDocs, the Diátaxis split could have been Divio's three-way model. The decisions that stuck are recorded here as **architecture decision records** (ADRs), one short page per decision, so anyone reviewing the repository can read the *why* and not only the *what*.
+Some choices behind this site aren't obvious from the code: why Docusaurus and not MkDocs, why Google's style guide and not Microsoft's, why the API sandbox runs in the browser. Each one had a real alternative. They're recorded here as architecture decision records (ADRs), one short page per decision, so anyone reading the repository can see why things are the way they are.
 
-The format follows [Michael Nygard's lightweight ADR template](https://github.com/joelparkerhenderson/architecture-decision-record/blob/main/locales/en/templates/decision-record-template-by-michael-nygard/index.md): **Status**, **Context**, **Decision**, **Consequences**. Each record is intentionally short — under 250 words — because the value is in capturing the trade-off, not in writing a thesis.
+The format follows [Michael Nygard's original ADR format](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions): status, context, decision, and consequences. Each record stays short, because the point is the trade-off.
 
-## Why ADRs in a documentation portfolio
+## Why a portfolio has ADRs
 
-A portfolio is itself a small product. Every product carries decisions that aren't legible from the code alone. Recording those decisions in the repository — alongside the code they shaped — turns the portfolio into a demonstration of two skills at once: the writing samples themselves, and the editorial reasoning behind the publication system that holds them.
-
-If you're a hiring manager reviewing the portfolio: these ADRs are where you can read what I'd defend in a planning meeting. If you're a future maintainer (myself, in six months): these are the load-bearing arguments you should re-examine before changing direction.
+A portfolio is a small product, and it has decisions like any other. Writing them down next to the code shows two things at once: the writing samples, and the reasoning behind the system that publishes them. If you're hiring, these pages show what I'd argue for in a planning meeting. If you maintain the site later, start here before changing direction.
 
 ## Index
 
-| ADR | Title | Status |
-|-----|-------|--------|
-| [ADR-001](/docs/adr/001-docusaurus-over-mkdocs) | Docusaurus 3 over MkDocs Material | Accepted |
-| [ADR-002](/docs/adr/002-google-style-over-microsoft) | Google Developer Style Guide over Microsoft Writing Style Guide | Accepted |
-| [ADR-003](/docs/adr/003-diataxis-as-page-taxonomy) | Diátaxis as page-level taxonomy, one type per page | Accepted |
-| [ADR-004](/docs/adr/004-vale-fail-on-error) | Vale CI blocks on error, not warning-only | Accepted |
-| [ADR-005](/docs/adr/005-openapi-as-source-of-truth) | OpenAPI specs are the single source of truth for API reference | Accepted |
+| ADR | Decision | Status |
+|-----|----------|--------|
+| [001](/docs/adr/001-docusaurus-over-mkdocs) | Docusaurus 3 instead of MkDocs Material | Accepted |
+| [002](/docs/adr/002-google-style-over-microsoft) | Google developer style guide instead of Microsoft's | Accepted |
+| [003](/docs/adr/003-diataxis-as-page-taxonomy) | Diátaxis at the page level, one type per page | Accepted |
+| [004](/docs/adr/004-vale-fail-on-error) | Vale errors fail the build | Accepted |
+| [005](/docs/adr/005-openapi-as-source-of-truth) | OpenAPI specs as the source of the API reference | Accepted |
+| [006](/docs/adr/006-api-sandbox-in-the-browser) | An API sandbox that runs in the browser | Accepted |
 
-## Adding a new ADR
-
-When a future change introduces another non-obvious decision:
+## Adding an ADR
 
 1. Copy the structure of an existing ADR.
-2. Number it sequentially (`006-...`, `007-...`).
-3. Set the **Status** to `Proposed` until merged. Flip to `Accepted` on merge, or to `Rejected` with a one-line reason if the change is abandoned.
-4. If a new ADR supersedes an older one, mark the older record as `Superseded by ADR-NNN` and link both ways.
-5. Add the new entry to the index table above.
+2. Number it next in sequence: `007`, `008`, and so on.
+3. Set the status to **Proposed** while it's in review. Change it to **Accepted** when it merges, or to **Rejected** with a one-line reason.
+4. If it replaces an older ADR, mark the older one **Superseded by ADR NNN** and link both ways.
+5. Add it to the index above and to `sidebars.js`.
 
-ADRs are not deleted. A `Superseded` or `Rejected` ADR still carries the historical reasoning and stays in the repository.
+ADRs aren't deleted. A superseded or rejected record keeps the reasoning from its time.

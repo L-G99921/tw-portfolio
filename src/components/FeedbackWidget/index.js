@@ -20,7 +20,6 @@ export default function FeedbackWidget() {
 
   return (
     <div className={styles.feedbackWidget}>
-      <div className={styles.divider} />
       {voted === null ? (
         <div className={styles.prompt}>
           <span className={styles.question}>Was this page helpful?</span>
@@ -30,22 +29,21 @@ export default function FeedbackWidget() {
               onClick={() => handleVote(true)}
               aria-label="Yes, this page was helpful"
             >
-              👍 Yes
+              Yes
             </button>
             <button
               className={`${styles.button} ${styles.no}`}
               onClick={() => handleVote(false)}
               aria-label="No, this page was not helpful"
             >
-              👎 No
+              No
             </button>
           </div>
         </div>
       ) : (
-        <div className={styles.thanks}>
-          <span className={styles.thankIcon}>✅</span>
-          <span>Thanks for your feedback!</span>
-        </div>
+        <p className={styles.thanks} role="status">
+          Thanks. {voted === 'yes' ? 'Glad it helped.' : 'If something was missing, email me at lgos99921@gmail.com.'}
+        </p>
       )}
     </div>
   );

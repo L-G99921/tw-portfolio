@@ -2,10 +2,10 @@
   "openapi": "3.0.3",
   "info": {
     "title": "PowerBox API",
-    "description": "The **PowerBox API** is the integration surface between a utility's back-office systems and the EnergyGrid platform. It carries the two flows a utility partner needs to wire up before customers can use any EnergyGrid-powered hardware or app:\n\n- **Customer synchronisation** — push customer accounts, service addresses (Premises), and meter configurations from the utility Customer Information System (CIS) into EnergyGrid.\n- **Hardware binding** — link a DataBridge or SmartLink device to its target Advanced Metering Infrastructure (AMI) meter over the utility's wireless mesh radio (Home Area Network).\n\nThis page is the entry point. Follow the operations in the sidebar for the full request/response contract, schema definitions, and error semantics.\n\n## Audience\n\nThis API is intended for utility backend engineers integrating their CIS and AMI head-end systems with EnergyGrid. It is **not** a public consumer API.\n\n## Authentication\n\nAll endpoints require an OAuth 2.0 Bearer token obtained from the utility's identity provider. Tokens are short-lived (typically one hour) and must be refreshed via the utility IDP — EnergyGrid does not issue tokens. Pass the token in the `Authorization` header as `Bearer <token>`. See the [Integration Guide — Configure authentication (OAuth)](/docs/integration-guide#step-2-configure-authentication-oauth) for the end-to-end exchange.\n\n## Base URL\n\nAll requests are made against the production base URL, scoped by API version:\n\n```\nhttps://api.energygrid.example/v1\n```\n\nA staging environment is available for integration testing — see the **Servers** dropdown on each operation page.\n\n## Conventions\n\n- **Content type.** Requests and responses use `application/json` unless otherwise noted.\n- **Identifiers.** Customer identifiers (`clientId`), Premise identifiers (`externalSiteId`), and Meter identifiers (`meterId`) are opaque strings owned by the utility CIS. EnergyGrid does not generate them.\n- **Account status.** The `AcctStatus` field uses the utility CIS encoding (`A` = Active, `C` = Closed, `S` = Suspended). EnergyGrid mirrors the value rather than translating it.\n- **Idempotency.** Customer sync (`POST /powerbox/customer`) is idempotent on `clientId` — repeating the call with the same payload is safe. Hardware binding (`POST /powerbox/bind`) is **not** idempotent; check `actionCode` and the meter's current bind state before retrying.\n- **Errors.** Errors return the relevant 4xx status code with no body. Reason codes are derived from the status: `400` invalid payload, `401` invalid or expired token, `403` account locked or closed, `404` unknown identifier.\n\n## Versioning\n\nThe API is versioned via the URL path (`/v1`). Breaking changes ship under a new major version with at least 90 days of overlap. Non-breaking additions (new optional fields, new enum values on extensible enums) ship within the current version.\n\n## Sample\n\nThis specification is published as a portfolio sample. The contracts, schemas, and conventions are representative of the kind of utility integration API that EnergyGrid (a fictional platform documented end-to-end on this site) would expose. The hostnames are illustrative and do not resolve.",
+    "description": "The **PowerBox API** connects a utility's back-office systems to EnergyGrid. A utility needs two flows working before its customers can use EnergyGrid hardware or the app:\n\n- **Customer sync:** send customer accounts, service addresses (premises), and meter configuration from the utility's customer information system (CIS) to EnergyGrid.\n- **Hardware binding:** link a DataBridge Hub or SmartLink Plug to the customer's AMI meter over the utility's wireless mesh radio (home area network).\n\n## Audience\n\nBackend engineers at a utility who connect their CIS and AMI head-end systems to EnergyGrid. This isn't a public consumer API.\n\n## Authentication\n\nEvery endpoint needs an OAuth 2.0 bearer token from the utility's identity provider. EnergyGrid doesn't issue tokens. They usually last one hour, and you refresh them through the utility IDP. Send the token in the `Authorization` header as `Bearer <token>`. For the full exchange, see [Configure authentication](/docs/integration-guide#step-2-configure-authentication-oauth) in the integration guide.\n\n## Base URL\n\n```\nhttps://api.energygrid.example/v1\n```\n\nA staging environment is available for integration testing. Pick it in the **Servers** list on any operation page.\n\n## Conventions\n\n- **Content type.** `application/json` for requests and responses.\n- **Identifiers.** `clientId`, `externalSiteId`, and `meterId` are strings owned by the utility CIS. EnergyGrid never generates them.\n- **Account status.** `AcctStatus` uses the utility's own codes, such as `A` for active and `F` for final. EnergyGrid stores the value as received. For the full list, see [account status codes](/docs/integration-guide#account-status-codes).\n- **Idempotency.** Customer sync is idempotent on `clientId`, so repeating it is safe. Binding isn't: a second bind for the same meter returns `400` with `METER_ALREADY_BOUND`.\n- **Errors.** Errors use the HTTP status code. Login and bind errors also return an `errorCode` in the body. See [error codes](/docs/integration-guide#error-codes).\n\n## Versioning\n\nThe version is in the path (`/v1`). Breaking changes ship as a new major version, and the old one stays available for at least 90 days. New optional fields and new values on extensible enums ship in the current version.\n\n## Try it in the browser\n\nEvery operation page has a **Send API Request** panel. The hosts in this spec don't exist, so the site answers those requests in your browser with a simulated server built from this spec. Use any value as the bearer token.\n\n## About this sample\n\nEnergyGrid is a fictional platform, documented end to end on this site. The contracts and conventions reflect a realistic utility integration API. The hostnames don't resolve.",
     "version": "1.0.0",
     "contact": {
-      "name": "Leandro Gabriel — Technical Writer",
+      "name": "Leandro Gabriel: Technical Writer",
       "url": "https://www.linkedin.com/in/leandro-gabriel-8aab31167/",
       "email": "lgos99921@gmail.com"
     },
@@ -17,30 +17,97 @@
   "servers": [
     {
       "url": "https://api.energygrid.example/v1",
-      "description": "Production — illustrative URL, does not resolve"
+      "description": "Production (illustrative URL)"
     },
     {
       "url": "https://staging.api.energygrid.example/v1",
-      "description": "Staging — for integration testing against synthetic data"
+      "description": "Staging, with synthetic data"
     }
   ],
   "tags": [
     {
       "name": "Customer",
-      "description": "Customer Information System (CIS) synchronisation. Push account profiles, service addresses (Premises), and meter configurations from the utility CIS into EnergyGrid. Calls are idempotent on `clientId`."
+      "description": "Customer sync from the utility CIS: account profiles, service addresses (premises), and meter configuration. Idempotent on `clientId`."
     },
     {
       "name": "Hardware",
-      "description": "Bind and unbind EnergyGrid-supplied devices (DataBridge, SmartLink) to AMI meters over the utility's Home Area Network mesh radio. Binding is not idempotent — check the meter's current bind state before retrying."
+      "description": "Bind and unbind DataBridge Hub and SmartLink Plug devices to AMI meters over the home area network. Binding is not idempotent."
     }
   ],
   "paths": {
+    "/powerbox/login": {
+      "post": {
+        "tags": [
+          "Customer"
+        ],
+        "summary": "Log in a customer",
+        "operationId": "customerLogin",
+        "description": "Validates the customer's OAuth token against the utility customer database and returns the permanent customer identifier. EnergyGrid calls it once per sign-in, before customer sync.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The customer exists and the token is valid.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "clientId": {
+                      "type": "string",
+                      "description": "Permanent customer identifier, such as a BPID or profile ID.",
+                      "example": "123456789"
+                    }
+                  }
+                },
+                "example": {
+                  "clientId": "123456789"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials, or the account is locked or closed. See the error codes in the integration guide.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errorCode": {
+                      "type": "integer",
+                      "enum": [
+                        1,
+                        2,
+                        3,
+                        4,
+                        86
+                      ]
+                    }
+                  }
+                },
+                "example": {
+                  "errorCode": 1
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "PowerBox is unavailable or in maintenance. The response has no body."
+          }
+        }
+      }
+    },
     "/powerbox/customer": {
       "post": {
-        "summary": "Customer Synchronization",
+        "summary": "Sync a customer",
         "description": "Syncs customer account details, service addresses (Premises), and meter configurations from the utility CIS to EnergyGrid.",
         "operationId": "syncCustomer",
-        "tags": ["Customer"],
+        "tags": [
+          "Customer"
+        ],
         "security": [
           {
             "bearerAuth": []
@@ -68,10 +135,12 @@
     },
     "/powerbox/bind": {
       "post": {
-        "summary": "Hardware Binding",
-        "description": "Links a DataBridge or SmartLink device to the AMI meter over the utility's wireless mesh radio (Home Area Network).",
+        "summary": "Bind or unbind a device",
+        "description": "Asks the utility head-end to bind a DataBridge Hub to an AMI meter. A `200` means the request was accepted. Pairing finishes asynchronously, usually within 15 minutes and at most 48 hours. Binding is not idempotent: sending it again for a bound meter returns `400` with `METER_ALREADY_BOUND`.",
         "operationId": "bindDevice",
-        "tags": ["Hardware"],
+        "tags": [
+          "Hardware"
+        ],
         "security": [
           {
             "bearerAuth": []
@@ -83,16 +152,46 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/BindRequest"
+              },
+              "example": {
+                "hemProfileId": "a3f1c8d2-44bc-4e1a-b9f0-5c2e7d81a6b4",
+                "macAddress": "70:B3:D5:4A:1C:9E",
+                "installCode": "A1B2C3D4E5F6A7B8",
+                "meterId": "123456789",
+                "actionCode": 1
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Bind request submitted successfully"
+            "description": "Bind request accepted. The response has no body."
           },
           "400": {
-            "description": "Invalid request payload"
+            "description": "The payload is invalid, or the meter is already bound.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errorCode": {
+                      "type": "string",
+                      "enum": [
+                        "METER_ALREADY_BOUND",
+                        "INVALID_INSTALL_CODE"
+                      ]
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "errorCode": "METER_ALREADY_BOUND",
+                  "message": "Meter 123456789 is already bound. Send actionCode 0 to release it first."
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -185,7 +284,10 @@
           },
           "meterType": {
             "type": "string",
-            "enum": ["Electric", "Gas"],
+            "enum": [
+              "Electric",
+              "Gas"
+            ],
             "example": "Electric"
           },
           "unitOfMeasure": {
@@ -209,31 +311,41 @@
       },
       "BindRequest": {
         "type": "object",
-        "required": ["hemProfileId", "macAddress", "installCode", "meterId", "actionCode"],
+        "required": [
+          "hemProfileId",
+          "macAddress",
+          "installCode",
+          "meterId",
+          "actionCode"
+        ],
         "properties": {
           "hemProfileId": {
             "type": "string",
-            "description": "Customer GUID",
-            "example": "CustomerGuid"
+            "description": "EnergyGrid customer profile ID (GUID). Use the `clientId` returned by customer sync.",
+            "example": "a3f1c8d2-44bc-4e1a-b9f0-5c2e7d81a6b4"
           },
           "macAddress": {
             "type": "string",
-            "description": "DataBridge MAC address",
-            "example": "EB_MAC_Address"
+            "description": "MAC address printed on the DataBridge Hub label.",
+            "example": "70:B3:D5:4A:1C:9E"
           },
           "installCode": {
             "type": "string",
-            "description": "DataBridge install code",
-            "example": "EB_Install_Code"
+            "description": "Install code printed next to the MAC address on the device label.",
+            "example": "A1B2C3D4E5F6A7B8"
           },
           "meterId": {
             "type": "string",
-            "example": "123456789"
+            "example": "123456789",
+            "description": "Meter to bind the device to. Use a `meterId` from customer sync."
           },
           "actionCode": {
             "type": "integer",
-            "description": "1 = Bind, 0 = Unbind",
-            "enum": [0, 1],
+            "description": "`1` binds the device to the meter. `0` releases it.",
+            "enum": [
+              0,
+              1
+            ],
             "example": 1
           }
         }

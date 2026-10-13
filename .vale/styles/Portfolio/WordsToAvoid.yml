@@ -1,0 +1,13 @@
+# Writing guideline, section 7.2. The Google package reports these as warnings,
+# and .vale.ini only reports errors, so this rule makes them block the merge.
+extends: existence
+message: "Avoid '%s'. See the writing guideline, section 7.2 (words to avoid)."
+link: https://l-g99921.github.io/tw-portfolio/docs/writing-guideline#72-words-to-avoid
+level: error
+ignorecase: true
+tokens:
+  - simply
+  - just
+  - easily
+  - obviously
+  - please

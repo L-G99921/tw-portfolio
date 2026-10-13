@@ -12,8 +12,14 @@ const sidebar: SidebarsConfig = {
       items: [
         {
           type: "doc",
+          id: "api/customer-login",
+          label: "Log in a customer",
+          className: "api-method post",
+        },
+        {
+          type: "doc",
           id: "api/sync-customer",
-          label: "Customer Synchronization",
+          label: "Sync a customer",
           className: "api-method post",
         },
       ],
@@ -25,7 +31,7 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "api/bind-device",
-          label: "Hardware Binding",
+          label: "Bind or unbind a device",
           className: "api-method post",
         },
       ],
