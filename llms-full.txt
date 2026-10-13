@@ -1,0 +1,2550 @@
+# Leandro Gabriel, technical writing portfolio: full text
+
+Source: https://l-g99921.github.io/tw-portfolio/llms.txt
+
+
+---
+
+URL: https://l-g99921.github.io/tw-portfolio/docs/methodology
+
+# Documentation methodology
+
+The pages on this site follow two public frameworks. Each one answers a different question:
+
+| Framework | Question it answers |
+|---|---|
+| [Google developer documentation style guide](https://developers.google.com/style) | How should this sentence read? |
+| [Diátaxis](https://diataxis.fr/) | What kind of page is this, and where does it go? |
+
+A style guide alone gives you good sentences on pages that are hard to find. A taxonomy alone gives you a clean structure with pages that are tiring to read. I use both.
+
+## Google developer documentation style guide
+
+### What it is
+
+The [Google developer documentation style guide](https://developers.google.com/style) is the public style guide that Google's developer documentation teams use. Many API documentation teams outside Google adopt it because it targets a specific reader: someone who might not be a native English speaker, might be using a screen reader, and is probably scanning for a code sample.
+
+### The rules I lean on most
+
+- **Second person, active voice, present tense.** "The API returns a token," not "A token will be returned by the API."
+- **Sentence case.** For headings, buttons, and UI strings: "Manage your usage," not "Manage Your Usage."
+- **No filler.** Words like `just`, `simply`, `easily`, and `please` either add nothing or assume the reader finds the task easy.
+- **"Can" for ability, "may" only for permission.**
+- **No Latin abbreviations.** "For example" instead of "e.g.," and "that is" instead of "i.e."
+- **Realistic examples.** Values that look like real data, never `foo` or `bar`.
+
+### Why I use it
+
+It settles hundreds of small decisions in advance, such as capitalization, voice, commas, and list format, so review time goes to accuracy. In a docs-as-code workflow it also gives reviewers something to cite. A pull request comment can link to a rule instead of turning into a debate about taste.
+
+### Where to see it on this site
+
+- Sentence-case headings across the [integration guide](/docs/integration-guide) and the [hardware install guide](/docs/databridge/databridge-installation-guide-atlas-insight).
+- Imperative steps in tutorials and how-to guides: "Tap **Connect**," not "You should tap Connect."
+- Realistic payloads in the [API reference](/docs/api/powerbox-api), with field names and values from a believable utility data model.
+- A list of [words to avoid](/docs/writing-guideline#72-words-to-avoid) in the site's writing guideline, checked by Vale on every pull request.
+
+## Diátaxis
+
+### What it is
+
+[Diátaxis](https://diataxis.fr/) is a documentation framework by Daniele Procida. It sorts technical documentation into four types, based on two questions: is the reader acting or thinking, and are they learning or working?
+
+```mermaid
+quadrantChart
+    title Diátaxis content types
+    x-axis "Action" --> "Cognition"
+    y-axis "Study (acquiring skill)" --> "Work (applying skill)"
+    quadrant-1 "Reference"
+    quadrant-2 "How-to guides"
+    quadrant-3 "Tutorials"
+    quadrant-4 "Explanation"
+```
+
+| Type | Purpose | The reader is thinking | The page has to |
+|---|---|---|---|
+| **Tutorial** | Learning by doing | "I'm new. Teach me." | Lead to a result that works, every time |
+| **How-to guide** | Reaching a goal | "I know the basics. Show me the steps." | Solve one real problem and skip the basics |
+| **Reference** | Looking something up | "I need a fact." | Be accurate and complete, with no story |
+| **Explanation** | Understanding | "Help me make sense of this." | Give context, history, and trade-offs |
+
+### One page, one type
+
+The rule that matters most is that each page is one type. When a page mixes a tutorial with a reference, beginners get buried in detail and experienced readers wade through hand-holding. When a how-to drifts into explanation, the reader who wants the steps has to skip paragraphs to find them. Asking "what is this page for?" before writing catches most of these problems.
+
+### Where to see it on this site
+
+| Page | Type | Notes |
+|---|---|---|
+| [Integration guide](/docs/integration-guide) | Explanation and how-to | A deliberate exception. Integration teams read it start to finish, so the architecture and the steps share one page, in separate sections. |
+| [API reference](/docs/api/powerbox-api) | Reference | Generated from OpenAPI. No narrative. |
+| [Hardware install guide](/docs/databridge/databridge-installation-guide-atlas-insight) | How-to | Assumes the device is in your hands. |
+| [Data dictionary](/docs/data-dictionary) | Reference | Fields and storage locations. |
+| [BillSense AI](/docs/billsense-ai/overview) | Explanation and how-to | The overview and the troubleshooting steps are separate pages. |
+| [PIX](/docs/pix/about-pix) | All four | One tutorial, one how-to, one reference, and one explanation, each on its own page. |
+| [Writing guideline](/docs/writing-guideline) | Reference | Rules to look up while writing. |
+
+If you find a page that mixes types without a reason, I'd treat it as a bug.
+
+## Using both
+
+| Level | Question | Framework |
+|---|---|---|
+| Word | Which word? | Google |
+| Sentence | Active or passive? | Google |
+| Page | Tutorial or reference? | Diátaxis |
+| Site | Where does this page belong? | Diátaxis |
+
+## Where I've applied this
+
+| Where | What I did |
+|---|---|
+| **Lean Tech / Crane Worldwide Logistics** (Feb 2026 to present) | Senior technical writer (contract). I own the documentation lifecycle and knowledge governance for Crane Worldwide's operational knowledge base in Doc360, working with business analysts and subject matter experts in three regions. |
+| **L'Oréal France** (Nov 2025 to Feb 2026) | Defined the documentation strategy for L'Oréal's data infrastructure: dataflows, database schemas, and the lineage from SQL views to Power BI. Moved a team that relied on SharePoint to docs-as-code, with Markdown, Git, Vale-style linting, and code samples validated in CI. |
+| **Sephora LATAM** (through Amaris Consulting, 2024 to 2025) | Led the redesign of the documentation architecture for Sephora's retail platforms in Latin America using TOGAF, with one standard across 5+ countries. Redundant documentation dropped by about 30%, measured with a Confluence content audit. Migrated legacy content to Docusaurus and mentored 3 junior writers in docs-as-code. |
+| **Itaú Unibanco** (through Zup Innovation, 2022 to 2024) | Owned the official documentation for the PIX APIs, Brazil's instant-payments system (BRL 17T+ a year, 150M+ users). Wrote 37+ endpoint references, integration guides, release notes, and migration guides in a Bitbucket docs-as-code pipeline. Level 1 support tickets on the PIX integration queue fell about 45% in the six months after launch, and developer satisfaction with the docs rose from 3.8 to 4.6 out of 5 (n=60+, quarterly developer experience survey). |
+| **Infomed Benner** (2021 to 2022) | Documentation analyst for healthcare software. Rebuilt the documentation framework, rewrote system manuals in plainer language, and took part in software quality control. |
+| **This site** | EnergyGrid applies both frameworks to six kinds of reader: developers, integrators, field technicians, end users, support agents, and people who use AI tools with the docs. PIX covers the full Diátaxis set in a domain I worked in. |
+
+### What the work involves
+
+Moving a team onto these frameworks is mostly practical work:
+
+- **Auditing existing docs against Diátaxis** to find pages that try to do two jobs, and proposing how to split them.
+- **Writing an adoption plan for the style guide** that works for writers, engineers, and product managers, who each need a different starting point.
+- **Setting up review in docs-as-code**, so that style and page-type problems surface in the pull request, before publication.
+- **Coaching engineers** to write references that stay references and tutorials that stay tutorials.
+
+If you're rebuilding a documentation system, [get in touch on LinkedIn](https://www.linkedin.com/in/leandro-gabriel-8aab31167/).
+
+## Further reading
+
+- [Google developer documentation style guide](https://developers.google.com/style)
+- [Diátaxis](https://diataxis.fr/), with an essay on each content type
+- [Writing guideline](/docs/writing-guideline), this site's applied style guide
+- [The Documentation System](https://documentation.divio.com/), Daniele Procida's earlier version of the framework
+
+---
+
+URL: https://l-g99921.github.io/tw-portfolio/docs/writing-guideline
+
+# Writing guideline
+
+This guide defines the standards for all product, technical, UX, and customer-facing documentation produced for the EnergyGrid platform. It builds on two public frameworks:
+
+- **[Google developer documentation style guide](https://developers.google.com/style):** voice, tone, grammar, and formatting.
+- **[Diátaxis](https://diataxis.fr/):** content type, structure, and information architecture.
+
+For why these two, see [Documentation methodology](/docs/methodology).
+
+:::tip Quick rule
+If this guide doesn't answer your question, follow the Google developer documentation style guide. If the question is "where should this content live?", follow Diátaxis.
+:::
+
+---
+
+## 1. Content types (Diátaxis)
+
+Every page belongs to one of four content types. Pages that mix types are the most common source of confusing documentation.
+
+| Type | Purpose | User question | Example in this site |
+|------|---------|---------------|----------------------|
+| **Tutorial** | Learning by doing | "Teach me." | [Your first EnergyGrid integration in 30 minutes](/docs/tutorial-first-integration) |
+| **How-to guide** | Goal-oriented steps | "Show me how to do X." | [Hardware install guide](/docs/databridge/databridge-installation-guide-atlas-insight) |
+| **Reference** | Information lookup | "Tell me what this is." | [API reference](/docs/api/powerbox-api), [data dictionary](/docs/data-dictionary) |
+| **Explanation** | Conceptual understanding | "Help me understand." | [About PIX](/docs/pix/about-pix), and the architecture sections of the [integration guide](/docs/integration-guide) |
+
+### Rules
+
+- **One type per page.** If a page is doing two jobs, split it.
+- **Tutorials are for beginners.** They lead to a result that works. Links to reference wait until the end.
+- **How-to guides assume competence.** They remind the reader of the steps instead of teaching them.
+- **Reference is accurate and complete.** No opinions, no story.
+- **Explanation gives context.** It can branch, compare, and discuss trade-offs.
+
+For more on each content type, see [Documentation methodology](/docs/methodology#diátaxis).
+
+---
+
+## 2. Voice and tone
+
+Following the Google developer documentation style guide:
+
+- **Conversational, but not overly casual.** Friendly without being cute.
+- **Confident, never condescending.** Don't say `obviously`, `simply`, `just`, or `easy`.
+- **User-focused.** Use second person ("you") and active voice.
+
+### Tone by audience
+
+| Audience | Tone | Example |
+|----------|------|---------|
+| Developers (API, integration) | Direct, precise, terminology-heavy | "Authenticate the request with a Bearer token in JWT format." |
+| End users (app, hardware) | Friendly, instructional, low-jargon | "Plug in the SmartLink. The light blinks blue when it's ready." |
+| Support agents (BillSense AI) | Clear, scannable, action-oriented | "If the bill explanation is missing, check the customer's billing-cycle ID." |
+| Disclaimers and legal | Direct, factual, plain language | "Estimates are based on past usage and might vary." |
+
+---
+
+## 3. UX writing for in-product text
+
+Microcopy follows the same principles as long-form documentation: be clear first, then be predictable.
+
+### Patterns
+
+- **Errors:** State what went wrong, then what to do. "Couldn't load your usage. Try again or contact support."
+- **Success:** Past tense, specific. "Saved your changes."
+- **Empty states:** Explain why and offer a next step. "No data yet. Connect your meter to get started."
+- **Loading:** Be specific about what's loading. "Loading your usage history…"
+
+### Buttons and links
+
+- Lead with a verb: **View usage**, **Set budget**, **Reset password**.
+- Use sentence case, not title case.
+- Make link text descriptive. Avoid "click here," and use "learn more" only with context.
+- Two to four words is ideal. If a button label is longer, the action is probably too complex for a button.
+
+### Headings
+
+- **Sentence case for everything.** "Manage your energy use," not "Manage Your Energy Use."
+- Use action verbs in tutorials and how-to guides. Use noun phrases in reference and explanation.
+- Don't end headings with punctuation (except question marks, sparingly).
+
+---
+
+## 4. Data presentation
+
+### General
+
+- Use visuals to simplify, not to decorate.
+- Label every axis, legend, and unit.
+- Provide a one-line takeaway above or below every chart.
+- Right-align numerical columns in tables.
+
+### Chart types
+
+| Use this | When | Avoid |
+|----------|------|-------|
+| Line chart | Trends over time, continuous data | More than 4 lines on one axis |
+| Bar chart | Comparing discrete categories | Decorative effects, 3D |
+| Pie or donut | 2–5 segments, simple proportions | Exact comparisons. Use bars instead. |
+| Area chart | Cumulative volume over time | Stacked areas with > 3 categories |
+| Table | Precise values, dense reference data | Tables when a chart would tell the story |
+
+---
+
+## 5. Accessibility
+
+- Every meaningful image has alt text. Decorative images have empty alt (`alt=""`).
+- Color is never the only signal. Pair color with text, an icon, or a pattern.
+- Headings follow a strict hierarchy: H1, then H2, then H3. Don't skip levels.
+- Touch targets are at least 44×44 px.
+- Language avoids idioms and culture-specific references that don't translate.
+
+---
+
+## 6. Naming conventions
+
+Use official product names exactly as defined. Don't invent variants.
+
+**Correct:**
+- DataBridge Hub (not DataBridge or Data Bridge)
+- SmartLink Plug (not SmartLink or Smart Link)
+- BillSense AI (not BillSense or Bill Sense AI)
+- PowerBox API (not `Powerbox` or `Power Box API`)
+- EnergyGrid (one word, capital E and G)
+
+When introducing a product, use the full name. Subsequent mentions in the same section can use the short form if it's unambiguous.
+
+---
+
+## 7. Grammar and mechanics
+
+These rules align with the Google Developer Documentation Style Guide.
+
+### 7.1 Voice and tense
+
+- **Active voice.** "The system saves your changes," not "Your changes are saved by the system."
+- **Present tense for behavior.** "The endpoint returns a 200 response," not "The endpoint will return…"
+- **Imperative mood for instructions.** "Click **Save**," not "You should click Save."
+
+### 7.2 Words to avoid
+
+- **`Please`** in instructions. Write "Click **Save**," not `Please click Save`.
+- **`Simply`, `just`, `easily`, `obviously`.** They assume the task is easy for the reader.
+- **`May`** for ability. Use **`can`**: "You can configure the budget," not "You may configure the budget."
+- **`Will`** for current behavior. Use the present tense: "The API returns…," not "The API will return…"
+- **Latin abbreviations.** Write `for example` (not e.g.), `that is` (not i.e.), and `and so on` (not etc.).
+
+### 7.3 Capitalization
+
+- **Sentence case** for all headings, button labels, and UI strings.
+- **Lowercase** for URLs, email addresses, and file extensions: `.json`, not `.JSON`, for a file on disk. Capitalize the format name itself: JSON, YAML, XML.
+- **Capitalize** product names, acronyms (API, JWT, OAuth), and the first word of sentences.
+
+### 7.4 Acronyms
+
+- Spell out on first use, with the acronym in parentheses: "Customer Information System (CIS)".
+- Use the acronym alone for the rest of the page.
+- Don't introduce an acronym you only use once.
+
+### 7.5 Contractions
+
+Contractions are encouraged in user-facing content (it's, don't, you're). They make text more conversational and accessible.
+
+### 7.6 Numbers
+
+- Use numerals for 10 and above, and spell out zero through nine. In technical contexts (port numbers, status codes, versions, measurements), always use numerals.
+- Add commas to numbers 1,000 and above.
+- For large round numbers, use abbreviations: 1k, 150k, 2M (only when space is constrained).
+
+### 7.7 Dates and times
+
+- **Long form:** April 24, 2026.
+- **In tables:** 2026-04-24 (ISO 8601).
+- **12-hour clock:** 9 am, 10:30 pm (lowercase, no period).
+- Include the time zone when relevant: "9 am UTC".
+
+### 7.8 Punctuation
+
+- **Oxford comma:** always.
+- **Em dash:** avoid in instructions and reference. A period, colon, or comma is almost always clearer and easier to translate.
+- **En dash** (–): for ranges, no spaces. "20–30 users", "Mon–Fri".
+- **Hyphen** (-): for compound modifiers. "real-time data", "low-power radio".
+- **Exclamation points:** rarely. Never in error messages.
+
+### 7.9 Pronouns
+
+- Use **"they/them"** as the default singular pronoun.
+- Use **"you"** to address the reader.
+- Use **"we"** for the team's recommendations only when needed; default to imperative.
+
+### 7.10 Lists
+
+- Use a bulleted list when order doesn't matter.
+- Use a numbered list when order matters.
+- Each item starts with a capital letter.
+- End each item with a period if any item is a complete sentence; otherwise no terminal punctuation.
+- Keep items grammatically parallel.
+
+### 7.11 Code formatting
+
+- **Inline code** for parameters, properties, file names, and command names: `meterId`, `package.json`, `npm install`.
+- **Code blocks** with a language hint for runnable code:
+  ```bash
+  curl https://api.example.com/v1/users
+  ```
+- Show realistic, runnable examples. Don't use `foo`, `bar`, or `baz` in user-facing samples.
+
+### 7.12 Currency, percentages, and units
+
+- Use the symbol with the numeral, no space: $20.00, 75%, 72°F.
+- Use SI units in technical contexts; add the imperial equivalent in parentheses for user-facing content if relevant.
+
+### 7.13 Phone numbers and URLs
+
+- **Phone:** +1-555-123-4567 (with country code, dashes).
+- **URLs:** lowercase, no "www." unless required by the host. Don't underline; the link styling handles that.
+
+---
+
+## 8. Pre-publication checklist
+
+Run through this before publishing any page.
+
+### Content type (Diátaxis)
+
+- [ ] The page is one Diátaxis type: tutorial, how-to, reference, or explanation.
+- [ ] If it's drifting between types, it's been split into separate pages.
+
+### Audience and purpose
+
+- [ ] The target audience is identified in the first paragraph.
+- [ ] The page solves a real task or answers a real question.
+- [ ] Out-of-scope topics are explicitly excluded or linked elsewhere.
+
+### Structure
+
+- [ ] H1 → H2 → H3 hierarchy with no skipped levels.
+- [ ] Sections are scannable in under 30 seconds.
+- [ ] Related pages and next steps are linked.
+
+### Voice and grammar
+
+- [ ] Active voice, present tense, second person.
+- [ ] No `please`, `simply`, `just`, `obviously`, `easily`.
+- [ ] `Can` instead of `may`; present tense instead of `will`.
+- [ ] Sentence case for all headings and UI strings.
+- [ ] Oxford commas, and en dashes only for ranges.
+
+### Technical accuracy
+
+- [ ] Every UI label, parameter, and code sample matches the current product.
+- [ ] API examples have been run; status codes and payloads are real.
+- [ ] Screenshots are dated within the last release cycle.
+
+### Accessibility
+
+- [ ] All images have descriptive alt text.
+- [ ] Color isn't the sole carrier of meaning.
+- [ ] Tables have header rows; complex tables have captions.
+
+### Code quality
+
+- [ ] Code blocks have language hints.
+- [ ] Examples are realistic, not placeholder.
+- [ ] Long examples link to a runnable repo or sandbox if possible.
+
+### Publication
+
+- [ ] Owner and last-updated date are present.
+- [ ] All review checks (SME, engineering, UX, legal) are complete.
+- [ ] No drafts, TODOs, or placeholder text remain.
+- [ ] Release notes are logged if the change is user-visible.
+
+---
+
+## 9. Where to look first
+
+When in doubt:
+
+1. Check this guide.
+2. Check the [Google developer documentation style guide](https://developers.google.com/style).
+3. Check [Diátaxis](https://diataxis.fr/) for content-type questions.
+4. Ask in the docs review channel.
+
+For why the portal uses these two frameworks, see [Documentation methodology](/docs/methodology).
+
+---
+
+URL: https://l-g99921.github.io/tw-portfolio/docs/adr
+
+# Architecture decision records
+
+Some choices behind this site aren't obvious from the code: why Docusaurus and not MkDocs, why Google's style guide and not Microsoft's, why the API sandbox runs in the browser. Each one had a real alternative. They're recorded here as architecture decision records (ADRs), one short page per decision, so anyone reading the repository can see why things are the way they are.
+
+The format follows [Michael Nygard's original ADR format](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions): status, context, decision, and consequences. Each record stays short, because the point is the trade-off.
+
+## Why a portfolio has ADRs
+
+A portfolio is a small product, and it has decisions like any other. Writing them down next to the code shows two things at once: the writing samples, and the reasoning behind the system that publishes them. If you're hiring, these pages show what I'd argue for in a planning meeting. If you maintain the site later, start here before changing direction.
+
+## Index
+
+| ADR | Decision | Status |
+|-----|----------|--------|
+| [001](/docs/adr/001-docusaurus-over-mkdocs) | Docusaurus 3 instead of MkDocs Material | Accepted |
+| [002](/docs/adr/002-google-style-over-microsoft) | Google developer style guide instead of Microsoft's | Accepted |
+| [003](/docs/adr/003-diataxis-as-page-taxonomy) | Diátaxis at the page level, one type per page | Accepted |
+| [004](/docs/adr/004-vale-fail-on-error) | Vale errors fail the build | Accepted |
+| [005](/docs/adr/005-openapi-as-source-of-truth) | OpenAPI specs as the source of the API reference | Accepted |
+| [006](/docs/adr/006-api-sandbox-in-the-browser) | An API sandbox that runs in the browser | Accepted |
+
+## Adding an ADR
+
+1. Copy the structure of an existing ADR.
+2. Number it next in sequence: `007`, `008`, and so on.
+3. Set the status to **Proposed** while it's in review. Change it to **Accepted** when it merges, or to **Rejected** with a one-line reason.
+4. If it replaces an older ADR, mark the older one **Superseded by ADR NNN** and link both ways.
+5. Add it to the index above and to `sidebars.js`.
+
+ADRs aren't deleted. A superseded or rejected record keeps the reasoning from its time.
+
+---
+
+URL: https://l-g99921.github.io/tw-portfolio/docs/using-these-docs-with-ai
+
+# Using these docs with AI
+
+More and more developers meet documentation through an AI assistant instead of a browser. The choices that make a page easy for a person to scan, like one purpose per page, clear headings, and complete metadata, also make it easier for a model to retrieve the right passage. This page explains what this site does for AI tools and how to connect one to it.
+
+## Files for AI tools
+
+- **[`llms.txt`](pathname:///llms.txt)** follows the [llmstxt.org proposal](https://llmstxt.org/). It lists the main pages, grouped by project, each with a one-line description, its Diátaxis type, and an absolute URL.
+- **[`llms-full.txt`](pathname:///llms-full.txt)** has the Markdown source of every page in `llms.txt`, plus the description of each API, in one file. A small plugin (`plugins/llms-full.js`) rebuilds it on every deploy, so it always matches the site.
+- **The OpenAPI specs**, [`openapi.json`](pathname:///openapi.json), [`usage-api-openapi.json`](pathname:///usage-api-openapi.json), and [`pix-api-openapi.json`](pathname:///pix-api-openapi.json), are the source of the API reference pages.
+
+## Why one Diátaxis type per page helps
+
+Every page on this site is one [Diátaxis](https://diataxis.fr/) type, and the type is in its front matter `tags` (see [ADR 003](/docs/adr/003-diataxis-as-page-taxonomy)). For a retrieval pipeline that means:
+
+- **The page's job is known in advance.** A reference page is for looking things up, and a tutorial has steps with a fixed outcome. The pipeline can read the tag instead of guessing.
+- **Questions map to page types.** "How do I…" questions can favor how-to pages, and "What is…" questions can favor reference and explanation.
+- **Chunks stay coherent.** A tutorial has no reference tables mixed into its steps, so a chunk taken from it still reads as a tutorial.
+
+## Why the OpenAPI specs help
+
+The API pages are generated from the specs, and nobody edits the generated files by hand (see [ADR 005](/docs/adr/005-openapi-as-source-of-truth)). Each spec carries:
+
+- `info.description`: who the API is for, authentication, base URL, conventions, and versioning.
+- `info.contact`: who maintains it.
+- `tags[].description`: what each group of operations does.
+- `servers[]`: the base URLs.
+
+A pipeline that reads a spec gets the contract and its explanation together, and the reference page can't disagree with it, because the page is built from it.
+
+## Connecting a chatbot
+
+From the simplest option to the most precise:
+
+1. **Give it the overview.** Paste `llms.txt` into the conversation. It's enough for questions like "what's on this site?"
+2. **Give it everything.** Paste or attach `llms-full.txt`. The site is small enough to fit in the context window of most current models.
+3. **Index it.** Load `llms-full.txt` into a vector store, split at the `URL:` separators, and keep each page's URL and Diátaxis tag as metadata to filter on.
+
+## Documenting an AI product
+
+The [BillSense AI pages](/docs/billsense-ai/overview) document an AI feature for the support agents who explain it to customers, not for the engineers who built it. The content is split by job:
+
+- An [overview](/docs/billsense-ai/overview) of what the feature does and its known limits, such as estimated kWh values that can differ slightly from the bill.
+- A [user guide](/docs/billsense-ai) for walking a customer through their bill.
+- A [troubleshooting reference](/docs/billsense-ai/troubleshooting) organized by symptom, with an escalation path when nothing works.
+
+## Further reading
+
+- [llmstxt.org](https://llmstxt.org/), the proposal this site follows
+- [Diátaxis](https://diataxis.fr/)
+- [ADR 003](/docs/adr/003-diataxis-as-page-taxonomy): why every page is one Diátaxis type
+- [ADR 005](/docs/adr/005-openapi-as-source-of-truth): why the API pages are generated from the specs
+
+---
+
+URL: https://l-g99921.github.io/tw-portfolio/docs/tutorial-first-integration
+
+# Your first EnergyGrid integration in 30 minutes
+
+In this tutorial you connect to the [PowerBox API](/docs/api/powerbox-api) sandbox and run the two flows every utility integration needs. By the end you'll have:
+
+- An OAuth access token from the utility identity provider
+- A customer synced from the utility's customer information system (CIS), with one premise and one meter
+- A DataBridge Hub bound to that meter
+
+You'll use `curl` and `jq` so you can copy each command as is. Any HTTP client works if you prefer another one.
+
+If you'd like to understand how PowerBox fits into the platform before you start, read the [integration guide](/docs/integration-guide) first.
+
+:::tip No terminal handy?
+Each call in this tutorial is also on its [API reference page](/docs/api/powerbox-api), where you can send it from the browser. The site simulates the sandbox, so you don't need credentials there.
+:::
+
+## Before you begin
+
+- A terminal with `curl` and `jq` installed. To install `jq`, run `brew install jq` on macOS or `sudo apt install jq` on Debian and Ubuntu.
+- About 30 minutes.
+- An empty folder for the tutorial:
+
+    ```bash
+    mkdir energygrid-tutorial && cd energygrid-tutorial
+    ```
+
+The sandbox uses synthetic customers and doesn't pair any physical device, so you can't break anything. You can repeat the customer sync as often as you like. Binding is different, and Step 4 explains how to start it over.
+
+## Step 1: Get sandbox credentials
+
+EnergyGrid doesn't issue tokens. The utility's identity provider (IDP) does, and the staging environment includes a synthetic IDP for testing.
+
+1. **Request credentials**
+
+    Email `powerbox-sandbox@energygrid.example` with the subject `Sandbox access`. You get a `client_id` and a `client_secret` within one business hour.
+
+    :::note
+    This API is a portfolio sample, so this request flow is illustrative. The OAuth call in Step 2 is the one you'd make against a real utility IDP.
+    :::
+
+2. **Save them as environment variables**
+
+    ```bash
+    export ENERGY_CLIENT_ID=<your-client-id>
+    export ENERGY_CLIENT_SECRET=<your-client-secret>
+    export ENERGY_BASE_URL=https://staging.api.energygrid.example/v1
+    export ENERGY_IDP_URL=https://idp.staging.energygrid.example
+    ```
+
+    `ENERGY_BASE_URL` points to staging. Production is at `https://api.energygrid.example/v1`, and your sandbox client can only read from it.
+
+## Step 2: Get an access token
+
+Back-office flows like customer sync and binding use the OAuth 2.0 **client credentials** grant. Customer sign-in uses a different grant, explained in [Configure authentication](/docs/integration-guide#step-2-configure-authentication-oauth).
+
+Request a token with the two scopes this tutorial needs:
+
+```bash
+ENERGY_TOKEN=$(curl -sS -X POST \
+  "$ENERGY_IDP_URL/oauth/token" \
+  -u "$ENERGY_CLIENT_ID:$ENERGY_CLIENT_SECRET" \
+  -d "grant_type=client_credentials&scope=customer.sync hardware.bind" \
+  | jq -r .access_token)
+
+echo "Token: ${ENERGY_TOKEN:0:12}…"
+```
+
+Expected output:
+
+```text
+Token: eyJhbGciOiJ…
+```
+
+The token lasts about one hour. If a later step returns `401`, run this step again.
+
+## Step 3: Sync a customer
+
+This call asks PowerBox for a customer's profile from the CIS: the account, the service addresses (premises), and the meters at each one. If it works, EnergyGrid can read your CIS, and the rest of the tutorial depends on that.
+
+1. **Run the sync**
+
+    ```bash
+    curl -sS -X POST \
+      "$ENERGY_BASE_URL/powerbox/customer" \
+      -H "Authorization: Bearer $ENERGY_TOKEN" \
+      -H "Content-Type: application/json" \
+      | tee customer.json | jq '{ clientId, AcctStatus, sites: (.customerSites | length) }'
+    ```
+
+    Expected output:
+
+    ```json
+    {
+      "clientId": "123456789",
+      "AcctStatus": "A",
+      "sites": 1
+    }
+    ```
+
+    The full response is now in `customer.json`. `"A"` means the account is active, and the sandbox customer has one premise.
+
+2. **Save the meter and premise IDs**
+
+    A premise can have several meters, such as electric and gas. You need one electric meter:
+
+    ```bash
+    export METER_ID=$(jq -r '.customerSites[0].meters[] | select(.meterType=="Electric") | .meterId' customer.json | head -n1)
+    export PREMISE_ID=$(jq -r '.customerSites[0].externalSiteId' customer.json)
+
+    echo "Premise: $PREMISE_ID"
+    echo "Meter:   $METER_ID"
+    ```
+
+    Expected output:
+
+    ```text
+    Premise: 5113305555
+    Meter:   123456789
+    ```
+
+Customer sync is idempotent on `clientId`. Running it again refreshes EnergyGrid's copy of the customer instead of creating a new one.
+
+## Step 4: Bind a DataBridge Hub
+
+Now link a DataBridge Hub to the meter from Step 3. In a real installation, the customer scans the QR code on the device and the utility's wireless mesh radio (the home area network) handles pairing. The sandbox accepts the values below and simulates that handshake.
+
+1. **Send the bind request**
+
+    ```bash
+    export HEM_PROFILE_ID=$(jq -r '.clientId' customer.json)
+
+    curl -sS -X POST \
+      "$ENERGY_BASE_URL/powerbox/bind" \
+      -H "Authorization: Bearer $ENERGY_TOKEN" \
+      -H "Content-Type: application/json" \
+      -d "{
+        \"hemProfileId\": \"$HEM_PROFILE_ID\",
+        \"macAddress\": \"70:B3:D5:4A:1C:9E\",
+        \"installCode\": \"A1B2C3D4E5F6A7B8\",
+        \"meterId\": \"$METER_ID\",
+        \"actionCode\": 1
+      }" -o /dev/null -w "%{http_code}\n"
+    ```
+
+    Expected output:
+
+    ```text
+    200
+    ```
+
+    A `200` means the utility's head-end accepted the request. Pairing itself happens afterward. In production it usually finishes within 15 minutes, and it can take up to 48 hours when the radio signal is weak.
+
+2. **Sync again to check the meter**
+
+    ```bash
+    curl -sS -X POST \
+      "$ENERGY_BASE_URL/powerbox/customer" \
+      -H "Authorization: Bearer $ENERGY_TOKEN" \
+      | jq --arg meter "$METER_ID" \
+        '.customerSites[].meters[] | select(.meterId == $meter)'
+    ```
+
+    Expected output:
+
+    ```json
+    {
+      "meterId": "123456789",
+      "meterType": "Electric",
+      "unitOfMeasure": "kWh",
+      "isAMI": true,
+      "rateCode": "RES1",
+      "billingCycleId": 1
+    }
+    ```
+
+    `isAMI: true` means the meter is on the AMI network, which is what the hub needs to read it.
+
+:::caution Binding is not idempotent
+Sending the same bind again returns `400` with `errorCode: METER_ALREADY_BOUND`. To start over, send the request with `"actionCode": 0` to release the meter, then send it again with `1`.
+:::
+
+## What you built
+
+```mermaid
+flowchart LR
+    OAuth["OAuth token<br/>(client credentials)"] --> Sync["POST /powerbox/customer"]
+    Sync --> Pick["Save meterId<br/>and premise ID"]
+    Pick --> Bind["POST /powerbox/bind<br/>(actionCode: 1)"]
+    Bind --> Verify["POST /powerbox/customer<br/>(check the meter)"]
+```
+
+Four calls: a token, a customer sync, a bind, and a second sync. A production integration makes the same calls, at higher volume.
+
+## Next steps
+
+- [Integration guide](/docs/integration-guide): mTLS, JWT claims, bulk usage data, billing cycles, rate types, and error codes.
+- [PowerBox API reference](/docs/api/powerbox-api): every request and response field and status code.
+- [DataBridge Hub installation guide](/docs/databridge/databridge-installation-guide-atlas-insight): the customer's side of the bind you ran.
+
+## Troubleshooting
+
+| Problem | Cause | Fix |
+| --- | --- | --- |
+| `401` from `/oauth/token` | Wrong `client_id` or `client_secret` | Export the variables again and check for trailing spaces. |
+| `401` from `/powerbox/customer` | The token expired | Repeat [Step 2](#step-2-get-an-access-token). |
+| `403` from `/powerbox/customer` | The account is locked or closed (`AcctStatus` is `F`, `L`, or `Z`) | Use another sandbox customer, or ask the CIS team to reactivate the test account. |
+| `400` from `/powerbox/bind` with `METER_ALREADY_BOUND` | The meter already has a device | Send `actionCode: 0` to release it, then bind again. |
+| `400` from `/powerbox/bind` with `INVALID_INSTALL_CODE` | The install code doesn't match the MAC address | Check the device label, where both are printed together. In the sandbox, use the values from [Step 4](#step-4-bind-a-databridge-hub). |
+| `customer.json` is empty after Step 3 | The request failed before returning JSON | Run the `curl` command without `tee` and read the error in the response. |
+
+---
+
+URL: https://l-g99921.github.io/tw-portfolio/docs/integration-guide
+
+# PowerBox and BillSense AI integration guide
+
+This guide is for backend engineers at a utility. It covers what you need to connect your systems to EnergyGrid so that the EnergyGrid app, BillSense AI bill analysis, and the DataBridge Hub work for your customers.
+
+The integration has two layers:
+
+1. **Real-time layer (PowerBox API):** middleware you host that handles customer sign-in and profile sync.
+2. **Bulk data layer (SFTP or object storage):** scheduled file transfers with usage data (MDM), billing data, billing cycles, and rate information. BillSense AI depends on this layer.
+
+:::tip Prefer to try it first?
+The [30-minute tutorial](/docs/tutorial-first-integration) walks through the real-time layer against the sandbox.
+:::
+
+## Step 1: Host the PowerBox middleware
+
+The PowerBox API translates between EnergyGrid and your systems. Host it in your own infrastructure, on premises or in your cloud, and make it reachable from EnergyGrid over HTTPS with TLS 1.2 or later.
+
+Protect it with mutual TLS (mTLS), OAuth token validation, or both. IP allowlisting is a common extra layer.
+
+## Step 2: Configure authentication (OAuth)
+
+EnergyGrid uses the **OAuth authorization code flow** with **OpenID Connect (OIDC)** to link the customer's utility account to their EnergyGrid profile.
+
+:::tip Recommendation
+Use OIDC. If your identity provider doesn't support it yet, SAML also works, but most utility partners are moving to OIDC.
+:::
+
+### Authentication flow
+
+1. The mobile app sends a token request to the utility identity provider (IDP).
+2. The customer signs in on the utility's sign-in page with their existing credentials.
+3. The IDP returns an authorization code to the mobile app.
+4. The mobile app exchanges the code for a token with the utility IDP.
+5. The token response returns to the app.
+6. The app sends the token to the EnergyGrid backend.
+7. EnergyGrid validates the token against the utility IDP.
+8. After validation, EnergyGrid issues its own internal session token for subsequent API calls.
+
+:::note
+EnergyGrid uses the utility IDP only for the first sign-in. After it validates the token, EnergyGrid runs the session with its own token. EnergyGrid doesn't store customers' personally identifiable information (PII).
+:::
+
+### JWT claims
+
+The claims in the JSON Web Token (JWT) vary by utility. The two common patterns:
+
+| Utility model | Claim used |
+|---------|-----------|
+| Business partner model | `BPID` (Business Partner ID) |
+| Profile-based model | `subject`, custom claims, or Profile ID |
+
+The claim must resolve to a **unique, permanent customer identifier** (see `clientId` in [Step 3](#step-3-customer-synchronization)).
+
+### Login endpoint
+
+**Endpoint:** `POST /powerbox/login`
+
+Authenticates a utility customer against your customer database.
+
+**Request payload:** OAuth token (Bearer header)
+
+**Response (success, HTTP 200):**
+
+```json
+{
+  "clientId": "123456789"
+}
+```
+
+**Response (error, HTTP 401 or 404):**
+
+```json
+{
+  "errorCode": 1
+}
+```
+
+| Field | Data type | Notes |
+|-------|-----------|-------|
+| `clientId` | Alphanumeric | Unique customer identifier within the utility |
+
+For every error code, see [Appendix A](#error-codes).
+
+## Step 3: Customer synchronization
+
+After sign-in, EnergyGrid fetches the customer's account details, service addresses (premises), and meter configuration from your customer information system (CIS).
+
+**Endpoint:** `POST /powerbox/customer`
+
+EnergyGrid calls this endpoint right after login, to get current customer data. It calls it again whenever a token expires, the customer signs out, or the customer reinstalls the app.
+
+**Request payload:** OAuth token (Bearer header)
+
+### The data model
+
+| Concept | What it identifies | Examples |
+|---------|--------------------|----------|
+| **Client ID** | The person (sign-in profile). Stays the same when they move. | Business Partner ID (BPID), Business Partner Number (BPN), Profile ID |
+| **Account number** | The billing account. Changes when the customer moves. | Contract account number |
+| **External site ID (premise number)** | The physical location. Stays the same between tenants. | Premise number, site number |
+| **Meter ID** | The physical meter. Permanent and unique. | Utility meter ID |
+
+**Key relationships:**
+
+- One person (`clientId`) can have multiple premises (`customerSites`).
+- One premise can have multiple meters (`meters`).
+- Account number plus premise ID identifies one site in EnergyGrid.
+- If only one premise or meter exists, `isPrimary` defaults to `true`.
+
+:::note Detecting a tenant move
+When premise and meter IDs stay the same between tenants, EnergyGrid detects when a new tenant moves in and removes the premise from the previous tenant's client ID. When two client IDs share the same account number and premise, EnergyGrid treats them as a shared account: several sign-in profiles with access to the same premises.
+:::
+
+### Response (full model)
+
+```json
+{
+  "clientId": "123456789",
+  "firstName": null,
+  "lastName": null,
+  "businessName": null,
+  "AcctStatus": "A",
+  "customerSites": [
+    {
+      "externalSiteId": "5113305555",
+      "isPrimary": true,
+      "firstName": "John",
+      "lastName": "Doe",
+      "address1": "123 Main St.",
+      "city": "Detroit",
+      "state": "MI",
+      "postalCode": "48067",
+      "meters": [
+        {
+          "accountNumber": "85000000",
+          "meterId": "123456789",
+          "meterType": "Electric",
+          "unitOfMeasure": "kWh",
+          "isPrimary": true,
+          "isAMI": true,
+          "isAMR": true,
+          "rateCode": "ABCRATE1",
+          "billingCycleId": 1
+        }
+      ]
+    }
+  ]
+}
+```
+
+### Customer fields
+
+| Field | Data type | Required | Notes |
+|-------|-----------|----------|-------|
+| `clientId` | Alphanumeric | **Yes** | Unique customer identifier. Use a permanent profile ID (BPID, BPN, or Profile ID) so the record persists across moves. |
+| `firstName` | String | Optional | Customer's first name. |
+| `lastName` | String | Optional | Customer's last name. |
+| `businessName` | String | Optional | If present, EnergyGrid marks the customer as a business account. |
+| `AcctStatus` | String | Optional | Current account state. See [Appendix B](#account-status-codes). The API returns this field name in PascalCase. |
+| `customerSites` | Array | **Yes** | Premises associated with the customer. |
+
+### CustomerSite fields
+
+| Field | Data type | Required | Notes |
+|-------|-----------|----------|-------|
+| `externalSiteId` | Alphanumeric | **Yes** | Premise or site number. Use the permanent value if available. With the account number, it identifies one premise in EnergyGrid. |
+| `isPrimary` | Boolean | **Yes** | `true` if this is the customer's primary location. Always `true` if only one site exists. |
+| `firstName` | String | Optional | First name on the billing account. |
+| `lastName` | String | Optional | Last name on the billing account. |
+| `address1` | String | **Yes** | Street address. |
+| `city` | String | **Yes** | City. |
+| `state` | String | **Yes** | Two-character state or province code. |
+| `postalCode` | String | **Yes** | US: 5-digit zip code. Canada: 6-character postal code with space (for example, `V6M 2T5`). |
+| `meters` | Array | **Yes** | Meters at this site. A site can have more than one meter of any type. |
+
+### Meter fields
+
+| Field | Data type | Required | Notes |
+|-------|-----------|----------|-------|
+| `accountNumber` | Alphanumeric | Conditional | Contract account number. **Required** if permanent client and premise IDs are used (where only the account number changes on move). Apply the same account number to all meters at a billing account. Account numbers must differ across premises. |
+| `meterId` | Alphanumeric | **Yes** | Permanent unique meter identifier. Used for DataBridge Hub binding requests if applicable. |
+| `meterType` | String | **Yes** | `"Electric"` or `"Gas"`. |
+| `unitOfMeasure` | String | Optional | Electric: `kWh` or `Wh`. Gas: `ccf` or `cm`. |
+| `isPrimary` | Boolean | **Yes** | `true` for the main meter when multiple meters exist at a site. If a site has an interruptible HVAC meter and a standard meter, the standard meter is marked primary. |
+| `isAMI` | Boolean | **Yes** | `true` if this is an Advanced Metering Infrastructure (AMI) smart meter. AMI meters have radios that form a mesh network and send data automatically. If `isAMI = true`, a DataBridge Hub can be added. |
+| `isAMR` | Boolean | Optional | `true` if this is an Automated Meter Reading (AMR) meter, which a passing vehicle reads over RFID. |
+| `PANID` | Alphanumeric | Optional | **Obsolete.** Personal Area Network (PAN) ID of the AMI meter. Previously used by DataBridge Hub for mesh binding. |
+| `rateCode` | Alphanumeric | **Yes** | Meter rate code that determines which billing calculator to use. See [Step 6](#step-6-rate-information-required-for-billsense-ai). |
+| `rateMultiplier` | Numeric | Optional | **Obsolete.** Rate multiplier for usage computation. |
+| `billingCycleId` | Integer | **Yes** | Customer's billing cycle ID. References the billing cycle schedule. See [Step 5](#step-5-billing-cycle-schedule). |
+| `dialCount` | Integer | Optional | **Obsolete.** Number of dials on a meter, previously used for AMR gas meters. |
+
+:::tip Minimum fields for launch
+The customer response must include at least: `clientId`, at least one `customerSite` with `externalSiteId` and `postalCode`, and at least one meter with `meterId`, `meterType`, `isAMI`, `rateCode`, and `billingCycleId`.
+:::
+
+## Step 4: Bulk data ingestion (required for BillSense AI)
+
+The PowerBox API tells EnergyGrid who the customer is. To explain a bill, BillSense AI also needs how much energy the customer used and what they were charged.
+
+:::caution
+Without billing data and rate information, BillSense AI can't work. Projected bills won't match real bills, and customers call your support line to ask why.
+:::
+
+### 4.1 Usage data (MDM)
+
+Usage data drives every chart in the app. It comes from your meter data management (MDM) system.
+
+| Attribute | Description |
+|-----------|-------------|
+| **Source** | Meter Data Management (MDM) system |
+| **Electric granularity** | 15-minute or hourly |
+| **Gas granularity** | Daily (standard) or hourly (if using AMR adapters) |
+| **Latency** | Varies by utility, from a few hours to about 36 hours behind |
+
+:::note AMI dependency
+Without AMI meters and hourly data, there's little for the app to chart or analyze, and the platform loses most of its value.
+:::
+
+#### Ingestion methods
+
+- **Full batch:** send data for every customer. EnergyGrid stores it and loads it when a customer registers.
+- **Registered only:** send data only for customers who have registered.
+- **API backfill:** EnergyGrid requests history through the API at registration, then regular SFTP or object-storage updates start the next day.
+
+#### File format
+
+**Format:** CSV via SFTP
+
+**File naming convention:**
+
+- Electric: `CompanyCode_DDMMYYYY_Electric.csv`
+- Gas: `CompanyCode_DDMMYYYY_Gas.csv`
+
+**CSV structure:**
+
+```csv
+AccountNumber,ExternalSiteID,MeterID,TimeStamp,TotalUnit
+910020087577,5113018555,5532879,1/1/2017,22.556
+910020087577,5113018555,5532879,1/2/2017,12.898
+910020087577,5113018555,5532879,1/3/2017,0.256
+910020087577,5113018555,5532879,1/4/2017,10.256
+```
+
+:::note
+EnergyGrid loads data only for registered customers, matched by the identifiers from `/powerbox/customer`. You can still send data for every customer.
+:::
+
+### 4.2 Billing and financial data
+
+To explain why a bill changed, for example because the rate went up, BillSense AI needs detailed billing data.
+
+#### Meter Contract History (MCH)
+
+The meter contract history (MCH) is the record of what the customer was billed. Include these fields:
+
+| Field | Description |
+|-------|-------------|
+| Contract account | Billing account identifier |
+| Billing start date | Start of the billing period |
+| Billing end date | End of the billing period |
+| Total consumption | Total energy used in the period |
+| Usage value | Usage in billing units |
+| Cost | Amount charged, in dollars |
+| Tax amounts | Tax breakdown |
+| Meter effective date | When the meter became active for this contract |
+
+:::tip
+Billing line items, with every charge broken out, work best. If you can't export them, the fields above are enough. You can usually drop about 25% of the columns in a typical billing export.
+:::
+
+#### Other data sets
+
+| Data set | Description | Frequency |
+|----------|-------------|-----------|
+| **Invoice details** | Line items (taxes, fees, riders). BillSense AI uses them to attribute each charge. | Daily |
+| **Payment plans** | Customers on payment arrangements or budget billing | Daily |
+| **Account termination** | Closed accounts, so EnergyGrid can delete their data | Daily, or as needed |
+
+:::note Solar billing
+Solar billing varies a lot between utilities. EnergyGrid supports net metering today and handles other solar structures case by case.
+:::
+
+## Step 5: Billing cycle schedule
+
+Billing cycles, also called the meter reading schedule or meter reading units (MRU), define the periods customers are billed for. The `billingCycleId` on each meter references this schedule.
+
+Utilities stagger billing cycles to spread the processing load, often around 100,000 customers per cycle per day. A utility can have as few as 20 cycles or several thousand MRUs.
+
+EnergyGrid needs the complete schedule to calculate the costs of each billing period.
+
+### Example: cycle 1 schedule for 2025
+
+| Cycle ID | Start date | End date |
+|----------|-----------|----------|
+| 1 | 2024-12-03 | 2025-01-02 |
+| 1 | 2025-01-03 | 2025-01-30 |
+| 1 | 2025-01-31 | 2025-03-03 |
+| 1 | 2025-03-04 | 2025-04-01 |
+| 1 | 2025-04-02 | 2025-05-01 |
+| 1 | 2025-05-02 | 2025-06-02 |
+| 1 | 2025-06-03 | 2025-07-02 |
+| 1 | 2025-07-03 | 2025-08-01 |
+| 1 | 2025-08-02 | 2025-09-02 |
+| 1 | 2025-09-03 | 2025-10-01 |
+| 1 | 2025-10-02 | 2025-10-30 |
+| 1 | 2025-10-31 | 2025-12-02 |
+
+:::note
+Cycle IDs can be alphanumeric, depending on your system.
+:::
+
+## Step 6: Rate information (required for BillSense AI)
+
+:::warning Required
+Without rate information, BillSense AI can't calculate a bill. Projections won't match real bills, and customers call your support line to ask why.
+:::
+
+The `rateCode` on each meter tells EnergyGrid which billing calculator to use. Send every rate code you offer for **residential** customers.
+
+### Meter rate codes
+
+| Rate code | Description |
+|-----------|----------------------|
+| EFR_D1_8 | Residential Dynamic Peak Pricing, Exp. D1_8 |
+| EFR_D1-A | Residential Time-of-Day Pilot I |
+| EFR_D1-B | Residential Time-of-Day Pilot II |
+| EFR_D1.11 | Residential Service Rate, Standard Time-of-Use D1.11 |
+| EFR_D1.13 | Residential Service Rate, Overnight Savers |
+
+### Supported rate types
+
+EnergyGrid supports three ways to calculate rates. Fixed costs (service and facility fees, taxes, and non-taxable program charges) apply on top of any of them.
+
+#### Time of use (TOU)
+
+TOU rates need:
+
+- A schedule of observed holidays (generally treated as off-peak)
+- Peak intervals with start and end hours for each day type
+
+**Example: summer TOU schedule**
+
+| Name | Amount ($/kWh) | Start hour | End hour | Rate start date | Rate end date |
+|------|---------------|------------|----------|----------------|--------------|
+| Off-peak M-F | 0.0479 | 0 | 7 | 2025-06-01 | 2025-09-30 |
+| Mid-Peak M-F | 0.0922 | 7 | 15 | 2025-06-01 | 2025-09-30 |
+| On-peak M-F | 0.1660 | 15 | 19 | 2025-06-01 | 2025-09-30 |
+| Off-Peak M-F | 0.0479 | 23 | 24 | 2025-06-01 | 2025-09-30 |
+| Off-Peak Wknd/Holiday | 0.0479 | 0 | 24 | 2025-06-01 | 2025-09-30 |
+
+EnergyGrid splits each day into intervals on a 24-hour clock. Weekends and holidays count as off-peak. The start and end dates define the summer period. Winter periods follow the same structure with different amounts, typically running from October 1 to May 31, then cycling back to summer rates.
+
+Concurrent rates (delivery, energy waste reduction, distribution) can be rolled into the peak windows or evaluated separately.
+
+#### Tiered
+
+Tiered rates use a prorate factor for the daily Tier 1 allowance. For example, with a factor of 22.1918 kWh a day, a 30-day billing period has a Tier 1 limit of about 665.75 kWh. Usage above that limit is priced at Tier 2 for the rest of the period. Delivery, distribution, and other charges still apply.
+
+#### Flat
+
+One price per kWh for all usage.
+
+## Step 7: Hardware binding (optional)
+
+If your rollout includes the DataBridge Hub, the bind endpoint links the device to the customer's AMI meter over your wireless mesh radio.
+
+**Endpoint:** `POST /powerbox/bind`
+
+Binding uses a service account, not the customer's credentials. Each request carries a basic authentication header and, during the TLS 1.2 handshake, a client certificate for mutual TLS (mTLS) that EnergyGrid provides.
+
+### Request payload
+
+```json
+{
+  "hemProfileId": "a3f1c8d2-44bc-4e1a-b9f0-5c2e7d81a6b4",
+  "macAddress": "70:B3:D5:4A:1C:9E",
+  "installCode": "A1B2C3D4E5F6A7B8",
+  "meterId": "123456789",
+  "actionCode": 1
+}
+```
+
+| Field | Description |
+|-------|-------------|
+| `hemProfileId` | EnergyGrid customer profile ID (GUID) |
+| `macAddress` | MAC address on the DataBridge Hub label |
+| `installCode` | Install code on the same label |
+| `meterId` | Meter to bind, from customer sync |
+| `actionCode` | `1` to bind, `0` to release the meter |
+
+### Response
+
+`200` with no body means the request was accepted. Pairing finishes afterward, usually within 15 minutes and at most 48 hours.
+
+Binding isn't idempotent. A second bind for the same meter returns `400`:
+
+```json
+{
+  "errorCode": "METER_ALREADY_BOUND",
+  "message": "Meter 123456789 is already bound. Send actionCode 0 to release it first."
+}
+```
+
+For the other error codes, see [Appendix A](#error-codes).
+
+## Step 8: Data transport options
+
+EnergyGrid can exchange bulk data in any of these ways:
+
+| Method | Notes |
+|--------|-------|
+| **SFTP** | Standard method for MDM data |
+| **FTP** | Legacy option |
+| **Object-storage replication** | Bucket-to-bucket sync between your object store and EnergyGrid's |
+| **API** | On-demand backfill or real-time feeds |
+| **File exchange** | A generic file drop |
+
+At the integration kickoff, agree on the method and on who hosts it, you or EnergyGrid.
+
+## Appendix A: Error codes {#error-codes}
+
+| HTTP status | Error code | Description |
+|-------------|-----------|-------------|
+| 401 | 1 | Invalid credentials. The customer does not have a utility account. |
+| 401 | 2 | Invalid credentials. Two authentication attempts remaining. |
+| 401 | 3 | Invalid credentials. One authentication attempt remaining. |
+| 401 | 4 | Account is locked. The customer must contact the utility to remove the lock. |
+| 401 | 86 | Account is closed, finaled, or no longer accessible. EnergyGrid might still have a record for it. |
+| 503 | None | PowerBox API outage or maintenance. The response has no body. |
+
+:::note
+Error codes 2 to 4 apply only to existing utility customers.
+:::
+
+## Appendix B: Account status codes {#account-status-codes}
+
+| Status code | Name | Description |
+|-------------|------|-------------|
+| A | Active | Active account |
+| C | Charge off | Account charged off |
+| D | Active service disconnect | Active account with service disconnected |
+| F | Final | Final account billing complete |
+| L | Closed | Closed account with unpaid final bill |
+| N | New | Active new account |
+| P | Pending | Pending account with a future open date |
+| S | Sold | Sold receivables account |
+| U | Final account funds due | Final account with unclaimed funds |
+| X | Final account still billed | Final account still receiving charges |
+| Z | Cancel | Cancelled account |
+
+---
+
+URL: https://l-g99921.github.io/tw-portfolio/docs/databridge/databridge-installation-guide-atlas-insight
+
+# DataBridge installation guide
+
+This guide shows you how to install the DataBridge Hub at home and connect it to your smart meter. It takes about 15 minutes, plus the time your utility takes to approve the connection.
+
+:::info Which guide is this?
+Each utility that offers the DataBridge Hub publishes its own version of this guide. This is the version for **Atlas Insight** customers. For Pacific Grid, see the [DataBridge Hub setup guide](./databridge-hub-setup-guide-pacific-grid).
+:::
+
+## Before you begin
+
+Have these ready:
+
+- **EnergyGrid app:** download it from the App Store or Google Play.
+- **EnergyGrid account:** an active account linked to your service address.
+- **A phone with Bluetooth:** iPhone or Android.
+- **A 2.4 GHz Wi-Fi network:** the DataBridge Hub doesn't work with 5 GHz networks.
+- **The power adapter:** check that the micro-USB adapter is in the box.
+
+## Physical setup
+
+1. **Power the device**
+
+    Plug the adapter into the micro-USB port on the back of the DataBridge Hub, then into a wall outlet.
+
+2. **Connect to the network**
+
+    To use a cable, plug an Ethernet cable into the square port on the DataBridge Hub and connect the other end to your router. A cable gives the most stable connection, but it's optional. To use Wi-Fi instead, skip this step. The app connects the hub to Wi-Fi [later](#wi-fi-connection).
+
+    :::tip
+    If you change your mind, the app offers an Ethernet option during the Wi-Fi step.
+    :::
+
+3. **Check the status light**
+
+    Wait for the light on the front of the device to turn solid green before you continue.
+
+## Mobile app setup
+
+With the hub powered on, use the EnergyGrid app to connect it to your account.
+
+### Start setup
+
+1. **Begin the installation**
+
+    Open the EnergyGrid app and tap **Begin DataBridge Setup**. You can also find it under **My Devices**.
+
+2. **Check the requirements**
+
+    The first screen lists what you need before you continue. The app then guides you through each step.
+
+### Pairing
+
+1. **Scan for the device**
+
+    Tap **Start Scanning**.
+
+2. **Pair over Bluetooth**
+
+    Hold the phone against the DataBridge Hub. The light turns blue when pairing starts.
+
+### Wi-Fi connection
+
+1. **Select the network**
+
+    Choose your home Wi-Fi network from the list. If it appears twice, choose the 2.4 GHz one.
+
+2. **Enter the password**
+
+    Type the Wi-Fi password and tap **Continue**.
+
+### Meter binding
+
+:::caution Stay in range
+Keep the DataBridge Hub within 30 feet (about 9 meters) of your smart meter until binding finishes. The hub has to stay reachable on the meter's home area network.
+:::
+
+1. **Request the bind**
+
+    Tap **Request Bind**. Your utility receives the request and adds the hub to the meter's home area network (HAN), so it can read your usage directly from the meter.
+
+2. **Wait for the connection**
+
+    Binding usually finishes within 15 minutes. With a weak signal, it can take up to 48 hours. Keep the hub plugged in and close to the meter until then.
+
+### Finish setup
+
+1. **Confirm successful connection**
+
+    When setup is complete, the **Successfully Connected** screen appears, and your usage starts showing in the app.
+
+## Troubleshooting
+
+| Problem | Cause | What to do |
+|-------|-------|----------|
+| The light doesn't turn solid green | The adapter isn't fully plugged in | Push the adapter firmly into the micro-USB port and the outlet, or try another outlet. If the light stays off or flashes red, contact EnergyGrid support. |
+| The Bluetooth scan doesn't find the hub | Bluetooth is off, or the phone is too far away | Turn on Bluetooth and hold the phone a few inches from the hub. Restart the app and scan again. If the hub still doesn't appear, unplug it for 10 seconds and plug it back in. |
+| Binding hasn't finished | The hub is too far from the meter, or the utility network is slow | Move the hub within 30 feet (about 9 meters) of the meter. Binding can take up to 48 hours. If it hasn't finished after 48 hours, tap **Request Bind** again, and contact EnergyGrid support if it still doesn't work. |
+
+---
+
+URL: https://l-g99921.github.io/tw-portfolio/docs/smartlink/smartlink-installation-guide
+
+# SmartLink Plug installation guide
+
+This guide shows you how to install the SmartLink Plug and link it to your smart meter with the EnergyGrid app. Setup takes about 10 minutes. After that, your utility can take 24 to 48 hours to finish linking the plug to the meter. To learn what the SmartLink Plug does, see [Products](/docs/#products).
+
+## Before you begin
+
+Gather these items before starting the installation.
+
+### Requirements
+
+- SmartLink Plug
+- EnergyGrid app installed on iOS or Android
+- EnergyGrid account credentials (administrator access required)
+- Home Wi-Fi network name and password
+- Wi-Fi enabled on the mobile device
+- Standard wall outlet within 30 feet (9 meters) of the utility smart meter
+
+:::tip
+Use the 2.4 GHz network if your router broadcasts separate 2.4 GHz and 5 GHz networks.
+:::
+
+### Placement guidelines
+
+Choose a location that meets all of the following criteria:
+
+- On the same side of the house as the smart meter
+- With minimal walls or large appliances between the SmartLink Plug and the meter
+- Within 30 feet (9 meters) of the smart meter
+
+:::warning
+Do not place the SmartLink Plug directly behind the meter, near metal racks, near electrical panels, or behind large appliances. These locations interfere with the wireless signal.
+:::
+
+## Mobile app setup
+
+Power on the SmartLink Plug first. Then use the EnergyGrid app to connect the device to your account.
+
+### Sign in
+
+1. **Open the app**
+
+    Launch the EnergyGrid app on your mobile device.
+
+2. **Enter your credentials**
+
+    Type your EnergyGrid account username and password. Administrator access is required.
+
+### Start setup
+
+1. **Open the Toolkit**
+
+    Tap the **Toolkit** icon in the navigation bar at the bottom of the screen.
+
+2. **Begin setup**
+
+    Locate the SmartLink Plug card and tap **Set Up**. Tap **Begin Setup** on the welcome screen.
+
+### QR code scanning
+
+1. **Grant camera access**
+
+    Tap **Allow** when prompted to grant camera access.
+
+2. **Scan the code**
+
+    Locate the QR code on the back of the SmartLink Plug. Hold the QR code in front of the phone camera until it comes into focus. A blue checkmark appears when the scan succeeds. The app uses the QR code to identify the device and prepare the Wi-Fi connection.
+
+### Physical setup
+
+1. **Plug in the device**
+
+    Insert the SmartLink Plug into a standard wall outlet within 30 feet (9 meters) of the smart meter.
+
+2. **Check the LED**
+
+    Wait for the LED indicator to pulse blue. This indicates the SmartLink Plug is ready to connect.
+
+3. **Continue in the app**
+
+    Tap **Continue** in the app.
+
+:::note
+If the LED does not pulse blue, tap **Need Help?** in the top-right corner of the screen for troubleshooting options.
+:::
+
+### Wi-Fi connection
+
+1. **Connect to the SmartLink network**
+
+    The SmartLink Plug creates a temporary Wi-Fi network to communicate with your phone. A prompt appears asking you to join this network (displayed as "EBX_000-00000X" or similar). Tap **Join**.
+
+2. **Select your home network**
+
+    Choose your home Wi-Fi network from the list. Select the 2.4 GHz network.
+
+3. **Enter the password**
+
+    Type the Wi-Fi password and tap **Continue**.
+
+### Meter binding
+
+1. **Submit the request**
+
+    The app automatically submits a bind request to the utility after the Wi-Fi connection is established. This request authorizes the SmartLink Plug to communicate with the smart meter.
+
+2. **Wait for processing**
+
+    The utility typically accepts the bind request within 5 minutes. After the utility accepts the bind request, live energy data can take 24–48 hours to appear in the app.
+
+:::caution
+Keep the SmartLink Plug within 30 feet of the smart meter and powered on throughout the binding period.
+:::
+
+The **Bind Request Complete** screen confirms a successful request.
+
+## Verify installation
+
+Check these indicators after the utility processes the bind request, which typically takes 24–48 hours.
+
+### Success indicators
+
+- The SmartLink Plug LED displays a steady state and is not flashing an error pattern
+- Real-time energy usage data appears in the EnergyGrid app
+- The SmartLink Plug appears as connected in the Toolkit section of the app
+
+## Troubleshooting
+
+### No connection after 5 minutes
+
+1. **Check power**
+
+    Verify the SmartLink Plug is inserted into the outlet and the LED is on.
+
+2. **Improve placement**
+
+    Move the SmartLink Plug to an outlet closer to the smart meter with fewer walls between them.
+
+3. **Power cycle**
+
+    Unplug the device, wait 10 seconds, then plug it back in.
+
+4. **Verify Wi-Fi**
+
+    Confirm the home Wi-Fi network is functioning properly.
+
+### Communication error during setup
+
+1. **Verify Wi-Fi**
+
+    Confirm that Wi-Fi is enabled on your mobile device and that you are connected to the correct network.
+
+2. **Check signal strength**
+
+    Move closer to the SmartLink Plug. Ensure no large appliances or metal objects are between the phone and the device.
+
+3. **Retry**
+
+    Tap **Try Again** to retry the connection.
+
+### LED not pulsing blue
+
+1. **Power cycle**
+
+    Unplug the device and wait 10 seconds.
+
+2. **Wait for activation**
+
+    Plug the device back in and wait up to 60 seconds for the LED to activate.
+
+3. **Contact support**
+
+    Contact your utility support team if the LED still does not pulse blue.
+
+## Support
+
+Contact your utility support team for assistance.
+
+- **In-app chat:** Open the EnergyGrid app and go to **Menu > Support Center**.
+- **Phone and email:** Contact your utility provider for current support channels and hours.
+
+---
+
+URL: https://l-g99921.github.io/tw-portfolio/docs/billsense-ai/overview
+
+# BillSense AI overview
+
+BillSense AI explains a customer's energy bill. It combines the bill with the customer's meter readings and home profile, shows where the energy went, explains why the bill changed, and suggests ways to save.
+
+These pages are for the utility support agents who walk customers through it.
+
+## What it does
+
+- Compares each bill with the previous month and the same month last year.
+- Splits usage into categories, such as heating, cooling, and appliances.
+- Suggests savings based on the customer's usage and home.
+- Compares the home with similar homes nearby.
+- Suggests a rate plan that might cost less.
+- Shows past bills and yearly totals.
+
+## What it can't do
+
+- **Show the full bill amount.** Totals leave out taxes, fees, and voluntary program charges. The bill statement is the official amount.
+- **Match the meter exactly.** kWh values are estimates and can differ slightly from the bill.
+- **Make good suggestions from a wrong profile.** If the appliances in **My Home** are wrong, the recommendations will be too.
+- **Change a fixed-term plan.** Customers on a fixed-term rate agreement can't switch plans until it ends.
+
+## Where to go next
+
+- [Before you begin](./before-you-begin): what you need, how to open BillSense AI, and how to escalate.
+- [User guide](./): each section of BillSense AI, and how to walk a customer through a billing question.
+- [Troubleshooting](./troubleshooting): symptoms and fixes.
+- [Glossary](./glossary): energy and billing terms used in the tool.
+
+---
+
+URL: https://l-g99921.github.io/tw-portfolio/docs/billsense-ai/troubleshooting
+
+# Troubleshooting
+
+For utility support agents answering questions about BillSense AI. Find the customer's symptom below. If it isn't listed, or the steps don't solve it, follow the [escalation path](./before-you-begin#if-you-cannot-resolve-the-issue).
+
+## BillSense AI doesn't load
+
+1. **Check the sign-in**
+
+    Confirm the customer is signed in to the Utility Portal.
+
+2. **Allow pop-ups and JavaScript**
+
+    Confirm the browser allows pop-ups and JavaScript for the portal. If the customer doesn't know how, point them to their browser's help.
+
+3. **Clear the cache**
+
+    Ask the customer to clear the browser's cache and cookies, then reload the page.
+
+4. **Try another browser**
+
+    Test with a different web browser.
+
+## The numbers don't match the paper bill
+
+1. **Explain what's left out**
+
+    BillSense AI totals don't include taxes, fees, or voluntary program charges.
+
+2. **Explain the kWh difference**
+
+    The kWh values in BillSense AI are estimates and can differ slightly from the metered values on the bill.
+
+3. **Point to the bill**
+
+    The bill statement is the official breakdown. Ask the customer to check it for the exact amounts.
+
+## Recommendations don't fit the customer's home
+
+1. **Open My Home**
+
+    Go to **My Home** in BillSense AI.
+
+2. **Check the appliances**
+
+    Confirm that heating, cooling, and cooking match what the customer has.
+
+3. **Check electric vehicle details**
+
+    If the customer has an electric vehicle (EV), confirm it's listed with the right charger type.
+
+4. **Wait for the update**
+
+    Recommendations refresh within 24 hours of a profile change.
+
+## The customer mentions a light or a connection problem
+
+BillSense AI is a web tool, with no device or lights. The customer is probably describing their DataBridge Hub or SmartLink Plug. Use the [DataBridge Hub guide](/docs/databridge/databridge-installation-guide-atlas-insight#troubleshooting) or the [SmartLink Plug guide](/docs/smartlink/smartlink-installation-guide#troubleshooting).
+
+---
+
+URL: https://l-g99921.github.io/tw-portfolio/docs/data-dictionary
+
+# Data dictionary
+
+This reference lists the data sets behind EnergyGrid integrations: what each one depends on, which customers it covers, and where it's stored. Utilities integrate in one of three ways, depending on the data they can provide, so each integration type has its own table.
+
+## How to read the tables
+
+- **Depends on** lists the data sets that have to load first.
+- **Customers** says whose data is stored: all of the utility's customers, only customers registered in the EnergyGrid app, or only customers with a DataBridge Hub or SmartLink Plug.
+- **Where it lives** gives the database instance, then the database, schema, or table. "Read replica" means a read-only copy of the instance is available for queries.
+- `public.*_usage` means every table in the `public` schema whose name ends in `_usage`.
+
+## Integration type A
+
+| Data set | Depends on | Customers | Where it lives |
+|---|---|---|---|
+| MDM usage data | Customer data | All | **MDM RDS:** `mdmusage`. **Object storage:** electric and gas MDM files. |
+| MDM usage data (app copy) | Customer data | Registered | **Brainstem RDS** (read replica): `brainstem`, tables `public.*_usage`, hourly and coarser |
+| Payment plans | Customer data, MCH billing data | All | **CorePlatform RDS:** `EGCore_UDX`, table `dbo.PaymentPlans`. **Object storage:** payment plan files. |
+| Customer data | None | Registered | **CorePlatform RDS:** `EGCore_ATLS`. **CorePlatform Central RDS:** every database on the instance. **Brainstem RDS** (read replica): `brainstem`, tables listed in [Customer tables](#customer-tables). |
+| BillSense AI data | Customer, MDM usage, billing, disaggregation, and data warehouse data | All | **MDM RDS:** `atls_bill_sense`. **Object storage:** BillSense AI files. Staging buckets and intermediate tables are in the BillSense AI integration runbook. |
+| Meter contract history (MCH) billing data | Customer data | All | **Brainstem RDS** (read replica): `brainstem`, table `data.meter_contract_history`. **Object storage:** MCH files. |
+| Disaggregation data | Customer data, MDM usage data | All | **Brainstem RDS** (read replica): `brainstem`, table `data.ntg_daily_disaggregation_partitioned` |
+| Device minute usage | Customer data, a DataBridge Hub or SmartLink Plug | With a device | **Brainstem RDS** (read replica): `brainstem`, tables `public.*_usage`, per minute and coarser. **Object storage:** home minute usage, device minute usage, AMR gas hourly usage, and heartbeats. |
+| Powernet minute usage | Customer data, device minute usage | With a device | **Brainstem RDS** (read replica): `brainstem`, tables `public.*_usage`, per minute and coarser |
+| Data warehouse | Usage, billing, and disaggregation data | Varies by data set | Combines several data sets, including advisor and recommendation data. The schema is in the data engineering runbook. |
+
+**What each feature needs:**
+
+- **EnergyGrid app:** MDM usage, customer data, device minute usage, Powernet minute usage, and the data warehouse.
+- **Bill management:** MDM usage, customer data, MCH billing, payment plans, BillSense AI data, the data warehouse, and disaggregation data.
+
+## Integration type B
+
+| Data set | Depends on | Customers | Where it lives |
+|---|---|---|---|
+| MDM usage data | Customer data | Registered | **MDM RDS:** `grcn_mdm_prod`. **Brainstem RDS** (read replica): `brainstem`, tables `public.*_usage`, hourly and coarser. **Object storage:** MDM usage files. |
+| Customer data | None | Registered | **CorePlatform RDS:** `EGCore_GRCN`. **CorePlatform Central RDS:** every database on the instance. **Brainstem RDS** (read replica): `brainstem`, tables listed in [Customer tables](#customer-tables). |
+| Disaggregation data | Customer data, MDM usage data | Registered | **Brainstem RDS** (read replica): `brainstem`, table `data.ntg_daily_disaggregation_partitioned` |
+| Device minute usage | Customer data, a device, data warehouse data | With a device | **Brainstem RDS** (read replica): `brainstem`, tables `public.*_usage`, per minute and coarser. **Object storage:** home minute usage, device minute usage, AMR gas hourly usage, and heartbeats. |
+| Powernet minute usage | Customer data, device minute usage | With a device | **Brainstem RDS** (read replica): `brainstem`, tables `public.*_usage`, per minute and coarser. **Object storage:** Powernet files. |
+| Data warehouse | Usage, billing, and disaggregation data | Varies by data set | Combines several data sets, including advisor and recommendation data. The schema is in the data engineering runbook. |
+
+**What each feature needs:**
+
+- **EnergyGrid app:** MDM usage, customer data, device minute usage, Powernet minute usage, the data warehouse, and disaggregation data.
+
+## Integration type C
+
+| Data set | Depends on | Customers | Where it lives |
+|---|---|---|---|
+| MDM usage data | Customer data | All | **Object storage:** MDM files |
+| MDM usage data (app copy) | Customer data | Registered | **Brainstem RDS** (read replica): `brainstem_spec`, tables `public.*_usage`, hourly and coarser |
+| Customer data | None | Registered | **CorePlatform RDS:** `EGCore_SPEC`. **CorePlatform Central RDS:** every database on the instance. **Brainstem RDS** (read replica): `brainstem_spec`, tables listed in [Customer tables](#customer-tables). |
+| Disaggregation data | Customer data, MDM usage data | All | **Brainstem RDS** (read replica): `brainstem_spec`, table `data.ntg_daily_disaggregation_partitioned` |
+| Advisor data | Customer data, MDM usage data, and more for some advisor cards | Registered | **Data warehouse RDS** (read replica): `datawarehouse_spec`, tables `public.homecharacteristics` and `public.metrictypes`. Advisor settings are in the `coaching` schema of the same database. |
+
+**What each feature needs:**
+
+- **External API:** MDM usage, customer data, disaggregation data, and advisor data.
+
+## Customer tables
+
+In every integration type, customer data in Brainstem is spread across these tables:
+
+| Table | Holds |
+|---|---|
+| `public.people` | Customers |
+| `public.sites` | Service addresses (premises) |
+| `public.person_site_associations` | Which customers belong to which premises |
+| `public.things` | Meters and devices |
+| `public.thing_properties` | Settings and attributes of each meter or device |
+| `public.source_target_associations` | Links between meters and devices, such as a hub bound to a meter |
+
+---
+
+URL: https://l-g99921.github.io/tw-portfolio/docs/pix/about-pix
+
+# About PIX
+
+PIX is Brazil's instant-payments system, run by the [Banco Central do Brasil](https://www.bcb.gov.br/en/financialstability/pix_en) (BCB). It moves money between accounts at hundreds of banks and fintechs in a few seconds, at any hour, on any day, including weekends and holidays.
+
+This page explains how PIX works and why its API looks the way it does. It's written for people who design, document, or integrate payment APIs. It doesn't teach a specific API. For that, follow [Send your first PIX payment](./tutorial-first-payment).
+
+## Why PIX exists
+
+Before November 2020, moving money between Brazilian banks was slow. TED transfers settled on the same day, but only during banking hours. DOC transfers settled the next business day. Anything outside those windows waited.
+
+PIX replaced that with one system that:
+
+- Settles each payment individually, in seconds.
+- Runs 24 hours a day, every day of the year.
+- Is free for individuals. Businesses pay their own bank's fees, which are usually lower than card fees.
+- Uses identifiers people already know, like a phone number, an email address, or a tax ID, instead of branch and account numbers.
+
+It launched in November 2020 and reached [over a billion transactions a month](https://www.bcb.gov.br/en/financialstability/pix_en) within its first year. Today it's one of the largest instant-payment systems in the world, alongside India's UPI.
+
+## Who's involved
+
+Every PIX payment has two sides:
+
+- The **payer**, who sends the money.
+- The **payee**, the merchant or person who receives it.
+
+Each side has an account at an institution licensed by the BCB, called a **payment service provider (PSP)**. Only PSPs connect to the central infrastructure. Everyone else, including merchants and most fintechs, integrates through a PSP's API.
+
+```mermaid
+sequenceDiagram
+    participant Payer App
+    participant Payer PSP
+    participant SPI as PIX infrastructure (SPI)
+    participant Payee PSP
+    participant Payee App
+
+    Payer App->>Payer PSP: Pay this PIX key
+    Payer PSP->>SPI: Settlement request
+    SPI->>Payee PSP: Credit notification
+    Payee PSP->>Payee App: Webhook with e2eId
+    Payer PSP-->>Payer App: Confirmation
+    Note over SPI: The whole flow targets under 10 seconds
+```
+
+## What you integrate with
+
+When a developer says they're "integrating PIX," they almost always mean a PSP's API, not the central infrastructure. The infrastructure is a [message network run by the BCB](https://www.bcb.gov.br/estabilidadefinanceira/pix) that only licensed institutions can join. PSPs expose an API on top of it for their business customers.
+
+The BCB publishes a [standard for that PSP API](https://bacen.github.io/pix-api/). Its main resources:
+
+| Resource | Purpose |
+| --- | --- |
+| `cob` | An immediate charge: a payment request the merchant creates and the customer pays. |
+| `cobv` | A charge with a due date, and optional fines, interest, and discounts. |
+| `pix` | A received payment, looked up by its `e2eId`. |
+| `webhook` | A URL the PSP calls when a payment to a given key settles. |
+| `lote` | A batch of due-date charges, for merchants with high volume. |
+
+The [Instant Payments API sample](/docs/api/pix-api/instant-payments-api-pix-sample) on this site covers part of that standard: enough to create a charge, receive the payment, and reconcile it.
+
+## PIX keys
+
+A **PIX key** (`chave`) is an alias that points to a bank account. There are five types. The type decides who can register the key and how apps should show it:
+
+| Type | Format | Who can register it | How apps show it |
+| --- | --- | --- | --- |
+| **CPF** | 11 digits | The person who owns the CPF | Partly masked, for example `***.456.789-**` |
+| **CNPJ** | 14 digits | The company that owns the CNPJ | In full |
+| **Email** | An email address | Anyone, after confirming the address | In lowercase |
+| **Phone** | E.164, starting with `+55` | Anyone, after confirming by SMS | In international format |
+| **Random key (EVP)** | A UUID generated by the PSP | Anyone | As a value to copy, rarely in full |
+
+When a payer enters a key, their PSP looks it up in **DICT**, the key directory run by the BCB, to find which PSP holds the account and where to send the payment.
+
+An account can have up to 5 keys if it belongs to a person, and up to 20 if it belongs to a company. A key can point to only one account.
+
+### Why random keys exist
+
+The random key, *chave aleatória*, is there for privacy. People who don't want to share their phone, email, or tax ID with whoever pays them use a random key instead. It's harder to read out over the phone and impossible to memorize, so apps share it as text to copy or as a QR code.
+
+## End-to-end ID
+
+Every settled payment gets an **end-to-end ID** (`e2eId`), and its format is fixed:
+
+```
+E + ISPB (8) + yyyyMMddHHmm + suffix (11)
+```
+
+| Part | Meaning |
+| --- | --- |
+| `E` | Fixed prefix |
+| `ISPB` | The 8-digit code that identifies the payer's institution in the Brazilian payment system |
+| `yyyyMMddHHmm` | Creation time in UTC, to the minute |
+| `suffix` | 11 alphanumeric characters, unique within that minute |
+
+The `e2eId` is the identifier to reconcile on. Webhooks, refund requests, and audit trails all reference it. If you store only one field about a PIX payment, store the `e2eId`.
+
+## Charges and the `txid`
+
+A `cob` is a payment request. The merchant creates it, and the central infrastructure doesn't know about it until someone pays. Each charge has a `txid`: an ID the merchant chooses, 26 to 35 letters and digits long, unique at that PSP for at least 365 days.
+
+How they relate:
+
+- One `txid` has at most one charge, and a charge has at most one settled `e2eId`.
+- An `e2eId` has at most one `txid`. A PIX sent without a charge has none.
+
+Merchants use the `txid` to connect a charge to their own order. The payment system uses the `e2eId` to identify the payment.
+
+```mermaid
+flowchart LR
+    Order[Order 4821] -->|create| Txid[txid: INV4821a1b2...]
+    Txid --> Cob[Charge: ATIVA]
+    Cob -->|customer pays| Settle((Settlement))
+    Settle --> E2eId[e2eId: E12345678...]
+    Cob -->|status changes| Done[Charge: CONCLUIDA]
+    E2eId -.->|webhook| Merchant[Merchant backend]
+    Order -.->|match by txid| Merchant
+```
+
+## What "instant" means
+
+The 10-second target covers the whole flow, from the moment the payer's PSP sends the payment to the moment the payee's PSP confirms the credit. Most of that time goes to processing inside each PSP.
+
+This has consequences for integrators:
+
+- **Payments can't be undone.** A settled PIX can't be reversed. A refund (*devolução*) is a new transaction that references the original. The BCB's special return mechanism (MED) covers fraud cases, through the PSPs.
+- **Rely on webhooks, not polling.** Polling `GET /cob/{txid}` shows the status change from `ATIVA` to `CONCLUIDA`, but the webhook arrives sooner and carries the payment details.
+- **Expect duplicates.** The central infrastructure settles each `e2eId` once, but a PSP can deliver the same webhook more than once. If you credit a customer twice, the only fix is a refund, which is another PIX. [Handle PIX webhooks](./how-to-handle-webhooks) shows how to avoid that.
+
+## Why the API looks the way it does
+
+Some conventions in the PIX standard surprise developers used to card APIs:
+
+- **The merchant chooses the `txid`.** The client creates the charge with `PUT /cob/{txid}` at a URL it picked. A retry after a timeout hits the same URL instead of creating a second charge. A retry with the same body succeeds, and a different body returns `409`. A point-of-sale system can also create the ID before it has a connection.
+- **`PUT` creates, `PATCH` changes.** That follows from the point above: the client knows the resource's URL in advance.
+- **Amounts are strings.** For example, `"valor": { "original": "150.00" }`. JSON numbers are often parsed as floating point, which can't represent every decimal exactly. A string keeps the amount exact.
+- **Field names are in Portuguese:** `cob`, `chave`, `devedor`, `valor`, `solicitacaoPagador`. PIX is national infrastructure, and the standard was written for Brazilian developers first.
+
+Each of these choices prevents a kind of bug that shows up at high volume.
+
+## Further reading
+
+- [Banco Central do Brasil: PIX overview, in English](https://www.bcb.gov.br/en/financialstability/pix_en)
+- [PIX PSP API standard, in Portuguese](https://bacen.github.io/pix-api/), the public OpenAPI specification the sample on this site is based on
+- [BR Code manual](https://www.bcb.gov.br/estabilidadefinanceira/spb_pix), with the QR code format used in PIX charges
+- [Send your first PIX payment](./tutorial-first-payment), a guided walkthrough in the sandbox
+- [Handle PIX webhooks](./how-to-handle-webhooks), for a webhook listener ready for production
+- [Instant Payments API reference](/docs/api/pix-api/instant-payments-api-pix-sample), the sample OpenAPI spec for this section
+
+---
+
+URL: https://l-g99921.github.io/tw-portfolio/docs/pix/tutorial-first-payment
+
+# Send your first PIX payment
+
+In this tutorial you create a charge in the sandbox of the [Instant Payments API sample](/docs/api/pix-api/instant-payments-api-pix-sample), pay it with a simulated customer, receive the webhook, and reconcile the payment. By the end you'll have:
+
+- An OAuth access token
+- A charge, with its `txid`
+- A webhook listener that receives payment notifications
+- A settled payment with its `e2eId`, matched to the charge
+
+You'll use `curl`, `jq`, and a short Node.js script for the webhook. Any HTTP client and language work if you prefer others.
+
+If you want to understand PIX itself first, read [About PIX](./about-pix).
+
+:::tip Try it in the browser
+Every call except the webhook delivery also works on the [API reference pages](/docs/api/pix-api/instant-payments-api-pix-sample), in a sandbox the site simulates in your browser. Use any value as the token there.
+:::
+
+## Before you begin
+
+- Node.js 20 or later, `curl`, and `jq`. To install `jq`, run `brew install jq` on macOS or `sudo apt install jq` on Debian and Ubuntu.
+- An [ngrok](https://ngrok.com/) account. The free plan is enough.
+- An empty folder:
+
+    ```bash
+    mkdir pix-tutorial && cd pix-tutorial
+    ```
+
+The sandbox doesn't move real money, so you can repeat any step.
+
+## Step 1: Get an access token
+
+1. **Request sandbox credentials**
+
+    Email `pix-sandbox@instant-payments.example` with the subject `Sandbox access`. You get a `client_id` and a `client_secret` within one business hour.
+
+    :::note
+    This API is a portfolio sample, so this request flow is illustrative. The token request in the next steps is the one you'd make to a real PSP.
+    :::
+
+2. **Save them as environment variables**
+
+    ```bash
+    export PIX_CLIENT_ID=<your-client-id>
+    export PIX_CLIENT_SECRET=<your-client-secret>
+    export PIX_BASE_URL=https://sandbox.instant-payments.example/v2
+    ```
+
+3. **Request a token**
+
+    PSPs use the OAuth 2.0 client credentials grant. Ask for the scopes this tutorial uses:
+
+    ```bash
+    PIX_TOKEN=$(curl -sS -X POST \
+      "${PIX_BASE_URL%/v2}/oauth/token" \
+      -u "$PIX_CLIENT_ID:$PIX_CLIENT_SECRET" \
+      -d "grant_type=client_credentials&scope=cob.write cob.read pix.read webhook.write" \
+      | jq -r .access_token)
+
+    echo "Token: ${PIX_TOKEN:0:12}…"
+    ```
+
+    Expected output:
+
+    ```text
+    Token: eyJhbGciOiJ…
+    ```
+
+    The token lasts about one hour. If a later step returns `401`, request a new one.
+
+## Step 2: Create a charge
+
+A charge (`cob`) is a payment request that the customer pays. You choose its ID, the `txid`.
+
+1. **Create a `txid`**
+
+    ```bash
+    export TXID=tutorial$(date +%Y%m%d%H%M%S)$(openssl rand -hex 4)
+    echo "txid: $TXID (length ${#TXID})"
+    ```
+
+    A `txid` has 26 to 35 letters and digits. This one has 30.
+
+2. **Create the charge**
+
+    ```bash
+    curl -sS -X PUT \
+      "$PIX_BASE_URL/cob/$TXID" \
+      -H "Authorization: Bearer $PIX_TOKEN" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "calendario": { "expiracao": 3600 },
+        "valor": { "original": "12.50" },
+        "chave": "merchant@example.com",
+        "solicitacaoPagador": "Tutorial run"
+      }' | tee charge.json | jq .status
+    ```
+
+    Expected output:
+
+    ```text
+    "ATIVA"
+    ```
+
+    The full response is in `charge.json`. `ATIVA` means the charge is waiting for payment, for the next 3,600 seconds. `loc.location` is the payload a banking app reads from the QR code.
+
+The key `merchant@example.com` is already registered to your sandbox client. In production, you use a PIX key registered to your own account.
+
+## Step 3: Set up a webhook listener
+
+When the payment settles, the PSP sends a webhook. Start a small server that prints what it receives, and make it reachable over HTTPS.
+
+1. **Write the listener**
+
+    Create `webhook.js`:
+
+    ```javascript
+    const http = require('http');
+
+    http.createServer((req, res) => {
+      let body = '';
+      req.on('data', (chunk) => (body += chunk));
+      req.on('end', () => {
+        console.log(`\n${new Date().toISOString()}  ${req.method} ${req.url}`);
+        try {
+          console.log(JSON.stringify(JSON.parse(body), null, 2));
+        } catch {
+          console.log(body || '(empty body)');
+        }
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end('{"received":true}');
+      });
+    }).listen(3000, () => console.log('Listening on http://localhost:3000'));
+    ```
+
+    Run it:
+
+    ```bash
+    node webhook.js
+    ```
+
+2. **Expose it with ngrok**
+
+    In a second terminal:
+
+    ```bash
+    ngrok http 3000
+    ```
+
+    Expected output:
+
+    ```text
+    Forwarding  https://a1b2c3.ngrok.io -> http://localhost:3000
+    ```
+
+3. **Register the webhook**
+
+    Replace the URL with the one ngrok printed:
+
+    ```bash
+    export NGROK_URL=https://a1b2c3.ngrok.io
+
+    curl -sS -X PUT \
+      "$PIX_BASE_URL/webhook/merchant@example.com" \
+      -H "Authorization: Bearer $PIX_TOKEN" \
+      -H "Content-Type: application/json" \
+      -d "{ \"webhookUrl\": \"$NGROK_URL/pix-callback\" }" | jq
+    ```
+
+    Expected output:
+
+    ```json
+    {
+      "webhookUrl": "https://a1b2c3.ngrok.io/pix-callback",
+      "chave": "merchant@example.com",
+      "criacao": "2026-04-24T18:32:11Z"
+    }
+    ```
+
+    A key has one webhook at most, so running this again replaces the URL. Following the PIX standard, the PSP adds `/pix` to the end of the URL when it calls you, so notifications arrive at `/pix-callback/pix`.
+
+## Step 4: Pay the charge
+
+In real life, the customer scans the QR code with their banking app. The sandbox has a helper endpoint that does it for you.
+
+1. **Simulate the payment**
+
+    ```bash
+    curl -sS -X POST \
+      "$PIX_BASE_URL/_sandbox/pay/$TXID" \
+      -H "Authorization: Bearer $PIX_TOKEN" \
+      -H "Content-Type: application/json" \
+      -d '{ "pagador": { "cpf": "12345678909", "nome": "João Tutorial" } }' \
+      | jq -r .endToEndId
+    ```
+
+    Expected output:
+
+    ```text
+    E12345678202604241832A1B2C3D4E5F
+    ```
+
+    Save it for Step 5:
+
+    ```bash
+    export E2EID=E12345678202604241832A1B2C3D4E5F
+    ```
+
+2. **Check the webhook**
+
+    In the terminal running `webhook.js`, the notification arrives within a few seconds. The body is a list, because one call can carry several payments:
+
+    ```text
+    2026-04-24T18:32:14.221Z  POST /pix-callback/pix
+    {
+      "pix": [
+        {
+          "endToEndId": "E12345678202604241832A1B2C3D4E5F",
+          "txid": "tutorial20260424183205a1b2c3d4",
+          "valor": "12.50",
+          "horario": "2026-04-24T18:32:13Z"
+        }
+      ]
+    }
+    ```
+
+:::warning Respond quickly
+Return a `2xx` within 5 seconds. If you don't, the PSP retries with increasing delays for up to 24 hours, and you get the same payment again. [Handle PIX webhooks](./how-to-handle-webhooks) shows how to respond fast and process each payment once.
+:::
+
+## Step 5: Reconcile
+
+The webhook tells you a payment arrived. The API confirms it.
+
+1. **Read the charge again**
+
+    ```bash
+    curl -sS "$PIX_BASE_URL/cob/$TXID" \
+      -H "Authorization: Bearer $PIX_TOKEN" \
+      | jq '{ status, e2eId: .pix[0].endToEndId }'
+    ```
+
+    Expected output:
+
+    ```json
+    {
+      "status": "CONCLUIDA",
+      "e2eId": "E12345678202604241832A1B2C3D4E5F"
+    }
+    ```
+
+    `CONCLUIDA` means the charge was paid. The charge now points to the payment, and the payment points back to the charge.
+
+2. **Read the payment**
+
+    ```bash
+    curl -sS "$PIX_BASE_URL/pix/$E2EID" \
+      -H "Authorization: Bearer $PIX_TOKEN" | jq
+    ```
+
+    Expected output:
+
+    ```json
+    {
+      "endToEndId": "E12345678202604241832A1B2C3D4E5F",
+      "txid": "tutorial20260424183205a1b2c3d4",
+      "valor": "12.50",
+      "horario": "2026-04-24T18:32:13Z",
+      "pagador": {
+        "cpf": "12345678909",
+        "nome": "João Tutorial"
+      }
+    }
+    ```
+
+You created a charge, received the payment through a webhook, and confirmed it on both sides.
+
+## What you built
+
+```mermaid
+flowchart LR
+    OAuth[OAuth token] --> Charge["PUT /cob/{txid}<br/>(ATIVA)"]
+    Charge --> Webhook["PUT /webhook/{chave}"]
+    Webhook --> Pay["POST /_sandbox/pay<br/>(simulated)"]
+    Pay --> Notify["Webhook<br/>(e2eId)"]
+    Notify --> Reconcile["GET /cob/{txid}<br/>(CONCLUIDA)"]
+```
+
+A production integration makes the same calls. The part that has to scale is the webhook listener.
+
+## Next steps
+
+- [Handle PIX webhooks](./how-to-handle-webhooks): authentication, fast responses, processing each payment once, and recovering from an outage.
+- [About PIX](./about-pix): keys, the `e2eId`, and why the API looks the way it does.
+- [Instant Payments API reference](/docs/api/pix-api/instant-payments-api-pix-sample): every operation and field.
+
+## Troubleshooting
+
+| Problem | Cause | Fix |
+| --- | --- | --- |
+| `401` from `/oauth/token` | Wrong `client_id` or `client_secret` | Export the variables again and check for trailing spaces. |
+| `400` from `PUT /cob/{txid}` about `valor.original` | The amount was sent as a number | Send it as a string: `"original": "12.50"`. |
+| `400` from `PUT /cob/{txid}` about the `txid` | The `txid` is shorter than 26 or longer than 35 characters, or has symbols | Create a new one with the command in Step 2. |
+| `409` from `PUT /cob/{txid}` | You reused a `txid` with a different body | Create a new `txid`, or send exactly the same body again. |
+| No webhook arrives | The ngrok URL changed after you registered it | Register the webhook again with the current URL. |
+| The same `e2eId` arrives twice | The PSP retried because your listener was slow | Store each `e2eId` and skip ones you've seen. See [Process each payment once](./how-to-handle-webhooks#process-each-payment-once). |
+
+---
+
+URL: https://l-g99921.github.io/tw-portfolio/docs/pix/how-to-handle-webhooks
+
+# Handle PIX webhooks
+
+This guide assumes you already create charges and receive webhooks in the sandbox. If you don't, start with the [tutorial](./tutorial-first-payment). A listener in production has to solve four problems:
+
+1. Accept only requests that come from your PSP.
+2. Respond within 5 seconds, even when your other systems are slow.
+3. Process each payment once, even when the PSP delivers it twice.
+4. Recover the payments it missed while it was down.
+
+The examples use Node.js and Express. The same approach works in any stack.
+
+## Know what arrives
+
+Following the PIX standard, the PSP sends a `POST` to the URL you registered, with `/pix` added at the end. The body holds a list, because one call can carry several payments:
+
+```json
+{
+  "pix": [
+    {
+      "endToEndId": "E12345678202604241832A1B2C3D4E5F",
+      "txid": "tutorial20260424183205a1b2c3d4",
+      "valor": "12.50",
+      "horario": "2026-04-24T18:32:13Z",
+      "infoPagador": "Order 4821"
+    }
+  ]
+}
+```
+
+`txid` is empty for a PIX sent without a charge. The payer's name and tax ID aren't in the webhook. To get them, call `GET /pix/{e2eId}`.
+
+## Authenticate the request
+
+The PIX standard authenticates webhooks with **mutual TLS**: the PSP presents a client certificate, and your server accepts only certificates issued for your PSP. Set this up where TLS ends, usually in your load balancer or reverse proxy, and pass a header to the app saying the certificate checked out.
+
+Many PSPs also sign each request with an HMAC of the body. If yours does, check the signature too.
+
+1. **Keep the raw body**
+
+    The HMAC covers the exact bytes the PSP sent. Parsing the JSON first changes spacing and key order, so the signature no longer matches.
+
+    ```javascript
+    const express = require('express');
+    const crypto = require('crypto');
+
+    const app = express();
+    app.use('/pix-callback/pix', express.raw({ type: 'application/json' }));
+    ```
+
+2. **Compare signatures in constant time**
+
+    ```javascript
+    function verify(rawBody, headerSignature, secret) {
+      const expected = crypto.createHmac('sha256', secret).update(rawBody).digest('hex');
+      const a = Buffer.from(expected);
+      const b = Buffer.from(headerSignature || '', 'utf8');
+      return a.length === b.length && crypto.timingSafeEqual(a, b);
+    }
+    ```
+
+    Use `crypto.timingSafeEqual`, not `===`. A plain comparison returns faster when the first bytes differ, and an attacker can measure that to guess the signature.
+
+3. **Reject what fails**
+
+    The header name depends on the PSP. Check your PSP's documentation.
+
+    ```javascript
+    function authenticate(req) {
+      const mtlsOk = req.header('X-Client-Cert-Verified') === 'SUCCESS'; // set by your proxy
+      const signature = req.header('X-Webhook-Signature');
+      return mtlsOk && verify(req.body, signature, process.env.PIX_WEBHOOK_SECRET);
+    }
+    ```
+
+:::warning Protect the secret
+Anyone with the webhook secret can fake a payment confirmation. Keep it in a secret manager such as AWS Secrets Manager or HashiCorp Vault, never in a file in the repository, and rotate it when someone with access leaves the team.
+:::
+
+## Respond fast, process later
+
+The PSP waits 5 seconds for a `2xx`. After that, it retries with increasing delays for up to 24 hours. A listener that writes to the database, updates balances, and notifies other systems before responding misses that limit under load.
+
+Respond first and do the work afterward.
+
+1. **Put each payment on a queue**
+
+    ```javascript
+    const { Queue } = require('bullmq');
+    const pixQueue = new Queue('pix-webhooks', { connection: { host: process.env.REDIS_HOST } });
+
+    app.post('/pix-callback/pix', async (req, res) => {
+      if (!authenticate(req)) {
+        return res.status(401).json({ error: 'unauthorized' });
+      }
+
+      const { pix = [] } = JSON.parse(req.body.toString('utf8'));
+      for (const payment of pix) {
+        await pixQueue.add('process', payment, {
+          jobId: payment.endToEndId, // the queue ignores a second job with the same ID
+          attempts: 5,
+          backoff: { type: 'exponential', delay: 1000 },
+        });
+      }
+
+      return res.status(200).json({ received: pix.length });
+    });
+    ```
+
+    The handler authenticates, queues, and responds. Everything else happens in a worker.
+
+2. **Process in a worker**
+
+    ```javascript
+    const { Worker } = require('bullmq');
+
+    new Worker('pix-webhooks', (job) => recordPayment(job.data), {
+      connection: { host: process.env.REDIS_HOST },
+      concurrency: 50,
+    });
+    ```
+
+    The worker can take as long as it needs, because the PSP already got its response.
+
+The queue needs at-least-once delivery. BullMQ, Redis Streams, Amazon SQS, and Google Pub/Sub all provide it. The next section makes the occasional duplicate harmless.
+
+## Process each payment once
+
+Each `e2eId` settles only once, but you can still receive it more than once:
+
+- Your first response took too long, and the PSP retried.
+- Your response got lost on the network.
+- The PSP failed over and resent messages in flight.
+- A worker crashed halfway and the queue delivered the job again.
+
+Use the `e2eId` as the idempotency key, and save it before anything with side effects happens.
+
+1. **Let the database reject duplicates**
+
+    ```sql
+    CREATE TABLE pix_received (
+      e2e_id        TEXT PRIMARY KEY,
+      txid          TEXT,
+      amount_cents  BIGINT NOT NULL,
+      paid_at       TIMESTAMPTZ NOT NULL,
+      raw_payload   JSONB NOT NULL,
+      processed_at  TIMESTAMPTZ
+    );
+    ```
+
+    The primary key on `e2e_id` does the deduplication. If two workers race, the database decides, not your code.
+
+2. **Insert first, then act on the result**
+
+    ```javascript
+    // "12.50" -> "1250". String math, no floating point. Returned as a string
+    // so the driver passes it to the BIGINT column unchanged.
+    function toCents(valor) {
+      const [units, decimals = ''] = valor.split('.');
+      return (BigInt(units) * 100n + BigInt(decimals.padEnd(2, '0').slice(0, 2))).toString();
+    }
+
+    async function recordPayment(payment) {
+      const { rowCount } = await db.query(
+        `INSERT INTO pix_received (e2e_id, txid, amount_cents, paid_at, raw_payload)
+         VALUES ($1, $2, $3, $4, $5)
+         ON CONFLICT (e2e_id) DO NOTHING`,
+        [payment.endToEndId, payment.txid || null, toCents(payment.valor), payment.horario, payment],
+      );
+
+      if (rowCount === 0) return; // seen before
+
+      await creditMerchant(payment);
+      await notifyMerchantSystems(payment);
+      await markProcessed(payment.endToEndId);
+    }
+    ```
+
+    `INSERT ... ON CONFLICT DO NOTHING` needs one round trip. The first delivery inserts the row, and any later one changes nothing.
+
+:::tip Keep the original body
+Store the payload as received, in `raw_payload`. If someone disputes a payment months later, you'll want the exact webhook, not your processed version of it.
+:::
+
+## Recover after an outage
+
+Listeners go down: a deploy, a database lock during a migration, a certificate that expires on a Sunday. The PSP retries for 24 hours, but your system shouldn't depend on that. Run a reconciler on a schedule that asks the API for received payments and feeds them through the same `recordPayment`.
+
+1. **List payments received in a time window**
+
+    The PIX standard has `GET /pix` with `inicio` and `fim` for the window, and paginates with `paginacao.paginaAtual`:
+
+    ```javascript
+    async function reconcile(startIso, endIso) {
+      for (let page = 0, total = 1; page < total; page++) {
+        const url = new URL(`${process.env.PIX_BASE_URL}/pix`);
+        url.searchParams.set('inicio', startIso);
+        url.searchParams.set('fim', endIso);
+        url.searchParams.set('paginacao.paginaAtual', page);
+
+        const res = await fetch(url, { headers: { Authorization: `Bearer ${await getToken()}` } });
+        const body = await res.json();
+        total = body.parametros.paginacao.quantidadeDePaginas;
+
+        for (const payment of body.pix) {
+          await recordPayment(payment); // duplicates are skipped by the primary key
+        }
+      }
+    }
+    ```
+
+    Because `recordPayment` ignores payments it has already stored, replaying a whole window is safe.
+
+2. **Run it on three schedules**
+
+    | Every | Window | Catches |
+    | --- | --- | --- |
+    | 5 minutes | Last 30 minutes | A webhook missed during normal operation |
+    | Hour | Last 6 hours | Gaps from a short outage |
+    | Day | Last 26 hours | Anything left before the PSP's 24-hour retries end |
+
+    The three can overlap, because the database removes duplicates.
+
+3. **Alert when the reconciler finds something new**
+
+    If the reconciler stores a payment the webhook didn't, the live path failed. Record these on every run:
+
+    ```text
+    pix.reconciler.replayed{outcome=new}      = N   # payments the listener missed
+    pix.reconciler.replayed{outcome=existing} = M   # already stored, which is normal
+    pix.reconciler.lag_seconds                = K   # age of the oldest new payment
+    ```
+
+    Page someone when `outcome=new` goes above its usual daily level. A lag above 600 seconds means the listener is struggling.
+
+## Production checklist
+
+- [ ] mTLS required at the edge, and the HMAC checked if your PSP signs requests.
+- [ ] Raw body kept until the signature check.
+- [ ] Signatures compared with `timingSafeEqual`.
+- [ ] Listener answers `2xx` within 5 seconds at p99.
+- [ ] Each payment in the list queued with its `e2eId` as the job ID.
+- [ ] `e2eId` is the primary key where payments are stored.
+- [ ] Amounts converted from strings without floating point.
+- [ ] Raw payload stored for audits.
+- [ ] Reconciler running every 5 minutes, every hour, and every day.
+- [ ] Alert on `outcome=new` routed to whoever is on call.
+- [ ] Webhook secret in a secret manager, rotated when people leave.
+
+## Related
+
+- [Send your first PIX payment](./tutorial-first-payment), the sandbox flow from start to finish
+- [About PIX](./about-pix), including why the `e2eId` is the right idempotency key
+- [Instant Payments API reference](/docs/api/pix-api/instant-payments-api-pix-sample), with the webhook operations
+
+---
+
+URL: https://l-g99921.github.io/tw-portfolio/blog/documenting-pix-lessons
+
+From 2022 to 2024, through Zup Innovation, I owned the official documentation for Itaú's PIX APIs: 37+ endpoint references, integration guides, release notes, and migration guides, all in a docs-as-code pipeline on Bitbucket. Most of what I learned there I learned the usual way, by writing the wrong version first. These are the five lessons I'd pass on to anyone documenting a payments API.
+
+<!--truncate-->
+
+## Some context
+
+PIX is Brazil's instant-payments system, run by the central bank (Banco Central do Brasil, or BCB). It launched in November 2020 and now handles [billions of transactions a month](https://www.bcb.gov.br/en/financialstability/pix_en). Most adults in Brazil use it.
+
+Only licensed institutions, called PSPs, connect to the central infrastructure. Merchants, marketplaces, and apps integrate through a PSP's API. The BCB publishes a [standard for that API](https://bacen.github.io/pix-api/), and every PSP implements it. What differs from bank to bank is the documentation on top of the standard. That's where my work was.
+
+## 1. The reference pages get the most traffic
+
+Writing guides often treat the API reference as the easy part: generate it from the spec, link to it, and put the real effort into tutorials. In my experience with PIX, the reference page for `PUT /cob/{txid}` was the page people opened most. It came up in support tickets, incident reviews, audits, and every new engineer's first week.
+
+That meant the reference had to be right and easy to scan:
+
+- **Every status code documented**, including the ones that "shouldn't happen." A `409` on `PUT /cob/{txid}` happens. A `503` happens too.
+- **Realistic examples.** A charge for `"150.00"` with a `solicitacaoPagador` in Portuguese, the way a real merchant would send it. People copy examples straight into their code.
+- **Current behavior only.** If the page describes what the API did two versions ago, engineers stop trusting it and read the raw spec instead.
+
+None of that is writing, really. It's a pipeline: the OpenAPI spec is the source, the reference pages are generated from it, and nobody edits the output by hand. Building and maintaining that pipeline took more of our time than any single page of prose.
+
+## 2. Idempotency belongs on every page
+
+The usual structure for API docs is overview, authentication, quickstart, endpoints, webhooks, and errors. For PIX, that put idempotency in the wrong place, buried in the errors page.
+
+In PIX it touches everything. The merchant chooses the `txid`, and the PSP keeps it unique for at least 365 days. Each payment has an `e2eId` that settles exactly once, but the webhook carrying it can arrive more than once. So:
+
+- Every page about a write operation explains what happens when you send it twice.
+- Every webhook page says that your system, not the sender, is responsible for ignoring duplicates.
+- The quickstart ends when you've stored the `e2eId` and a second delivery changes nothing, not when the first webhook arrives.
+- The errors page separates a repeated `txid` with the same body, which is safe, from a repeated `txid` with a different body, which is a bug in the client.
+
+We gave idempotency its own concept page and linked to it from every reference page. In the six months after that restructure, level 1 tickets on the PIX integration queue fell by about 45%, going by the tags in our ticketing system.
+
+## 3. Keep the field names in Portuguese
+
+The PIX standard is in Portuguese, and so are the field names (`cob`, `chave`, `devedor`, `valor`), the statuses (`ATIVA`, `CONCLUIDA`), and the error codes. English-speaking engineers on partner teams kept asking us to translate them.
+
+We decided not to. The fields on the wire are in Portuguese. If the docs show English names, the integrator writes code against them, gets a `400`, finds the real names in the spec, and from then on doubts everything else the docs say.
+
+What we did instead:
+
+- Field names, example payloads, and error codes stay exactly as they are on the wire.
+- The concepts get English names next to them on first mention: "charge (`cob`)," "PIX key (`chave`)."
+- A glossary maps each Portuguese term to the English concept, with a one-line definition.
+
+When a system has a canonical language, the docs should help people work with it, not hide it.
+
+## 4. Most support questions are about webhooks
+
+Our first webhook page was short: we send a `POST` to the URL you register. Meanwhile the request side, how to authenticate and create a charge, got most of the attention. That was backward. Integrators usually got the request side right on day one. The long support threads were about webhooks, and the same questions kept coming, roughly in this order:
+
+1. "We're not receiving webhooks." Usually the endpoint wasn't reachable from the internet, or the certificate wasn't trusted.
+2. "We received the same payment twice." The listener didn't return `2xx` in time, and the PSP retried.
+3. "We credited a customer twice when the database was slow." They checked for the payment with a `SELECT` before the `INSERT`, instead of relying on a unique key.
+4. "We lost payments during a deploy." The listener was down for longer than the retry window.
+5. "The signature check fails." They verified the parsed JSON instead of the raw body.
+
+Each of those was a documentation gap. We split the webhook content into three pages: the contract (authentication, payload, expected response), the production problems (authenticate, respond fast, deduplicate, recover), and reconciliation through the API. After that change, developer satisfaction with the docs went from 3.8 to 4.6 out of 5 in our quarterly developer experience survey (60+ responses), and integrators started linking to specific sections from their own runbooks.
+
+The takeaway: spend documentation effort where the support tickets are, not evenly across endpoints.
+
+## 5. The quickstart decides the integration
+
+Many of the engineers reading our docs had never integrated an instant-payments system. For them, the quickstart was the first real test of whether the integration would go smoothly. What we learned about it:
+
+- **It has to end with a settled payment and a webhook**, in the sandbox. A token or a created charge doesn't prove the integration works.
+- **Every command has to work the first time.** One typo in step 4 and the reader stops trusting the rest.
+- **It has to be one page.** Readers drop off between pages. One page they can scroll and copy from works better.
+- **It should take 15 to 30 minutes.** Shorter means it skipped the hard parts, like duplicates and webhook handling, and the reader meets them in production instead.
+
+We reviewed the quickstart more than any other page, and had engineers who had never seen the API run it before each release.
+
+## What I'd do differently
+
+We wrote the docs in roughly this order: reference, quickstart, concepts, errors, a webhook rewrite, reconciliation, idempotency as its own page, and the glossary.
+
+Next time I'd write the concepts first, because every other page refers to them. Then the quickstart, because it forces each concept to be testable in half an hour. Then webhooks and reconciliation, where integrations succeed or fail. Reference last: once the structure around it is right, generating and checking it is mostly mechanical.
+
+## What carries over to other APIs
+
+- **Systems with a canonical language:** keep the wire names in the docs, and translate the concepts around them.
+- **Webhook-heavy APIs:** give webhooks more than one page, and recommend a unique key in the database for deduplication.
+- **APIs that teams pick during an evaluation:** treat the quickstart as the most important page on the site.
+
+Some of the specifics are particular to PIX. Most APIs assign IDs on the server instead of letting the client choose them. Most international standards are published in English first. And a 24-hour retry window for webhooks is long compared with many other APIs.
+
+---
+
+*I'm Leandro Gabriel, a senior technical writer. If you're documenting a payments API and want a second opinion, [find me on LinkedIn](https://www.linkedin.com/in/leandro-gabriel-8aab31167/). This site has a [PIX documentation set organized by Diátaxis](/docs/pix/about-pix), a [sample PIX API reference you can call from the browser](/docs/api/pix-api/instant-payments-api-pix-sample), and the [docs-as-code pipeline](https://github.com/L-G99921/tw-portfolio/blob/main/.github/workflows/docs-quality.yml) that runs Vale and Lychee on every change.*
+
+---
+
+URL: https://l-g99921.github.io/tw-portfolio/openapi.json
+
+# PowerBox API
+
+The **PowerBox API** connects a utility's back-office systems to EnergyGrid. A utility needs two flows working before its customers can use EnergyGrid hardware or the app:
+
+- **Customer sync:** send customer accounts, service addresses (premises), and meter configuration from the utility's customer information system (CIS) to EnergyGrid.
+- **Hardware binding:** link a DataBridge Hub or SmartLink Plug to the customer's AMI meter over the utility's wireless mesh radio (home area network).
+
+## Audience
+
+Backend engineers at a utility who connect their CIS and AMI head-end systems to EnergyGrid. This isn't a public consumer API.
+
+## Authentication
+
+Every endpoint needs an OAuth 2.0 bearer token from the utility's identity provider. EnergyGrid doesn't issue tokens. They usually last one hour, and you refresh them through the utility IDP. Send the token in the `Authorization` header as `Bearer <token>`. For the full exchange, see [Configure authentication](/docs/integration-guide#step-2-configure-authentication-oauth) in the integration guide.
+
+## Base URL
+
+```
+https://api.energygrid.example/v1
+```
+
+A staging environment is available for integration testing. Pick it in the **Servers** list on any operation page.
+
+## Conventions
+
+- **Content type.** `application/json` for requests and responses.
+- **Identifiers.** `clientId`, `externalSiteId`, and `meterId` are strings owned by the utility CIS. EnergyGrid never generates them.
+- **Account status.** `AcctStatus` uses the utility's own codes, such as `A` for active and `F` for final. EnergyGrid stores the value as received. For the full list, see [account status codes](/docs/integration-guide#account-status-codes).
+- **Idempotency.** Customer sync is idempotent on `clientId`, so repeating it is safe. Binding isn't: a second bind for the same meter returns `400` with `METER_ALREADY_BOUND`.
+- **Errors.** Errors use the HTTP status code. Login and bind errors also return an `errorCode` in the body. See [error codes](/docs/integration-guide#error-codes).
+
+## Versioning
+
+The version is in the path (`/v1`). Breaking changes ship as a new major version, and the old one stays available for at least 90 days. New optional fields and new values on extensible enums ship in the current version.
+
+## Try it in the browser
+
+Every operation page has a **Send API Request** panel. The hosts in this spec don't exist, so the site answers those requests in your browser with a simulated server built from this spec. Use any value as the bearer token.
+
+## About this sample
+
+EnergyGrid is a fictional platform, documented end to end on this site. The contracts and conventions reflect a realistic utility integration API. The hostnames don't resolve.
+
+---
+
+URL: https://l-g99921.github.io/tw-portfolio/usage-api-openapi.json
+
+# EnergyGrid Usage API
+
+The **EnergyGrid Usage API** is the read API behind the EnergyGrid app and partner web portals. It returns the consumption, budget, and insight data customers see, and every call is made as the signed-in customer, not as the utility.
+
+The [PowerBox API](/docs/api/powerbox-api) moves data from the utility to EnergyGrid. The Usage API reads it back for one customer.
+
+## Audience
+
+Developers building partner mobile apps or white-label web portals that show energy use to customers.
+
+## Authentication
+
+Exchange a utility identity token for an EnergyGrid customer token with `POST /Customer/login`. Send the returned token as `Bearer <token>` on every other call. A token only reads data for the customer it belongs to. For the full handshake, see [Configure authentication](/docs/integration-guide#step-2-configure-authentication-oauth) in the integration guide.
+
+## Base URL
+
+```
+https://api.energygrid.example/usage/v1
+```
+
+## Conventions
+
+- **Content type.** `application/json`.
+- **Granularity.** Usage endpoints take a `granularity` parameter. Read the valid values from `GET /MetaData/granularitytypes` instead of hard-coding them.
+- **Currency and units.** Money is in the customer's billing currency. Energy is in the meter's `unitOfMeasure`, usually `kWh` for electricity.
+- **Errors.** Errors follow [RFC 7807](https://www.rfc-editor.org/rfc/rfc7807) problem details, with content type `application/problem+json`.
+
+## Try it in the browser
+
+Every operation page has a **Send API Request** panel. The hosts in this spec don't exist, so the site answers those requests in your browser with a simulated server built from this spec. Use any value as the bearer token.
+
+## About this sample
+
+The contracts reflect a realistic customer-facing usage API for a residential energy platform. EnergyGrid is fictional, and the hostnames don't resolve.
+
+---
+
+URL: https://l-g99921.github.io/tw-portfolio/pix-api-openapi.json
+
+# Instant Payments API (PIX sample)
+
+A sample API for creating and reconciling instant payments on PIX, Brazil's instant-payments system. The endpoints, payloads, and error codes follow the public PIX standard for payment service providers (PSPs) from Banco Central do Brasil. Customer identifiers, ISPBs, and webhook URLs are invented.
+
+**This API is anonymized and synthetic.** I wrote it for this portfolio, based on the conventions I used on real PIX integrations: contract-first OpenAPI, one reference page per operation, and errors as RFC 7807 problem details.
+
+## Try it in the browser
+
+Every operation page has a **Send API Request** panel. The hosts in this spec don't exist, so the site answers those requests in your browser with a simulated server built from this spec. Use any value as the bearer token. Charges and webhooks keep state: create a charge with `PUT /cob/{txid}`, then read it with `GET` and change it with `PATCH`.

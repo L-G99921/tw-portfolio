@@ -2,10 +2,10 @@
   "openapi": "3.0.3",
   "info": {
     "title": "EnergyGrid Usage API",
-    "description": "The **EnergyGrid Usage API** is the customer-facing read API behind the EnergyGrid app and partner web experiences. It exposes the energy consumption, budgeting, and insight surfaces that customers see — authenticated as the customer, not the utility.\n\nWhere the [PowerBox API](/docs/api/powerbox-api) handles utility-to-platform integration (CIS sync, hardware binding), the Usage API handles customer-to-platform reads (usage history, budget management, AI-powered insights).\n\n## Audience\n\nThis API is intended for partner mobile apps and white-labelled web portals that surface energy usage to end customers. All requests are made on behalf of an authenticated customer.\n\n## Authentication\n\nClients exchange a utility identity token for an EnergyGrid customer token via `POST /Customer/login`. The returned token is bearer-format and scoped to the requesting customer — it cannot read data for other accounts. See the [Integration Guide — Configure authentication (OAuth)](/docs/integration-guide#step-2-configure-authentication-oauth) for the full handshake.\n\n## Base URL\n\n```\nhttps://api.energygrid.example/usage/v1\n```\n\n## Conventions\n\n- **Content type.** Requests and responses use `application/json`.\n- **Time series granularity.** Usage endpoints accept a `granularity` parameter — values come from `GET /Metadata/granularity-types`. Don't hard-code.\n- **Currency and units.** Monetary fields are returned in the customer's billing currency, energy fields in the meter's `unitOfMeasure` (typically `kWh` for electric, `therms` for gas).\n- **Pagination.** List endpoints page via `pageSize` and `pageToken`. The next token is returned in the response body when more results are available.\n- **Errors.** Errors follow [RFC 7807](https://tools.ietf.org/html/rfc7807) Problem Details, content type `application/problem+json`.\n\n## Sample\n\nThis specification is published as a portfolio sample. The contracts and schemas are representative of the kind of customer-facing usage API that a residential energy management platform would expose. The hostnames are illustrative and do not resolve.",
+    "description": "The **EnergyGrid Usage API** is the read API behind the EnergyGrid app and partner web portals. It returns the consumption, budget, and insight data customers see, and every call is made as the signed-in customer, not as the utility.\n\nThe [PowerBox API](/docs/api/powerbox-api) moves data from the utility to EnergyGrid. The Usage API reads it back for one customer.\n\n## Audience\n\nDevelopers building partner mobile apps or white-label web portals that show energy use to customers.\n\n## Authentication\n\nExchange a utility identity token for an EnergyGrid customer token with `POST /Customer/login`. Send the returned token as `Bearer <token>` on every other call. A token only reads data for the customer it belongs to. For the full handshake, see [Configure authentication](/docs/integration-guide#step-2-configure-authentication-oauth) in the integration guide.\n\n## Base URL\n\n```\nhttps://api.energygrid.example/usage/v1\n```\n\n## Conventions\n\n- **Content type.** `application/json`.\n- **Granularity.** Usage endpoints take a `granularity` parameter. Read the valid values from `GET /MetaData/granularitytypes` instead of hard-coding them.\n- **Currency and units.** Money is in the customer's billing currency. Energy is in the meter's `unitOfMeasure`, usually `kWh` for electricity.\n- **Errors.** Errors follow [RFC 7807](https://www.rfc-editor.org/rfc/rfc7807) problem details, with content type `application/problem+json`.\n\n## Try it in the browser\n\nEvery operation page has a **Send API Request** panel. The hosts in this spec don't exist, so the site answers those requests in your browser with a simulated server built from this spec. Use any value as the bearer token.\n\n## About this sample\n\nThe contracts reflect a realistic customer-facing usage API for a residential energy platform. EnergyGrid is fictional, and the hostnames don't resolve.",
     "version": "1.0.0",
     "contact": {
-      "name": "Leandro Gabriel — Technical Writer",
+      "name": "Leandro Gabriel: Technical Writer",
       "url": "https://www.linkedin.com/in/leandro-gabriel-8aab31167/",
       "email": "lgos99921@gmail.com"
     },
@@ -17,11 +17,11 @@
   "servers": [
     {
       "url": "https://api.energygrid.example/usage/v1",
-      "description": "Production — illustrative URL, does not resolve"
+      "description": "Production: illustrative URL, does not resolve"
     },
     {
       "url": "https://staging.api.energygrid.example/usage/v1",
-      "description": "Staging — for integration testing against synthetic data"
+      "description": "Staging: for integration testing against synthetic data"
     }
   ],
   "tags": [
@@ -53,10 +53,12 @@
   "paths": {
     "/Customer/login": {
       "post": {
-        "summary": "Login",
+        "summary": "Log in a customer",
         "description": "Authenticates a customer using a utility identity system token and returns a EnergyGrid authentication token.",
         "operationId": "customerLogin",
-        "tags": ["Customer"],
+        "tags": [
+          "Customer"
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -95,7 +97,9 @@
         "summary": "Get customer info",
         "description": "Returns customer information including premises and devices (things). Use this endpoint as your starting point after login.",
         "operationId": "getCustomerInfo",
-        "tags": ["Customer"],
+        "tags": [
+          "Customer"
+        ],
         "security": [
           {
             "bearerAuth": []
@@ -126,10 +130,12 @@
     },
     "/Customer/{customerId}/{customerSiteId}/budget": {
       "get": {
-        "summary": "Returns budget response",
+        "summary": "Get the budget",
         "description": "Retrieves customer budget for a specific site.",
         "operationId": "getBudget",
-        "tags": ["Customer"],
+        "tags": [
+          "Customer"
+        ],
         "security": [
           {
             "bearerAuth": []
@@ -161,7 +167,12 @@
             "description": "Granularity type: day, week, month, or billingperiod",
             "schema": {
               "type": "string",
-              "enum": ["day", "week", "month", "billingperiod"]
+              "enum": [
+                "day",
+                "week",
+                "month",
+                "billingperiod"
+              ]
             }
           },
           {
@@ -208,10 +219,12 @@
         }
       },
       "post": {
-        "summary": "Sets customer budget based on object data",
+        "summary": "Set the budget",
         "description": "Sets customer budget based on the provided goal type.",
         "operationId": "setBudget",
-        "tags": ["Customer"],
+        "tags": [
+          "Customer"
+        ],
         "security": [
           {
             "bearerAuth": []
@@ -265,10 +278,12 @@
     },
     "/Customer/{customerId}/{customerSiteId}/homeprofile": {
       "get": {
-        "summary": "Gets customer home profile for given customer and site.",
+        "summary": "Get the home profile",
         "description": "Retrieves home profile information for a customer site.",
         "operationId": "getHomeProfile",
-        "tags": ["Customer"],
+        "tags": [
+          "Customer"
+        ],
         "security": [
           {
             "bearerAuth": []
@@ -317,10 +332,12 @@
         }
       },
       "post": {
-        "summary": "Creates customer home profile for values in request.",
+        "summary": "Create a home profile",
         "description": "Updates home profile information for a customer site.",
         "operationId": "updateHomeProfile",
-        "tags": ["Customer"],
+        "tags": [
+          "Customer"
+        ],
         "security": [
           {
             "bearerAuth": []
@@ -374,10 +391,12 @@
     },
     "/Insights/{customerId}/{customerSiteId}/digdeeper": {
       "get": {
-        "summary": "Gets \"dig deeper\" analysis.",
+        "summary": "Get the dig-deeper analysis",
         "description": "Gets a detailed breakdown of energy usage by category and subcategory.",
         "operationId": "getDigDeeper",
-        "tags": ["Insights"],
+        "tags": [
+          "Insights"
+        ],
         "security": [
           {
             "bearerAuth": []
@@ -409,7 +428,11 @@
             "description": "Granularity: day, week, or month",
             "schema": {
               "type": "string",
-              "enum": ["day", "week", "month"]
+              "enum": [
+                "day",
+                "week",
+                "month"
+              ]
             }
           },
           {
@@ -448,7 +471,10 @@
             "description": "Fuel type: gas or electric",
             "schema": {
               "type": "string",
-              "enum": ["gas", "electric"]
+              "enum": [
+                "gas",
+                "electric"
+              ]
             }
           },
           {
@@ -495,10 +521,12 @@
     },
     "/Insights/{customerId}/{customerSiteId}/mainusesofenergy": {
       "get": {
-        "summary": "Retrieves main uses of energy for Customer Site",
+        "summary": "Get main uses of energy",
         "description": "Retrieves the primary energy consumers for a customer site.",
         "operationId": "getMainUsesOfEnergy",
-        "tags": ["Insights"],
+        "tags": [
+          "Insights"
+        ],
         "security": [
           {
             "bearerAuth": []
@@ -530,7 +558,11 @@
             "description": "Granularity: day, week, or month",
             "schema": {
               "type": "string",
-              "enum": ["day", "week", "month"]
+              "enum": [
+                "day",
+                "week",
+                "month"
+              ]
             }
           },
           {
@@ -560,7 +592,10 @@
             "description": "Fuel type: gas or electric",
             "schema": {
               "type": "string",
-              "enum": ["gas", "electric"]
+              "enum": [
+                "gas",
+                "electric"
+              ]
             }
           }
         ],
@@ -592,10 +627,12 @@
     },
     "/Insights/{customerId}/{customerSiteId}/messagecarousel": {
       "get": {
-        "summary": "Returns message carousel items for given customer and site.",
+        "summary": "Get message carousel items",
         "description": "Gets personalized messages and tips for the customer.",
         "operationId": "getMessageCarousel",
-        "tags": ["Insights"],
+        "tags": [
+          "Insights"
+        ],
         "security": [
           {
             "bearerAuth": []
@@ -646,10 +683,12 @@
     },
     "/SimilarHomes/{customerId}/{customerSiteId}": {
       "get": {
-        "summary": "Returns similar homes response",
+        "summary": "Compare with similar homes",
         "description": "Compares a customer's energy usage with similar homes in the area.",
         "operationId": "getSimilarHomes",
-        "tags": ["Similar Homes"],
+        "tags": [
+          "Similar Homes"
+        ],
         "security": [
           {
             "bearerAuth": []
@@ -729,10 +768,12 @@
     },
     "/Usage/{customerId}/{customerSiteId}/filter": {
       "get": {
-        "summary": "Main usage search action.",
+        "summary": "Search usage data",
         "description": "Retrieves detailed energy usage data with flexible filtering options.",
         "operationId": "filterUsage",
-        "tags": ["Usage"],
+        "tags": [
+          "Usage"
+        ],
         "security": [
           {
             "bearerAuth": []
@@ -784,7 +825,14 @@
             "description": "Granularity: interval (15-min), hour, day, week, month, or billingperiod",
             "schema": {
               "type": "string",
-              "enum": ["interval", "hour", "day", "week", "month", "billingperiod"]
+              "enum": [
+                "interval",
+                "hour",
+                "day",
+                "week",
+                "month",
+                "billingperiod"
+              ]
             }
           }
         ],
@@ -813,10 +861,12 @@
     },
     "/MetaData/thingtypes": {
       "get": {
-        "summary": "Returns thing types",
+        "summary": "List thing types",
         "description": "Gets all supported device and meter types.",
         "operationId": "getThingTypes",
-        "tags": ["Metadata"],
+        "tags": [
+          "Metadata"
+        ],
         "security": [
           {
             "bearerAuth": []
@@ -850,10 +900,12 @@
     },
     "/MetaData/thingcategories": {
       "get": {
-        "summary": "Returns thing categories",
+        "summary": "List thing categories",
         "description": "Gets device categories.",
         "operationId": "getThingCategories",
-        "tags": ["Metadata"],
+        "tags": [
+          "Metadata"
+        ],
         "security": [
           {
             "bearerAuth": []
@@ -887,10 +939,12 @@
     },
     "/MetaData/granularitytypes": {
       "get": {
-        "summary": "Returns granularity types",
+        "summary": "List granularity types",
         "description": "Gets available time granularities for data queries.",
         "operationId": "getGranularityTypes",
-        "tags": ["Metadata"],
+        "tags": [
+          "Metadata"
+        ],
         "security": [
           {
             "bearerAuth": []
@@ -924,10 +978,12 @@
     },
     "/MetaData/propertytypes": {
       "get": {
-        "summary": "Returns thing property types",
+        "summary": "List property types",
         "description": "Gets available property types for things.",
         "operationId": "getPropertyTypes",
-        "tags": ["Metadata"],
+        "tags": [
+          "Metadata"
+        ],
         "security": [
           {
             "bearerAuth": []
@@ -961,10 +1017,12 @@
     },
     "/MetaData/metrictypes": {
       "get": {
-        "summary": "Home Profile Metric types",
+        "summary": "List home profile metric types",
         "description": "Gets home profile metric types.",
         "operationId": "getMetricTypes",
-        "tags": ["Metadata"],
+        "tags": [
+          "Metadata"
+        ],
         "security": [
           {
             "bearerAuth": []
@@ -998,10 +1056,12 @@
     },
     "/RateData/rategroups/{customerId}": {
       "get": {
-        "summary": "Returns rate groups.",
+        "summary": "List rate groups",
         "description": "Gets rate groupings used for cost calculations.",
         "operationId": "getRateGroups",
-        "tags": ["Rate Data"],
+        "tags": [
+          "Rate Data"
+        ],
         "security": [
           {
             "bearerAuth": []
@@ -1046,10 +1106,12 @@
     },
     "/RateData/cycledates/{billingYearId}/{billingCycleId}": {
       "get": {
-        "summary": "Billing Cycle dates",
+        "summary": "Get billing cycle dates",
         "description": "Gets billing cycle start and end dates.",
         "operationId": "getBillingCycleDates",
-        "tags": ["Rate Data"],
+        "tags": [
+          "Rate Data"
+        ],
         "security": [
           {
             "bearerAuth": []
@@ -1114,7 +1176,9 @@
     "schemas": {
       "LoginRequest": {
         "type": "object",
-        "required": ["token"],
+        "required": [
+          "token"
+        ],
         "properties": {
           "token": {
             "type": "string",
@@ -1275,22 +1339,22 @@
           "min": {
             "type": "number",
             "description": "Minimum usage value",
-            "example": 0.0
+            "example": 0
           },
           "max": {
             "type": "number",
             "description": "Maximum usage value",
-            "example": 10.0
+            "example": 10
           },
           "avg": {
             "type": "number",
             "description": "Average usage value",
-            "example": 5.0
+            "example": 5
           },
           "sum": {
             "type": "number",
             "description": "Total usage sum",
-            "example": 15.0
+            "example": 15
           }
         }
       },
@@ -1300,7 +1364,7 @@
           "totalUnit": {
             "type": "number",
             "description": "Total energy units consumed",
-            "example": 15.0
+            "example": 15
           },
           "timeStamp": {
             "type": "string",
@@ -1311,7 +1375,7 @@
           "cost": {
             "type": "number",
             "description": "Cost for this usage period",
-            "example": 1.0
+            "example": 1
           },
           "costContainers": {
             "type": "array",
@@ -1327,12 +1391,12 @@
           "totalUnit": {
             "type": "number",
             "description": "Energy units for this rate group",
-            "example": 15.0
+            "example": 15
           },
           "cost": {
             "type": "number",
             "description": "Cost for this rate group",
-            "example": 1.0
+            "example": 1
           },
           "intervalTypeId": {
             "type": "integer",
@@ -1367,11 +1431,11 @@
           },
           "standardAmount": {
             "type": "number",
-            "example": 150.00
+            "example": 150
           },
           "ecoAmount": {
             "type": "number",
-            "example": 120.00
+            "example": 120
           },
           "customAmount": {
             "type": "number",
@@ -1379,11 +1443,11 @@
           },
           "costSoFar": {
             "type": "number",
-            "example": 75.50
+            "example": 75.5
           },
           "costPredicted": {
             "type": "number",
-            "example": 145.00
+            "example": 145
           },
           "kwhSoFar": {
             "type": "number",
@@ -1391,7 +1455,7 @@
           },
           "kwhPredicted": {
             "type": "number",
-            "example": 890.0
+            "example": 890
           },
           "granularityTypeId": {
             "type": "integer",
@@ -1405,18 +1469,24 @@
       },
       "SetBudgetRequest": {
         "type": "object",
-        "required": ["goalType"],
+        "required": [
+          "goalType"
+        ],
         "properties": {
           "goalType": {
             "type": "string",
             "description": "Budget goal type: standard, eco, or custom",
-            "enum": ["standard", "eco", "custom"],
+            "enum": [
+              "standard",
+              "eco",
+              "custom"
+            ],
             "example": "custom"
           },
           "customAmount": {
             "type": "number",
             "description": "Custom monthly dollar amount (required when goalType is custom)",
-            "example": 200.00
+            "example": 200
           }
         }
       },
@@ -1550,7 +1620,7 @@
           },
           "cost": {
             "type": "number",
-            "example": 15.50
+            "example": 15.5
           },
           "totalUnit": {
             "type": "number",
@@ -1581,11 +1651,11 @@
           },
           "currentCost": {
             "type": "number",
-            "example": 45.50
+            "example": 45.5
           },
           "previousCost": {
             "type": "number",
-            "example": 52.30
+            "example": 52.3
           },
           "startDate": {
             "type": "string",
@@ -1694,35 +1764,35 @@
           },
           "alwaysOn": {
             "type": "number",
-            "example": 120.0
+            "example": 120
           },
           "electricVehicle": {
             "type": "number",
-            "example": 50.0
+            "example": 50
           },
           "refrigeration": {
             "type": "number",
-            "example": 45.0
+            "example": 45
           },
           "laundry": {
             "type": "number",
-            "example": 35.0
+            "example": 35
           },
           "cooking": {
             "type": "number",
-            "example": 40.0
+            "example": 40
           },
           "lighting": {
             "type": "number",
-            "example": 60.0
+            "example": 60
           },
           "entertainment": {
             "type": "number",
-            "example": 80.0
+            "example": 80
           },
           "heatingCooling": {
             "type": "number",
-            "example": 300.0
+            "example": 300
           },
           "waterHeating": {
             "type": "number",
@@ -1730,11 +1800,11 @@
           },
           "poolSauna": {
             "type": "number",
-            "example": 0.0
+            "example": 0
           },
           "everythingElse": {
             "type": "number",
-            "example": 50.0
+            "example": 50
           }
         }
       },
