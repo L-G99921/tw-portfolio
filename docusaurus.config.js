@@ -13,8 +13,8 @@ const measurementId = process.env.GA_MEASUREMENT_ID;
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Leandro Gabriel — Senior Technical Writer',
-  tagline: 'API documentation, docs-as-code, and AI-assisted docs pipelines — for fintech, SaaS, and data infrastructure teams',
+  title: 'Leandro Gabriel, Senior Technical Writer',
+  tagline: 'API references, integration guides, and the docs-as-code pipelines behind them',
   favicon: 'img/favicon.svg',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -30,6 +30,15 @@ const config = {
   trailingSlash: false,
 
   onBrokenLinks: 'throw',
+
+  // Geist and Geist Mono, the same typefaces as leandrogabriel.vercel.app
+  headTags: [
+    {tagName: 'link', attributes: {rel: 'preconnect', href: 'https://fonts.googleapis.com'}},
+    {tagName: 'link', attributes: {rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'anonymous'}},
+  ],
+  stylesheets: [
+    'https://fonts.googleapis.com/css2?family=Geist:wght@400..700&family=Geist+Mono:wght@400..600&display=swap',
+  ],
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
@@ -118,28 +127,30 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // Replace with your project's social card
-      image: 'img/lg-logo.svg',
+      image: 'img/og.png',
       colorMode: {
+        defaultMode: 'light',
         respectPrefersColorScheme: true,
       },
       navbar: {
-        title: '',
+        title: 'Leandro Gabriel',
         logo: {
-          alt: 'Leandro Gabriel — Technical Writer',
-          src: 'img/lg-logo-navbar.svg',
-          style: {height: '36px', width: 'auto'},
+          alt: '',
+          src: 'img/lg-mark.svg',
+          width: 32,
+          height: 32,
         },
         items: [
           {
             type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
             position: 'left',
-            label: 'Portfolio',
+            label: 'Work samples',
           },
           {
-            to: '/docs/api/powerbox-api',
+            to: '/docs/api/pix-api/instant-payments-api-pix-sample',
             position: 'left',
-            label: 'API Sample',
+            label: 'Try the API',
           },
           {
             to: '/docs/pix/about-pix',
@@ -163,91 +174,10 @@ const config = {
           },
         ],
       },
-      footer: {
-        style: 'dark',
-        links: [
-          {
-            title: 'Portfolio',
-            items: [
-              {
-                label: 'Featured Project',
-                to: '/docs',
-              },
-              {
-                label: 'Integration Guide',
-                to: '/docs/integration-guide',
-              },
-              {
-                label: 'API Reference Sample',
-                to: '/docs/api/powerbox-api',
-              },
-              {
-                label: 'PIX — Diátaxis showcase',
-                to: '/docs/pix/about-pix',
-              },
-            ],
-          },
-          {
-            title: 'Samples',
-            items: [
-              {
-                label: 'Hardware Install Guide',
-                to: '/docs/databridge/databridge-installation-guide-atlas-insight',
-              },
-              {
-                label: 'Writing Style Guide',
-                to: '/docs/writing-guideline',
-              },
-              {
-                label: 'Data Dictionary',
-                to: '/docs/data-dictionary',
-              },
-              {
-                label: 'PIX API Reference',
-                to: '/docs/api/pix-api/instant-payments-api-pix-sample',
-              },
-            ],
-          },
-          {
-            title: 'Connect',
-            items: [
-              {
-                label: 'LinkedIn',
-                href: 'https://www.linkedin.com/in/leandro-gabriel-8aab31167/',
-              },
-              {
-                label: 'GitHub',
-                href: 'https://github.com/L-G99921',
-              },
-              {
-                label: 'Email',
-                href: 'mailto:lgos99921@gmail.com',
-              },
-            ],
-          },
-        ],
-        copyright: `
-          <div style="display: flex; flex-direction: column; align-items: center; gap: 1.5rem; margin-top: 1rem;">
-            <div style="display: flex; gap: 1.5rem;">
-              <a href="https://www.linkedin.com/in/leandro-gabriel-8aab31167/" target="_blank" rel="noopener noreferrer" style="color: #A78BFA; font-size: 1.5rem; transition: color 0.2s;" onmouseover="this.style.color='#8B5CF6'" onmouseout="this.style.color='#A78BFA'" aria-label="LinkedIn">
-                <i class="fab fa-linkedin"></i>
-              </a>
-              <a href="https://github.com/L-G99921" target="_blank" rel="noopener noreferrer" style="color: #A78BFA; font-size: 1.5rem; transition: color 0.2s;" onmouseover="this.style.color='#8B5CF6'" onmouseout="this.style.color='#A78BFA'" aria-label="GitHub">
-                <i class="fab fa-github"></i>
-              </a>
-              <a href="mailto:lgos99921@gmail.com" style="color: #A78BFA; font-size: 1.5rem; transition: color 0.2s;" onmouseover="this.style.color='#8B5CF6'" onmouseout="this.style.color='#A78BFA'" aria-label="Email">
-                <i class="fas fa-envelope"></i>
-              </a>
-            </div>
-            <div style="opacity: 0.8; font-size: 0.9rem;">
-              Copyright © ${new Date().getFullYear()} Leandro Gabriel Oliveira de Souza. Built with Docusaurus.
-            </div>
-          </div>
-        `,
-      },
+      // The footer is rendered by src/theme/Footer, which replaces this block.
       prism: {
         theme: prismThemes.github,
-        darkTheme: prismThemes.dracula,
+        darkTheme: prismThemes.vsDark,
       },
     }),
 };

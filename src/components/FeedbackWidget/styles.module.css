@@ -1,23 +1,19 @@
 .feedbackWidget {
-  margin-top: 2rem;
-}
-
-.divider {
-  height: 1px;
-  background: var(--ifm-color-emphasis-300);
-  margin-bottom: 1.5rem;
+  margin-top: 2.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--lg-border);
 }
 
 .prompt {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.75rem 1rem;
   flex-wrap: wrap;
 }
 
 .question {
-  font-size: 0.95rem;
-  color: var(--ifm-color-content-secondary);
+  font-size: 0.92rem;
+  color: var(--lg-muted);
   font-weight: 500;
 }
 
@@ -27,30 +23,25 @@
 }
 
 .button {
-  padding: 0.4rem 1.1rem;
-  border-radius: 2rem;
-  border: 1px solid var(--ifm-color-emphasis-400);
-  background: transparent;
+  min-height: 34px;
+  padding: 0.3rem 0.95rem;
+  border-radius: 6px;
+  border: 1px solid var(--lg-border-strong);
+  background: var(--lg-bg);
   cursor: pointer;
   font-size: 0.875rem;
-  color: var(--ifm-color-content);
-  transition: border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  font-weight: 500;
+  color: var(--lg-text);
+  transition: border-color 150ms ease, color 150ms ease, background 150ms ease;
 }
 
 .button:hover {
-  border-color: var(--ifm-color-primary);
-  color: var(--ifm-color-primary);
-  box-shadow: 0 0 8px rgba(0, 230, 153, 0.3);
+  border-color: var(--lg-accent);
+  color: var(--lg-heading);
+  background: var(--lg-accent-soft);
 }
 
 .thanks {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.95rem;
-  color: var(--ifm-color-primary);
-}
-
-.thankIcon {
-  font-size: 1rem;
+  font-size: 0.92rem;
+  color: var(--lg-muted);
 }

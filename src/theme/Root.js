@@ -1,6 +1,17 @@
 import React, { useEffect } from 'react';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 function Root({ children }) {
+  const swUrl = useBaseUrl('/api-sandbox-sw.js');
+  const scope = useBaseUrl('/');
+
+  // API sandbox: answers "Send API Request" calls in the browser (static/api-sandbox-sw.js).
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register(swUrl, { scope }).catch(() => {});
+    }
+  }, [swUrl, scope]);
+
   useEffect(() => {
     // Create lightbox overlay
     const overlay = document.createElement('div');
