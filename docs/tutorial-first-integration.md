@@ -1,103 +1,92 @@
 ---
 id: tutorial-first-integration
 title: Your first EnergyGrid integration in 30 minutes
-description: "End-to-end tutorial — from sandbox credentials to a synchronised customer and a bound DataBridge device on the EnergyGrid PowerBox API."
-sidebar_label: Tutorial — first integration
+description: "Tutorial: from sandbox credentials to a synced customer and a bound DataBridge Hub on the EnergyGrid PowerBox API."
+sidebar_label: "Tutorial: first integration"
 sidebar_position: 2
 tags: [energygrid, powerbox, tutorial, integration]
 ---
 
 # Your first EnergyGrid integration in 30 minutes
 
-This tutorial walks you from zero to a working EnergyGrid integration in the [PowerBox API](/docs/api/powerbox-api) sandbox. By the end, you will have:
+In this tutorial you connect to the [PowerBox API](/docs/api/powerbox-api) sandbox and run the two flows every utility integration needs. By the end you'll have:
 
-- A sandbox `client_id` and `client_secret` issued by the utility identity provider.
-- A short-lived OAuth Bearer token.
-- A synchronised customer with one premise, one meter, and a verifiable `clientId`.
-- A DataBridge device bound to that meter.
+- An OAuth access token from the utility identity provider
+- A customer synced from the utility's customer information system (CIS), with one premise and one meter
+- A DataBridge Hub bound to that meter
 
-The tutorial uses cURL and `jq` so you can copy-paste each command. You can swap them for any HTTP client of your choice.
+You'll use `curl` and `jq` so you can copy each command as is. Any HTTP client works if you prefer another one.
 
-If you would rather understand what the PowerBox API *is* before writing any code, read the [Integration Guide](/docs/integration-guide) first.
+If you'd like to understand how PowerBox fits into the platform before you start, read the [integration guide](/docs/integration-guide) first.
 
-## Prerequisites
+:::tip No terminal handy?
+Each call in this tutorial is also on its [API reference page](/docs/api/powerbox-api), where you can send it from the browser. The site simulates the sandbox, so you don't need credentials there.
+:::
 
-- A terminal with `curl` and `jq` installed.
-- Roughly thirty minutes of focused time.
-- A scratch folder for the tutorial:
+## Before you begin
+
+- A terminal with `curl` and `jq` installed. To install `jq`, run `brew install jq` on macOS or `sudo apt install jq` on Debian and Ubuntu.
+- About 30 minutes.
+- An empty folder for the tutorial:
 
     ```bash
     mkdir energygrid-tutorial && cd energygrid-tutorial
     ```
 
-The PowerBox sandbox does not move real customer data and does not actually pair a physical device. You can re-run every step as many times as you want — customer sync is idempotent on `clientId`, and binding a meter that is already bound returns a no-op.
+The sandbox uses synthetic customers and doesn't pair any physical device, so you can't break anything. You can repeat the customer sync as often as you like. Binding is different, and Step 4 explains how to start it over.
 
-## Step 1 — Get sandbox credentials
+## Step 1: Get sandbox credentials
 
-EnergyGrid does not issue tokens directly. The utility identity provider (IDP) does. For this tutorial you can use the synthetic IDP that ships with the staging environment.
+EnergyGrid doesn't issue tokens. The utility's identity provider (IDP) does, and the staging environment includes a synthetic IDP for testing.
 
-1. **Request sandbox credentials**
+1. **Request credentials**
 
-    Sandbox accounts on this sample API are issued on demand. Request a `client_id` and `client_secret` by emailing `powerbox-sandbox@energygrid.example` with the subject `Sandbox access`. You receive credentials within one business hour.
+    Email `powerbox-sandbox@energygrid.example` with the subject `Sandbox access`. You get a `client_id` and a `client_secret` within one business hour.
 
-    > **Note:** This API is a portfolio sample — the credentials flow above is illustrative. The script in [Step 2](#step-2--get-an-access-token) shows the OAuth call you would actually make against a real utility IDP.
+    :::note
+    This API is a portfolio sample, so this request flow is illustrative. The OAuth call in Step 2 is the one you'd make against a real utility IDP.
+    :::
 
-2. **Export the credentials**
+2. **Save them as environment variables**
 
     ```bash
-    export ENERGY_CLIENT_ID=<your-id>
-    export ENERGY_CLIENT_SECRET=<your-secret>
+    export ENERGY_CLIENT_ID=<your-client-id>
+    export ENERGY_CLIENT_SECRET=<your-client-secret>
     export ENERGY_BASE_URL=https://staging.api.energygrid.example/v1
     export ENERGY_IDP_URL=https://idp.staging.energygrid.example
     ```
 
-    The base URL points at the **staging** environment. Production lives at `https://api.energygrid.example/v1` and is read-only to your sandbox client.
+    `ENERGY_BASE_URL` points to staging. Production is at `https://api.energygrid.example/v1`, and your sandbox client can only read from it.
 
-## Step 2 — Get an access token
+## Step 2: Get an access token
 
-Utility partners use OAuth 2.0 with OpenID Connect. For the back-office flows in this tutorial — customer sync and hardware binding — the right grant is **client credentials**. The token is short-lived (typically one hour). I'll explain why utility-customer flows use a different grant in the [Integration Guide](/docs/integration-guide#step-2-configure-authentication-oauth).
+Back-office flows like customer sync and binding use the OAuth 2.0 **client credentials** grant. Customer sign-in uses a different grant, explained in [Configure authentication](/docs/integration-guide#step-2-configure-authentication-oauth).
 
-1. **Request the token**
+Request a token with the two scopes this tutorial needs:
 
-    ```bash
-    ENERGY_TOKEN=$(curl -sS -X POST \
-      "$ENERGY_IDP_URL/oauth/token" \
-      -u "$ENERGY_CLIENT_ID:$ENERGY_CLIENT_SECRET" \
-      -d "grant_type=client_credentials&scope=customer.sync hardware.bind" \
-      | jq -r .access_token)
+```bash
+ENERGY_TOKEN=$(curl -sS -X POST \
+  "$ENERGY_IDP_URL/oauth/token" \
+  -u "$ENERGY_CLIENT_ID:$ENERGY_CLIENT_SECRET" \
+  -d "grant_type=client_credentials&scope=customer.sync hardware.bind" \
+  | jq -r .access_token)
 
-    echo "Token: ${ENERGY_TOKEN:0:12}…"
-    ```
+echo "Token: ${ENERGY_TOKEN:0:12}…"
+```
 
-    Expected output:
+Expected output:
 
-    ```text
-    Token: eyJhbGciOiJ…
-    ```
+```text
+Token: eyJhbGciOiJ…
+```
 
-    > **Tip:** If `jq` is not on your machine, install it (`brew install jq`, `apt install jq`) — every step below uses it to parse JSON responses.
+The token lasts about one hour. If a later step returns `401`, run this step again.
 
-2. **Confirm the token works**
+## Step 3: Sync a customer
 
-    ```bash
-    curl -sS -o /dev/null -w "%{http_code}\n" \
-      "$ENERGY_BASE_URL/powerbox/healthz" \
-      -H "Authorization: Bearer $ENERGY_TOKEN"
-    ```
+This call asks PowerBox for a customer's profile from the CIS: the account, the service addresses (premises), and the meters at each one. If it works, EnergyGrid can read your CIS, and the rest of the tutorial depends on that.
 
-    Expected output:
-
-    ```text
-    200
-    ```
-
-    A `401` here means the token didn't make it through — re-export `ENERGY_TOKEN` and try again.
-
-## Step 3 — Synchronise a customer
-
-The first real call pulls a customer profile from the utility's Customer Information System (CIS) into EnergyGrid: the account, the service addresses (Premises), and the meter configurations attached to each. The same call also confirms that EnergyGrid can read your CIS — it's the integration health check the rest of the tutorial depends on.
-
-1. **Trigger the sync**
+1. **Run the sync**
 
     ```bash
     curl -sS -X POST \
@@ -117,11 +106,11 @@ The first real call pulls a customer profile from the utility's Customer Informa
     }
     ```
 
-    The full CIS payload is now saved to `customer.json`. `AcctStatus = "A"` means the account is active. `sites: 1` confirms exactly one premise is associated with the customer — the test fixture used by the sandbox.
+    The full response is now in `customer.json`. `"A"` means the account is active, and the sandbox customer has one premise.
 
-2. **Pick the meter you'll bind**
+2. **Save the meter and premise IDs**
 
-    Each premise can carry multiple meters (electric, gas). You only need one for the tutorial — extract the first electric meter:
+    A premise can have several meters, such as electric and gas. You need one electric meter:
 
     ```bash
     export METER_ID=$(jq -r '.customerSites[0].meters[] | select(.meterType=="Electric") | .meterId' customer.json | head -n1)
@@ -138,13 +127,11 @@ The first real call pulls a customer profile from the utility's Customer Informa
     Meter:   123456789
     ```
 
-    Hold these IDs for the next step.
+Customer sync is idempotent on `clientId`. Running it again refreshes EnergyGrid's copy of the customer instead of creating a new one.
 
-> **Note:** Customer sync is idempotent on `clientId`. Re-running this command does not duplicate data — EnergyGrid uses the response to refresh its mirror, not to insert. You can re-export the meter and premise IDs at any point if your shell forgets them.
+## Step 4: Bind a DataBridge Hub
 
-## Step 4 — Bind a DataBridge device
-
-Now link a DataBridge device to the meter you picked in Step 3. In production the customer scans a QR code on the DataBridge during install, and the utility's wireless mesh radio (Home Area Network) handles pairing. The sandbox accepts hardcoded values that simulate the same handshake.
+Now link a DataBridge Hub to the meter from Step 3. In a real installation, the customer scans the QR code on the device and the utility's wireless mesh radio (the home area network) handles pairing. The sandbox accepts the values below and simulates that handshake.
 
 1. **Send the bind request**
 
@@ -157,8 +144,8 @@ Now link a DataBridge device to the meter you picked in Step 3. In production th
       -H "Content-Type: application/json" \
       -d "{
         \"hemProfileId\": \"$HEM_PROFILE_ID\",
-        \"macAddress\": \"AA:BB:CC:DD:EE:FF\",
-        \"installCode\": \"TUTORIAL-INSTALL-CODE-001\",
+        \"macAddress\": \"70:B3:D5:4A:1C:9E\",
+        \"installCode\": \"A1B2C3D4E5F6A7B8\",
         \"meterId\": \"$METER_ID\",
         \"actionCode\": 1
       }" -o /dev/null -w "%{http_code}\n"
@@ -170,11 +157,9 @@ Now link a DataBridge device to the meter you picked in Step 3. In production th
     200
     ```
 
-    A `200` confirms the bind request reached the utility's HAN gateway. Pairing itself is asynchronous — in production the gateway typically settles the bind within fifteen minutes, with a 48-hour worst case under poor radio conditions.
+    A `200` means the utility's head-end accepted the request. Pairing itself happens afterward. In production it usually finishes within 15 minutes, and it can take up to 48 hours when the radio signal is weak.
 
-2. **Re-sync to verify**
-
-    Customer sync surfaces meter state. Run it again to see the bound device reflected in the meter list:
+2. **Sync again to check the meter**
 
     ```bash
     curl -sS -X POST \
@@ -197,35 +182,37 @@ Now link a DataBridge device to the meter you picked in Step 3. In production th
     }
     ```
 
-    `isAMI: true` confirms the meter accepted the bind and is now reachable over the AMI network. You're done.
+    `isAMI: true` means the meter is on the AMI network, which is what the hub needs to read it.
 
-> **Important:** Hardware binding is **not** idempotent. Re-sending the bind for an already-bound `meterId` returns a `400` with `errorCode: METER_ALREADY_BOUND`. If you need to rebind, send `actionCode: 0` first to release the meter, then `actionCode: 1` again.
+:::caution Binding is not idempotent
+Sending the same bind again returns `400` with `errorCode: METER_ALREADY_BOUND`. To start over, send the request with `"actionCode": 0` to release the meter, then send it again with `1`.
+:::
 
 ## What you built
 
 ```mermaid
 flowchart LR
-    OAuth["OAuth token<br/>(client credentials)"] --> Sync["POST /powerbox/customer<br/>(idempotent)"]
-    Sync --> Pick["Pick meterId<br/>+ premiseId"]
+    OAuth["OAuth token<br/>(client credentials)"] --> Sync["POST /powerbox/customer"]
+    Sync --> Pick["Save meterId<br/>and premise ID"]
     Pick --> Bind["POST /powerbox/bind<br/>(actionCode: 1)"]
-    Bind --> Verify["POST /powerbox/customer<br/>(isAMI: true)"]
+    Bind --> Verify["POST /powerbox/customer<br/>(check the meter)"]
 ```
 
-Four HTTP calls. One synced customer. One bound device. The same shape works at production volume — the only thing that scales is the throttle on the utility's IDP.
+Four calls: a token, a customer sync, a bind, and a second sync. A production integration makes the same calls, at higher volume.
 
-## Where to go next
+## Next steps
 
-- [Integration Guide](/docs/integration-guide) — every step of the integration documented in production-grade detail: mTLS, JWT claims, bulk MDM ingestion, billing cycle schedule, rate types, error codes.
-- [PowerBox API reference](/docs/api/powerbox-api) — the full OpenAPI surface, including request/response schemas and every status code.
-- [DataBridge Hub setup guide](/docs/databridge/databridge-installation-guide-atlas-insight) — the customer-facing side of the same bind flow this tutorial walked through.
+- [Integration guide](/docs/integration-guide): mTLS, JWT claims, bulk usage data, billing cycles, rate types, and error codes.
+- [PowerBox API reference](/docs/api/powerbox-api): every request and response field and status code.
+- [DataBridge Hub installation guide](/docs/databridge/databridge-installation-guide-atlas-insight): the customer's side of the bind you just ran.
 
 ## Troubleshooting
 
 | Problem | Cause | Fix |
 | --- | --- | --- |
-| `401` on `/oauth/token` | Wrong `client_id` or `client_secret` | Re-export the env vars; check for trailing whitespace. |
-| `401` on `/powerbox/customer` | Token expired | Re-run [Step 2](#step-2--get-an-access-token) to refresh. Tokens are typically valid for one hour. |
-| `403` on `/powerbox/customer` | Account is locked or closed (`AcctStatus` is `C` or `S`) | Pick a different sandbox account, or contact the utility CIS team to reactivate the test fixture. |
-| `400` on `/powerbox/bind` with `errorCode: METER_ALREADY_BOUND` | The meter is already paired with another device | Send `actionCode: 0` first to release, then retry the bind. |
-| `400` on `/powerbox/bind` with `errorCode: INVALID_INSTALL_CODE` | Install code does not match the MAC address | Check the DataBridge sticker — install code and MAC are printed together. The sandbox accepts the hardcoded values shown in [Step 4](#step-4--bind-a-databridge-device). |
-| `customer.json` is empty after Step 3 | Bash redirected stderr instead of stdout | Re-run the command without `> /dev/null` and check for an HTTP error in the response body. |
+| `401` from `/oauth/token` | Wrong `client_id` or `client_secret` | Export the variables again and check for trailing spaces. |
+| `401` from `/powerbox/customer` | The token expired | Repeat [Step 2](#step-2-get-an-access-token). |
+| `403` from `/powerbox/customer` | The account is locked or closed (`AcctStatus` is `F`, `L`, or `Z`) | Use another sandbox customer, or ask the CIS team to reactivate the test account. |
+| `400` from `/powerbox/bind` with `METER_ALREADY_BOUND` | The meter already has a device | Send `actionCode: 0` to release it, then bind again. |
+| `400` from `/powerbox/bind` with `INVALID_INSTALL_CODE` | The install code doesn't match the MAC address | Check the device label, where both are printed together. In the sandbox, use the values from [Step 4](#step-4-bind-a-databridge-hub). |
+| `customer.json` is empty after Step 3 | The request failed before returning JSON | Run the `curl` command without `tee` and read the error in the response. |

@@ -1,7 +1,7 @@
 ---
 id: instant-payments-api-pix-sample
 title: "Instant Payments API (PIX sample)"
-description: "Sample API for issuing and reconciling instant payments on Brazil's PIX rail. The endpoints, payloads, and error codes mirror the publicly-documented PIX PSP standard published by Banco Central do Brasil. Customer identifiers, ISPBs, and webhook URLs are illustrative."
+description: "A sample API for creating and reconciling instant payments on PIX, Brazil's instant-payments system. The endpoints, payloads, and error codes follow the public PIX standard for payment service providers (PSPs) from Banco Central do Brasil. Customer identifiers, ISPBs, and webhook URLs are invented."
 sidebar_label: Introduction
 sidebar_position: 0
 hide_title: true
@@ -29,9 +29,13 @@ import Export from "@theme/ApiExplorer/Export";
 
 
 
-Sample API for issuing and reconciling instant payments on Brazil's PIX rail. The endpoints, payloads, and error codes mirror the publicly-documented PIX PSP standard published by Banco Central do Brasil. Customer identifiers, ISPBs, and webhook URLs are illustrative.
+A sample API for creating and reconciling instant payments on PIX, Brazil's instant-payments system. The endpoints, payloads, and error codes follow the public PIX standard for payment service providers (PSPs) from Banco Central do Brasil. Customer identifiers, ISPBs, and webhook URLs are invented.
 
-**This API is anonymized and synthetic.** It is published as a portfolio sample to demonstrate OpenAPI authoring conventions, Diátaxis-aligned reference structure, and the contract-first workflow used at scale on real PIX integrations.
+**This API is anonymized and synthetic.** I wrote it for this portfolio, based on the conventions I used on real PIX integrations: contract-first OpenAPI, one reference page per operation, and errors as RFC 7807 problem details.
+
+## Try it in the browser
+
+Every operation page has a **Send API Request** panel. The hosts in this spec don't exist, so the site answers those requests in your browser with a simulated server built from this spec. Use any value as the bearer token. Charges and webhooks keep state: create a charge with `PUT /cob/{txid}`, then read it with `GET` and change it with `PATCH`.
 
 <div
   style={{"marginBottom":"2rem"}}

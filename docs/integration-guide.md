@@ -1,61 +1,43 @@
 ---
 id: integration-guide
-title: PowerBox & BillSense Integration Guide
+title: PowerBox and BillSense AI integration guide
 description: "Step-by-step guide to integrate utility backend systems with the EnergyGrid Platform, covering PowerBox API middleware, OAuth authentication, customer synchronization, and bulk data ingestion for BillSense AI."
-sidebar_label: Integration Guide
+sidebar_label: Integration guide
 sidebar_position: 2
 tags: [integration, api, powerbox, oauth]
 ---
 
-# PowerBox API and BillSense AI Integration Guide
+# PowerBox and BillSense AI integration guide
 
-## Overview
+This guide is for backend engineers at a utility. It covers what you need to connect your systems to EnergyGrid so that the EnergyGrid app, BillSense AI bill analysis, and the DataBridge Hub work for your customers.
 
-This guide describes how to integrate your utility's backend systems with the EnergyGrid Platform. A complete integration enables the EnergyGrid mobile app, BillSense AI bill analysis, and DataBridge Hub hardware functionality.
+The integration has two layers:
 
-The integration consists of two layers:
+1. **Real-time layer (PowerBox API):** middleware you host that handles customer sign-in and profile sync.
+2. **Bulk data layer (SFTP or object storage):** scheduled file transfers with usage data (MDM), billing data, billing cycles, and rate information. BillSense AI depends on this layer.
 
-1. **Real-Time Layer (PowerBox API):** Middleware hosted in your infrastructure that handles customer authentication and profile synchronization.
-2. **Bulk Data Layer (SFTP / Object Storage):** A batch ingestion pipeline for high-volume usage data (MDM), billing financial data, billing cycles, and rate information required by BillSense AI.
-
----
-
-## Table of Contents
-
-- [Step 1: Host the PowerBox Middleware](#step-1-host-the-powerbox-middleware)
-- [Step 2: Configure Authentication (OAuth)](#step-2-configure-authentication-oauth)
-- [Step 3: Customer Synchronization](#step-3-customer-synchronization)
-- [Step 4: Bulk Data Ingestion (Required for BillSense AI)](#step-4-bulk-data-ingestion-required-for-billsense-ai)
-- [Step 5: Billing Cycle Schedule](#step-5-billing-cycle-schedule)
-- [Step 6: Rate Information (Required for BillSense AI)](#step-6-rate-information-required-for-billsense-ai)
-- [Step 7: Hardware Binding (Optional)](#step-7-hardware-binding-optional)
-- [Step 8: Data Transport Options](#step-8-data-transport-options)
-- [Appendix A: Error Codes](#error-codes)
-- [Appendix B: Account Status Codes](#account-status-codes)
-
----
-
-## Step 1: Host the PowerBox Middleware
-
-The PowerBox API is a translation service between the EnergyGrid Platform and the utility's IT infrastructure. It must be hosted within the utility's IT infrastructure and remain accessible to EnergyGrid cloud services via HTTPS (TLS 1.2+).
-
-- **Security:** Mutual TLS (mTLS), OAuth token validation, or additional measures such as IP restriction.
-- **Hosting:** Utility infrastructure, either on-premise or cloud.
-
----
-
-## Step 2: Configure Authentication (OAuth)
-
-EnergyGrid uses an **OAuth Authorization Code Flow** with **OpenID Connect (OIDC)** to securely link the utility customer account with the EnergyGrid user profile.
-
-:::tip Recommendation
-OIDC is the recommended protocol. If the utility does not yet support OIDC, SAML is also accepted. Most utility partners are already migrating to OIDC.
+:::tip Prefer to try it first?
+The [30-minute tutorial](/docs/tutorial-first-integration) walks through the real-time layer against the sandbox.
 :::
 
-### Authentication Flow
+## Step 1: Host the PowerBox middleware
 
-1. The mobile app sends a token request to the utility Identity Provider (IDP).
-2. The customer logs in via the utility login page using their existing credentials.
+The PowerBox API translates between EnergyGrid and your systems. Host it in your own infrastructure, on premises or in your cloud, and make it reachable from EnergyGrid over HTTPS with TLS 1.2 or later.
+
+Protect it with mutual TLS (mTLS), OAuth token validation, or both. IP allowlisting is a common extra layer.
+
+## Step 2: Configure authentication (OAuth)
+
+EnergyGrid uses the **OAuth authorization code flow** with **OpenID Connect (OIDC)** to link the customer's utility account to their EnergyGrid profile.
+
+:::tip Recommendation
+Use OIDC. If your identity provider doesn't support it yet, SAML also works, but most utility partners are moving to OIDC.
+:::
+
+### Authentication flow
+
+1. The mobile app sends a token request to the utility identity provider (IDP).
+2. The customer signs in on the utility's sign-in page with their existing credentials.
 3. The IDP returns an authorization code to the mobile app.
 4. The mobile app exchanges the code for a token with the utility IDP.
 5. The token response returns to the app.
@@ -64,29 +46,29 @@ OIDC is the recommended protocol. If the utility does not yet support OIDC, SAML
 8. After validation, EnergyGrid issues its own internal session token for subsequent API calls.
 
 :::note
-The utility IDP is used only for initial authentication. After token validation, EnergyGrid manages the session with its own internal token. EnergyGrid doesn't store customer personally identifiable information (PII).
+EnergyGrid uses the utility IDP only for the first sign-in. After it validates the token, EnergyGrid runs the session with its own token. EnergyGrid doesn't store customers' personally identifiable information (PII).
 :::
 
-### JWT Claims
+### JWT claims
 
-The claims inside the JSON Web Token (JWT) vary by utility. Common patterns:
+The claims in the JSON Web Token (JWT) vary by utility. The two common patterns:
 
-| Utility Type | Claim Used |
+| Utility model | Claim used |
 |---------|-----------|
 | Business partner model | `BPID` (Business Partner ID) |
 | Profile-based model | `subject`, custom claims, or Profile ID |
 
 The claim must resolve to a **unique, permanent customer identifier** (see `clientId` in [Step 3](#step-3-customer-synchronization)).
 
-### Login Endpoint
+### Login endpoint
 
 **Endpoint:** `POST /powerbox/login`
 
-This endpoint authenticates a utility customer against the utility customer database.
+Authenticates a utility customer against your customer database.
 
 **Request payload:** OAuth token (Bearer header)
 
-**Response (Success — HTTP 200):**
+**Response (success, HTTP 200):**
 
 ```json
 {
@@ -94,7 +76,7 @@ This endpoint authenticates a utility customer against the utility customer data
 }
 ```
 
-**Response (Error — HTTP 401/404):**
+**Response (error, HTTP 401 or 404):**
 
 ```json
 {
@@ -102,45 +84,43 @@ This endpoint authenticates a utility customer against the utility customer data
 }
 ```
 
-| Field | Data Type | Notes |
+| Field | Data type | Notes |
 |-------|-----------|-------|
 | `clientId` | Alphanumeric | Unique customer identifier within the utility |
 
-See [Error Codes](#error-codes) for all valid error codes.
+For every error code, see [Appendix A](#error-codes).
 
----
+## Step 3: Customer synchronization
 
-## Step 3: Customer Synchronization
-
-After authentication, EnergyGrid fetches the customer's account details, service addresses (premises), and meter configurations from the utility's Customer Information System (CIS).
+After sign-in, EnergyGrid fetches the customer's account details, service addresses (premises), and meter configuration from your customer information system (CIS).
 
 **Endpoint:** `POST /powerbox/customer`
 
-EnergyGrid calls this endpoint together with login to capture the most current customer information. The call fires each time a token expires, the customer logs out, or the customer reinstalls the app.
+EnergyGrid calls this endpoint right after login, to get current customer data. It calls it again whenever a token expires, the customer signs out, or the customer reinstalls the app.
 
 **Request payload:** OAuth token (Bearer header)
 
-### Understanding the Data Model
+### The data model
 
-| Concept | What It Identifies | Examples |
+| Concept | What it identifies | Examples |
 |---------|--------------------|----------|
-| **Client ID** | The person (login profile). Permanent across moves. | Business Partner ID (BPID), Business Partner Number (BPN), Profile ID |
-| **Account Number** | The billing account. Changes when the customer moves. | Contract account number |
-| **External Site ID / Premise Number** | The physical location. Permanent — does not change between tenants. | Premise number, site number |
-| **Meter ID** | The physical meter device. Permanent unique identifier. | Utility meter ID |
+| **Client ID** | The person (sign-in profile). Stays the same when they move. | Business Partner ID (BPID), Business Partner Number (BPN), Profile ID |
+| **Account number** | The billing account. Changes when the customer moves. | Contract account number |
+| **External site ID (premise number)** | The physical location. Stays the same between tenants. | Premise number, site number |
+| **Meter ID** | The physical meter. Permanent and unique. | Utility meter ID |
 
 **Key relationships:**
 
 - One person (`clientId`) can have multiple premises (`customerSites`).
 - One premise can have multiple meters (`meters`).
-- `Account Number` + `Premise ID` = unique site in EnergyGrid.
+- Account number plus premise ID identifies one site in EnergyGrid.
 - If only one premise or meter exists, `isPrimary` defaults to `true`.
 
-:::note Tenant Move Detection
-If premise and meter IDs are permanent (they do not change between tenants), EnergyGrid applies additional logic to detect when a new tenant has moved in and dissociates the premise from the previous tenant's Client ID. When Client IDs share the same Account Number and Premise identifier, EnergyGrid treats these as shared accounts — multiple login profiles with access to the same premises.
+:::note Detecting a tenant move
+When premise and meter IDs stay the same between tenants, EnergyGrid detects when a new tenant moves in and removes the premise from the previous tenant's client ID. When two client IDs share the same account number and premise, EnergyGrid treats them as a shared account: several sign-in profiles with access to the same premises.
 :::
 
-### Response (Full Reference Model)
+### Response (full model)
 
 ```json
 {
@@ -177,22 +157,22 @@ If premise and meter IDs are permanent (they do not change between tenants), Ene
 }
 ```
 
-### Customer Fields
+### Customer fields
 
-| Field | Data Type | Required | Notes |
+| Field | Data type | Required | Notes |
 |-------|-----------|----------|-------|
 | `clientId` | Alphanumeric | **Yes** | Unique customer identifier. Use a permanent profile ID (BPID, BPN, or Profile ID) so the record persists across moves. |
 | `firstName` | String | Optional | Customer's first name. |
 | `lastName` | String | Optional | Customer's last name. |
 | `businessName` | String | Optional | If present, EnergyGrid marks the customer as a business account. |
-| `AcctStatus` | String | Optional | Current account state. See [Account Status Codes](#account-status-codes). This field name is intentionally PascalCase as returned by the API. |
+| `AcctStatus` | String | Optional | Current account state. See [Appendix B](#account-status-codes). The API returns this field name in PascalCase. |
 | `customerSites` | Array | **Yes** | Premises associated with the customer. |
 
-### CustomerSite Fields
+### CustomerSite fields
 
-| Field | Data Type | Required | Notes |
+| Field | Data type | Required | Notes |
 |-------|-----------|----------|-------|
-| `externalSiteId` | Alphanumeric | **Yes** | Premise or site number. Use the permanent value if available. Combined with Account Number, this forms a unique premise in EnergyGrid. |
+| `externalSiteId` | Alphanumeric | **Yes** | Premise or site number. Use the permanent value if available. With the account number, it identifies one premise in EnergyGrid. |
 | `isPrimary` | Boolean | **Yes** | `true` if this is the customer's primary location. Always `true` if only one site exists. |
 | `firstName` | String | Optional | First name on the billing account. |
 | `lastName` | String | Optional | Last name on the billing account. |
@@ -202,9 +182,9 @@ If premise and meter IDs are permanent (they do not change between tenants), Ene
 | `postalCode` | String | **Yes** | US: 5-digit zip code. Canada: 6-character postal code with space (for example, `V6M 2T5`). |
 | `meters` | Array | **Yes** | Meters at this site. A site can have more than one meter of any type. |
 
-### Meter Fields
+### Meter fields
 
-| Field | Data Type | Required | Notes |
+| Field | Data type | Required | Notes |
 |-------|-----------|----------|-------|
 | `accountNumber` | Alphanumeric | Conditional | Contract account number. **Required** if permanent client and premise IDs are used (where only the account number changes on move). Apply the same account number to all meters at a billing account. Account numbers must differ across premises. |
 | `meterId` | Alphanumeric | **Yes** | Permanent unique meter identifier. Used for DataBridge Hub binding requests if applicable. |
@@ -212,49 +192,47 @@ If premise and meter IDs are permanent (they do not change between tenants), Ene
 | `unitOfMeasure` | String | Optional | Electric: `kWh` or `Wh`. Gas: `ccf` or `cm`. |
 | `isPrimary` | Boolean | **Yes** | `true` for the main meter when multiple meters exist at a site. If a site has an interruptible HVAC meter and a standard meter, the standard meter is marked primary. |
 | `isAMI` | Boolean | **Yes** | `true` if this is an Advanced Metering Infrastructure (AMI) smart meter. AMI meters have radios that form a mesh network and send data automatically. If `isAMI = true`, a DataBridge Hub can be added. |
-| `isAMR` | Boolean | Optional | `true` if this is an Advanced Meter Reading (AMR) meter — uses RFID, read by a drive-by vehicle. |
+| `isAMR` | Boolean | Optional | `true` if this is an Automated Meter Reading (AMR) meter, which a passing vehicle reads over RFID. |
 | `PANID` | Alphanumeric | Optional | **Obsolete.** Personal Area Network (PAN) ID of the AMI meter. Previously used by DataBridge Hub for mesh binding. |
-| `rateCode` | Alphanumeric | **Yes** | Meter rate code that determines which billing calculator to use. See [Rate Information](#step-6-rate-information-required-for-billsense-ai). |
+| `rateCode` | Alphanumeric | **Yes** | Meter rate code that determines which billing calculator to use. See [Step 6](#step-6-rate-information-required-for-billsense-ai). |
 | `rateMultiplier` | Numeric | Optional | **Obsolete.** Rate multiplier for usage computation. |
-| `billingCycleId` | Integer | **Yes** | Customer's billing cycle ID. References the billing cycle schedule. See [Billing Cycle Schedule](#step-5-billing-cycle-schedule). |
+| `billingCycleId` | Integer | **Yes** | Customer's billing cycle ID. References the billing cycle schedule. See [Step 5](#step-5-billing-cycle-schedule). |
 | `dialCount` | Integer | Optional | **Obsolete.** Number of dials on a meter, previously used for AMR gas meters. |
 
-:::tip Minimum Required Fields for Launch
-At a minimum, the customer response must include: `clientId`, at least one `customerSite` with `externalSiteId` and `postalCode`, and at least one meter with `meterId`, `meterType`, `isAMI`, `rateCode`, and `billingCycleId`.
+:::tip Minimum fields for launch
+The customer response must include at least: `clientId`, at least one `customerSite` with `externalSiteId` and `postalCode`, and at least one meter with `meterId`, `meterType`, `isAMI`, `rateCode`, and `billingCycleId`.
 :::
 
----
+## Step 4: Bulk data ingestion (required for BillSense AI)
 
-## Step 4: Bulk Data Ingestion (Required for BillSense AI)
-
-The PowerBox API establishes who the customer is. BillSense AI also requires how much energy the customer used and what they were billed in order to generate insights.
+The PowerBox API tells EnergyGrid who the customer is. To explain a bill, BillSense AI also needs how much energy the customer used and what they were charged.
 
 :::caution
-Without rate information and billing data, BillSense AI cannot function. Projected bills will not match actual bills, which drives unnecessary call center volume.
+Without billing data and rate information, BillSense AI can't work. Projected bills won't match real bills, and customers call your support line to ask why.
 :::
 
-### 4.1 Usage Data (MDM)
+### 4.1 Usage data (MDM)
 
-Usage data is the primary source for energy visualization and is sourced from the Meter Data Management (MDM) system.
+Usage data drives every chart in the app. It comes from your meter data management (MDM) system.
 
 | Attribute | Description |
 |-----------|-------------|
 | **Source** | Meter Data Management (MDM) system |
 | **Electric granularity** | 15-minute or hourly |
 | **Gas granularity** | Daily (standard) or hourly (if using AMR adapters) |
-| **Latency** | Varies by utility — from near real-time (a few hours behind) to approximately 36 hours behind |
+| **Latency** | Varies by utility, from a few hours to about 36 hours behind |
 
-:::note AMI Dependency
-If the utility does not have AMI meters and lacks hourly resolution, the platform's analytical value is significantly reduced. There is no granular data to visualize or analyze.
+:::note AMI dependency
+Without AMI meters and hourly data, there's little for the app to chart or analyze, and the platform loses most of its value.
 :::
 
-#### Ingestion Methods
+#### Ingestion methods
 
-- **Full Batch:** Receive data for all utility customers, store it, and load it upon user registration.
-- **Registered Only:** Receive data only for customers who have registered.
-- **API Backfill:** Request historical data at registration time via API, followed by standard SFTP or object-storage updates the next day.
+- **Full batch:** send data for every customer. EnergyGrid stores it and loads it when a customer registers.
+- **Registered only:** send data only for customers who have registered.
+- **API backfill:** EnergyGrid requests history through the API at registration, then regular SFTP or object-storage updates start the next day.
 
-#### File Format
+#### File format
 
 **Format:** CSV via SFTP
 
@@ -274,57 +252,55 @@ AccountNumber,ExternalSiteID,MeterID,TimeStamp,TotalUnit
 ```
 
 :::note
-Only data for registered EnergyGrid customers is loaded into the platform database, matched using identifiers from the `/powerbox/customer` endpoint. Utility partners may choose to send data for all customers.
+EnergyGrid loads data only for registered customers, matched by the identifiers from `/powerbox/customer`. You can still send data for every customer.
 :::
 
-### 4.2 Billing and Financial Data (BillSense AI Core)
+### 4.2 Billing and financial data
 
-BillSense AI requires granular financial data to explain bill changes — for example, identifying that a bill increased due to a rate change.
+To explain why a bill changed, for example because the rate went up, BillSense AI needs detailed billing data.
 
 #### Meter Contract History (MCH)
 
-The Meter Contract History (MCH) is the authoritative record of what the customer was billed. Essential fields:
+The meter contract history (MCH) is the record of what the customer was billed. Include these fields:
 
 | Field | Description |
 |-------|-------------|
-| Contract Account | Billing account identifier |
-| Billing Start Date | Start of billing period |
-| Billing End Date | End of billing period |
-| Total Consumption | Total energy consumed in the period |
-| Usage Value | Usage amount in billing units |
-| Cost | Dollar amount charged |
-| Tax Amounts | Tax breakdown |
-| Meter Effective Date | When the meter became active for this contract |
+| Contract account | Billing account identifier |
+| Billing start date | Start of the billing period |
+| Billing end date | End of the billing period |
+| Total consumption | Total energy used in the period |
+| Usage value | Usage in billing units |
+| Cost | Amount charged, in dollars |
+| Tax amounts | Tax breakdown |
+| Meter effective date | When the meter became active for this contract |
 
 :::tip
-If the utility provides billing line items (a detailed breakdown of charges), that is the preferred format. If not, a condensed version with the fields above is acceptable. Approximately 25% of columns in a typical billing export can be eliminated.
+Billing line items, with every charge broken out, work best. If you can't export them, the fields above are enough. You can usually drop about 25% of the columns in a typical billing export.
 :::
 
-#### Additional Data Sets
+#### Other data sets
 
-| Data Set | Description | Frequency |
+| Data set | Description | Frequency |
 |----------|-------------|-----------|
-| **Invoice Details** | Breakdown of line items (taxes, fees, riders) essential for AI analysis | Daily |
-| **Payment Plans** | Records for customers on payment arrangements or budget billing | Daily |
-| **Account Termination** | List of closed accounts to trigger data cleanup | Daily (or as needed) |
+| **Invoice details** | Line items (taxes, fees, riders). BillSense AI uses them to attribute each charge. | Daily |
+| **Payment plans** | Customers on payment arrangements or budget billing | Daily |
+| **Account termination** | Closed accounts, so EnergyGrid can delete their data | Daily, or as needed |
 
-:::note Solar Billing
-Solar billing structures are complex and not yet standardized across utility partners. The current approach uses net metering. EnergyGrid handles solar-specific billing structures on a case-by-case basis.
+:::note Solar billing
+Solar billing varies a lot between utilities. EnergyGrid supports net metering today and handles other solar structures case by case.
 :::
 
----
+## Step 5: Billing cycle schedule
 
-## Step 5: Billing Cycle Schedule
+Billing cycles, also called the meter reading schedule or meter reading units (MRU), define the periods customers are billed for. The `billingCycleId` on each meter references this schedule.
 
-Billing cycles — also called Meter Reading Schedule or Meter Reading Units (MRU) — define the service intervals for which utility customers are billed. The `billingCycleId` on each meter references this schedule.
+Utilities stagger billing cycles to spread the processing load, often around 100,000 customers per cycle per day. A utility can have as few as 20 cycles or several thousand MRUs.
 
-Utility partners stagger billing cycles to distribute processing load. A typical arrangement serves approximately 100,000 customers per cycle per day in rotation. A utility can have as few as 20 billing cycles or several thousand MRUs.
+EnergyGrid needs the complete schedule to calculate the costs of each billing period.
 
-EnergyGrid requires the complete cycle schedule to evaluate billing period costs and charges.
+### Example: cycle 1 schedule for 2025
 
-### Example: Cycle 1 Schedule for 2025
-
-| Cycle ID | Start Date | End Date |
+| Cycle ID | Start date | End date |
 |----------|-----------|----------|
 | 1 | 2024-12-03 | 2025-01-02 |
 | 1 | 2025-01-03 | 2025-01-30 |
@@ -340,45 +316,41 @@ EnergyGrid requires the complete cycle schedule to evaluate billing period costs
 | 1 | 2025-10-31 | 2025-12-02 |
 
 :::note
-Cycle IDs are not limited to numeric values. They can be alphanumeric depending on the utility's system.
+Cycle IDs can be alphanumeric, depending on your system.
 :::
 
----
+## Step 6: Rate information (required for BillSense AI)
 
-## Step 6: Rate Information (Required for BillSense AI)
-
-:::warning Non-negotiable
-Without rate information, BillSense AI will not function. Projected bills will not match actual bills, which generates unnecessary calls to the utility's call center.
+:::warning Required
+Without rate information, BillSense AI can't calculate a bill. Projections won't match real bills, and customers call your support line to ask why.
 :::
 
-The `rateCode` on each meter in the customer object points to the appropriate billing calculator. EnergyGrid requires all rate codes supported by the utility for **residential rates** only.
+The `rateCode` on each meter tells EnergyGrid which billing calculator to use. Send every rate code you offer for **residential** customers.
 
-### Meter Rate Codes
+### Meter rate codes
 
-Each meter is assigned a rate code. Provide the full list of supported codes:
-
-| Rate Code | Description |
+| Rate code | Description |
 |-----------|----------------------|
-| EFR_D1_8 | Residential Dynamic Peak Pricing — Exp. D1_8 |
+| EFR_D1_8 | Residential Dynamic Peak Pricing, Exp. D1_8 |
 | EFR_D1-A | Residential Time-of-Day Pilot I |
 | EFR_D1-B | Residential Time-of-Day Pilot II |
-| EFR_D1.11 | Residential Service Rate — Standard Time-of-Use D1.11 |
-| EFR_D1.13 | Residential Service Rate — Overnight Savers |
+| EFR_D1.11 | Residential Service Rate, Standard Time-of-Use D1.11 |
+| EFR_D1.13 | Residential Service Rate, Overnight Savers |
 
-### Supported Rate Types
+### Supported rate types
 
-EnergyGrid supports three rate calculation types, plus fixed costs (service and facility fees, taxes, and non-taxable program charges) that apply to any billing interval.
+EnergyGrid supports three ways to calculate rates. Fixed costs (service and facility fees, taxes, and non-taxable program charges) apply on top of any of them.
 
-#### Time of Use (TOU)
+#### Time of use (TOU)
 
-Time-of-Use (TOU) rates require:
+TOU rates need:
 
 - A schedule of observed holidays (generally treated as off-peak)
 - Peak intervals with start and end hours for each day type
 
-**Example: Summer TOU Schedule**
+**Example: summer TOU schedule**
 
-| Name | Amount ($/kWh) | Start Hour | End Hour | Rate Start Date | Rate End Date |
+| Name | Amount ($/kWh) | Start hour | End hour | Rate start date | Rate end date |
 |------|---------------|------------|----------|----------------|--------------|
 | Off-peak M-F | 0.0479 | 0 | 7 | 2025-06-01 | 2025-09-30 |
 | Mid-Peak M-F | 0.0922 | 7 | 15 | 2025-06-01 | 2025-09-30 |
@@ -392,98 +364,96 @@ Concurrent rates (delivery, energy waste reduction, distribution) can be rolled 
 
 #### Tiered
 
-Tiered rates use a prorate factor to compute the daily Tier 1 allowance. Given a daily Tier 1 prorate factor of 22.1918 kilowatt-hours (kWh) and the number of days in a billing period, the system calculates the upper Tier 1 limit. When cumulative usage exceeds this threshold, Tier 2 pricing applies for the remainder of the billing period. Delivery, distribution, and other charges also apply.
+Tiered rates use a prorate factor for the daily Tier 1 allowance. For example, with a factor of 22.1918 kWh a day, a 30-day billing period has a Tier 1 limit of about 665.75 kWh. Usage above that limit is priced at Tier 2 for the rest of the period. Delivery, distribution, and other charges still apply.
 
 #### Flat
 
-A single average per-kWh amount applied uniformly to all usage.
+One price per kWh for all usage.
 
----
+## Step 7: Hardware binding (optional)
 
-## Step 7: Hardware Binding (Optional)
-
-If the integration includes DataBridge Hub hardware, the bind endpoint links the device to the AMI meter over the utility's wireless mesh radio.
+If your rollout includes the DataBridge Hub, the bind endpoint links the device to the customer's AMI meter over your wireless mesh radio.
 
 **Endpoint:** `POST /powerbox/bind`
 
-The bind process uses a service account — individual customer credentials are not used. In addition to TLS 1.2, a client certificate for mutual TLS (mTLS), provisioned by EnergyGrid, is attached during the TLS handshake along with a basic authentication header.
+Binding uses a service account, not the customer's credentials. Each request carries a basic authentication header and, during the TLS 1.2 handshake, a client certificate for mutual TLS (mTLS) that EnergyGrid provides.
 
-### Request Payload
+### Request payload
 
 ```json
 {
-  "hemProfileId": "a3f1c8d2-44bc-4e1a-b9f0-123456789abc",
-  "accountSlid": "SL-000123456",
-  "macAddress": "AA:BB:CC:DD:EE:FF",
-  "installCode": "A1B2C3D4E5F6A7B8"
+  "hemProfileId": "a3f1c8d2-44bc-4e1a-b9f0-5c2e7d81a6b4",
+  "macAddress": "70:B3:D5:4A:1C:9E",
+  "installCode": "A1B2C3D4E5F6A7B8",
+  "meterId": "123456789",
+  "actionCode": 1
 }
 ```
 
 | Field | Description |
 |-------|-------------|
-| `hemProfileId` | Customer GUID |
-| `accountSlid` | Account Service Location ID (SLID) |
-| `macAddress` | DataBridge Hub MAC address |
-| `installCode` | DataBridge Hub install code |
+| `hemProfileId` | EnergyGrid customer profile ID (GUID) |
+| `macAddress` | MAC address on the DataBridge Hub label |
+| `installCode` | Install code on the same label |
+| `meterId` | Meter to bind, from customer sync |
+| `actionCode` | `1` to bind, `0` to release the meter |
 
-### Response (Success — HTTP 200)
+### Response
+
+`200` with no body means the request was accepted. Pairing finishes afterward, usually within 15 minutes and at most 48 hours.
+
+Binding isn't idempotent. A second bind for the same meter returns `400`:
 
 ```json
 {
-  "status": "success",
-  "message": "Binding request accepted"
+  "errorCode": "METER_ALREADY_BOUND",
+  "message": "Meter 123456789 is already bound. Send actionCode 0 to release it first."
 }
 ```
 
-:::note
-For error responses, see [Error Codes](#error-codes).
-:::
+For the other error codes, see [Appendix A](#error-codes).
 
----
+## Step 8: Data transport options
 
-## Step 8: Data Transport Options
-
-EnergyGrid supports the following transport methods for bulk data exchange with the utility:
+EnergyGrid can exchange bulk data in any of these ways:
 
 | Method | Notes |
 |--------|-------|
 | **SFTP** | Standard method for MDM data |
 | **FTP** | Legacy option |
-| **Object-storage replication** | Bucket-to-bucket sync between utility and EnergyGrid object stores |
-| **API** | For on-demand backfill or real-time feeds |
-| **File Exchange** | Generic file drop mechanism |
+| **Object-storage replication** | Bucket-to-bucket sync between your object store and EnergyGrid's |
+| **API** | On-demand backfill or real-time feeds |
+| **File exchange** | A generic file drop |
 
-Agree on the transport method and hosting responsibility (utility-hosted vs. EnergyGrid-hosted) during the integration kickoff.
+At the integration kickoff, agree on the method and on who hosts it, you or EnergyGrid.
 
----
+## Appendix A: Error codes {#error-codes}
 
-## Appendix A: Error Codes {#error-codes}
-
-| HTTP Status | Error Code | Description |
+| HTTP status | Error code | Description |
 |-------------|-----------|-------------|
 | 401 | 1 | Invalid credentials. The customer does not have a utility account. |
 | 401 | 2 | Invalid credentials. Two authentication attempts remaining. |
 | 401 | 3 | Invalid credentials. One authentication attempt remaining. |
 | 401 | 4 | Account is locked. The customer must contact the utility to remove the lock. |
-| 401 | 86 | Account is closed, finaled, or no longer accessible. EnergyGrid may or may not have an associated record. |
-| 503 | — | PowerBox API outage or maintenance. The response has no error model body. |
+| 401 | 86 | Account is closed, finaled, or no longer accessible. EnergyGrid might still have a record for it. |
+| 503 | None | PowerBox API outage or maintenance. The response has no body. |
 
 :::note
-Error codes 2–4 apply only to existing utility customers. The PowerBox API returns HTTP 503 without an error model body during outages or scheduled maintenance.
+Error codes 2 to 4 apply only to existing utility customers.
 :::
 
-## Appendix B: Account Status Codes {#account-status-codes}
+## Appendix B: Account status codes {#account-status-codes}
 
-| Status Code | Name | Description |
+| Status code | Name | Description |
 |-------------|------|-------------|
 | A | Active | Active account |
-| C | Charge Off | Account charged off |
-| D | Active Service Disconnect | Active account with service disconnected |
+| C | Charge off | Account charged off |
+| D | Active service disconnect | Active account with service disconnected |
 | F | Final | Final account billing complete |
 | L | Closed | Closed account with unpaid final bill |
 | N | New | Active new account |
 | P | Pending | Pending account with a future open date |
 | S | Sold | Sold receivables account |
-| U | Final Account Funds Due | Final account with unclaimed funds |
-| X | Final Account Still Billed | Final account still receiving charges |
+| U | Final account funds due | Final account with unclaimed funds |
+| X | Final account still billed | Final account still receiving charges |
 | Z | Cancel | Cancelled account |

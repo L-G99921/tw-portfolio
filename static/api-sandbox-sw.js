@@ -257,7 +257,49 @@ async function pixHandlers(found, method, body) {
     }
   }
 
+  if (template === '/pix/{e2eId}' && method === 'GET') {
+    const received = await stateGet('pix/' + params.e2eId);
+    if (!received) {
+      return problem(404, 'Payment not found', `No received PIX with e2eId ${params.e2eId}. In the sandbox, pay a charge first with POST /_sandbox/pay/{txid}.`);
+    }
+    return reply(200, received);
+  }
+
   return null; // fall back to the spec example
+}
+
+async function simulatePayment(txid, request) {
+  const auth = request.headers.get('Authorization') || '';
+  if (!/^Bearer\s+\S+/i.test(auth)) return problem(401, 'Unauthorized', 'Add a bearer token. Any non-empty value works in the sandbox.');
+
+  const stored = await stateGet('cob/' + txid);
+  if (!stored) return problem(404, 'Charge not found', `No charge with txid ${txid}. Create it first with PUT /cob/${txid}.`);
+  if (stored.charge.status !== 'ATIVA') return problem(409, 'Charge already paid', `The charge status is ${stored.charge.status}.`);
+
+  let body = {};
+  try {
+    body = JSON.parse((await request.text()) || '{}');
+  } catch {
+    return problem(400, 'Invalid JSON', 'The request body is not valid JSON.');
+  }
+
+  // e2eId: E + ISPB (8) + yyyyMMddHHmm (UTC) + 11-character suffix
+  const now = new Date();
+  const stamp = now.toISOString().replace(/\D/g, '').slice(0, 12);
+  const suffix = Array.from(crypto.getRandomValues(new Uint8Array(11)), (b) => 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'[b % 32]).join('');
+  const e2eId = 'E12345678' + stamp + suffix;
+
+  const received = {
+    endToEndId: e2eId,
+    txid,
+    valor: stored.charge.valor ? stored.charge.valor.original : '0.00',
+    horario: now.toISOString(),
+    pagador: body.pagador || {cpf: '12345678909', nome: 'Maria Silva'},
+  };
+  const charge = {...stored.charge, status: 'CONCLUIDA', pix: [received]};
+  await stateSet('cob/' + txid, {request: stored.request, charge});
+  await stateSet('pix/' + e2eId, received);
+  return reply(200, {endToEndId: e2eId, txid, status: 'CONCLUIDA'});
 }
 
 /* ---------- Main handler ---------- */
@@ -266,6 +308,12 @@ async function handle(request, url) {
   await delay();
   const method = request.method.toUpperCase();
   if (method === 'OPTIONS') return reply(204, null);
+
+  // Sandbox-only helper from the PIX tutorial: pays a charge as a simulated customer.
+  const payMatch = url.pathname.match(/\/_sandbox\/pay\/([^/]+)$/);
+  if (payMatch && method === 'POST' && url.hostname.includes('instant-payments')) {
+    return simulatePayment(decodeURIComponent(payMatch[1]), request);
+  }
 
   const specs = await loadSpecs();
   const found = findOperation(specs, url, method);
@@ -308,6 +356,21 @@ async function handle(request, url) {
     } else if (deref(spec, op.requestBody).required) {
       return documentedError(found, 400, 'Missing body', 'This operation requires a JSON request body.');
     }
+  }
+
+  // PowerBox binding keeps state too, so a second bind fails the way the docs say.
+  if (found.template === '/powerbox/bind') {
+    const key = 'bind/' + (body.meterId || '');
+    const bound = await stateGet(key);
+    if (body.actionCode === 0) {
+      await stateDelete(key);
+      return reply(200, null);
+    }
+    if (bound) {
+      return reply(400, {errorCode: 'METER_ALREADY_BOUND', message: `Meter ${body.meterId} is already bound. Send actionCode 0 to release it first.`});
+    }
+    await stateSet(key, {macAddress: body.macAddress, at: new Date().toISOString()});
+    return reply(200, null);
   }
 
   if (spec.info && /PIX/i.test(spec.info.title)) {

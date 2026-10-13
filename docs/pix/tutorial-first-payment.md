@@ -1,55 +1,61 @@
 ---
 title: Send your first PIX payment
-description: "End-to-end tutorial — from sandbox credentials to a settled PIX payment with a webhook callback."
-sidebar_label: Tutorial — first payment
+description: "Tutorial: from sandbox credentials to a settled PIX payment, a webhook callback, and a reconciled charge."
+sidebar_label: "Tutorial: first payment"
 sidebar_position: 2
 tags: [pix, tutorial, instant-payments]
 ---
 
 # Send your first PIX payment
 
-This tutorial walks you from zero to a confirmed PIX payment in the sandbox of the [Instant Payments API sample](/docs/api/pix-api/instant-payments-api-pix-sample). By the end, you will have:
+In this tutorial you create a charge in the sandbox of the [Instant Payments API sample](/docs/api/pix-api/instant-payments-api-pix-sample), pay it with a simulated customer, receive the webhook, and reconcile the payment. By the end you'll have:
 
-- A sandbox client ID and secret
-- A registered PIX key
-- A webhook endpoint that receives payment notifications
-- One settled payment with an `e2eId`
+- An OAuth access token
+- A charge, with its `txid`
+- A webhook listener that receives payment notifications
+- A settled payment with its `e2eId`, matched to the charge
 
-The tutorial uses cURL and a small Node.js script for the webhook. You can swap either for your language of choice.
+You'll use `curl`, `jq`, and a short Node.js script for the webhook. Any HTTP client and language work if you prefer others.
 
-If you would rather understand what PIX *is* before writing any code, read [About PIX](./about-pix) first.
+If you want to understand PIX itself first, read [About PIX](./about-pix).
 
-## Prerequisites
+:::tip Try it in the browser
+Every call except the webhook delivery also works on the [API reference pages](/docs/api/pix-api/instant-payments-api-pix-sample), in a sandbox the site simulates in your browser. Use any value as the token there.
+:::
 
-- Node.js 20+ and `curl` installed locally
-- An ngrok account ([free tier is enough](https://ngrok.com/))
-- A scratch folder for the tutorial:
+## Before you begin
+
+- Node.js 20 or later, `curl`, and `jq`. To install `jq`, run `brew install jq` on macOS or `sudo apt install jq` on Debian and Ubuntu.
+- An [ngrok](https://ngrok.com/) account. The free plan is enough.
+- An empty folder:
 
     ```bash
     mkdir pix-tutorial && cd pix-tutorial
     ```
 
-The sandbox does not move real money. You can re-run every step as many times as you want.
+The sandbox doesn't move real money, so you can repeat any step.
 
-## Step 1 — Get a sandbox token
+## Step 1: Get an access token
 
 1. **Request sandbox credentials**
 
-    Sandbox accounts on this sample API are issued on demand. Request a `client_id` and `client_secret` by emailing `pix-sandbox@instant-payments.example` with the subject `Sandbox access`. You receive credentials within one business hour.
+    Email `pix-sandbox@instant-payments.example` with the subject `Sandbox access`. You get a `client_id` and a `client_secret` within one business hour.
 
-    > **Note:** This API is a portfolio sample — the credentials flow above is illustrative. The script in [Step 2](#step-2--create-a-charge) shows the OAuth call you would actually make against a real PSP.
+    :::note
+    This API is a portfolio sample, so this request flow is illustrative. The token request in the next steps is the one you'd make to a real PSP.
+    :::
 
-2. **Export the credentials**
+2. **Save them as environment variables**
 
     ```bash
-    export PIX_CLIENT_ID=<your-id>
-    export PIX_CLIENT_SECRET=<your-secret>
+    export PIX_CLIENT_ID=<your-client-id>
+    export PIX_CLIENT_SECRET=<your-client-secret>
     export PIX_BASE_URL=https://sandbox.instant-payments.example/v2
     ```
 
-3. **Get an access token**
+3. **Request a token**
 
-    PIX PSPs use OAuth 2.0 client credentials. The token is short-lived (typically one hour).
+    PSPs use the OAuth 2.0 client credentials grant. Ask for the scopes this tutorial uses:
 
     ```bash
     PIX_TOKEN=$(curl -sS -X POST \
@@ -67,20 +73,20 @@ The sandbox does not move real money. You can re-run every step as many times as
     Token: eyJhbGciOiJ…
     ```
 
-    > **Tip:** If `jq` is not on your machine, install it (`brew install jq`, `apt install jq`) — every step below uses it to parse JSON responses.
+    The token lasts about one hour. If a later step returns `401`, request a new one.
 
-## Step 2 — Create a charge
+## Step 2: Create a charge
 
-A `cob` (charge) is a payment intent that the customer settles. The merchant supplies the `txid`. Pick something memorable but unique:
+A charge (`cob`) is a payment request that the customer pays. You choose its ID, the `txid`.
 
-1. **Generate a transaction ID**
+1. **Create a `txid`**
 
     ```bash
     export TXID=tutorial$(date +%Y%m%d%H%M%S)$(openssl rand -hex 4)
     echo "txid: $TXID (length ${#TXID})"
     ```
 
-    The `txid` must be 26 to 35 alphanumeric characters. The line above produces 30.
+    A `txid` has 26 to 35 letters and digits. This one has 30.
 
 2. **Create the charge**
 
@@ -103,22 +109,20 @@ A `cob` (charge) is a payment intent that the customer settles. The merchant sup
     "ATIVA"
     ```
 
-    The full response is now in `charge.json`. The fields you need for later steps are `txid`, `revisao`, and `loc.id` (the QR code reference). Register the PIX key webhook in the next step.
+    The full response is in `charge.json`. `ATIVA` means the charge is waiting for payment, for the next 3,600 seconds. `loc.location` is the payload a banking app reads from the QR code.
 
-> **Note:** The `chave` (`merchant@example.com`) is a sandbox key pre-registered to your client. In production you would register your own key first — see the [API reference](/docs/api/pix-api/instant-payments-api-pix-sample) for the `PUT /webhook/{chave}` flow.
+The key `merchant@example.com` is already registered to your sandbox client. In production, you use a PIX key registered to your own account.
 
-## Step 3 — Stand up a webhook listener
+## Step 3: Set up a webhook listener
 
-The sandbox simulates a paying customer for you. Before triggering the simulated payment, expose an HTTPS endpoint that the PSP can post to.
+When the payment settles, the PSP sends a webhook. Start a small server that prints what it receives, and make it reachable over HTTPS.
 
-1. **Write a minimal listener**
+1. **Write the listener**
 
     Create `webhook.js`:
 
     ```javascript
     const http = require('http');
-
-    const port = 3000;
 
     http.createServer((req, res) => {
       let body = '';
@@ -126,20 +130,17 @@ The sandbox simulates a paying customer for you. Before triggering the simulated
       req.on('end', () => {
         console.log(`\n${new Date().toISOString()}  ${req.method} ${req.url}`);
         try {
-          const payload = JSON.parse(body);
-          console.log(JSON.stringify(payload, null, 2));
+          console.log(JSON.stringify(JSON.parse(body), null, 2));
         } catch {
           console.log(body || '(empty body)');
         }
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end('{"received":true}');
       });
-    }).listen(port, () => {
-      console.log(`Webhook listener on http://localhost:${port}`);
-    });
+    }).listen(3000, () => console.log('Listening on http://localhost:3000'));
     ```
 
-    Run it in a terminal:
+    Run it:
 
     ```bash
     node webhook.js
@@ -159,12 +160,12 @@ The sandbox simulates a paying customer for you. Before triggering the simulated
     Forwarding  https://a1b2c3.ngrok.io -> http://localhost:3000
     ```
 
-    Copy the HTTPS URL — you'll register it next.
-
 3. **Register the webhook**
 
+    Replace the URL with the one ngrok printed:
+
     ```bash
-    export NGROK_URL=https://a1b2c3.ngrok.io   # paste your URL here
+    export NGROK_URL=https://a1b2c3.ngrok.io
 
     curl -sS -X PUT \
       "$PIX_BASE_URL/webhook/merchant@example.com" \
@@ -183,60 +184,67 @@ The sandbox simulates a paying customer for you. Before triggering the simulated
     }
     ```
 
-    A key has at most one webhook. Re-running this command replaces the URL.
+    A key has one webhook at most, so running this again replaces the URL. Following the PIX standard, the PSP adds `/pix` to the end of the URL when it calls you, so notifications arrive at `/pix-callback/pix`.
 
-## Step 4 — Trigger a sandbox payment
+## Step 4: Pay the charge
 
-In production, the customer scans the charge's QR code with their banking app. The sandbox exposes a helper that simulates that step.
+In real life, the customer scans the QR code with their banking app. The sandbox has a helper endpoint that does it for you.
 
-1. **Send the simulated payment**
+1. **Simulate the payment**
 
     ```bash
     curl -sS -X POST \
       "$PIX_BASE_URL/_sandbox/pay/$TXID" \
       -H "Authorization: Bearer $PIX_TOKEN" \
       -H "Content-Type: application/json" \
-      -d '{
-        "pagador": { "cpf": "12345678909", "nome": "João Tutorial" }
-      }' | jq .endToEndId
+      -d '{ "pagador": { "cpf": "12345678909", "nome": "João Tutorial" } }' \
+      | jq -r .endToEndId
     ```
 
     Expected output:
 
     ```text
-    "E12345678202604241832A1B2C3D4E5F"
+    E12345678202604241832A1B2C3D4E5F
     ```
 
-2. **Watch the webhook fire**
+    Save it for Step 5:
 
-    In the terminal running `webhook.js`, you should see the callback within a few seconds:
+    ```bash
+    export E2EID=E12345678202604241832A1B2C3D4E5F
+    ```
+
+2. **Check the webhook**
+
+    In the terminal running `webhook.js`, the notification arrives within a few seconds. The body is a list, because one call can carry several payments:
 
     ```text
-    2026-04-24T18:32:14.221Z  POST /pix-callback
+    2026-04-24T18:32:14.221Z  POST /pix-callback/pix
     {
-      "endToEndId": "E12345678202604241832A1B2C3D4E5F",
-      "txid": "tutorial20260424183205a1b2c3d4",
-      "valor": "12.50",
-      "horario": "2026-04-24T18:32:13Z",
-      "pagador": {
-        "cpf": "12345678909",
-        "nome": "João Tutorial"
-      }
+      "pix": [
+        {
+          "endToEndId": "E12345678202604241832A1B2C3D4E5F",
+          "txid": "tutorial20260424183205a1b2c3d4",
+          "valor": "12.50",
+          "horario": "2026-04-24T18:32:13Z"
+        }
+      ]
     }
     ```
 
-    > **Important:** Always respond `2xx` from the webhook within 5 seconds. The PSP retries with exponential backoff for up to 24 hours on non-2xx responses, which can flood your endpoint during an outage.
+:::warning Respond quickly
+Return a `2xx` within 5 seconds. If you don't, the PSP retries with increasing delays for up to 24 hours, and you get the same payment again. [Handle PIX webhooks](./how-to-handle-webhooks) shows how to respond fast and process each payment once.
+:::
 
-## Step 5 — Reconcile
+## Step 5: Reconcile
 
-The webhook is your source of truth. The API is your verification path.
+The webhook tells you a payment arrived. The API confirms it.
 
-1. **Refresh the charge**
+1. **Read the charge again**
 
     ```bash
-    curl -sS \
-      "$PIX_BASE_URL/cob/$TXID" \
-      -H "Authorization: Bearer $PIX_TOKEN" | jq '{ status, pix: .pix[0].endToEndId }'
+    curl -sS "$PIX_BASE_URL/cob/$TXID" \
+      -H "Authorization: Bearer $PIX_TOKEN" \
+      | jq '{ status, e2eId: .pix[0].endToEndId }'
     ```
 
     Expected output:
@@ -244,17 +252,16 @@ The webhook is your source of truth. The API is your verification path.
     ```json
     {
       "status": "CONCLUIDA",
-      "pix": "E12345678202604241832A1B2C3D4E5F"
+      "e2eId": "E12345678202604241832A1B2C3D4E5F"
     }
     ```
 
-    The `txid` and the `e2eId` now point at each other. Either one resolves the full payment.
+    `CONCLUIDA` means the charge was paid. The charge now points to the payment, and the payment points back to the charge.
 
-2. **Look up the received PIX directly**
+2. **Read the payment**
 
     ```bash
-    curl -sS \
-      "$PIX_BASE_URL/pix/E12345678202604241832A1B2C3D4E5F" \
+    curl -sS "$PIX_BASE_URL/pix/$E2EID" \
       -H "Authorization: Bearer $PIX_TOKEN" | jq
     ```
 
@@ -273,33 +280,34 @@ The webhook is your source of truth. The API is your verification path.
     }
     ```
 
-You have just settled a payment, received a webhook, and reconciled both sides. You have completed the entire happy path.
+You created a charge, received the payment through a webhook, and confirmed it on both sides.
 
 ## What you built
 
 ```mermaid
 flowchart LR
     OAuth[OAuth token] --> Charge["PUT /cob/{txid}<br/>(ATIVA)"]
-    Charge --> Webhook["PUT /webhook/{chave}<br/>(register URL)"]
+    Charge --> Webhook["PUT /webhook/{chave}"]
     Webhook --> Pay["POST /_sandbox/pay<br/>(simulated)"]
-    Pay --> Notify["Webhook fires<br/>(e2eId)"]
+    Pay --> Notify["Webhook<br/>(e2eId)"]
     Notify --> Reconcile["GET /cob/{txid}<br/>(CONCLUIDA)"]
 ```
 
-Five HTTP calls. One settled payment. The same shape works at production volume — the only thing that scales is the webhook listener.
+A production integration makes the same calls. The part that has to scale is the webhook listener.
 
-## Where to go next
+## Next steps
 
-- [Handle PIX webhook callbacks](./how-to-handle-webhooks) — production-ready webhook handling: signature verification, idempotency, replay safety.
-- [About PIX](./about-pix) — the rail, the keys, the `e2eId`, and why API choices look the way they do.
-- [Instant Payments API reference](/docs/api/pix-api/instant-payments-api-pix-sample) — the full OpenAPI surface.
+- [Handle PIX webhooks](./how-to-handle-webhooks): authentication, fast responses, processing each payment once, and recovering from an outage.
+- [About PIX](./about-pix): keys, the `e2eId`, and why the API looks the way it does.
+- [Instant Payments API reference](/docs/api/pix-api/instant-payments-api-pix-sample): every operation and field.
 
 ## Troubleshooting
 
 | Problem | Cause | Fix |
 | --- | --- | --- |
-| `401` on `/oauth/token` | Wrong `client_id` or `client_secret` | Re-export the env vars; check for trailing whitespace. |
-| `400` on `PUT /cob/{txid}` with `propriedade: "valor.original"` | Amount sent as a number, not a string | Wrap the amount in quotes: `"original": "12.50"`. |
-| `409` on `PUT /cob/{txid}` | Re-using a `txid` with a different body | Generate a fresh `txid` (Step 2.1) or re-send the same body for an idempotent re-create. |
-| Webhook doesn't fire | ngrok URL changed since last registration | Re-run `PUT /webhook/{chave}` with the current ngrok URL. |
-| Webhook receives the same `e2eId` twice | The PSP retried because the listener didn't return `2xx` quickly enough | Persist `e2eId` and dedupe — see [Handle webhook callbacks](./how-to-handle-webhooks#guarantee-idempotency). |
+| `401` from `/oauth/token` | Wrong `client_id` or `client_secret` | Export the variables again and check for trailing spaces. |
+| `400` from `PUT /cob/{txid}` about `valor.original` | The amount was sent as a number | Send it as a string: `"original": "12.50"`. |
+| `400` from `PUT /cob/{txid}` about the `txid` | The `txid` is shorter than 26 or longer than 35 characters, or has symbols | Create a new one with the command in Step 2. |
+| `409` from `PUT /cob/{txid}` | You reused a `txid` with a different body | Create a new `txid`, or send exactly the same body again. |
+| No webhook arrives | The ngrok URL changed after you registered it | Register the webhook again with the current URL. |
+| The same `e2eId` arrives twice | The PSP retried because your listener was slow | Store each `e2eId` and skip ones you've seen. See [Process each payment once](./how-to-handle-webhooks#process-each-payment-once). |

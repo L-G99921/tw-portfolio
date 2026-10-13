@@ -1,70 +1,71 @@
 ---
 slug: /
-title: Featured Project — EnergyGrid Docs
-description: Portfolio sample by Leandro Gabriel — a technical documentation portal for a fictional utility platform.
+title: EnergyGrid documentation
+description: Featured portfolio project by Leandro Gabriel. A documentation portal for a fictional utility platform, written for three audiences.
 sidebar_position: 1
 tags: [portfolio, featured-project, getting-started]
 ---
 
-# Featured project — EnergyGrid documentation
+# EnergyGrid documentation
 
-*A featured project in [Leandro Gabriel's](https://www.linkedin.com/in/leandro-gabriel-8aab31167/) technical writing portfolio — a full documentation portal for a **fictional** utility energy platform, built to demonstrate information architecture, docs-as-code workflows, and Docusaurus theming.*
+:::info About this project
+EnergyGrid is a fictional utility platform. I documented it end to end for this portfolio to show how one product can serve three audiences: backend engineers at a utility, people installing hardware at home, and support agents. The company, products, and URLs are invented. The writing decisions are real.
+:::
 
-The EnergyGrid Platform is an energy management solution that connects utility partners, smart meters, and customers through integrated hardware and software. It delivers real-time energy monitoring, smart device control, and AI-powered billing insights.
+EnergyGrid connects utility companies, smart meters, and their customers. Utilities send customer and meter data to the platform, customers install a small device at home, and the EnergyGrid app shows energy use in near real time and explains each bill.
 
-:::tip Looking to integrate?
-Start with the [Integration Guide](/docs/integration-guide) to connect your utility's backend systems with the EnergyGrid Platform.
+:::tip Integrating a utility?
+Start with the [integration guide](/docs/integration-guide). If you prefer to learn by doing, the [tutorial](/docs/tutorial-first-integration) gets you to a working sandbox integration in about 30 minutes.
 :::
 
 ## Products
 
-**DataBridge Hub** — An enterprise-grade hardware device that connects to Advanced Metering Infrastructure (AMI) smart meters over the utility's wireless mesh radio. It enables real-time energy data streaming and control of compatible smart home devices.
+**DataBridge Hub.** A device that reads the smart meter over the utility's wireless mesh radio (AMI). It streams usage data to the app and can control compatible smart home devices.
 
-**SmartLink Plug** — A compact smart plug with integrated whole-home energy metering. It connects to utility smart meters and controls compatible mesh smart devices in a simplified form factor.
+**SmartLink Plug.** A smart plug with the same meter connection in a smaller device. It suits homes that only need monitoring and a few controlled devices.
 
-**BillSense AI** — An intelligent billing analysis system that explains bill changes, identifies usage patterns, and provides actionable insights to customers.
+**BillSense AI.** A bill analysis feature in the app. It explains why a bill changed, breaks usage down by category, and suggests ways to save.
 
-## Get started
+## Where to start
 
-| Resource | Description |
-|----------|-------------|
-| [Integration Guide](/docs/integration-guide) | Configure PowerBox API middleware, OAuth authentication, and data ingestion pipelines. |
-| [API Reference](/docs/api/powerbox-api) | Explore endpoints, authentication methods, and implementation examples. |
-| [DataBridge Hub Installation](/docs/databridge/databridge-installation-guide-atlas-insight) | Deploy and configure DataBridge Hub hardware for smart meter connectivity. |
-| [SmartLink Plug Installation](/docs/smartlink/smartlink-installation-guide) | Install and bind SmartLink Plug devices to utility smart meters. |
-| [PIX — Diátaxis showcase](/docs/pix/about-pix) | A second domain — Brazil's instant-payments rail — with one page of each Diátaxis type and an anonymized OpenAPI sample modelled on the public PIX PSP standard. |
+| If you are | Read |
+|---|---|
+| A backend engineer at a utility | [Integration guide](/docs/integration-guide), then the [API reference](/docs/api/powerbox-api) |
+| New to the platform and want to try it | [Tutorial: your first integration](/docs/tutorial-first-integration) |
+| Installing hardware at home | [DataBridge Hub](/docs/databridge/databridge-installation-guide-atlas-insight) or [SmartLink Plug](/docs/smartlink/smartlink-installation-guide) |
+| A support agent | [BillSense AI overview](/docs/billsense-ai/overview) and [troubleshooting](/docs/billsense-ai/troubleshooting) |
 
-## Platform Architecture
+The portfolio also has a second, separate project: [PIX](/docs/pix/about-pix), a documentation set for Brazil's instant-payments system with one page of each Diátaxis type and an API reference you can call from the browser.
 
-The EnergyGrid Platform consists of two integration layers.
+## How the platform connects
 
-### Real-Time Layer (PowerBox API)
+A utility integrates through two layers.
 
-A middleware service hosted within utility infrastructure that handles:
+### Real-time layer: PowerBox API
 
-- Customer authentication via OAuth 2.0
-- Customer profile synchronization from the Customer Information System (CIS)
-- Hardware binding requests for DataBridge Hub and SmartLink Plug devices
+PowerBox is a middleware service that runs inside the utility's infrastructure. It handles:
 
-### Bulk Data Layer (SFTP / Object Storage)
+- Customer sign-in through OAuth 2.0
+- Customer profile sync from the utility's customer information system (CIS)
+- Requests to bind a DataBridge Hub or SmartLink Plug to a meter
 
-A batch ingestion pipeline for high-volume data required by BillSense AI:
+### Bulk data layer: SFTP or object storage
 
-- **Usage Data (MDM)** — 15-minute or hourly meter reads for energy visualization
-- **Billing Data (MCH)** — Financial records for bill explanation and analysis
-- **Invoice Details** — Line-item breakdowns for granular cost attribution
+BillSense AI needs more data than an API call can carry. The utility uploads files on a schedule:
 
-## Hardware Solutions
+- **Usage data (MDM):** meter reads at 15-minute or hourly intervals
+- **Billing data:** the financial record of each bill
+- **Invoice details:** line items, so the app can show what each charge covers
 
-EnergyGrid offers two hardware options for smart meter connectivity.
+## Hardware options
 
-| Device | Connection | Best For |
-|--------|------------|----------|
-| **DataBridge Hub** | Ethernet or Wi-Fi | Full smart home integration with extended mesh device support |
-| **SmartLink Plug** | Wi-Fi only | Simplified deployment with mesh smart device control |
+| Device | Connects through | Good fit for |
+|---|---|---|
+| DataBridge Hub | Ethernet or Wi-Fi | Homes that want to control several smart devices |
+| SmartLink Plug | Wi-Fi | Homes that mainly want monitoring |
 
-Both devices communicate with utility AMI meters over the utility's wireless mesh radio and require a bind request to join the Home Area Network (HAN).
+Both devices talk to the utility's AMI meter over the wireless mesh radio. Before a device can read the meter, the utility sends a bind request that adds the device to the meter's home area network (HAN).
 
 ## Support
 
-For technical assistance with integration or hardware deployment, contact your EnergyGrid technical account manager or refer to the relevant installation guide in this documentation.
+For help with an integration or a hardware rollout, contact your EnergyGrid technical account manager.
