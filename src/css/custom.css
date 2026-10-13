@@ -273,12 +273,13 @@ div[class*='codeBlockTitle'] {
   --ifm-alert-foreground-color: var(--lg-text);
 }
 .theme-admonition [class*='admonitionHeading'] { font-size: 0.78rem; letter-spacing: 0.04em; margin-bottom: 0.35rem; }
-.alert--info { border-left-color: var(--lg-post); }
-.alert--secondary { border-left-color: var(--lg-muted); }
-.alert--success { border-left-color: var(--lg-get); }
-.alert--warning { border-left-color: var(--lg-put); }
-.alert--danger { border-left-color: var(--lg-delete); }
-.alert--info [class*='admonitionHeading'] { color: var(--lg-post); }
+/* :::note renders as alert--secondary; it shares the blue of :::info */
+.alert--info, .alert--secondary { border-left-color: var(--lg-post); background: var(--lg-post-bg); }
+.alert--success { border-left-color: var(--lg-get); background: var(--lg-get-bg); }
+.alert--warning { border-left-color: var(--lg-put); background: var(--lg-put-bg); }
+.alert--danger { border-left-color: var(--lg-delete); background: var(--lg-delete-bg); }
+.alert--info [class*='admonitionHeading'], .alert--secondary [class*='admonitionHeading'] { color: var(--lg-post); }
+.alert--info svg, .alert--secondary svg { fill: var(--lg-post); }
 .alert--success [class*='admonitionHeading'] { color: var(--lg-get); }
 .alert--warning [class*='admonitionHeading'] { color: var(--lg-put); }
 .alert--danger [class*='admonitionHeading'] { color: var(--lg-delete); }
