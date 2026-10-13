@@ -24,7 +24,7 @@ Built with [Docusaurus 3](https://docusaurus.io/) and deployed to GitHub Pages.
 
 ## The API sandbox
 
-The specs point to hosts that don't exist, so a service worker ([`static/api-sandbox-sw.js`](static/api-sandbox-sw.js)) answers the **Send API Request** panels in the browser, using the same OpenAPI files. It checks auth, path patterns, and required bodies, and keeps state for the flows the tutorials use: create a PIX charge, pay it, and read it back, or bind a device and see a second bind fail. The reasoning is in [ADR 006](https://l-g99921.github.io/tw-portfolio/docs/adr/006-api-sandbox-in-the-browser).
+The specs point to hosts that don't exist, so a service worker ([`static/api-sandbox-sw.js`](static/api-sandbox-sw.js)) answers the **Send API Request** panels in the browser, using the same OpenAPI files. It checks auth, path patterns, and required bodies, and keeps state for the flows the tutorials use: create a PIX charge, pay it, and read it back, or bind a device and see a second bind fail. The reasoning is in [ADR 006](docs/adr/006-api-sandbox-in-the-browser.md).
 
 ## Standards
 
@@ -43,7 +43,7 @@ Every pull request that touches content runs [`docs-quality.yml`](.github/workfl
 - **Build** with `onBrokenLinks: 'throw'`, so a broken internal link fails the build.
 - **Lychee** checks external links.
 
-The build also writes [`llms-full.txt`](https://l-g99921.github.io/tw-portfolio/llms-full.txt), the full text of the site for AI tools, next to [`llms.txt`](https://l-g99921.github.io/tw-portfolio/llms.txt).
+The build also writes `llms-full.txt`, the full text of the site for AI tools ([`plugins/llms-full.js`](plugins/llms-full.js)), next to [`llms.txt`](static/llms.txt).
 
 ## Run it locally
 

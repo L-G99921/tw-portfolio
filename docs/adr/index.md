@@ -10,7 +10,7 @@ tags: [adr, decisions, meta]
 
 Some choices behind this site aren't obvious from the code: why Docusaurus and not MkDocs, why Google's style guide and not Microsoft's, why the API sandbox runs in the browser. Each one had a real alternative. They're recorded here as architecture decision records (ADRs), one short page per decision, so anyone reading the repository can see why things are the way they are.
 
-The format follows [Michael Nygard's ADR template](https://github.com/joelparkerhenderson/architecture-decision-record/blob/main/locales/en/templates/decision-record-template-by-michael-nygard/index.md): status, context, decision, and consequences. Each record stays short, because the point is the trade-off.
+The format follows [Michael Nygard's original ADR format](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions): status, context, decision, and consequences. Each record stays short, because the point is the trade-off.
 
 ## Why a portfolio has ADRs
 

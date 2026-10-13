@@ -63,7 +63,7 @@ The first iteration after the initial public launch. Three threads of work lande
 
 #### Architecture Decision Records
 
-- `docs/adr/` directory with an index and five initial ADRs, each under 250 words, following the [Michael Nygard template](https://github.com/joelparkerhenderson/architecture-decision-record/blob/main/locales/en/templates/decision-record-template-by-michael-nygard/index.md):
+- `docs/adr/` directory with an index and five initial ADRs, each under 250 words, following the [Michael Nygard template](https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions):
   - **ADR-001** — Docusaurus 3 over MkDocs Material.
   - **ADR-002** — Google Developer Style Guide over Microsoft Writing Style Guide.
   - **ADR-003** — Diátaxis as page-level taxonomy, one type per page.
