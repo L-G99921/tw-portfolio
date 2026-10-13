@@ -1,8 +1,8 @@
 {
-  "label": "SmartLink",
+  "label": "SmartLink Plug",
   "position": 4,
   "link": {
     "type": "generated-index",
-    "title": "SmartLink Documentation"
+    "title": "SmartLink Plug documentation"
   }
 }

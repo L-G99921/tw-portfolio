@@ -1,46 +1,49 @@
 ---
-title: "SmartLink Installation Guide and API Reference Now Available"
-description: "Announcing the SmartLink Installation Guide and updated API Reference documentation for ConnectBox API and EnergyGrid Usage API."
+title: "New: SmartLink Plug installation guide and the EnergyGrid API reference"
+description: "Release note for the EnergyGrid docs: a SmartLink Plug installation guide, and reference pages for the PowerBox API and the Usage API."
 tags: [smartlink, api, documentation]
+authors: [leandro]
 ---
 
-Two new documentation sections are now available: the **SmartLink Installation Guide** and the updated **API Reference** for both the ConnectBox API and the Usage Data API.
+The EnergyGrid docs have two new sections: an installation guide for the SmartLink Plug, and a reference for the PowerBox API and the Usage API.
 
 <!--truncate-->
 
-## SmartLink Installation Guide
+:::note
+EnergyGrid is the fictional platform behind most of this portfolio. This post is written the way I'd write a docs release note for a real product.
+:::
 
-The SmartLink is a compact smart plug that doubles as a whole-home energy meter. The new [SmartLink Installation Guide](/docs/smartlink/smartlink-installation-guide) walks you through the complete setup process, covering:
+## SmartLink Plug installation guide
 
-- **Requirements and prerequisites** — everything you need before starting, including device placement guidelines and Wi-Fi requirements.
-- **Mobile app setup** — step-by-step instructions for signing in, scanning the QR code, connecting to Wi-Fi, and binding to your smart meter.
-- **Installation verification** — how to confirm your SmartLink is online and reporting real-time energy data.
-- **Troubleshooting** — solutions for common issues such as connection failures, communication errors, and LED status indicators.
+The SmartLink Plug is a smart plug that also reads the home's smart meter. The [installation guide](/docs/smartlink/smartlink-installation-guide) covers:
 
-## API reference updates
+- **Before you begin:** what to have ready, where to place the plug, and which Wi-Fi networks work.
+- **App setup:** signing in, scanning the QR code, connecting to Wi-Fi, and linking the plug to the meter.
+- **Checking the installation:** how to confirm the plug is online and sending usage data.
+- **Troubleshooting:** connection failures, communication errors, and what each light means.
 
-The API reference now covers two complete API systems:
+## API reference
 
-### ConnectBox API
+### PowerBox API
 
-The [ConnectBox API](/docs/api/powerbox-api) provides integration between utility backend systems and the EnergyGrid Platform. It includes:
+The [PowerBox API](/docs/api/powerbox-api) connects a utility's back-office systems to EnergyGrid:
 
-- **Customer Synchronization** (`POST /powerbox/customer`) — sync customer account details, service addresses, and meter configurations from your utility CIS.
-- **Hardware Binding** (`POST /powerbox/bind`) — link a DataBridge or SmartLink device to an AMI meter over the utility's wireless mesh radio.
+- **Sync a customer** (`POST /powerbox/customer`): send account details, service addresses, and meters from the utility's customer information system.
+- **Bind or unbind a device** (`POST /powerbox/bind`): link a DataBridge Hub or SmartLink Plug to an AMI meter over the utility's wireless mesh radio.
 
-Authentication uses OAuth 2.0 Bearer tokens in JWT format.
+Requests use OAuth 2.0 bearer tokens from the utility's identity provider.
 
 ### Usage API
 
-The [Usage API](/docs/api/usage-api/energygrid-usage-api) exposes endpoints for accessing energy usage data and insights. Categories include:
+The [Usage API](/docs/api/usage-api/energygrid-usage-api) is what the EnergyGrid app calls to show a customer their energy data. Its endpoints are grouped by area:
 
-- **Customer** — login, profile management, budget settings, and home profile configuration.
-- **Insights** — energy usage breakdowns, main uses of energy, and message carousels.
-- **Similar Homes** — comparison data against similar households.
-- **Usage** — filtered energy usage data.
-- **Metadata** — thing types, categories, granularity types, property types, and metric types.
-- **Rate Data** — rate groups and billing cycle dates.
+- **Customer:** login, profile, budget, and home profile.
+- **Insights:** usage breakdowns, main uses of energy, and in-app messages.
+- **Similar homes:** how the customer's use compares with similar households.
+- **Usage:** usage data filtered by date, fuel, and granularity.
+- **Metadata:** reference lists, such as device types and granularities.
+- **Rates:** rate groups and billing cycle dates.
 
-### Integration Guide
+## How they fit together
 
-For a high-level walkthrough of how these APIs work together, see the [Integration Guide](/docs/integration-guide), which covers the full flow from hosting the ConnectBox middleware through OAuth setup, customer synchronization, bulk data ingestion, and hardware binding.
+The [integration guide](/docs/integration-guide) explains how the pieces connect, from hosting the PowerBox middleware to OAuth, customer sync, bulk data, and device binding.

@@ -8,191 +8,189 @@ tags: [billsense-ai, user-guide]
 
 # BillSense AI user guide
 
-Use this guide if you are a utility customer service representative or support agent assisting customers with billing inquiries. It covers the main features and workflows in BillSense AI.
+This guide is for utility support agents who help customers with billing questions. It covers each section of BillSense AI, then shows how to walk a customer through a billing question.
 
-## Insights Dashboard
+## Insights
 
-The Insights dashboard displays the current billing period summary and identifies the factors that affected the bill.
+The **Insights** dashboard summarizes the current billing period and shows what changed the bill.
 
-### View the Bill Summary
+### Read the bill summary
 
-1. **Check the Total Amount**
+1. **Check the total**
 
     The bill total appears at the top of the dashboard with the billing period dates.
 
-2. **Review the Comparisons**
+2. **Review the comparisons**
 
-    Green arrows indicate a decrease. The display shows percentage and dollar changes compared to the previous month and the same month last year.
+    The change from the previous month and from the same month last year appears as a percentage and in dollars. A green, downward arrow means the bill went down.
 
-3. **Read Quick Usage Insights**
+3. **Read the quick insights**
 
     The panel on the right highlights the largest bill changes and compares the customer's usage against similar homes in the same ZIP code.
 
-### Understand Bill Changes
+### Explain why the bill changed
 
-The **Top Factors That Changed** section explains what caused the bill to increase or decrease.
+**Top Factors That Changed** shows what made the bill go up or down, in two panels.
 
 #### How Your Usage Changed
 
-This panel shows factors the customer can control:
+Factors the customer controls:
 
 | Category | Description |
 |----------|-------------|
-| Always On | Devices drawing power continuously in standby mode |
-| Heating and Cooling | HVAC system energy consumption |
+| Always On | Devices drawing power in standby |
+| Heating and Cooling | Energy used by heating and air conditioning |
 | Kitchen | Cooking appliances and kitchen equipment |
 | All Other Contributors | Aggregated smaller usage categories |
 
 #### Beyond Your Control
 
-This panel shows external factors:
+Factors the customer doesn't control:
 
 | Factor | Description |
 |--------|-------------|
 | Fixed Charges | Base charges and service fees |
-| Bill Length Difference | Impact of varying billing cycle lengths |
-| Warmer/Colder Weather | Temperature-related usage adjustments |
+| Bill Length Difference | A billing period with more or fewer days than the last one |
+| Warmer/Colder Weather | Extra or reduced heating and cooling because of the weather |
 
 ### Review the Energy Health Report
 
-The Energy Health Report assesses the customer's energy performance across categories.
+The **Energy Health Report** rates each usage category against similar homes.
 
-1. **Identify Top Contributors**
+1. **Find the biggest costs**
 
-    Each category shows the customer's cost and a performance indicator.
+    Each category shows its cost and a status.
 
-2. **Interpret the Status**
+2. **Read the status**
 
     | Status | Meaning |
     |--------|---------|
-    | Doing Well | Performance is better than average |
-    | Caution | Performance needs attention |
-    | Room to Improve | Significant improvement opportunity exists |
-    | Normal Range | Performance is within expected parameters |
+    | Doing Well | Better than similar homes |
+    | Normal Range | About the same as similar homes |
+    | Caution | Higher than similar homes |
+    | Room to Improve | Much higher than similar homes, with the most to gain |
 
-3. **Check Peak Usage**
+3. **Check peak usage**
 
-    The panel shows usage split between on-peak and off-peak hours. Peak windows vary by utility.
+    The panel splits usage between on-peak and off-peak hours. Peak hours vary by utility.
 
-### Present Recommendations
+### Go through the recommendations
 
-The **Top Recommendations** section displays personalized savings opportunities.
+**Top Recommendations** lists ways for the customer to save.
 
-1. **Review Each Card**
+1. **Read each card**
 
-    Each recommendation card shows potential savings, the suggested action, and an explanation.
+    Each card shows the possible savings, the action, and why it applies.
 
-2. **Explain the Savings**
+2. **Explain the savings**
 
-    Use the dollar amount shown to quantify the benefit for the customer.
+    Use the dollar amount on the card when you talk to the customer.
 
-3. **Note Dismissed Cards**
+3. **Check dismissed cards**
 
     Click **See Dismissed Cards** to view recommendations the customer previously dismissed.
 
 :::tip
-Focus on recommendations with the highest potential savings first. Common high-impact recommendations include sealing ductwork, scheduling electric vehicle (EV) charging during off-peak hours, and replacing HVAC filters.
+Start with the cards that save the most. Sealing ducts, charging an electric vehicle (EV) off-peak, and replacing HVAC filters often come out on top.
 :::
 
-## Usage Section
+## Usage
 
-The Usage section provides detailed breakdowns of energy consumption by category and time.
+**Usage** breaks energy use down by category and by day.
 
-### View Usage by Category
+### See usage by category
 
-1. **Select the Billing Period**
+1. **Choose the billing period**
 
-    Use the dropdown menu to select the month.
+    Pick the month from the list.
 
-2. **Toggle the View**
+2. **Switch units**
 
-    Click **$** for dollar amounts or the energy icon for kWh values.
+    Click **$** for dollars, or the energy icon for kWh.
 
-3. **Review the Breakdown**
+3. **Read the breakdown**
 
-    The left panel shows categories as percentages of the total bill.
+    The left panel shows each category as a share of the bill.
 
-| Category | Typical Range | Description |
+| Category | Typical share | Description |
 |----------|---------------|-------------|
-| Always On | 25–35% | Devices drawing power continuously in standby mode |
-| Heating and Cooling | 20–35% | HVAC system operations |
-| Everything Else | 20–25% | Miscellaneous electrical usage |
+| Always On | 25–35% | Devices drawing power in standby |
+| Heating and Cooling | 20–35% | Heating and air conditioning |
+| Everything Else | 20–25% | Anything not in another category |
 | EV | Varies | Electric vehicle charging |
 | Kitchen | 2–5% | Cooking and food storage |
 | Laundry | 2–3% | Washer and dryer |
 
-### Analyze Daily Usage
+### See usage by day
 
-1. **Review the Bar Chart**
+1. **Read the bar chart**
 
-    Light blue bars show off-peak usage. Dark blue bars show on-peak usage.
+    Light blue is off-peak usage, and dark blue is on-peak usage.
 
-2. **Check the Temperature Overlay**
+2. **Compare with the temperature**
 
-    The red line shows the correlation between daily temperature and usage.
+    The red line shows the daily temperature, so you can see when weather drove usage.
 
-3. **Identify Outlier Days**
+3. **Find unusual days**
 
-    Yellow stars mark days with unusual consumption patterns.
+    A yellow star marks a day with unusual usage.
 
-4. **View the Total Breakdown**
+4. **Check the cost by period**
 
-    The bottom panel shows the cost split between peak periods. On-peak hours carry higher rates, while off-peak hours carry lower rates. Specific rate values and time windows vary by utility.
+    The bottom panel splits the cost between on-peak and off-peak hours. Rates and hours vary by utility.
 
 :::note
-Usage shown does not include program fees, taxes, supplemental meters, or voluntary programs.
+Usage doesn't include program fees, taxes, supplemental meters, or voluntary programs.
 :::
 
-## History Section
+## History
 
-The History section displays billing data organized by year.
+**History** shows past bills by year.
 
-### Navigate Bill History
+### Browse past bills
 
-1. **View the Timeline**
+1. **Read the timeline**
 
-    The bar chart at the top shows monthly bills over time. The current period is highlighted.
+    The chart at the top shows each month's bill. The current period is highlighted.
 
-2. **Expand a Year**
+2. **Open a year**
 
-    Click a year row to view individual billing periods.
+    Click a year to see its billing periods.
 
-3. **Review Bill Details**
+3. **Read the details**
 
-    Each row shows the month, billing dates, duration, amount, and payment status.
+    Each row shows the month, dates, number of days, amount, and payment status.
 
-4. **Access Bill Actions**
+4. **Find more actions**
 
-    Click the three-dot menu for additional options.
+    Click the three-dot menu on a row.
 
-### Compare Annual Totals
+### Compare yearly totals
 
 | Year | Purpose |
 |------|---------|
 | Current year | Shows the year-to-date total |
-| Previous years | Shows complete annual totals for trend analysis |
+| Previous years | Shows full-year totals, to compare years |
 
-## My Home Section
+## My Home
 
-The My Home section stores the customer's appliance information. Accurate appliance data improves recommendation quality.
+**My Home** holds the customer's appliance details. Recommendations are only as good as this information.
 
-### Update Appliance Details
+### Update appliance details
 
 1. **Open My Home**
 
     Click **My Home** in the left sidebar.
 
-2. **Review Each Category**
+2. **Go through each category**
 
-    Scroll through the Heating and Cooling, Cooking, and Green Energy sections.
+    Scroll through **Heating and Cooling**, **Cooking**, and **Green Energy**.
 
-3. **Verify Selections**
+3. **Check the selections**
 
-    Confirm that the selections match the customer's actual appliances.
+    Confirm they match what the customer has.
 
-4. **Save Changes**
-
-    Changes save automatically when selections are modified.
+    Changes save as soon as you make them.
 
 ### Heating and cooling options
 
@@ -206,109 +204,109 @@ The My Home section stores the customer's appliance information. Accurate applia
 
 ### Electric vehicle configuration
 
-1. **Indicate EV Ownership**
+1. **Mark EV ownership**
 
-    Check the **Electric Vehicle** box if the customer owns an EV.
+    Select **Electric Vehicle** if the customer has an EV.
 
-2. **Set the Quantity**
+2. **Set how many**
 
-    Use the plus and minus buttons to set the number of EVs.
+    Use the plus and minus buttons.
 
-3. **Select Charger Type**
+3. **Choose the charger type**
 
     Choose from Level 1 (110V), Level 2 (220V), Both, or "I don't charge at home."
 
 :::caution
-EV charger type affects scheduled charging recommendations. Verify this setting if the customer reports inaccurate EV-related suggestions.
+The charger type changes the charging recommendations. If EV suggestions seem wrong, check this setting first.
 :::
 
-## My Plan Section
+## My Plan
 
-The My Plan section displays the customer's current rate plan and available alternatives.
+**My Plan** shows the customer's rate plan and the plans they could switch to.
 
-### Review the Current Plan
+### Review the current plan
 
-1. **Check the Plan Name**
+1. **Check the plan name**
 
-    The current plan appears at the top with the rate type code.
+    The plan and its rate code are at the top.
 
-2. **Note the Estimated Cost**
+2. **Check the estimated cost**
 
-    The estimated cost under the current plan appears on the right.
+    The estimate under the current plan is on the right.
 
-3. **Read the Description**
+3. **Read the description**
 
-    The summary explains the plan's on-peak and off-peak windows.
+    It explains the plan's on-peak and off-peak hours.
 
-### Compare Available Plans
+### Compare other plans
 
 1. **Scroll to All Available Plans**
 
-    Plans the customer qualifies for appear below the current plan.
+    The plans the customer qualifies for are listed below the current one.
 
-2. **Review Each Option**
+2. **Compare them**
 
-    Each plan shows the rate type, description, and estimated savings.
+    Each plan shows its rate type, a description, and the estimated savings.
 
-3. **Check Eligibility**
+3. **Check whether the customer can switch**
 
-    A warning message appears if the customer has an active agreement that prevents switching.
+    A warning appears if an active agreement blocks a change.
 
-Available rate plans vary by utility. Common plan types include:
+Plans vary by utility. Common types:
 
-| Plan Type | Best For |
+| Plan type | Good fit for |
 |-----------|----------|
-| Time of Use (TOU) | Customers who can shift usage to off-peak hours |
-| Flat Rate | Customers with consistent usage throughout the day |
-| Tiered Rate | Customers with lower overall consumption |
-| EV-Specific Plans | EV owners who charge overnight |
+| Time of use (TOU) | Customers who can move usage to off-peak hours |
+| Flat rate | Customers whose usage is steady through the day |
+| Tiered rate | Customers who use less energy overall |
+| EV plans | EV owners who charge overnight |
 
 :::warning
-Customers in a 12-month agreement cannot switch plans until the agreement expires. The expiration date appears in the plan card.
+Customers in a 12-month agreement can't switch plans until it ends. The end date is on the plan card.
 :::
 
-## Conduct a billing inquiry
+## Walk a customer through a billing question
 
-Use this workflow to lead a customer through a billing question with BillSense AI. Each step uses one of the sections covered above.
+This sequence uses the sections above in the order that usually works best on a call.
 
-### Start the conversation
+### Start with the bill
 
-1. **Begin with Insights**
+1. **Open Insights**
 
-    Open the Insights dashboard first to understand the full billing picture.
+    Start here to see the whole bill before you explain any part of it.
 
-2. **Acknowledge changes**
+2. **Say what changed**
 
-    Note whether the bill increased or decreased compared to previous periods.
+    Tell the customer whether the bill went up or down, and by how much.
 
-3. **Identify key factors**
+3. **Name the main reasons**
 
-    Point out the top contributors to bill changes.
+    Use **Top Factors That Changed**, and separate what the customer controls from what they don't, like weather or a longer billing period.
 
-### Explain usage patterns
+### Explain the usage
 
 1. **Use the charts**
 
-    Charts help explain complex usage patterns in a clear, visual format.
+    Showing the daily chart is often faster than describing it.
 
-2. **Highlight peak times**
+2. **Explain peak hours**
 
-    Explain the cost difference between on-peak and off-peak usage.
+    Show how much of the cost came from on-peak hours.
 
-3. **Show category breakdown**
+3. **Show the categories**
 
-    Use category percentages to illustrate where the customer's energy goes.
+    Use the category shares to show where the energy went.
 
-### Present savings opportunities
+### Suggest savings
 
-1. **Quantify the benefit**
+1. **Give the amount**
 
-    Use the dollar amounts shown on recommendation cards.
+    Quote the dollar savings from the recommendation card.
 
-2. **Prioritize high-impact items**
+2. **Start with the biggest**
 
-    Focus on recommendations with the largest potential savings.
+    Go through the cards that save the most first.
 
-3. **Connect to usage data**
+3. **Tie it to their usage**
 
-    Reference specific categories when explaining why a recommendation applies.
+    Say which category each recommendation affects, so the customer sees why it applies to them.

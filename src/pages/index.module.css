@@ -60,8 +60,8 @@
   transition: background 150ms var(--lg-ease), box-shadow 150ms var(--lg-ease), border-color 150ms var(--lg-ease), transform 150ms var(--lg-ease);
 }
 .btn:active { transform: translateY(1px); }
-.btnPrimary { background: var(--lg-accent); color: #fff !important; box-shadow: var(--lg-shadow); }
-.btnPrimary:hover { background: var(--lg-accent-strong); box-shadow: var(--lg-shadow-lg); }
+.btnPrimary { background: #635bff; color: #fff !important; box-shadow: var(--lg-shadow); }
+.btnPrimary:hover { background: #4b45d6; box-shadow: var(--lg-shadow-lg); }
 .btnGhost { border-color: var(--lg-border-strong); color: var(--lg-heading) !important; background: var(--lg-bg); }
 .btnGhost:hover { border-color: var(--lg-accent); }
 

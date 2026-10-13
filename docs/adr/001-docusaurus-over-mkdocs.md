@@ -1,39 +1,37 @@
 ---
 id: 001-docusaurus-over-mkdocs
 slug: /adr/001-docusaurus-over-mkdocs
-title: "ADR-001 — Docusaurus 3 over MkDocs Material"
-description: "Why this portfolio is built on Docusaurus 3 rather than MkDocs Material, the other strong contender for static documentation sites."
-sidebar_label: ADR-001 — Docusaurus over MkDocs
+title: "ADR 001: Docusaurus 3 instead of MkDocs Material"
+description: "Why this site is built on Docusaurus 3 and not MkDocs Material, the other strong option for static documentation sites."
+sidebar_label: "ADR 001: Docusaurus over MkDocs"
 sidebar_position: 1
 tags: [adr, decisions, docusaurus, tooling]
 ---
 
-# ADR-001 — Docusaurus 3 over MkDocs Material
+# ADR 001: Docusaurus 3 instead of MkDocs Material
 
-**Status:** Accepted (2026-04-24)
+**Status:** Accepted, 2026-04-24
 
 ## Context
 
-The portfolio needs a static site framework that supports Markdown-first authoring, OpenAPI reference generation, multi-version content, search, dark mode, and a custom React-based landing page. The two realistic options were:
+The site needs Markdown authoring, API reference generated from OpenAPI, search, dark mode, and a custom home page. Two frameworks fit:
 
-- **MkDocs Material** — Python-based, batteries-included, excellent default theme, large plugin ecosystem.
-- **Docusaurus 3** — React-based, MDX-first, strong API-docs plugin (`docusaurus-plugin-openapi-docs`), full control over the React layer.
+- **MkDocs Material:** Python, a very good default theme, and many plugins.
+- **Docusaurus 3:** React and MDX, a strong OpenAPI plugin (`docusaurus-plugin-openapi-docs`), and full control over the page components.
 
-Both can produce a credible documentation site. The deciding factor is the landing page and the OpenAPI integration.
+Either would produce a credible docs site. The API reference and the home page decided it.
 
 ## Decision
 
-Build on **Docusaurus 3** with React 19, SASS theming, and `docusaurus-plugin-openapi-docs` 4.6.0.
+Build on **Docusaurus 3**, with React 19 and `docusaurus-plugin-openapi-docs` 4.
 
-The deciding factors:
-
-- **The landing page is a React component**, not a Markdown file. The portfolio uses a custom hero, a card grid, and animation that would be awkward to express in MkDocs Material's template overrides.
-- **OpenAPI integration is first-class.** `docusaurus-plugin-openapi-docs` produces interactive `Try it out` panels, schema browsing, and per-operation pages from a single spec. The MkDocs equivalent (`mkdocs-render-swagger-plugin`) embeds Swagger UI as an iframe, which is less integrated with the rest of the site's navigation.
-- **MDX lets reference content embed React.** Custom admonitions, schema tabs, and interactive examples are easier in MDX than in MkDocs's macros.
+- **The OpenAPI plugin is built in, not embedded.** It generates a page per operation with schema browsing and a request panel, all in the site's own navigation and theme. The common MkDocs options embed Swagger UI or Redoc as a separate block.
+- **The home page is a React component.** It has a request card that calls the API sandbox (see [ADR 006](/docs/adr/006-api-sandbox-in-the-browser)), which would mean fighting the template system in MkDocs.
+- **MDX lets pages use components** such as tabs and admonitions, without a macro language.
 
 ## Consequences
 
-- The build chain is heavier — Node.js 20+, ~1500 npm packages, longer cold starts.
-- Authors who prefer Python tooling will find the project less approachable.
-- React-based theming means breaking changes in major Docusaurus versions cascade into the custom components — accepted in exchange for control.
-- The site can host React-based interactive samples in the future without changing framework.
+- The toolchain is heavier: Node.js 20 or later, more than a thousand npm packages, and slower cold starts.
+- Writers who prefer Python tools will find the project less familiar.
+- Customized components can break on major Docusaurus upgrades. That's the price of the control.
+- Interactive samples, like the API sandbox, fit without changing frameworks.

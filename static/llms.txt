@@ -1,43 +1,46 @@
-# Leandro Gabriel — Technical Writer Portfolio
+# Leandro Gabriel, technical writing portfolio
 
-> Personal portfolio site for Leandro Gabriel Oliveira de Souza, Senior Technical Writer with 6+ years of experience building API references, integration guides, and AI-assisted documentation pipelines for enterprise teams across fintech (Itaú PIX), retail (Sephora LATAM), beauty data infrastructure (L'Oréal France), and logistics (Crane Worldwide).
+> Portfolio of Leandro Gabriel Oliveira de Souza, senior technical writer with 6+ years of experience writing API references, integration guides, and support documentation for Itaú (PIX APIs), Sephora LATAM, L'Oréal France, and Crane Worldwide.
 
-The site is organised around two showcase domains: a fictional utility platform (EnergyGrid) documented end-to-end across three audiences, and Brazil's PIX instant-payments rail documented in all four Diátaxis types. Every page is exactly one of: tutorial, how-to guide, reference, or explanation. Style is the Google Developer Documentation Style Guide, enforced in CI by Vale with `fail_on_error: true`.
+The site has two projects. EnergyGrid is a fictional utility platform documented for three audiences: backend engineers, people installing hardware at home, and support agents. PIX is a documentation set for Brazil's instant-payments system with one page of each Diátaxis type. Every page is one Diátaxis type: tutorial, how-to guide, reference, or explanation. Prose follows the Google developer documentation style guide, checked in CI by Vale.
 
-This `llms.txt` follows the [llmstxt.org proposal](https://llmstxt.org/) and lists the canonical pages grouped by purpose. The companion file `llms-full.txt` (planned) will carry the concatenated full text of the canonical pages for direct ingestion.
+The full text of every page below is in [llms-full.txt](https://l-g99921.github.io/tw-portfolio/llms-full.txt), rebuilt on every deploy.
 
 ## About the portfolio
 
-- [Welcome / landing](https://l-g99921.github.io/tw-portfolio/): One-page overview of the portfolio, the maintainer, and the showcase domains.
-- [Methodology](https://l-g99921.github.io/tw-portfolio/docs/methodology): Why this site uses the Google Developer Documentation Style Guide for sentence-level rules and the Diátaxis Framework for page-level taxonomy.
-- [Writing guideline](https://l-g99921.github.io/tw-portfolio/docs/writing-guideline): The applied style guide — voice, tone, banned filler words, admonition conventions, pre-publication checklist.
-- [Architecture decision records overview](https://l-g99921.github.io/tw-portfolio/docs/adr): Index of the non-obvious tooling and content choices behind the portfolio, each in a one-page ADR.
-- [Using these docs with AI](https://l-g99921.github.io/tw-portfolio/docs/using-these-docs-with-ai): How the content is structured for predictable LLM ingestion, why Diátaxis helps, how to point a chatbot at this site.
+- [Home](https://l-g99921.github.io/tw-portfolio/): Overview of the portfolio and its work samples.
+- [Methodology](https://l-g99921.github.io/tw-portfolio/docs/methodology): How the site applies the Google style guide and Diátaxis, and where the author has applied them at work. (Explanation)
+- [Writing guideline](https://l-g99921.github.io/tw-portfolio/docs/writing-guideline): The site's style guide: voice, tone, words to avoid, formatting, and a pre-publication checklist. (Reference)
+- [Architecture decision records](https://l-g99921.github.io/tw-portfolio/docs/adr): The tooling and content decisions behind the site, one page each. (Explanation)
+- [Using these docs with AI](https://l-g99921.github.io/tw-portfolio/docs/using-these-docs-with-ai): How the site is structured for chatbots and retrieval pipelines. (Explanation)
 
-## Featured project — EnergyGrid (fictional utility platform)
+## EnergyGrid (fictional utility platform)
 
-- [Integration guide](https://l-g99921.github.io/tw-portfolio/docs/integration-guide): Long-form developer documentation covering OAuth 2.0 / OIDC, CIS data sync, bulk MDM and billing ingestion via SFTP / object storage, rate information, hardware binding. (How-to + Explanation)
-- [PowerBox API reference](https://l-g99921.github.io/tw-portfolio/docs/api/powerbox-api): Interactive OpenAPI-generated reference for the utility-to-platform integration API (customer sync, hardware binding). (Reference)
-- [EnergyGrid Usage API reference](https://l-g99921.github.io/tw-portfolio/docs/api/usage-api/energygrid-usage-api): Interactive OpenAPI-generated reference for the customer-facing read API (usage history, budgets, AI insights). (Reference)
-- [DataBridge install guide](https://l-g99921.github.io/tw-portfolio/docs/databridge/databridge-installation-guide-atlas-insight): Consumer-friendly install guide for the DataBridge smart-meter hardware. (How-to)
-- [SmartLink install guide](https://l-g99921.github.io/tw-portfolio/docs/smartlink/smartlink-installation-guide-pluginsight): Consumer-friendly install guide for the SmartLink Plug hardware. (How-to)
-- [BillSense AI user guide](https://l-g99921.github.io/tw-portfolio/docs/billsense-ai/about): User guide and troubleshooting reference for an AI-powered bill analysis tool. (How-to + Reference + Explanation)
-- [Data dictionary](https://l-g99921.github.io/tw-portfolio/docs/data-dictionary): Schema-style reference content for the platform's data model. (Reference)
+- [EnergyGrid overview](https://l-g99921.github.io/tw-portfolio/docs): Products, audiences, and where to start. (Explanation)
+- [Tutorial: first integration](https://l-g99921.github.io/tw-portfolio/docs/tutorial-first-integration): Sandbox credentials, customer sync, and binding a device in about 30 minutes. (Tutorial)
+- [Integration guide](https://l-g99921.github.io/tw-portfolio/docs/integration-guide): OAuth and OIDC, customer sync, bulk usage and billing data, billing cycles, rates, and device binding. (How-to and explanation)
+- [PowerBox API reference](https://l-g99921.github.io/tw-portfolio/docs/api/powerbox-api): Utility-to-platform API: login, customer sync, and device binding. Generated from OpenAPI. (Reference)
+- [Usage API reference](https://l-g99921.github.io/tw-portfolio/docs/api/usage-api/energygrid-usage-api): Customer-facing read API: usage, budgets, and insights. Generated from OpenAPI. (Reference)
+- [DataBridge Hub installation guide](https://l-g99921.github.io/tw-portfolio/docs/databridge/databridge-installation-guide-atlas-insight): Installing the DataBridge Hub at home. (How-to)
+- [SmartLink Plug installation guide](https://l-g99921.github.io/tw-portfolio/docs/smartlink/smartlink-installation-guide): Installing the SmartLink Plug at home. (How-to)
+- [BillSense AI overview](https://l-g99921.github.io/tw-portfolio/docs/billsense-ai/overview): What the AI bill analysis feature does and its limits. (Explanation)
+- [BillSense AI troubleshooting](https://l-g99921.github.io/tw-portfolio/docs/billsense-ai/troubleshooting): Symptoms, causes, and fixes for support agents. (Reference)
+- [Data dictionary](https://l-g99921.github.io/tw-portfolio/docs/data-dictionary): Data sources, dependencies, and storage for each integration type. (Reference)
 
-## PIX (Brazil's instant-payments rail) — Diátaxis showcase
+## PIX (Brazil's instant payments)
 
-- [About PIX](https://l-g99921.github.io/tw-portfolio/docs/pix/about-pix): Conceptual overview of the PIX rail — what it is, who uses it, why it matters. (Explanation)
-- [Tutorial — first payment](https://l-g99921.github.io/tw-portfolio/docs/pix/tutorial-first-payment): Step-by-step tutorial that takes a developer from zero to a successful PIX charge. (Tutorial)
-- [How-to — handle webhooks](https://l-g99921.github.io/tw-portfolio/docs/pix/how-to-handle-webhooks): Goal-oriented how-to for receiving and processing PIX webhook callbacks. (How-to)
-- [PIX API reference](https://l-g99921.github.io/tw-portfolio/docs/api/pix-api/instant-payments-api-pix-sample): Interactive OpenAPI-generated reference, anonymised sample modelled on the public PIX PSP standard. (Reference)
+- [About PIX](https://l-g99921.github.io/tw-portfolio/docs/pix/about-pix): How PIX works and why its API is designed the way it is. (Explanation)
+- [Tutorial: first payment](https://l-g99921.github.io/tw-portfolio/docs/pix/tutorial-first-payment): Create a charge, pay it in the sandbox, receive the webhook, and reconcile. (Tutorial)
+- [How-to: handle webhooks](https://l-g99921.github.io/tw-portfolio/docs/pix/how-to-handle-webhooks): Authentication, fast responses, deduplication, and recovery for a production webhook listener. (How-to)
+- [PIX API reference](https://l-g99921.github.io/tw-portfolio/docs/api/pix-api/instant-payments-api-pix-sample): Anonymized sample based on the public PIX PSP standard. Generated from OpenAPI. (Reference)
 
-## Long-form writing
+## Writing
 
-- [Documenting PIX — five lessons from owning the official Itaú PIX API documentation](https://l-g99921.github.io/tw-portfolio/blog/documenting-pix-lessons): Long-form blog post covering structural lessons from owning the official PIX API documentation at Itaú Unibanco (via Zup Innovation, 2022–2024).
+- [Documenting PIX: five lessons](https://l-g99921.github.io/tw-portfolio/blog/documenting-pix-lessons): What the author learned owning the PIX API documentation at Itaú, 2022 to 2024.
 
 ## Optional
 
-- [GitHub repository](https://github.com/L-G99921/tw-portfolio): Source code, CI workflows, Vale configuration, OpenAPI specs.
-- [CONTRIBUTING.md](https://github.com/L-G99921/tw-portfolio/blob/main/CONTRIBUTING.md): How the docs-as-code workflow operates — local setup, PR checklist, page-creation steps, OpenAPI regeneration.
-- [CHANGELOG.md](https://github.com/L-G99921/tw-portfolio/blob/main/CHANGELOG.md): Release history in Keep a Changelog format.
-- [Maintainer profile (LinkedIn)](https://www.linkedin.com/in/leandro-gabriel-8aab31167/): Professional background, experience timeline, contact.
+- [OpenAPI specs](https://l-g99921.github.io/tw-portfolio/pix-api-openapi.json): The PIX spec. The others are `openapi.json` (PowerBox) and `usage-api-openapi.json`.
+- [GitHub repository](https://github.com/L-G99921/tw-portfolio): Source, CI workflows, Vale configuration, and specs.
+- [CONTRIBUTING.md](https://github.com/L-G99921/tw-portfolio/blob/main/CONTRIBUTING.md): Local setup, pull request checklist, and how to regenerate the API pages.
+- [LinkedIn](https://www.linkedin.com/in/leandro-gabriel-8aab31167/): The author's professional profile.

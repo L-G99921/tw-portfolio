@@ -8,58 +8,61 @@ tags: [billsense-ai, prerequisites, setup]
 
 # Before you begin
 
-Gather this information before assisting customers with BillSense AI.
+Before you help a customer with BillSense AI, have these ready.
 
 ## Requirements
 
-- Customer's EnergyGrid account credentials
-- Confirmation of the customer's service address
-- Access to the Utility Portal
-- Customer's current billing period dates
+- Your own agent account for the Utility Portal, with the BillSense AI role
+- The customer's account number, and their service address to confirm identity
+- The dates of the customer's current billing period
+
+:::caution Never ask for the customer's password
+You open the customer's account from your own agent login. If a customer offers their password, don't use it, and suggest they change it.
+:::
 
 :::tip
-Verify the customer's home profile in the My Home section before reviewing recommendations. Accurate appliance information improves recommendation quality.
+Check the customer's home profile in **My Home** before you go through recommendations. Recommendations depend on the appliance details there.
 :::
 
 ## Access BillSense AI
 
-BillSense AI opens from the Utility Portal once you authenticate.
+You open BillSense AI from the customer's bill in the Utility Portal.
 
-1. **Navigate to the Portal**
+1. **Sign in to the Utility Portal**
 
-    Open the utility website in a web browser.
+    Use your agent account. Complete the verification step if the portal asks for one.
 
-2. **Sign in**
+2. **Find the customer**
 
-    Enter the customer's email address and password. Complete any verification steps if prompted.
+    Search by account number, and confirm the service address with the customer.
 
 3. **Open the bill**
 
-    Select **Billing & Payment** from the navigation menu. Click **My Current Bill**.
+    In the customer's account, select **Billing & Payment**, then **Current Bill**.
 
-4. **Launch BillSense AI**
+4. **Open BillSense AI**
 
-    Click **Analyze My Bill** in the Billing Details section.
+    In **Billing Details**, click **Analyze This Bill**.
 
 :::note
-Allow up to 30 seconds for the initial load. If BillSense AI fails to load or displays an error, see the [Troubleshooting](./troubleshooting) page for common issues and solutions.
+The first load can take up to 30 seconds. If BillSense AI doesn't load or shows an error, see [Troubleshooting](./troubleshooting).
 :::
 
-## If you cannot resolve the issue {#if-you-cannot-resolve-the-issue}
+## If you can't resolve the issue {#if-you-cannot-resolve-the-issue}
 
-Use this escalation path when the steps in the [Troubleshooting](./troubleshooting) reference do not solve the customer's problem.
+Use this escalation path when [Troubleshooting](./troubleshooting) doesn't solve the customer's problem.
 
-1. **First-level support**
+1. **General questions**
 
-    Use in-app chat or phone support for general account, billing, and customer questions. The utility support team handles these inquiries.
+    Questions about the account, billing, or service go to the utility support team, by chat or phone.
 
-2. **Technical issues**
+2. **Problems with BillSense AI itself**
 
-    Report persistent technical issues with the BillSense AI application to the BillSense AI development team through the **Feedback** button in the bottom-right corner of the BillSense AI interface.
+    If the tool keeps failing, report it to the BillSense AI team with the **Feedback** button in the bottom-right corner. Include the account number and what you saw.
 
-3. **Account issues**
+3. **Account problems**
 
-    Direct account-specific problems to the utility support team via the customer service line.
+    Send problems with a specific account to the utility support team through the customer service line.
 
 ### Contact information
 

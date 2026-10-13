@@ -146,6 +146,7 @@ const sidebars = {
             {type: 'doc', id: 'adr/003-diataxis-as-page-taxonomy', label: 'ADR 003: Diátaxis as the page taxonomy'},
             {type: 'doc', id: 'adr/004-vale-fail-on-error', label: 'ADR 004: Vale fails the build'},
             {type: 'doc', id: 'adr/005-openapi-as-source-of-truth', label: 'ADR 005: OpenAPI as the source of truth'},
+            {type: 'doc', id: 'adr/006-api-sandbox-in-the-browser', label: 'ADR 006: API sandbox in the browser'},
           ],
         },
       ],

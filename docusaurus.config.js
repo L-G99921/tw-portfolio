@@ -56,6 +56,7 @@ const config = {
 
   plugins: [
     'docusaurus-plugin-sass',
+    './plugins/llms-full.js',
     [
       'docusaurus-plugin-openapi-docs',
       {
@@ -175,6 +176,15 @@ const config = {
         ],
       },
       // The footer is rendered by src/theme/Footer, which replaces this block.
+      // Order of the code samples on API pages: cURL first.
+      languageTabs: [
+        {highlight: 'bash', language: 'curl', logoClass: 'curl'},
+        {highlight: 'python', language: 'python', logoClass: 'python'},
+        {highlight: 'javascript', language: 'nodejs', logoClass: 'nodejs'},
+        {highlight: 'go', language: 'go', logoClass: 'go'},
+        {highlight: 'java', language: 'java', logoClass: 'java', variant: 'unirest'},
+        {highlight: 'csharp', language: 'csharp', logoClass: 'csharp'},
+      ],
       prism: {
         theme: prismThemes.github,
         darkTheme: prismThemes.vsDark,

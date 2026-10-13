@@ -154,9 +154,13 @@ img { height: auto; }
 
 /* ---------- Navbar ---------- */
 .navbar {
-  backdrop-filter: saturate(180%) blur(12px);
   border-bottom: 1px solid var(--lg-border);
   padding-inline: 1rem;
+}
+/* Blur only on desktop: backdrop-filter makes the navbar the containing block
+   for fixed children, which squeezes the mobile menu drawer into 64px. */
+@media (min-width: 997px) {
+  .navbar { backdrop-filter: saturate(180%) blur(12px); }
 }
 .navbar__brand { margin-right: 1.5rem; }
 .navbar__logo { height: 32px; }
@@ -206,11 +210,13 @@ img { height: auto; }
   font-size: 0.72rem;
   letter-spacing: 0.02em;
 }
-.badge--success { background: var(--lg-get-bg); color: var(--lg-get); }
-.badge--primary { background: var(--lg-post-bg); color: var(--lg-post); }
-.badge--warning { background: var(--lg-put-bg); color: var(--lg-put); }
-.badge--info { background: var(--lg-patch-bg); color: var(--lg-patch); }
-.badge--danger { background: var(--lg-delete-bg); color: var(--lg-delete); }
+/* The OpenAPI theme maps methods to badge classes: get=primary, post=success,
+   put=info, patch=warning, delete=danger. Colors match the sidebar labels. */
+.openapi__method-endpoint .badge--primary { background: var(--lg-get-bg); color: var(--lg-get); }
+.openapi__method-endpoint .badge--success { background: var(--lg-post-bg); color: var(--lg-post); }
+.openapi__method-endpoint .badge--info { background: var(--lg-put-bg); color: var(--lg-put); }
+.openapi__method-endpoint .badge--warning { background: var(--lg-patch-bg); color: var(--lg-patch); }
+.openapi__method-endpoint .badge--danger { background: var(--lg-delete-bg); color: var(--lg-delete); }
 
 /* ---------- Doc content ---------- */
 .markdown { color: var(--lg-text); }
@@ -310,7 +316,7 @@ div[class*='codeBlockTitle'] {
   max-width: 100%;
   overflow-x: auto;
 }
-.openapi__method-endpoint-path { font-family: var(--ifm-font-family-monospace); font-size: 0.85rem; white-space: nowrap; }
+.markdown .openapi__method-endpoint-path { margin: 0; padding: 0; border: 0; font-family: var(--ifm-font-family-monospace); font-size: 0.85rem; font-weight: 500; letter-spacing: 0; white-space: nowrap; color: var(--lg-heading); }
 .openapi-tabs__heading { font-size: 0.78rem; letter-spacing: 0.05em; color: var(--lg-muted); }
 .openapi-schema__property, .openapi-schema__name { font-family: var(--ifm-font-family-monospace); color: var(--lg-heading); }
 .openapi-schema__type { font-family: var(--ifm-font-family-monospace); color: var(--lg-muted); font-size: 0.8rem; }

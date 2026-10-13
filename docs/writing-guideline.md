@@ -148,7 +148,7 @@ These rules align with the Google Developer Documentation Style Guide.
 
 ### 7.2 Words to avoid
 
-- **`Please`** in instructions. Write "Click **Save**," not "Please click Save."
+- **`Please`** in instructions. Write "Click **Save**," not `Please click Save`.
 - **`Simply`, `just`, `easily`, `obviously`.** They assume the task is easy for the reader.
 - **`May`** for ability. Use **`can`**: "You can configure the budget," not "You may configure the budget."
 - **`Will`** for current behavior. Use the present tense: "The API returns…," not "The API will return…"

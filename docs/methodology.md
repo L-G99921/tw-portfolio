@@ -28,7 +28,7 @@ The [Google developer documentation style guide](https://developers.google.com/s
 
 - **Second person, active voice, present tense.** "The API returns a token," not "A token will be returned by the API."
 - **Sentence case.** For headings, buttons, and UI strings: "Manage your usage," not "Manage Your Usage."
-- **No filler.** Words like "just," "simply," "easily," and "please" either add nothing or assume the reader finds the task easy.
+- **No filler.** Words like `just`, `simply`, `easily`, and `please` either add nothing or assume the reader finds the task easy.
 - **"Can" for ability, "may" only for permission.**
 - **No Latin abbreviations.** "For example" instead of "e.g.," and "that is" instead of "i.e."
 - **Realistic examples.** Values that look like real data, never `foo` or `bar`.

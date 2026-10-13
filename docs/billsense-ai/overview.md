@@ -1,33 +1,36 @@
 ---
 title: Overview
-description: "Introduction to BillSense AI - an intelligent energy analysis tool for understanding energy consumption and finding savings opportunities."
+description: "What BillSense AI does, what it can't do, and where to find the rest of its documentation."
 sidebar_label: Overview
 sidebar_position: 1
-tags: [billsense-ai, overview, energy]
+tags: [billsense-ai, overview, energy, explanation]
 ---
 
 # BillSense AI overview
 
-BillSense AI is an intelligent energy analysis tool that helps customers understand their energy consumption. It connects to the utility smart meter and provides detailed bill breakdowns, usage insights, and personalized savings recommendations.
+BillSense AI explains a customer's energy bill. It combines the bill with the customer's meter readings and home profile, shows where the energy went, explains why the bill changed, and suggests ways to save.
 
-## Key features
+These pages are for the utility support agents who walk customers through it.
 
-- Bill analysis with month-over-month and year-over-year comparisons
-- Energy usage breakdown by category (heating, cooling, and appliances)
-- Personalized savings recommendations based on usage patterns
-- Neighborhood comparisons against similar homes
-- Rate plan optimization suggestions
-- Historical billing data and trends
+## What it does
 
-## Limitations
+- Compares each bill with the previous month and the same month last year.
+- Splits usage into categories, such as heating, cooling, and appliances.
+- Suggests savings based on the customer's usage and home.
+- Compares the home with similar homes nearby.
+- Suggests a rate plan that might cost less.
+- Shows past bills and yearly totals.
 
-- Usage data excludes taxes, fees, and voluntary program charges
-- Displayed kilowatt-hour (kWh) values are estimates and might vary slightly from official bill statements
-- Recommendations require accurate home profile information to function correctly
-- Customers on a fixed-term rate plan agreement cannot switch plans until the agreement expires
+## What it can't do
 
-## See also
+- **Show the full bill amount.** Totals leave out taxes, fees, and voluntary program charges. The bill statement is the official amount.
+- **Match the meter exactly.** kWh values are estimates and can differ slightly from the bill.
+- **Make good suggestions from a wrong profile.** If the appliances in **My Home** are wrong, the recommendations will be too.
+- **Change a fixed-term plan.** Customers on a fixed-term rate agreement can't switch plans until it ends.
 
-- [User guide](./) — step-by-step walkthrough of each BillSense AI section.
-- [Glossary](./glossary) — definitions of energy and billing terms used in the tool.
-- [Before you begin](./before-you-begin) — prerequisites for support agents.
+## Where to go next
+
+- [Before you begin](./before-you-begin): what you need, how to open BillSense AI, and how to escalate.
+- [User guide](./): each section of BillSense AI, and how to walk a customer through a billing question.
+- [Troubleshooting](./troubleshooting): symptoms and fixes.
+- [Glossary](./glossary): energy and billing terms used in the tool.

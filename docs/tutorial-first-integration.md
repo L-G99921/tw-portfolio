@@ -204,7 +204,7 @@ Four calls: a token, a customer sync, a bind, and a second sync. A production in
 
 - [Integration guide](/docs/integration-guide): mTLS, JWT claims, bulk usage data, billing cycles, rate types, and error codes.
 - [PowerBox API reference](/docs/api/powerbox-api): every request and response field and status code.
-- [DataBridge Hub installation guide](/docs/databridge/databridge-installation-guide-atlas-insight): the customer's side of the bind you just ran.
+- [DataBridge Hub installation guide](/docs/databridge/databridge-installation-guide-atlas-insight): the customer's side of the bind you ran.
 
 ## Troubleshooting
 

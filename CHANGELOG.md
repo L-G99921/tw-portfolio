@@ -12,6 +12,39 @@ URL changes are always called out under a **Changed** subsection so that anyone 
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-10-13
+
+A redesign, a working API sandbox, and a full content review. The review rewrote copy that read as generated, and fixed technical errors found along the way.
+
+### Added
+
+- In-browser API sandbox (`static/api-sandbox-sw.js`): the **Send API Request** panels now work, using the OpenAPI specs. Stateful PIX charges, payments, and webhooks, and stateful PowerBox binding. See ADR 006.
+- `POST /powerbox/login` in the PowerBox spec, which the integration guide already described.
+- Vale rule `Portfolio/WordsToAvoid` at error level. With `MinAlertLevel = error`, the Google package's filler-word rule (a warning) never blocked anything.
+- `llms-full.txt`, generated on every build by `plugins/llms-full.js`.
+- ADR 006, on the in-browser sandbox.
+- Home page request card that creates a PIX charge in the sandbox.
+
+### Changed
+
+- New theme: Stripe and Primer references, Geist and Geist Mono, light by default. Font Awesome removed.
+- Sidebar rebuilt with sentence-case labels that match the operation summaries.
+- API operation summaries rewritten as short actions, such as "Get the budget" instead of "Returns budget response."
+- Copy rewritten across docs, blog, and README: no em dashes, sentence-case headings, and no unverified claims.
+- The BillSense AI "Before you begin" page now has agents use their own portal login, instead of the customer's password.
+
+### Fixed
+
+- Diátaxis quadrant chart on the methodology page: two quadrants were swapped.
+- About PIX: PIX was called the largest instant-payment system by volume (India's UPI is larger), DOC was described as a direct debit, the key limits were wrong, and the `e2eId` was attributed to the receiving institution.
+- PIX webhook how-to: payload is now the standard `{"pix": [...]}` list sent to `<url>/pix`, authentication covers mTLS, cents are converted without floating point, and reconciliation uses the standard pagination.
+- Integration guide bind request now matches the spec (`meterId`, `actionCode`). The tutorial no longer contradicts itself about repeating a bind or calls an endpoint missing from the spec.
+- PowerBox spec intro listed account status codes that disagreed with the integration guide. The Usage API intro promised pagination that doesn't exist.
+- DataBridge guides disagreed on the distance to the meter (25 or 30 feet) and on how long binding can take.
+- AMR expanded as "Advanced Meter Reading" instead of "Automated Meter Reading."
+- Broken links in `llms.txt`.
+- Mobile navbar: the name overlapped the menu button.
+
 ## [1.1.0] — 2026-04-25
 
 The first iteration after the initial public launch. Three threads of work landed in this release:

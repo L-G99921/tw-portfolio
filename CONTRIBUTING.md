@@ -1,13 +1,13 @@
 # Contributing
 
-Thanks for opening this file. This portfolio is a personal docs-as-code site, but the workflow mirrors how a real documentation team operates — every change goes through the same checks: prose lint, build, link check, style review. If you are reviewing the project as a hiring signal, this file shows how the pipeline is wired.
+This portfolio is a personal docs-as-code site, and it uses the same workflow a documentation team would: every change goes through prose lint, a build, a link check, and review. If you're evaluating the project, this file shows how that pipeline works.
 
 ## Stack
 
-- [Docusaurus 3](https://docusaurus.io/) — static site generator
-- [`docusaurus-plugin-openapi-docs`](https://github.com/PaloAltoNetworks/docusaurus-openapi-docs) — interactive API reference from OpenAPI specs
-- [Vale](https://vale.sh/) — prose linter, configured against the Google Developer Documentation Style Guide
-- [Lychee](https://github.com/lycheeverse/lychee) — broken-link checker
+- [Docusaurus 3](https://docusaurus.io/): the static site generator
+- [`docusaurus-plugin-openapi-docs`](https://github.com/PaloAltoNetworks/docusaurus-openapi-docs): API reference pages from OpenAPI specs
+- [Vale](https://vale.sh/): prose linter, with the Google package and one project rule
+- [Lychee](https://github.com/lycheeverse/lychee): external link checker
 - GitHub Pages + GitHub Actions for hosting and CI
 
 ## Repository layout
@@ -18,15 +18,17 @@ docs/                      Authored Markdown content (Diátaxis-organised)
   smartlink/               Hardware install guides (how-to)
   billsense-ai/            User guide cluster (how-to + reference + explanation)
   pix/                     PIX docs (tutorial + how-to + reference + explanation)
-  api/                     Auto-generated from OpenAPI specs — DO NOT edit by hand
+  api/                     Generated from the OpenAPI specs. Don't edit by hand.
   data-dictionary/         Data reference
+  adr/                     Architecture decision records
   integration-guide.md
   methodology.md           Explanation of Google Style + Diátaxis
   writing-guideline.md     The applied style guide for this site
 blog/                      Long-form posts
-src/                       Custom React components and theme overrides
-static/                    OpenAPI specs, images, CNAME, robots.txt
-.vale/                     Vale styles + project vocabulary
+src/                       Home page, theme overrides, and components
+static/                    OpenAPI specs, the API sandbox worker, llms.txt, images
+plugins/                   Build plugins (llms-full.txt)
+.vale/                     Vale config, project vocabulary, and the Portfolio rule
 .github/workflows/         CI pipelines
 sidebars.js                Sidebar structure
 docusaurus.config.js       Site config
@@ -41,7 +43,7 @@ npm install
 npm start
 ```
 
-The dev server runs at `http://localhost:3000`. Hot reload is on for Markdown, MDX, and React components.
+The dev server runs at `http://localhost:3000/tw-portfolio/`, and reloads on every change. Changes to `docusaurus.config.js` need a restart.
 
 Build for production:
 
@@ -56,8 +58,8 @@ The build is strict: `onBrokenLinks: 'throw'` is set in `docusaurus.config.js`, 
 
 This site enforces two industry-standard frameworks:
 
-- **[Google Developer Documentation Style Guide](https://developers.google.com/style)** — sentence-level rules: voice, tone, grammar, capitalisation.
-- **[Diátaxis Framework](https://diataxis.fr/)** — page-level taxonomy: every page is exactly one of tutorial, how-to, reference, or explanation.
+- **[Google developer documentation style guide](https://developers.google.com/style):** sentence-level rules for voice, tone, grammar, and capitalization.
+- **[Diátaxis](https://diataxis.fr/):** page-level types. Every page is a tutorial, a how-to, a reference, or an explanation.
 
 The applied version of both lives in [docs/writing-guideline.md](docs/writing-guideline.md). The reasoning behind the choice is in [docs/methodology.md](docs/methodology.md).
 
@@ -86,7 +88,7 @@ brew install vale
 # https://vale.sh/docs/install
 ```
 
-First time only — sync the configured packages:
+The first time, sync the configured packages:
 
 ```bash
 vale sync
@@ -98,7 +100,9 @@ Then check your changes:
 vale docs blog CONTRIBUTING.md README.md
 ```
 
-The CI mirrors this exact command. Project-specific vocabulary lives in `.vale/styles/config/vocabularies/Portfolio/`. Add product names, acronyms, and accepted jargon to `accept.txt`. Add words you want to flag as banned to `reject.txt`.
+CI runs the same check. Project vocabulary lives in `.vale/styles/config/vocabularies/Portfolio/`: add product names, acronyms, and accepted jargon to `accept.txt`, and words to flag to `reject.txt`.
+
+The words to avoid from the writing guideline are enforced by `.vale/styles/Portfolio/WordsToAvoid.yml`. To mention one of those words on purpose, put it in code formatting, like `just`.
 
 ### Link checks (Lychee)
 
@@ -121,11 +125,11 @@ lychee --no-progress 'docs/**/*.md' 'docs/**/*.mdx' 'blog/**/*.md' README.md CON
 
 Before requesting review:
 
-- [ ] The page belongs to exactly one Diátaxis type. If unsure, see `docs/writing-guideline.md` § 1.
+- [ ] The page is one Diátaxis type. If you're unsure, see section 1 of `docs/writing-guideline.md`.
 - [ ] Headings are sentence case. Proper nouns and acronyms keep their capitalisation.
 - [ ] Active voice, second person, present tense.
-- [ ] No banned fillers: `simply`, `just`, `obviously`, `easily`, `basically`, `please`. Use `can` (not `may`) for ability; `might` (not `may`) for possibility.
-- [ ] All Markdown code fences declare a language (`bash`, `json`, `text`, …).
+- [ ] No words to avoid: `simply`, `just`, `obviously`, `easily`, `please`. Use `can` for ability and `might` for possibility, not `may`.
+- [ ] Every code fence declares a language, such as `bash`, `json`, or `text`.
 - [ ] All admonitions use a valid Docusaurus type: `note`, `tip`, `info`, `warning`, `caution`, `danger`. **`:::important` is not valid** and breaks rendering silently.
 - [ ] Internal links use the absolute `/docs/<path>` form, not relative paths that break when files move.
 - [ ] `npm run build` passes locally.
@@ -164,7 +168,7 @@ Before requesting review:
    ```
 
 5. **Add cross-references via absolute paths.**
-   `/docs/pix/about-pix` — not `./about-pix` or `../pix/about-pix`. Absolute paths survive folder renames.
+   Write `/docs/pix/about-pix`, not `./about-pix` or `../pix/about-pix`. Absolute paths keep working when folders move.
 
 6. **Open the PR.**
    The CI runs Vale, Lychee, and the Docusaurus build. Address any errors before requesting review.
@@ -181,8 +185,10 @@ The plugin instances are configured in `docusaurus.config.js` under `docusaurus-
    npm run docusaurus -- gen-api-docs <id>
    ```
 
-4. Add the generated category to `sidebars.js`.
-5. Commit both the spec and the generated `.mdx` files.
+4. Add the generated pages to `sidebars.js`. The sidebar is written by hand, with labels that match each operation's `summary`.
+5. Commit the spec and the generated `.mdx` files together.
+
+The API sandbox reads every spec listed in `SPECS` at the top of `static/api-sandbox-sw.js`. Add the new file there so its **Send API Request** panels work.
 
 To regenerate after editing the spec:
 

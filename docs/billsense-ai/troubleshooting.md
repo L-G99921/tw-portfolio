@@ -8,58 +8,58 @@ tags: [billsense-ai, troubleshooting]
 
 # Troubleshooting
 
-Reference for utility support agents handling customer inquiries about BillSense AI. Use the symptom headings below to find the matching cause and fix. If a symptom is not listed or the steps do not resolve the issue, see [Before you begin — If you cannot resolve the issue](./before-you-begin#if-you-cannot-resolve-the-issue) for the escalation path.
+For utility support agents answering questions about BillSense AI. Find the customer's symptom below. If it isn't listed, or the steps don't solve it, follow the [escalation path](./before-you-begin#if-you-cannot-resolve-the-issue).
 
-## BillSense AI does not load
+## BillSense AI doesn't load
 
-1. **Check authentication**
+1. **Check the sign-in**
 
-    Verify the customer is signed in to the Utility Portal.
+    Confirm the customer is signed in to the Utility Portal.
 
 2. **Allow pop-ups and JavaScript**
 
-    Confirm the browser allows pop-ups and JavaScript. If the customer is unsure how to change these settings, advise them to consult their browser's help documentation.
+    Confirm the browser allows pop-ups and JavaScript for the portal. If the customer doesn't know how, point them to their browser's help.
 
 3. **Clear the cache**
 
-    Clear browser cache and cookies, then reload the page. For specific steps, refer the customer to their browser's help documentation.
+    Ask the customer to clear the browser's cache and cookies, then reload the page.
 
 4. **Try another browser**
 
     Test with a different web browser.
 
-## Data does not match the paper bill
+## The numbers don't match the paper bill
 
-1. **Explain exclusions**
+1. **Explain what's left out**
 
-    BillSense AI excludes taxes, fees, and voluntary program charges from displayed totals.
+    BillSense AI totals don't include taxes, fees, or voluntary program charges.
 
-2. **Note kWh variance**
+2. **Explain the kWh difference**
 
-    Displayed kWh values are estimates and might not match official metered figures.
+    The kWh values in BillSense AI are estimates and can differ slightly from the metered values on the bill.
 
-3. **Direct to the bill statement**
+3. **Point to the bill**
 
-    Advise the customer to review their latest bill statement for the complete, authoritative breakdown.
+    The bill statement is the official breakdown. Ask the customer to check it for the exact amounts.
 
-## Recommendations seem inaccurate
+## Recommendations don't fit the customer's home
 
 1. **Open My Home**
 
-    Navigate to the My Home section in BillSense AI.
+    Go to **My Home** in BillSense AI.
 
-2. **Verify appliances**
+2. **Check the appliances**
 
-    Confirm that the heating, cooling, and cooking selections match the customer's actual appliances.
+    Confirm that heating, cooling, and cooking match what the customer has.
 
-3. **Update EV information**
+3. **Check electric vehicle details**
 
-    Confirm EV ownership and charger type if the customer owns an electric vehicle (EV).
+    If the customer has an electric vehicle (EV), confirm it's listed with the right charger type.
 
 4. **Wait for the update**
 
-    Recommendations refresh after profile changes. Allow up to 24 hours.
+    Recommendations refresh within 24 hours of a profile change.
 
-## Customer mentions LED or connection issues
+## The customer mentions a light or a connection problem
 
-BillSense AI is a web-based tool. It does not have physical LED indicators. If the customer mentions LED issues, they might be referring to a different device — such as the SmartLink Plug. See the [SmartLink Plug documentation](/docs/smartlink/smartlink-installation-guide) for details.
+BillSense AI is a web tool, with no device or lights. The customer is probably describing their DataBridge Hub or SmartLink Plug. Use the [DataBridge Hub guide](/docs/databridge/databridge-installation-guide-atlas-insight#troubleshooting) or the [SmartLink Plug guide](/docs/smartlink/smartlink-installation-guide#troubleshooting).
